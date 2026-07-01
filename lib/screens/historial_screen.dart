@@ -1,11 +1,12 @@
-// lib/screens/historial_screen.dart
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:medidor_hapinet_app/services/exportar_pdf.dart';
 import '../data/database.dart';
 import '../components/fondo_gotas.dart';
 import '../components/funciones/tarjeta_lectura.dart';
 import '../services/exportar_service.dart';
+import '../services/exportar_pdf.dart';
 import '../services/historial_service.dart';
 
 class HistorialScreen extends StatefulWidget {
@@ -48,14 +49,17 @@ class _HistorialScreenState extends State<HistorialScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.history,
-                        size: 64, color: Colors.grey.shade300),
+                    Icon(Icons.history, size: 64, color: Colors.grey.shade300),
                     const SizedBox(height: 16),
-                    const Text('Sin lecturas registradas',
-                        style: TextStyle(fontSize: 16, color: Colors.grey)),
+                    const Text(
+                      'Sin lecturas registradas',
+                      style: TextStyle(fontSize: 16, color: Colors.grey),
+                    ),
                     const SizedBox(height: 8),
-                    Text('Las lecturas del día aparecerán aquí',
-                        style: TextStyle(color: Colors.grey.shade400)),
+                    Text(
+                      'Las lecturas del día aparecerán aquí',
+                      style: TextStyle(color: Colors.grey.shade400),
+                    ),
                   ],
                 ),
               );
@@ -66,22 +70,26 @@ class _HistorialScreenState extends State<HistorialScreen> {
               itemCount: dias.length,
               itemBuilder: (_, i) {
                 final fecha = dias[i];
-                final esExpandido = _diaExpandido != null &&
+                final esExpandido =
+                    _diaExpandido != null &&
                     _diaExpandido!.year == fecha.year &&
                     _diaExpandido!.month == fecha.month &&
                     _diaExpandido!.day == fecha.day;
 
                 return _TarjetaDia(
                   // Key única por fecha — fuerza rebuild al cambiar
-                  key: ValueKey('${fecha.year}-${fecha.month}-${fecha.day}-$esExpandido'),
+                  key: ValueKey(
+                    '${fecha.year}-${fecha.month}-${fecha.day}-$esExpandido',
+                  ),
                   fecha: fecha,
                   db: widget.db,
                   historialService: _historialService,
                   exportar: _exportar,
                   expandido: esExpandido,
-                  onToggle: () => setState(() {
-                    _diaExpandido = esExpandido ? null : fecha;
-                  }),
+                  onToggle:
+                      () => setState(() {
+                        _diaExpandido = esExpandido ? null : fecha;
+                      }),
                 );
               },
             );
@@ -122,6 +130,7 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
   HistorialDia? _historial;
   bool _cargando = false;
   bool _exportando = false;
+  bool _exportandoPdf = false;
 
   bool get _esHoy {
     final hoy = DateTime.now();
@@ -153,8 +162,15 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
       final h = await widget.historialService.cargarDia(fecha: widget.fecha);
       if (mounted) setState(() => _historial = h);
     } catch (e) {
-      if (mounted) setState(() => _historial = const HistorialDia(
-            tendido: [], recreo: [], puebloNuevo: []));
+      if (mounted)
+        setState(
+          () =>
+              _historial = const HistorialDia(
+                tendido: [],
+                recreo: [],
+                puebloNuevo: [],
+              ),
+        );
     } finally {
       if (mounted) setState(() => _cargando = false);
     }
@@ -164,23 +180,47 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
     if (_historial == null || _historial!.total == 0) return;
     setState(() => _exportando = true);
     try {
-      final ruta = await widget.exportar.exportarLecturasDia(fecha: widget.fecha);
+      final ruta = await widget.exportar.exportarLecturasDia(
+        fecha: widget.fecha,
+      );
       await widget.exportar.compartirArchivo(ruta);
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error al exportar: $e')));
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error al exportar: $e')));
       }
     } finally {
       if (mounted) setState(() => _exportando = false);
     }
   }
 
+  Future<void> _exportarPdf() async {
+    if (_historial == null || _historial!.total == 0) return;
+    setState(() => _exportandoPdf = true);
+    try {
+      final pdfService = ExportarPdfService(widget.db);
+      final ruta = await pdfService.exportarTodasLasFacturasDelDia(
+        fecha: widget.fecha,
+      );
+      await pdfService.compartirPdf(ruta);
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error al generar PDF: $e')));
+      }
+    } finally {
+      if (mounted) setState(() => _exportandoPdf = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final fechaStr = _esHoy
-        ? 'Hoy — ${DateFormat('dd/MM/yyyy').format(widget.fecha)}'
-        : DateFormat('EEEE dd/MM/yyyy', 'es').format(widget.fecha);
+    final fechaStr =
+        _esHoy
+            ? 'Hoy — ${DateFormat('dd/MM/yyyy').format(widget.fecha)}'
+            : DateFormat('EEEE dd/MM/yyyy', 'es').format(widget.fecha);
 
     return Card(
       margin: const EdgeInsets.only(bottom: 10),
@@ -206,9 +246,10 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      color: _esHoy
-                          ? Colors.blue.withOpacity(0.1)
-                          : Colors.grey.withOpacity(0.1),
+                      color:
+                          _esHoy
+                              ? Colors.blue.withOpacity(0.1)
+                              : Colors.grey.withOpacity(0.1),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
@@ -239,34 +280,81 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
                             'R:${_historial!.recreo.length}  '
                             'P:${_historial!.puebloNuevo.length}',
                             style: const TextStyle(
-                                fontSize: 11, color: Colors.grey),
+                              fontSize: 11,
+                              color: Colors.grey,
+                            ),
                           )
                         else if (_historial != null)
-                          const Text('Sin lecturas este día',
-                              style: TextStyle(
-                                  fontSize: 11, color: Colors.grey)),
+                          const Text(
+                            'Sin lecturas este día',
+                            style: TextStyle(fontSize: 11, color: Colors.grey),
+                          ),
                       ],
                     ),
                   ),
 
-                  // Botón exportar
+                  // Botones exportar (solo cuando expandido y hay lecturas)
                   if (widget.expandido &&
                       _historial != null &&
-                      _historial!.total > 0)
+                      _historial!.total > 0) ...[
+                    // Excel + fotos
+                    // Excel
                     _exportando
                         ? const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : IconButton(
-                            icon: const Icon(Icons.share,
-                                size: 18, color: Colors.blue),
-                            onPressed: _exportar,
-                            tooltip: 'Exportar Excel + fotos',
-                            padding: EdgeInsets.zero,
-                            constraints: const BoxConstraints(),
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                        : TextButton(
+                          onPressed: _exportar,
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.green,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
+                            minimumSize: Size.zero,
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
+                          child: const Text(
+                            'EXCEL',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green,
+                            ),
+                          ),
+                        ),
+                    const SizedBox(width: 6),
+
+                    // PDF
+                    _exportandoPdf
+                        ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                        : TextButton(
+                          onPressed: _exportarPdf,
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.red,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
+                            minimumSize: Size.zero,
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ),
+                          child: const Text(
+                            'PDF',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                  ],
 
                   const SizedBox(width: 8),
                   Icon(
@@ -291,13 +379,18 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
             else if (_historial == null)
               const Padding(
                 padding: EdgeInsets.all(20),
-                child: Text('Cargando...', style: TextStyle(color: Colors.grey)),
+                child: Text(
+                  'Cargando...',
+                  style: TextStyle(color: Colors.grey),
+                ),
               )
             else if (_historial!.total == 0)
               const Padding(
                 padding: EdgeInsets.all(20),
-                child: Text('Sin lecturas este día',
-                    style: TextStyle(color: Colors.grey)),
+                child: Text(
+                  'Sin lecturas este día',
+                  style: TextStyle(color: Colors.grey),
+                ),
               )
             else
               _buildContenido(_historial!),
@@ -313,14 +406,19 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
       child: Column(
         children: [
           if (historial.tendido.isNotEmpty)
-            _buildSeccion('Tendido', historial.tendido,
-                const Color(0xFF1976D2)),
+            _buildSeccion(
+              'Tendido',
+              historial.tendido,
+              const Color(0xFF1976D2),
+            ),
           if (historial.recreo.isNotEmpty)
-            _buildSeccion('Recreo', historial.recreo,
-                const Color(0xFF388E3C)),
+            _buildSeccion('Recreo', historial.recreo, const Color(0xFF388E3C)),
           if (historial.puebloNuevo.isNotEmpty)
-            _buildSeccion('Pueblo Nuevo', historial.puebloNuevo,
-                const Color(0xFF7B1FA2)),
+            _buildSeccion(
+              'Pueblo Nuevo',
+              historial.puebloNuevo,
+              const Color(0xFF7B1FA2),
+            ),
         ],
       ),
     );
@@ -336,30 +434,33 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
           child: Row(
             children: [
               Container(
-                  width: 10,
-                  height: 10,
-                  decoration:
-                      BoxDecoration(color: color, shape: BoxShape.circle)),
+                width: 10,
+                height: 10,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
               const SizedBox(width: 6),
               Text(
                 '$nombre (${lecturas.length})',
                 style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: color),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: color,
+                ),
               ),
             ],
           ),
         ),
         // Lecturas
-        ...lecturas.map((l) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: TarjetaLectura(
-                lectura: l,
-                db: widget.db,
-                onActualizado: _cargar,
-              ),
-            )),
+        ...lecturas.map(
+          (l) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: TarjetaLectura(
+              lectura: l,
+              db: widget.db,
+              onActualizado: _cargar,
+            ),
+          ),
+        ),
       ],
     );
   }
