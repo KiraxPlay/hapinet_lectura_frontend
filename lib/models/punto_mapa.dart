@@ -48,9 +48,16 @@ class PuntoMapa {
   }
 
   static const coloresSector = {
-    'TENDIDO': Color(0xFF1976D2),
-    'RECREO': Color(0xFF388E3C),
-    'PUEBLO NUEVO': Color(0xFF7B1FA2),
+    // ASOAGUAPO
+    'TENDIDO': Color(0xFF1976D2),      // Azul
+    'RECREO': Color(0xFF388E3C),       // Verde
+    'PUEBLO NUEVO': Color(0xFF7B1FA2), // Morado
+    // AGUAVIVA
+    'La Palma': Color(0xFF00838F),     // Cian oscuro
+    'Cachaya': Color(0xFFE65100),      // Naranja
+    'Alto Corozal': Color(0xFF558B2F), // Verde oliva
+    'Los Cafetos': Color(0xFF6A1B9A),  // Violeta
+    'La Floresta': Color(0xFFC62828),  // Rojo
   };
 
   Color get colorSector =>

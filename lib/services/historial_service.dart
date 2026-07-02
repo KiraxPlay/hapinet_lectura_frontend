@@ -1,32 +1,31 @@
 // lib/services/historial_service.dart
 import '../data/database.dart';
+import '../models/punto_mapa.dart';
 
 class HistorialDia {
-  final List<Lectura> tendido;
-  final List<Lectura> recreo;
-  final List<Lectura> puebloNuevo;
+  // Mapa dinámico sector → lecturas
+  // Funciona con cualquier acueducto sin hardcodear sectores
+  final Map<String, List<Lectura>> porSector;
 
-  const HistorialDia({
-    required this.tendido,
-    required this.recreo,
-    required this.puebloNuevo,
-  });
+  const HistorialDia({required this.porSector});
 
-  int get total => tendido.length + recreo.length + puebloNuevo.length;
-  int get sinLectura => todos.where((l) => l.lectura == 0).length;
-  int get conNota =>
-      todos.where((l) => l.notas != null && l.notas!.isNotEmpty).length;
-  List<Lectura> get todos => [...tendido, ...recreo, ...puebloNuevo];
+  int get total => porSector.values.fold(0, (s, l) => s + l.length);
+  List<Lectura> get todos => porSector.values.expand((l) => l).toList();
+  List<String> get sectores => porSector.keys.toList();
 
-  /// Filtra una lista raw por sector y construye HistorialDia
   static HistorialDia desdeListaPlana(List<Lectura> lista) {
-    return HistorialDia(
-      tendido: lista.where((l) => l.sector == 'TENDIDO').toList(),
-      recreo: lista.where((l) => l.sector == 'RECREO').toList(),
-      puebloNuevo:
-          lista.where((l) => l.sector == 'PUEBLO NUEVO').toList(),
-    );
+    final mapa = <String, List<Lectura>>{};
+    for (final l in lista) {
+      final sector = l.sector ?? 'Sin sector';
+      mapa.putIfAbsent(sector, () => []).add(l);
+    }
+    return HistorialDia(porSector: mapa);
   }
+
+  // Compatibilidad con código anterior que usaba .tendido/.recreo/.puebloNuevo
+  List<Lectura> get tendido => porSector['TENDIDO'] ?? [];
+  List<Lectura> get recreo => porSector['RECREO'] ?? [];
+  List<Lectura> get puebloNuevo => porSector['PUEBLO NUEVO'] ?? [];
 }
 
 class HistorialService {
@@ -34,7 +33,6 @@ class HistorialService {
 
   HistorialService(this._db);
 
-  /// Stream reactivo — se actualiza automáticamente al tomar o eliminar lecturas
   Stream<HistorialDia> watchDia({DateTime? fecha}) {
     final dia = fecha ?? DateTime.now();
     return _db
@@ -42,7 +40,6 @@ class HistorialService {
         .map(HistorialDia.desdeListaPlana);
   }
 
-  /// Future para uso puntual (exportar, etc.)
   Future<HistorialDia> cargarDia({DateTime? fecha}) async {
     final dia = fecha ?? DateTime.now();
     final lista = await _db.obtenerLecturasRealesDia(dia);

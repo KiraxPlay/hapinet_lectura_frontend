@@ -6,14 +6,18 @@ import 'abonados_service.dart';
 
 class ImportarAbonadosService {
   final AppDatabase _db;
+  final String _jsonAsset;
+  final String _keyImportado;
+  final String _keyLimpiado;
 
-  // ← Cambia este sufijo cada vez que actualices el abonados.json
-  static const _keyImportado = 'abonados_importados_v8';
-
-  // Clave que indica si ya se hizo la limpieza de duplicados
-  static const _keyLimpiado = 'abonados_limpiados_v4';
-
-  ImportarAbonadosService(this._db);
+  ImportarAbonadosService({
+    required AppDatabase db,
+    required String jsonAsset,
+    required String acueductoId, // 'asoaguapo' o 'aguaviva'
+  })  : _db = db,
+        _jsonAsset = jsonAsset,
+        _keyImportado = 'abonados_importados_${acueductoId}_v8',
+        _keyLimpiado = 'abonados_limpiados_${acueductoId}_v4';
 
   // Genera el ID interno normalizando ceros
   // PUE-101-001 → abonado_pue_101_1
@@ -72,8 +76,8 @@ class ImportarAbonadosService {
   }
 
   Future<void> _importarDesdeJson(SharedPreferences prefs) async {
-    AbonadosService.limpiarCache();
-    final service = AbonadosService();
+    AbonadosService.limpiarCache(_jsonAsset);
+    final service = AbonadosService(jsonAsset: _jsonAsset);
     final abonados = await service.cargarTodos();
 
     // Eliminar duplicados del JSON por ID normalizado

@@ -7,17 +7,14 @@ class MapaService {
   final AppDatabase _db;
   final AbonadosService _abonadosService;
 
-  MapaService(this._db) : _abonadosService = AbonadosService();
+  // Recibe el jsonAsset del acueducto activo para cargar los abonados correctos
+  MapaService(this._db, {required String jsonAsset})
+      : _abonadosService = AbonadosService(jsonAsset: jsonAsset);
 
-  /// Combina abonados del JSON con lecturas reales de la BD
   Future<List<PuntoMapa>> cargarPuntos() async {
-    // 1. Abonados del JSON con coordenadas
     final abonados = await _abonadosService.cargarTodos();
-
-    // 2. Lecturas reales de la BD
     final lecturas = await _db.obtenerTodasLecturas();
 
-    // 3. Mapa rápido código → lectura
     final lecturasMap = {
       for (final l in lecturas)
         if (l.codigoMedidor != null) l.codigoMedidor!: l
@@ -25,7 +22,7 @@ class MapaService {
 
     final puntos = <PuntoMapa>[];
 
-    // 4. Combinar abonados con su lectura si existe
+    // Abonados del JSON con coordenadas
     for (final abonado in abonados) {
       if (!abonado.tieneCoordenadas) continue;
       final lectura = lecturasMap[abonado.codigo];
@@ -43,11 +40,12 @@ class MapaService {
       ));
     }
 
-    // 5. Lecturas de la BD que no están en el JSON
+    // Lecturas de la BD con coordenadas GPS registradas al momento de leer
+    // Esto permite ver en el mapa los medidores de Aguaviva que
+    // no tienen coords en el JSON pero sí las tomó el técnico con GPS
     for (final lectura in lecturas) {
       if (lectura.latitud == 0 || lectura.codigoMedidor == null) continue;
-      final yaEsta =
-          puntos.any((p) => p.codigo == lectura.codigoMedidor);
+      final yaEsta = puntos.any((p) => p.codigo == lectura.codigoMedidor);
       if (!yaEsta) {
         puntos.add(PuntoMapa(
           codigo: lectura.codigoMedidor!,
@@ -69,25 +67,32 @@ class MapaService {
     return puntos;
   }
 
-  /// Calcula el centro geográfico de un conjunto de puntos
-  /// Solo usa puntos con coordenadas válidas (lat/lon != 0)
+  /// Calcula el centro geográfico de los puntos de un sector
+  /// Si no hay puntos con coords, retorna null
+  static ({double lat, double lon})? centroDelSector(
+      List<PuntoMapa> puntos, String sector) {
+    final validos = puntos
+        .where((p) =>
+            p.sector == sector && p.latitud != 0 && p.longitud != 0)
+        .toList();
+    if (validos.isEmpty) return null;
+    final lat =
+        validos.map((p) => p.latitud).reduce((a, b) => a + b) /
+            validos.length;
+    final lon =
+        validos.map((p) => p.longitud).reduce((a, b) => a + b) /
+            validos.length;
+    return (lat: lat, lon: lon);
+  }
+
   static ({double lat, double lon}) centroDePoints(
       List<PuntoMapa> puntos) {
     final validos = puntos
         .where((p) => p.latitud != 0 && p.longitud != 0)
         .toList();
-
     if (validos.isEmpty) {
-      // Fallback — centro de todos sin filtrar
-      final lat =
-          puntos.map((p) => p.latitud).reduce((a, b) => a + b) /
-              puntos.length;
-      final lon =
-          puntos.map((p) => p.longitud).reduce((a, b) => a + b) /
-              puntos.length;
-      return (lat: lat, lon: lon);
+      return (lat: 2.3845, lon: -75.5429); // fallback Gigante, Huila
     }
-
     final lat =
         validos.map((p) => p.latitud).reduce((a, b) => a + b) /
             validos.length;

@@ -1,28 +1,50 @@
+// lib/screens/lecturas_dia_screen.dart
 import 'package:flutter/material.dart';
 import '../data/database.dart';
+import '../models/acueducto.dart';
+import '../models/punto_mapa.dart';
 import '../components/fondo_gotas.dart';
 import 'info_abonado_screen.dart';
 
 class LecturasDiaScreen extends StatefulWidget {
   final AppDatabase db;
-  const LecturasDiaScreen({super.key, required this.db});
+  final Acueducto acueducto;
+
+  const LecturasDiaScreen({
+    super.key,
+    required this.db,
+    required this.acueducto,
+  });
 
   @override
   State<LecturasDiaScreen> createState() => _LecturasDiaScreenState();
 }
 
 class _LecturasDiaScreenState extends State<LecturasDiaScreen>
-    with SingleTickerProviderStateMixin {
-  late final TabController _tabController;
+    with TickerProviderStateMixin {
+  TabController? _tabController;
+  List<String> _sectores = [];
 
   String _busqueda = '';
   final _busquedaCtrl = TextEditingController();
   final _focusBusqueda = FocusNode();
 
   @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+  void dispose() {
+    _tabController?.dispose();
+    _busquedaCtrl.dispose();
+    _focusBusqueda.dispose();
+    super.dispose();
+  }
+
+  // Reconstruye el TabController cuando cambian los sectores
+  void _actualizarTabs(List<String> nuevosSectores) {
+    if (_sectores.length == nuevosSectores.length &&
+        _sectores.every((s) => nuevosSectores.contains(s))) return;
+    _tabController?.dispose();
+    _sectores = nuevosSectores;
+    _tabController = TabController(length: _sectores.length, vsync: this);
+    setState(() {});
   }
 
   List<Lectura> _filtrar(List<Lectura> lista) {
@@ -35,81 +57,90 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
         .toList();
   }
 
+  Color _colorSector(String? sector) =>
+      PuntoMapa.coloresSector[sector] ?? const Color(0xFF607D8B);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Lecturas del día'),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(48),
-          child: StreamBuilder<List<Lectura>>(
-            stream: widget.db.watchPendientesLectura(),
-            builder: (context, snapshot) {
-              final todos = snapshot.data ?? [];
-              final tendido =
-                  todos.where((l) => l.sector == 'TENDIDO').length;
-              final recreo =
-                  todos.where((l) => l.sector == 'RECREO').length;
-              final puebloNuevo =
-                  todos.where((l) => l.sector == 'PUEBLO NUEVO').length;
-              return TabBar(
+    return StreamBuilder<List<Lectura>>(
+      stream: widget.db.watchPendientesLectura(),
+      builder: (context, snapshot) {
+        final todos = snapshot.data ?? [];
+
+        // Extraer sectores únicos en el orden que aparecen
+        final sectoresSet = <String>[];
+        for (final l in todos) {
+          if (l.sector != null && !sectoresSet.contains(l.sector)) {
+            sectoresSet.add(l.sector!);
+          }
+        }
+        // Si no hay pendientes, usar sectores del JSON previo
+        final sectores =
+            sectoresSet.isEmpty ? _sectores : sectoresSet;
+
+        if (sectores.isNotEmpty) {
+          _actualizarTabs(sectores);
+        }
+
+        // Si aún no hay tabs, mostrar loading
+        if (_tabController == null || _sectores.isEmpty) {
+          return Scaffold(
+            appBar: AppBar(title: const Text('Lecturas del día')),
+            body: const Center(child: CircularProgressIndicator()),
+          );
+        }
+
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Lecturas del día — ${widget.acueducto.nombre}'),
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(48),
+              child: TabBar(
                 controller: _tabController,
-                tabs: [
-                  _buildTab('Tendido', tendido),
-                  _buildTab('Recreo', recreo),
-                  _buildTab('Pueblo N.', puebloNuevo),
-                ],
+                isScrollable: _sectores.length > 3,
+                tabs: _sectores.map((sector) {
+                  final count =
+                      todos.where((l) => l.sector == sector).length;
+                  return _buildTab(
+                    sector.length > 8
+                        ? sector.split(' ').map((w) => w[0]).join()
+                        : sector,
+                    count,
+                  );
+                }).toList(),
                 labelStyle: const TextStyle(
                     fontSize: 12, fontWeight: FontWeight.w600),
                 indicatorColor: Colors.blue,
-              );
-            },
+              ),
+            ),
           ),
-        ),
-      ),
-      body: FondoConGotas(
-        child: Column(
-          children: [
-            // ── Búsqueda — fuera del StreamBuilder para no perder foco ──
-            _buildBusqueda(),
-
-            // ── Contenido reactivo ──
-            Expanded(
-              child: StreamBuilder<List<Lectura>>(
-                stream: widget.db.watchPendientesLectura(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  final todos = snapshot.data ?? [];
-                  final tendido =
-                      todos.where((l) => l.sector == 'TENDIDO').toList();
-                  final recreo =
-                      todos.where((l) => l.sector == 'RECREO').toList();
-                  final puebloNuevo =
-                      todos.where((l) => l.sector == 'PUEBLO NUEVO').toList();
-
-                  return Column(
+          body: FondoConGotas(
+            child: Column(
+              children: [
+                _buildBusqueda(),
+                Expanded(
+                  child: Column(
                     children: [
                       _buildResumen(todos.length),
                       Expanded(
                         child: TabBarView(
                           controller: _tabController,
-                          children: [
-                            _buildLista(_filtrar(tendido)),
-                            _buildLista(_filtrar(recreo)),
-                            _buildLista(_filtrar(puebloNuevo)),
-                          ],
+                          children: _sectores.map((sector) {
+                            final lista = todos
+                                .where((l) => l.sector == sector)
+                                .toList();
+                            return _buildLista(_filtrar(lista), sector);
+                          }).toList(),
                         ),
                       ),
                     ],
-                  );
-                },
-              ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
@@ -196,7 +227,7 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
     );
   }
 
-  Widget _buildLista(List<Lectura> lista) {
+  Widget _buildLista(List<Lectura> lista, String sector) {
     if (lista.isEmpty) {
       return Center(
         child: Column(
@@ -222,6 +253,7 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
       itemBuilder: (_, i) => _TarjetaAbonado(
         lectura: lista[i],
         db: widget.db,
+        colorSector: _colorSector(lista[i].sector),
         onCapturar: () => _irACaptura(lista[i]),
       ),
     );
@@ -243,15 +275,6 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
         ),
       ),
     );
-    // No necesita recargar — el Stream se actualiza solo
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    _busquedaCtrl.dispose();
-    _focusBusqueda.dispose();
-    super.dispose();
   }
 }
 
@@ -263,26 +286,23 @@ class _TarjetaAbonado extends StatelessWidget {
   final Lectura lectura;
   final VoidCallback onCapturar;
   final AppDatabase db;
+  final Color colorSector;
 
   const _TarjetaAbonado({
     required this.lectura,
     required this.onCapturar,
     required this.db,
+    required this.colorSector,
   });
 
   @override
   Widget build(BuildContext context) {
-    final colorSector = switch (lectura.sector) {
-      'TENDIDO' => const Color(0xFF1976D2),
-      'RECREO' => const Color(0xFF388E3C),
-      'PUEBLO NUEVO' => const Color(0xFF7B1FA2),
-      _ => const Color(0xFF607D8B),
-    };
-    final inicial = (lectura.sector ?? 'O')[0];
+    final inicial = (lectura.sector ?? 'O')[0].toUpperCase();
 
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: () => Navigator.of(context).push(
@@ -311,7 +331,8 @@ class _TarjetaAbonado extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: colorSector.withOpacity(0.12),
                   shape: BoxShape.circle,
-                  border: Border.all(color: colorSector.withOpacity(0.3)),
+                  border:
+                      Border.all(color: colorSector.withOpacity(0.3)),
                 ),
                 child: Center(
                   child: Text(
@@ -331,7 +352,9 @@ class _TarjetaAbonado extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      lectura.nombreAbonado ?? lectura.codigoMedidor ?? '—',
+                      lectura.nombreAbonado ??
+                          lectura.codigoMedidor ??
+                          '—',
                       style: const TextStyle(
                           fontSize: 13, fontWeight: FontWeight.w600),
                       maxLines: 2,
@@ -340,7 +363,8 @@ class _TarjetaAbonado extends StatelessWidget {
                     const SizedBox(height: 2),
                     Text(
                       lectura.codigoMedidor ?? '',
-                      style: const TextStyle(fontSize: 11, color: Colors.grey),
+                      style: const TextStyle(
+                          fontSize: 11, color: Colors.grey),
                     ),
                     if (lectura.lectura > 0) ...[
                       const SizedBox(height: 2),
@@ -356,7 +380,8 @@ class _TarjetaAbonado extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              Icon(Icons.chevron_right, color: colorSector.withOpacity(0.5)),
+              Icon(Icons.chevron_right,
+                  color: colorSector.withOpacity(0.5)),
             ],
           ),
         ),

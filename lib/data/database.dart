@@ -124,7 +124,9 @@ class RegistrosGps extends Table {
 // ─────────────────────────────────────────────
 @DriftDatabase(tables: [Lecturas, RegistrosGps])
 class AppDatabase extends _$AppDatabase {
-  AppDatabase() : super(_openConnection());
+  // nombreBd permite tener una BD por acueducto
+  AppDatabase({String nombreBd = 'medidor_database'})
+      : super(_openConnection(nombreBd));
 
   // Versión del esquema — incrementar cada vez que se añaden columnas
   // Al subir la versión, Drift llama onUpgrade automáticamente
@@ -450,8 +452,8 @@ class AppDatabase extends _$AppDatabase {
   }
 }
 
-// Abre la conexión a la BD SQLite
-// driftDatabase maneja la ruta del archivo automáticamente según la plataforma
-QueryExecutor _openConnection() {
-  return driftDatabase(name: 'medidor_database');
+// Abre la conexión a la BD SQLite con el nombre especificado
+// Cada acueducto usa su propio archivo de BD
+QueryExecutor _openConnection(String nombreBd) {
+  return driftDatabase(name: nombreBd);
 }

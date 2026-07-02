@@ -2,6 +2,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../data/database.dart';
+import '../models/acueducto.dart';
 import '../services/importar_abonados_service.dart';
 import '../services/ocr_service.dart';
 import '../services/tiles_service.dart';
@@ -9,8 +10,15 @@ import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   final AppDatabase db;
+  final Acueducto acueducto;
+  final VoidCallback onCerrarSesion;
 
-  const SplashScreen({super.key, required this.db});
+  const SplashScreen({
+    super.key,
+    required this.db,
+    required this.acueducto,
+    required this.onCerrarSesion,
+  });
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -72,7 +80,11 @@ class _SplashScreenState extends State<SplashScreen>
     // 3. Pre-descargar tiles de Gigante, Huila (solo la primera vez)
     // 4. Esperar el tiempo mínimo de la animación
     await Future.wait([
-      ImportarAbonadosService(widget.db).importar(),
+      ImportarAbonadosService(
+        db: widget.db,
+        jsonAsset: widget.acueducto.jsonAsset,
+        acueductoId: widget.acueducto.tipo.name,
+      ).importar(),
       ocr.precalentarModelo(),
       tiles.descargarSiNecesario(),
       Future.delayed(const Duration(milliseconds: 3200)),
@@ -88,7 +100,7 @@ class _SplashScreenState extends State<SplashScreen>
       PageRouteBuilder(
         pageBuilder: (_, animation, __) => FadeTransition(
           opacity: animation,
-          child: HomeScreen(db: widget.db),
+          child: HomeScreen(db: widget.db, acueducto: widget.acueducto, onCerrarSesion: widget.onCerrarSesion),
         ),
         transitionDuration: const Duration(milliseconds: 600),
       ),
@@ -132,7 +144,7 @@ class _SplashScreenState extends State<SplashScreen>
 
                   // Nombre de la app
                   const Text(
-                    'Medidor Hapinet',
+                    'Medidores de Agua',
                     style: TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
@@ -142,7 +154,7 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                   const SizedBox(height: 6),
                   const Text(
-                    'Lectura inteligente con hapinet',
+                    'Lectura inteligente offline',
                     style: TextStyle(
                       fontSize: 13,
                       color: Color(0xFF64B5F6),
@@ -200,16 +212,17 @@ class _SplashScreenState extends State<SplashScreen>
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFFE3F2FD).withOpacity(0.2),
+            color: const Color(0xFF1565C0).withOpacity(0.2),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
         ],
       ),
-      child : const Image(
-        image: AssetImage('assets/images/hapinet_icon.png'),
-        width: 60,
-        height: 60,
+      child: ClipOval(
+        child: Image.asset(
+          'assets/images/hapinet_icon.png',
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }

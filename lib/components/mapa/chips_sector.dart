@@ -7,8 +7,6 @@ class ChipsSector extends StatelessWidget {
   final List<PuntoMapa> puntos;
   final void Function(String? sector) onSectorCambiado;
 
-  static const _sectores = ['TENDIDO', 'RECREO', 'PUEBLO NUEVO'];
-
   const ChipsSector({
     super.key,
     required this.sectorSeleccionado,
@@ -18,10 +16,14 @@ class ChipsSector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Sectores dinámicos — se extraen de los puntos cargados
+    // Funciona con ASOAGUAPO (TENDIDO/RECREO/PUEBLO NUEVO)
+    // y con AGUAVIVA (La Palma/Cachaya/Alto Corozal/Los Cafetos/La Floresta)
+    final sectores = puntos.map((p) => p.sector).toSet().toList()..sort();
+
     return Center(
       child: Container(
-        padding:
-            const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(30),
@@ -32,19 +34,26 @@ class ChipsSector extends StatelessWidget {
                 offset: Offset(0, 2)),
           ],
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _chip(null, 'Todos', Colors.blue),
-            ..._sectores.map((sector) {
-              final color =
-                  PuntoMapa.coloresSector[sector] ?? Colors.grey;
-              return Padding(
-                padding: const EdgeInsets.only(left: 6),
-                child: _chip(sector, sector[0], color),
-              );
-            }),
-          ],
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _chip(null, 'Todos', Colors.blue),
+              ...sectores.map((sector) {
+                final color =
+                    PuntoMapa.coloresSector[sector] ?? Colors.grey;
+                // Inicial del sector para chips cortos
+                final label = sector.length > 8
+                    ? sector.substring(0, 1).toUpperCase()
+                    : sector;
+                return Padding(
+                  padding: const EdgeInsets.only(left: 6),
+                  child: _chip(sector, label, color),
+                );
+              }),
+            ],
+          ),
         ),
       ),
     );

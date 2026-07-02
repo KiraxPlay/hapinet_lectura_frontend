@@ -78,7 +78,8 @@ flutter_launcher_icons:
 flutter:
   uses-material-design: true
   assets:
-    - assets/abonados.json
+    - assets/abonados_aguaviva.json
+    - assets/abonados_asoaguapo.json
     - assets/images/logo_hapinet.jpeg
     - assets/images/logo_hapinet.png
     - assets/images/hapinet_icon.png

@@ -4,23 +4,27 @@ import 'package:flutter/services.dart';
 import '../models/abonado.dart';
 
 class AbonadosService {
+  // El asset a cargar depende del acueducto activo
+  final String jsonAsset;
+
+  AbonadosService({required this.jsonAsset});
+
   // Cache en memoria — solo se lee el JSON una vez por sesion
-  static List<Abonado>? _cache;
+  static final Map<String, List<Abonado>> _cache = {};
 
-  /// Limpia el cache — llamar antes de reimportar con JSON actualizado
-  static void limpiarCache() => _cache = null;
+  // Limpia el cache de un asset específico
+  static void limpiarCache(String jsonAsset) => _cache.remove(jsonAsset);
 
-  /// Carga todos los abonados de los 3 sectores desde el asset JSON
-  /// El orden del JSON respeta la ruta del tecnico (igual que el xlsx)
+  // Limpia todo el cache
+  static void limpiarTodo() => _cache.clear();
+
   Future<List<Abonado>> cargarTodos() async {
-    if (_cache != null) return _cache!;
+    if (_cache.containsKey(jsonAsset)) return _cache[jsonAsset]!;
 
-    final jsonStr = await rootBundle.loadString('assets/abonados.json');
+    final jsonStr = await rootBundle.loadString(jsonAsset);
     final Map<String, dynamic> data = json.decode(jsonStr);
 
     final lista = <Abonado>[];
-    // El orden de los sectores y abonados dentro de cada sector
-    // viene del JSON que ya esta ordenado por ruta
     for (final sector in data.keys) {
       final abonados = data[sector] as List<dynamic>;
       for (final item in abonados) {
@@ -28,7 +32,7 @@ class AbonadosService {
       }
     }
 
-    _cache = lista;
+    _cache[jsonAsset] = lista;
     return lista;
   }
 
@@ -50,10 +54,10 @@ class AbonadosService {
 
   Future<Map<String, int>> totalesPorSector() async {
     final todos = await cargarTodos();
-    return {
-      'TENDIDO': todos.where((a) => a.sector == 'TENDIDO').length,
-      'RECREO': todos.where((a) => a.sector == 'RECREO').length,
-      'PUEBLO NUEVO': todos.where((a) => a.sector == 'PUEBLO NUEVO').length,
-    };
+    final mapa = <String, int>{};
+    for (final a in todos) {
+      mapa[a.sector] = (mapa[a.sector] ?? 0) + 1;
+    }
+    return mapa;
   }
 }

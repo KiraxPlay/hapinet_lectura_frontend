@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_cache_interceptor_file_store/dio_cache_interceptor_file_store.dart';
 import '../data/database.dart';
+import '../models/acueducto.dart';
 import '../models/punto_mapa.dart';
 import '../models/posicion_result.dart';
 import '../services/geolocalizacion_service.dart';
@@ -25,7 +26,13 @@ import 'info_abonado_screen.dart';
 
 class MapaScreen extends StatefulWidget {
   final AppDatabase db;
-  const MapaScreen({super.key, required this.db});
+  final Acueducto acueducto;
+
+  const MapaScreen({
+    super.key,
+    required this.db,
+    required this.acueducto,
+  });
 
   @override
   State<MapaScreen> createState() => _MapaScreenState();
@@ -58,7 +65,7 @@ class _MapaScreenState extends State<MapaScreen> {
     super.initState();
     _mapController = MapController();
     _geo = GeolocalizacionService(widget.db);
-    _mapaService = MapaService(widget.db);
+    _mapaService = MapaService(widget.db, jsonAsset: widget.acueducto.jsonAsset);
     _inicializarCache();
     _cargarDatos();
   }
@@ -311,13 +318,20 @@ class _MapaScreenState extends State<MapaScreen> {
 
   void _centrarEnSector(String sector) {
     const centros = {
-      'TENDIDO': LatLng(2.388617768340964, -75.52680856025003),
-      'RECREO': LatLng(2.408369890088791, -75.52671515510596),
+      // ASOAGUAPO
+      'TENDIDO':      LatLng(2.388617768340964, -75.52680856025003),
+      'RECREO':       LatLng(2.408369890088791, -75.52671515510596),
       'PUEBLO NUEVO': LatLng(2.397169384059909, -75.53760326671711),
+      // AGUAVIVA
+      'La Palma':     LatLng(2.3437722979360793, -75.49544744024611),
+      'Cachaya':      LatLng(2.3654759404617893, -75.48377746072306),
+      'Alto Corozal': LatLng(2.3995017497813422, -75.49809752174309),
+      'Los Cafetos':  LatLng(2.344884841899866,  -75.50901258445414),
+      'La Floresta':  LatLng(2.400111666918066,  -75.48309612718388),
     };
     final centro = centros[sector];
     if (centro == null) return;
-    _mapController.move(centro, 15.0);
+    _mapController.move(centro, 14.0);
   }
 
   Future<void> _irACaptura(PuntoMapa punto) async {
