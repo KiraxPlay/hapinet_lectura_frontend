@@ -16,8 +16,8 @@ class ImportarAbonadosService {
     required String acueductoId, // 'asoaguapo' o 'aguaviva'
   })  : _db = db,
         _jsonAsset = jsonAsset,
-        _keyImportado = 'abonados_importados_${acueductoId}_v8',
-        _keyLimpiado = 'abonados_limpiados_${acueductoId}_v4';
+        _keyImportado = 'abonados_importados_${acueductoId}_v12',
+        _keyLimpiado = 'abonados_limpiados_${acueductoId}_v8';
 
   // Genera el ID interno normalizando ceros
   // PUE-101-001 → abonado_pue_101_1

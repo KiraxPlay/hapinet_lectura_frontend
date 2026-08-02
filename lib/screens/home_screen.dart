@@ -5,6 +5,7 @@ import '../models/acueducto.dart';
 import 'historial_screen.dart';
 import 'mapa_screen.dart';
 import 'lecturas_dia_screen.dart';
+import 'tutorial_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final AppDatabase db;
@@ -29,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     (icon: Icons.assignment_outlined, label: 'Lecturas'),
     (icon: Icons.list_alt, label: 'Historial'),
     (icon: Icons.map_outlined, label: 'Mapa'),
+    (icon: Icons.live_tv_outlined, label: 'Tutorial'),
   ];
 
   Future<void> _confirmarCerrarSesion() async {
@@ -88,6 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
             db: widget.db,
             acueducto: widget.acueducto,
           ),
+          const TutorialScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

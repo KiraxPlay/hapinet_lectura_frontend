@@ -4,7 +4,9 @@ import '../../models/estado_medidor.dart';
 
 class SelectorEstadoMedidor extends StatelessWidget {
   final String? estadoSeleccionado;
-  final void Function(String? clave) onCambio;
+
+  // Retorna clave del estado Y si debe poner lectura en 0
+  final void Function(String? clave, bool poneLecturaEnCero) onCambio;
 
   const SelectorEstadoMedidor({
     super.key,
@@ -18,11 +20,16 @@ class SelectorEstadoMedidor extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Estado del medidor',
+          'Problema con el medidor (opcional)',
           style: TextStyle(
               color: Colors.white70,
               fontSize: 13,
               fontWeight: FontWeight.w600),
+        ),
+        const SizedBox(height: 4),
+        const Text(
+          'Si hay algún problema selecciónalo — la lectura se pondrá en 0',
+          style: TextStyle(color: Colors.white38, fontSize: 11),
         ),
         const SizedBox(height: 8),
         Wrap(
@@ -31,8 +38,13 @@ class SelectorEstadoMedidor extends StatelessWidget {
           children: EstadoMedidor.values.map((estado) {
             final seleccionado = estadoSeleccionado == estado.clave;
             return GestureDetector(
-              onTap: () =>
-                  onCambio(seleccionado ? null : estado.clave),
+              onTap: () {
+                if (seleccionado) {
+                  onCambio(null, false);
+                } else {
+                  onCambio(estado.clave, estado.poneLecturaEnCero);
+                }
+              },
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 180),
                 padding: const EdgeInsets.symmetric(
@@ -55,9 +67,7 @@ class SelectorEstadoMedidor extends StatelessWidget {
                     Icon(
                       estado.icono,
                       size: 14,
-                      color: seleccionado
-                          ? Colors.white
-                          : estado.colorBadge,
+                      color: seleccionado ? Colors.white : estado.colorBadge,
                     ),
                     const SizedBox(width: 5),
                     Text(
@@ -65,9 +75,7 @@ class SelectorEstadoMedidor extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: seleccionado
-                            ? Colors.white
-                            : estado.colorBadge,
+                        color: seleccionado ? Colors.white : estado.colorBadge,
                       ),
                     ),
                   ],

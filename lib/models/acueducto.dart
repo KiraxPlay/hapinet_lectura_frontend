@@ -30,7 +30,7 @@ class Acueducto {
       tipo: TipoAcueducto.asoaguapo,
       nombre: 'ASOAGUAPO',
       usuario: 'asoaguapo',
-      contrasena: 'gigante2026\$',
+      contrasena: 'asoaguapo2026',
       jsonAsset: 'assets/abonados_asoaguapo.json',
       nombreBd: 'bd_asoaguapo',
       colorHex: '#1565C0', // Azul
@@ -39,7 +39,7 @@ class Acueducto {
       tipo: TipoAcueducto.aguaviva,
       nombre: 'AGUAVIVA',
       usuario: 'aguaviva',
-      contrasena: 'gigante2026\$viva',
+      contrasena: 'aguaviva',
       jsonAsset: 'assets/abonados_aguaviva.json',
       nombreBd: 'bd_aguaviva',
       colorHex: '#2E7D32', // Verde

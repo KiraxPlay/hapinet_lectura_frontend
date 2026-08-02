@@ -20,6 +20,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
      
+     <!-- Audio (para grabar audio) -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
      
     <application
         android:label="medidor_hapinet_app"

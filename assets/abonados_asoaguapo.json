@@ -4,7 +4,7 @@
       "codigo": "TEN-201-001",
       "nombre": "DIEGO BENÍTEZ",
       "celular": null,
-      "lectura_actual": 3240,
+      "lectura_actual": 3347,
       "latitud": 2.388693,
       "longitud": -75.518402
     },
@@ -20,7 +20,7 @@
       "codigo": "TEN-201-003",
       "nombre": "ROBERTO ZAMBRANO",
       "celular": "3132403441",
-      "lectura_actual": 3266,
+      "lectura_actual": 3309,
       "latitud": 2.388693,
       "longitud": -75.518402
     },
@@ -28,7 +28,7 @@
       "codigo": "TEN-201-004",
       "nombre": "NIRSA ROMERO PERDOMO",
       "celular": "3125820060",
-      "lectura_actual": 890,
+      "lectura_actual": 940,
       "latitud": 2.38872,
       "longitud": -75.520647
     },
@@ -36,7 +36,7 @@
       "codigo": "TEN-201-005",
       "nombre": "ALBERT PIÑA QUINTERO",
       "celular": "3223247496",
-      "lectura_actual": 2916,
+      "lectura_actual": 2927,
       "latitud": 2.387617,
       "longitud": -75.518323
     },
@@ -44,7 +44,7 @@
       "codigo": "TEN-201-006",
       "nombre": "OLGA LUCIA VARGAS",
       "celular": null,
-      "lectura_actual": 1453,
+      "lectura_actual": 1495,
       "latitud": 2.38872,
       "longitud": -75.520647
     },
@@ -60,7 +60,7 @@
       "codigo": "TEN-201-008",
       "nombre": "GLADYS ESCOBAR",
       "celular": null,
-      "lectura_actual": 3327,
+      "lectura_actual": 3340,
       "latitud": 2.388475,
       "longitud": -75.520238
     },
@@ -68,7 +68,7 @@
       "codigo": "TEN-201-009",
       "nombre": "ANA JULIA ESCOBAR",
       "celular": "32221655342",
-      "lectura_actual": 2745,
+      "lectura_actual": 2772,
       "latitud": 2.38855,
       "longitud": -75.520888
     },
@@ -76,7 +76,7 @@
       "codigo": "TEN-201-010",
       "nombre": "LUIS FELIPE AROS",
       "celular": "3209587701",
-      "lectura_actual": 636,
+      "lectura_actual": 645,
       "latitud": 2.38889,
       "longitud": -75.521607
     },
@@ -84,7 +84,7 @@
       "codigo": "TEN-201-011",
       "nombre": "ANÍBAL ALMARIO CAVIEDES",
       "celular": null,
-      "lectura_actual": 0,
+      "lectura_actual": 640,
       "latitud": 2.388802,
       "longitud": -75.522307
     },
@@ -92,7 +92,7 @@
       "codigo": "TEN-201-012",
       "nombre": "JOSÉ ESCOBAR ROJAS",
       "celular": "3134837754",
-      "lectura_actual": 1153,
+      "lectura_actual": 0,
       "latitud": 2.388713,
       "longitud": -75.522502
     },
@@ -100,7 +100,7 @@
       "codigo": "TEN-201-013",
       "nombre": "JESÚS ANTONIO ALMARIO",
       "celular": "3134657308",
-      "lectura_actual": 3509,
+      "lectura_actual": 3517,
       "latitud": 2.388952,
       "longitud": -75.522392
     },
@@ -108,7 +108,7 @@
       "codigo": "TEN-201-014",
       "nombre": "MILTON MONTERO PÉREZ",
       "celular": "3103132699",
-      "lectura_actual": 1696,
+      "lectura_actual": 1711,
       "latitud": 2.388582,
       "longitud": -75.522683
     },
@@ -124,7 +124,7 @@
       "codigo": "TEN-201-016",
       "nombre": "MIGDONIA RODRÍGUEZ",
       "celular": "3176004399",
-      "lectura_actual": 3496,
+      "lectura_actual": 0,
       "latitud": 2.389468,
       "longitud": -75.521903
     },
@@ -140,7 +140,7 @@
       "codigo": "TEN-201-018",
       "nombre": "ISIDRO CASTRO",
       "celular": "3212285751",
-      "lectura_actual": 6975,
+      "lectura_actual": 6992,
       "latitud": 2.390013,
       "longitud": -75.522197
     },
@@ -148,7 +148,7 @@
       "codigo": "TEN-201-019",
       "nombre": "SÓSIMO ALMARIO",
       "celular": "3125610310",
-      "lectura_actual": 2367,
+      "lectura_actual": 2382,
       "latitud": 2.390252,
       "longitud": -75.522038
     },
@@ -156,7 +156,7 @@
       "codigo": "TEN-201-020",
       "nombre": "EDUVIJES ALMARIO",
       "celular": "3103392420",
-      "lectura_actual": 5850,
+      "lectura_actual": 6078,
       "latitud": 2.390312,
       "longitud": -75.522095
     },
@@ -164,7 +164,7 @@
       "codigo": "TEN-202-021",
       "nombre": "HEBERT ROJAS ALMARIO",
       "celular": "3214960275",
-      "lectura_actual": 3435,
+      "lectura_actual": 3448,
       "latitud": 2.390312,
       "longitud": -75.522095
     },
@@ -172,7 +172,7 @@
       "codigo": "TEN-202-022",
       "nombre": "MIRTHA CELADA CARDOZO - 1",
       "celular": null,
-      "lectura_actual": 26,
+      "lectura_actual": 29,
       "latitud": 2.390625,
       "longitud": -75.5232
     },
@@ -180,7 +180,7 @@
       "codigo": "TEN-202-023",
       "nombre": "GUSTAVO ALMARIO",
       "celular": "3142563918",
-      "lectura_actual": 158,
+      "lectura_actual": 176,
       "latitud": 2.391047,
       "longitud": -75.522247
     },
@@ -188,7 +188,7 @@
       "codigo": "TEN-202-024",
       "nombre": "GLORIA GUZMÁN MURCIA",
       "celular": "3203060736",
-      "lectura_actual": 6593,
+      "lectura_actual": 6607,
       "latitud": 2.391913,
       "longitud": -75.521348
     },
@@ -196,7 +196,7 @@
       "codigo": "TEN-202-025",
       "nombre": "LILIA CAVIEDES",
       "celular": "3125673313",
-      "lectura_actual": 2675,
+      "lectura_actual": 0,
       "latitud": 2.390522,
       "longitud": -75.521988
     },
@@ -204,7 +204,7 @@
       "codigo": "TEN-202-026",
       "nombre": "MARIELA CAVIEDES TOVAR",
       "celular": null,
-      "lectura_actual": 1885,
+      "lectura_actual": 1901,
       "latitud": 2.38991,
       "longitud": -75.521562
     },
@@ -220,7 +220,7 @@
       "codigo": "TEN-202-028",
       "nombre": "RULBER SILVA",
       "celular": "3203300822",
-      "lectura_actual": 81,
+      "lectura_actual": 82,
       "latitud": 2.387768,
       "longitud": -75.528788
     },
@@ -236,7 +236,7 @@
       "codigo": "TEN-202-030",
       "nombre": "RAMON GIL QUINTERO",
       "celular": "3208095115",
-      "lectura_actual": 2669,
+      "lectura_actual": 2680,
       "latitud": 2.390855,
       "longitud": -75.523485
     },
@@ -252,7 +252,7 @@
       "codigo": "TEN-202-032",
       "nombre": "GILMA GALEANO ESCOBAR -2",
       "celular": null,
-      "lectura_actual": 1858,
+      "lectura_actual": 3,
       "latitud": 2.38991,
       "longitud": -75.521562
     },
@@ -284,7 +284,7 @@
       "codigo": "TEN-203-036",
       "nombre": "MARTHA GONZALEZ",
       "celular": "3159023974",
-      "lectura_actual": 2243,
+      "lectura_actual": 2263,
       "latitud": 2.391202,
       "longitud": -75.522447
     },
@@ -292,7 +292,7 @@
       "codigo": "TEN-203-037",
       "nombre": "SARA LIZ",
       "celular": null,
-      "lectura_actual": 3872,
+      "lectura_actual": 3899,
       "latitud": 2.391513,
       "longitud": -75.522495
     },
@@ -332,7 +332,7 @@
       "codigo": "TEN-203-042",
       "nombre": "AURORA FALLA",
       "celular": "3142029542",
-      "lectura_actual": 1729,
+      "lectura_actual": 1763,
       "latitud": 2.390843,
       "longitud": -75.522835
     },
@@ -340,7 +340,7 @@
       "codigo": "TEN-203-043",
       "nombre": "EDGAR TORRES CERÓN",
       "celular": "3202397513",
-      "lectura_actual": 6,
+      "lectura_actual": 15,
       "latitud": 2.390523,
       "longitud": -75.523893
     },
@@ -356,7 +356,7 @@
       "codigo": "TEN-203-045",
       "nombre": "CARLOS HUMBERTO ROJAS",
       "celular": null,
-      "lectura_actual": 336,
+      "lectura_actual": 346,
       "latitud": 2.399045,
       "longitud": -75.527488
     },
@@ -364,7 +364,7 @@
       "codigo": "TEN-203-046",
       "nombre": "AURORA DE MOTTA",
       "celular": null,
-      "lectura_actual": 3378,
+      "lectura_actual": 3387,
       "latitud": 2.389085,
       "longitud": -75.532375
     },
@@ -372,7 +372,7 @@
       "codigo": "TEN-203-047",
       "nombre": "BELISARIO MONTEALEGRE",
       "celular": "3164623229",
-      "lectura_actual": 3357,
+      "lectura_actual": 3472,
       "latitud": 2.392665,
       "longitud": -75.52109
     },
@@ -404,7 +404,7 @@
       "codigo": "TEN-203-051",
       "nombre": "NUVIA ALMARIO ESCOBAR",
       "celular": "3132078384",
-      "lectura_actual": 916,
+      "lectura_actual": 939,
       "latitud": 2.388547,
       "longitud": -75.522592
     },
@@ -420,7 +420,7 @@
       "codigo": "TEN-203-053",
       "nombre": "ISRAEL URIBE ROMERO",
       "celular": "3124266282",
-      "lectura_actual": 0,
+      "lectura_actual": 54,
       "latitud": null,
       "longitud": null
     },
@@ -436,7 +436,7 @@
       "codigo": "TEN-203-055",
       "nombre": "LUCY CRISTINA LONGAS",
       "celular": "3133102836",
-      "lectura_actual": 4932,
+      "lectura_actual": 4962,
       "latitud": null,
       "longitud": null
     },
@@ -444,7 +444,7 @@
       "codigo": "TEN-203-056",
       "nombre": "RUBIELA TRIVIÑO VALENCIA",
       "celular": "3132214642",
-      "lectura_actual": 3337,
+      "lectura_actual": 3376,
       "latitud": null,
       "longitud": null
     },
@@ -460,7 +460,7 @@
       "codigo": "TEN-203-058",
       "nombre": "EPIFANIO ROJAS",
       "celular": "3156945193",
-      "lectura_actual": 357,
+      "lectura_actual": 360,
       "latitud": 2.388853,
       "longitud": -75.522148
     },
@@ -484,7 +484,7 @@
       "codigo": "TEN-203-061",
       "nombre": "ANA SÁNCHEZ",
       "celular": "3118083799",
-      "lectura_actual": 0,
+      "lectura_actual": 754,
       "latitud": 2.388635,
       "longitud": -75.52381
     },
@@ -492,7 +492,7 @@
       "codigo": "TEN-203-062",
       "nombre": "CARLINA IQUIRA",
       "celular": null,
-      "lectura_actual": 31,
+      "lectura_actual": 76,
       "latitud": null,
       "longitud": null
     },
@@ -500,7 +500,7 @@
       "codigo": "TEN-203-063",
       "nombre": "NEGLY MARTÍNEZ",
       "celular": null,
-      "lectura_actual": 15,
+      "lectura_actual": 23,
       "latitud": 2.38769,
       "longitud": -75.529945
     },
@@ -516,7 +516,7 @@
       "codigo": "TEN-203-065",
       "nombre": "SANDRA MILENA MEDINA",
       "celular": "3192710098",
-      "lectura_actual": 706,
+      "lectura_actual": 713,
       "latitud": 2.388459,
       "longitud": -75.534419
     },
@@ -524,7 +524,7 @@
       "codigo": "TEN-203-066",
       "nombre": "HERIBERTO SANTOS",
       "celular": null,
-      "lectura_actual": 309,
+      "lectura_actual": 316,
       "latitud": 2.388627,
       "longitud": -75.524572
     },
@@ -532,7 +532,7 @@
       "codigo": "TEN-203-067",
       "nombre": "CLEMENCIA GUZMÁN",
       "celular": null,
-      "lectura_actual": 0,
+      "lectura_actual": 2420,
       "latitud": 2.388512,
       "longitud": -75.524153
     },
@@ -540,7 +540,7 @@
       "codigo": "TEN-203-068",
       "nombre": "CARLOS CÁCERES",
       "celular": "3142750774",
-      "lectura_actual": 531,
+      "lectura_actual": 543,
       "latitud": 2.3907,
       "longitud": -75.527948
     },
@@ -548,7 +548,7 @@
       "codigo": "TEN-203-069",
       "nombre": "ALEXIS MANRIQUE",
       "celular": "3167519897",
-      "lectura_actual": 221,
+      "lectura_actual": 223,
       "latitud": 2.389335,
       "longitud": -75.532333
     },
@@ -564,7 +564,7 @@
       "codigo": "TEN-203-071",
       "nombre": "ALIRIO SANCHEZ",
       "celular": null,
-      "lectura_actual": 868,
+      "lectura_actual": 891,
       "latitud": 2.388457,
       "longitud": -75.523427
     },
@@ -580,7 +580,7 @@
       "codigo": "TEN-203-073",
       "nombre": "GUILLERMO MENDEZ",
       "celular": null,
-      "lectura_actual": 72,
+      "lectura_actual": 73,
       "latitud": 2.39146,
       "longitud": -75.523182
     },
@@ -588,7 +588,7 @@
       "codigo": "TEN-203-074",
       "nombre": "YOBANY RAMÍREZ",
       "celular": null,
-      "lectura_actual": 476,
+      "lectura_actual": 486,
       "latitud": 2.388345,
       "longitud": -75.524482
     },
@@ -596,7 +596,7 @@
       "codigo": "TEN-203-075",
       "nombre": "ANITA SÁNCHEZ MONTEALEGRE",
       "celular": null,
-      "lectura_actual": 463,
+      "lectura_actual": 474,
       "latitud": 2.388627,
       "longitud": -75.524572
     },
@@ -612,7 +612,7 @@
       "codigo": "TEN-203-077",
       "nombre": "LEONOR MOTTA SANCHEZ",
       "celular": null,
-      "lectura_actual": 365,
+      "lectura_actual": 376,
       "latitud": 2.38873,
       "longitud": -75.522793
     },
@@ -620,7 +620,7 @@
       "codigo": "TEN-203-078",
       "nombre": "MARIA RUBIELA PÉREZ AGUIRRE",
       "celular": null,
-      "lectura_actual": 662,
+      "lectura_actual": 669,
       "latitud": null,
       "longitud": null
     },
@@ -628,7 +628,7 @@
       "codigo": "TEN-203-079",
       "nombre": "LUIS ENRIQUE GUTIÉ?RREZ",
       "celular": null,
-      "lectura_actual": 523,
+      "lectura_actual": 550,
       "latitud": 2.388465,
       "longitud": -75.523477
     },
@@ -636,7 +636,7 @@
       "codigo": "TEN-203-080",
       "nombre": "HERMES CACERES GONZALEZ",
       "celular": null,
-      "lectura_actual": 818,
+      "lectura_actual": 821,
       "latitud": 2.390962,
       "longitud": -75.523248
     },
@@ -652,7 +652,7 @@
       "codigo": "TEN-203-082",
       "nombre": "ANA ELCY QUINAYA DIAZ",
       "celular": null,
-      "lectura_actual": 315,
+      "lectura_actual": 0,
       "latitud": 2.38769,
       "longitud": -75.529945
     },
@@ -684,7 +684,7 @@
       "codigo": "TEN-203-086",
       "nombre": "DORIS TORO ORTIZ",
       "celular": null,
-      "lectura_actual": 346,
+      "lectura_actual": 374,
       "latitud": 2.389975,
       "longitud": -75.530089
     },
@@ -716,7 +716,7 @@
       "codigo": "TEN-203-090",
       "nombre": "CRISTIAN ANDRÉS POLO",
       "celular": null,
-      "lectura_actual": 95,
+      "lectura_actual": 105,
       "latitud": 2.392998,
       "longitud": -75.528632
     },
@@ -724,7 +724,7 @@
       "codigo": "TEN-203-091",
       "nombre": "MARTHA LUCÍA MARÍN ALVAREZ",
       "celular": null,
-      "lectura_actual": 16,
+      "lectura_actual": 23,
       "latitud": null,
       "longitud": null
     },
@@ -732,7 +732,7 @@
       "codigo": "TEN-203-092",
       "nombre": "FANNY MOSQUERA MANRIQUE",
       "celular": null,
-      "lectura_actual": 21,
+      "lectura_actual": 28,
       "latitud": 2.410196,
       "longitud": -75.523013
     },
@@ -740,7 +740,7 @@
       "codigo": "TEN-203-093",
       "nombre": "CLAUDIA PATRICIA PUENTES CRUZ",
       "celular": null,
-      "lectura_actual": 21,
+      "lectura_actual": 32,
       "latitud": 2.411014,
       "longitud": -75.52297
     },
@@ -748,9 +748,17 @@
       "codigo": "TEN-203-094",
       "nombre": "MARIA MARCELA LONGAS CADENA",
       "celular": null,
-      "lectura_actual": 12,
+      "lectura_actual": 18,
       "latitud": 2.411094,
       "longitud": -75.522719
+    },
+    {
+      "codigo": "TEN-095",
+      "nombre": "GENTIL ESCOBAR ROJAS",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
     }
   ],
   "RECREO": [
@@ -758,9 +766,9 @@
       "codigo": "REC-301-001",
       "nombre": "ESCUELA NORMAL SUPERIOR",
       "celular": "3123469104",
-      "lectura_actual": 2048,
-      "latitud": 2.40667,
-      "longitud": -75.531125
+      "lectura_actual": 2241,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-301-002",
@@ -774,489 +782,489 @@
       "codigo": "REC-302-003",
       "nombre": "JOSe CALDERÓN",
       "celular": null,
-      "lectura_actual": 937,
-      "latitud": 2.407684,
-      "longitud": -75.53004
+      "lectura_actual": 957,
+      "latitud": 2.406287,
+      "longitud": -75.51463
     },
     {
       "codigo": "REC-302-004",
       "nombre": "YENNY PASTRANA",
       "celular": "3134155414",
       "lectura_actual": 1078,
-      "latitud": 2.407684,
-      "longitud": -75.53004
+      "latitud": 2.406118,
+      "longitud": -75.514663
     },
     {
       "codigo": "REC-302-005",
       "nombre": "ALBA LUZ OCHOA",
       "celular": null,
-      "lectura_actual": 4486,
-      "latitud": 2.406318,
-      "longitud": -75.51452
+      "lectura_actual": 0,
+      "latitud": 2.406773,
+      "longitud": -75.514447
     },
     {
       "codigo": "REC-302-006",
       "nombre": "YOLANDA OCHOA VIDAL",
       "celular": "3166104015",
       "lectura_actual": 0,
-      "latitud": 2.406965,
-      "longitud": -75.513441
+      "latitud": 2.407113,
+      "longitud": -75.514806
     },
     {
       "codigo": "REC-302-007",
       "nombre": "FABIAN OCHOA VIDAL",
       "celular": null,
-      "lectura_actual": 1340,
-      "latitud": 2.406572,
-      "longitud": -75.516081
+      "lectura_actual": 0,
+      "latitud": 2.406872,
+      "longitud": -75.515375
     },
     {
       "codigo": "REC-302-008",
       "nombre": "DORIAN PASTRANA",
       "celular": "3167403113",
       "lectura_actual": 0,
-      "latitud": 2.406593,
-      "longitud": -75.515844
+      "latitud": 2.406876,
+      "longitud": -75.515375
     },
     {
       "codigo": "REC-302-009",
       "nombre": "ALEJANDRO OCHOA VIDAL",
       "celular": "3103723682",
-      "lectura_actual": 973,
-      "latitud": 2.406571,
-      "longitud": -75.515658
+      "lectura_actual": 1000,
+      "latitud": 2.406869,
+      "longitud": -75.515353
     },
     {
       "codigo": "REC-302-010",
       "nombre": "ALFONSO PASTUSO",
       "celular": "3214964772",
       "lectura_actual": 0,
-      "latitud": 2.407092,
-      "longitud": -75.515258
+      "latitud": 2.406368,
+      "longitud": -75.514943
     },
     {
       "codigo": "REC-302-011",
       "nombre": "DIANA PASTUSO",
       "celular": "3132729905",
       "lectura_actual": 278,
-      "latitud": 2.405286,
-      "longitud": -75.516071
+      "latitud": 2.406367,
+      "longitud": -75.514942
     },
     {
       "codigo": "REC-302-012",
       "nombre": "JOSE EDUARDO VALDERRAMA",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.409208,
-      "longitud": -75.517923
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-302-013",
       "nombre": "JAIME SÁNCHEZ",
       "celular": null,
-      "lectura_actual": 648,
-      "latitud": 2.407913,
-      "longitud": -75.515276
+      "lectura_actual": 703,
+      "latitud": 2.408447,
+      "longitud": -75.515728
     },
     {
       "codigo": "REC-302-014",
       "nombre": "JORGE E. GARCÍ?A",
       "celular": "3132623994",
-      "lectura_actual": 4881,
-      "latitud": 2.409791,
-      "longitud": -75.51556
+      "lectura_actual": 4910,
+      "latitud": 2.409955,
+      "longitud": -75.515678
     },
     {
       "codigo": "REC-302-015",
       "nombre": "HERIBERTO OSORIO PERALTA",
       "celular": null,
-      "lectura_actual": 3661,
-      "latitud": 2.407704,
-      "longitud": -75.517048
+      "lectura_actual": 3686,
+      "latitud": 2.408102,
+      "longitud": -75.516659
     },
     {
       "codigo": "REC-303-016",
       "nombre": "JAVIER CHAMBO",
       "celular": null,
       "lectura_actual": 4358,
-      "latitud": 2.408177,
-      "longitud": -75.51705
+      "latitud": 2.408378,
+      "longitud": -75.517153
     },
     {
       "codigo": "REC-303-017",
       "nombre": "GLADYS AMARILLO ORJUELA",
       "celular": "3162351461",
-      "lectura_actual": 3342,
-      "latitud": 2.408046,
-      "longitud": -75.517175
+      "lectura_actual": 3352,
+      "latitud": 2.408306,
+      "longitud": -75.517245
     },
     {
       "codigo": "REC-303-018",
       "nombre": "FRANCISCO CHAMBO",
       "celular": null,
-      "lectura_actual": 4396,
-      "latitud": 2.407944,
-      "longitud": -75.517001
+      "lectura_actual": 4409,
+      "latitud": 2.408122,
+      "longitud": -75.517305
     },
     {
       "codigo": "REC-303-019",
       "nombre": "JAIRO AMAYA",
       "celular": "3132488539",
-      "lectura_actual": 1285,
-      "latitud": 2.408302,
-      "longitud": -75.517388
+      "lectura_actual": 1289,
+      "latitud": 2.408116,
+      "longitud": -75.517308
     },
     {
       "codigo": "REC-303-020",
       "nombre": "GEOVANNY CHAMBO",
       "celular": "3164601644",
-      "lectura_actual": 68,
-      "latitud": 2.408441,
-      "longitud": -75.517684
+      "lectura_actual": 80,
+      "latitud": 2.40823,
+      "longitud": -75.517469
     },
     {
       "codigo": "REC-303-021",
       "nombre": "MARIA CONSUELO SÁNCHEZ VALDERRAMA",
       "celular": null,
-      "lectura_actual": 1879,
-      "latitud": 2.408493,
-      "longitud": -75.518066
+      "lectura_actual": 1887,
+      "latitud": 2.408726,
+      "longitud": -75.517897
     },
     {
       "codigo": "REC-303-022",
       "nombre": "JAVIER EDUARDO HERRERA",
       "celular": "3176677302",
-      "lectura_actual": 119,
-      "latitud": 2.408177,
-      "longitud": -75.51705
+      "lectura_actual": 138,
+      "latitud": 2.408307,
+      "longitud": -75.517621
     },
     {
       "codigo": "REC-304-023",
       "nombre": "GUSTAVO BELTRÁN",
       "celular": null,
-      "lectura_actual": 3894,
-      "latitud": 2.409345,
-      "longitud": -75.518626
+      "lectura_actual": 3920,
+      "latitud": 2.409167,
+      "longitud": -75.518603
     },
     {
       "codigo": "REC-304-024",
       "nombre": "HUGO ISNOVER CHAMBO",
       "celular": "3222868816",
       "lectura_actual": 914,
-      "latitud": 2.411055,
-      "longitud": -75.522075
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-304-025",
       "nombre": "ORSAÍN PÉREZ",
       "celular": "3153433487",
       "lectura_actual": 0,
-      "latitud": 2.409332,
-      "longitud": -75.517794
+      "latitud": 2.40925,
+      "longitud": -75.51808
     },
     {
       "codigo": "REC-304-026",
       "nombre": "ANA TULIA PASTRANA OSPINA",
       "celular": "3223856831",
       "lectura_actual": 0,
-      "latitud": 2.40939,
-      "longitud": -75.518034
+      "latitud": 2.409289,
+      "longitud": -75.51824
     },
     {
       "codigo": "REC-304-027",
       "nombre": "ELSA ROJAS ALVAREZ",
       "celular": null,
-      "lectura_actual": 3690,
-      "latitud": 2.409298,
-      "longitud": -75.518153
+      "lectura_actual": 3722,
+      "latitud": 2.409544,
+      "longitud": -75.518191
     },
     {
       "codigo": "REC-304-028",
       "nombre": "LEONOR PASTRANA OSPINA",
       "celular": "3114556465",
-      "lectura_actual": 9247,
-      "latitud": 2.409541,
-      "longitud": -75.518215
+      "lectura_actual": 9249,
+      "latitud": 2.409511,
+      "longitud": -75.518214
     },
     {
       "codigo": "REC-304-029",
       "nombre": "ABELARDO PASTRANA OSPINA",
       "celular": "3104832774",
-      "lectura_actual": 1190,
-      "latitud": 2.410183,
-      "longitud": -75.518069
+      "lectura_actual": 0,
+      "latitud": 2.409392,
+      "longitud": -75.518285
     },
     {
       "codigo": "REC-304-030",
       "nombre": "JOSÉ EUDANER LUNA",
       "celular": null,
-      "lectura_actual": 1973,
-      "latitud": 2.409449,
-      "longitud": -75.518202
+      "lectura_actual": 1977,
+      "latitud": 2.409425,
+      "longitud": -75.51827
     },
     {
       "codigo": "REC-304-031",
       "nombre": "HERMELINA FAJARDO",
       "celular": null,
       "lectura_actual": 204,
-      "latitud": 2.409425,
-      "longitud": -75.518517
+      "latitud": 2.409328,
+      "longitud": -75.518521
     },
     {
       "codigo": "REC-304-032",
       "nombre": "MERCEDES TRUJILLO",
       "celular": "3164997834",
-      "lectura_actual": 2440,
-      "latitud": 2.409371,
-      "longitud": -75.518877
+      "lectura_actual": 2455,
+      "latitud": 2.409427,
+      "longitud": -75.518663
     },
     {
       "codigo": "REC-304-033",
       "nombre": "FRANCY TRUJILLO",
       "celular": "3188943503",
-      "lectura_actual": 1787,
-      "latitud": 2.409441,
-      "longitud": -75.51894
+      "lectura_actual": 1788,
+      "latitud": 2.409499,
+      "longitud": -75.518925
     },
     {
       "codigo": "REC-304-034",
       "nombre": "EPIFANIO PASTRANA",
       "celular": null,
-      "lectura_actual": 578,
-      "latitud": 2.40962,
-      "longitud": -75.518981
+      "lectura_actual": 583,
+      "latitud": 2.409426,
+      "longitud": -75.518645
     },
     {
       "codigo": "REC-304-035",
       "nombre": "CARLOS MAURICIO PASTRANA",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.409733,
-      "longitud": -75.519244
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-304-036",
       "nombre": "MARÍA EMILSE TRUJILLO",
       "celular": null,
       "lectura_actual": 1874,
-      "latitud": 2.409587,
-      "longitud": -75.519202
+      "latitud": 2.409774,
+      "longitud": -75.519222
     },
     {
       "codigo": "REC-304-037",
       "nombre": "MERCEDES CÁCERES",
       "celular": null,
-      "lectura_actual": 7435,
-      "latitud": 2.409587,
-      "longitud": -75.519202
+      "lectura_actual": 7490,
+      "latitud": 2.410079,
+      "longitud": -75.518096
     },
     {
       "codigo": "REC-304-038",
       "nombre": "ENED CHAMBO",
       "celular": null,
-      "lectura_actual": 1247,
-      "latitud": 2.409482,
-      "longitud": -75.51916
+      "lectura_actual": 1256,
+      "latitud": 2.409611,
+      "longitud": -75.518975
     },
     {
       "codigo": "REC-304-039",
       "nombre": "EXTALIZ CHAMBO REYES",
       "celular": "3202047885",
       "lectura_actual": 0,
-      "latitud": 2.40793,
-      "longitud": -75.520517
+      "latitud": 2.409473,
+      "longitud": -75.518702
     },
     {
       "codigo": "REC-304-040",
       "nombre": "MARLENY OCHOA VIDAL",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.313516,
-      "longitud": -75.504843
+      "latitud": 2.409856,
+      "longitud": -75.519399
     },
     {
       "codigo": "REC-304-041",
       "nombre": "OCTAVIO OCHOA",
       "celular": "3133690298",
-      "lectura_actual": 244,
-      "latitud": 2.313518,
-      "longitud": -75.504838
+      "lectura_actual": 248,
+      "latitud": 2.409632,
+      "longitud": -75.519713
     },
     {
       "codigo": "REC-304-042",
       "nombre": "NILSA CHAMBO -1",
       "celular": "3124019964",
-      "lectura_actual": 472,
-      "latitud": 2.313519,
-      "longitud": -75.504836
+      "lectura_actual": 492,
+      "latitud": 2.409708,
+      "longitud": -75.519823
     },
     {
       "codigo": "REC-304-197",
       "nombre": "MONICA ARTUNDUGA",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.313518,
-      "longitud": -75.504837
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-304-043",
       "nombre": "NOELVIA GOMEZ",
       "celular": null,
       "lectura_actual": 580,
-      "latitud": 2.313519,
-      "longitud": -75.504836
+      "latitud": 2.409761,
+      "longitud": -75.519858
     },
     {
       "codigo": "REC-304-044",
       "nombre": "JOSÉ RICARDO TRUJILLO",
       "celular": "3118641281",
-      "lectura_actual": 1705,
-      "latitud": 2.313513,
-      "longitud": -75.504841
+      "lectura_actual": 1708,
+      "latitud": 2.409831,
+      "longitud": -75.520107
     },
     {
       "codigo": "REC-304-045",
       "nombre": "CARMENZA TRUJILLO",
       "celular": "3204345540",
       "lectura_actual": 10,
-      "latitud": 2.313518,
-      "longitud": -75.504838
+      "latitud": 2.409991,
+      "longitud": -75.520362
     },
     {
       "codigo": "REC-304-046",
       "nombre": "RODRIGO REYES",
       "celular": null,
-      "lectura_actual": 920,
-      "latitud": 2.409715,
-      "longitud": -75.520847
+      "lectura_actual": 922,
+      "latitud": 2.409947,
+      "longitud": -75.520816
     },
     {
       "codigo": "REC-304-047",
       "nombre": "SIMÓN REYES",
       "celular": null,
-      "lectura_actual": 2998,
-      "latitud": 2.409715,
-      "longitud": -75.520847
+      "lectura_actual": 3039,
+      "latitud": 2.410015,
+      "longitud": -75.520977
     },
     {
       "codigo": "REC-304-048",
       "nombre": "ELÍAS BARRERA LLANOS - 1",
       "celular": "3138073363",
       "lectura_actual": 0,
-      "latitud": 2.409824,
-      "longitud": -75.520403
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-304-049",
       "nombre": "ARGEMIRO REYES",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.409802,
-      "longitud": -75.520755
+      "latitud": 2.410036,
+      "longitud": -75.521115
     },
     {
       "codigo": "REC-304-050",
       "nombre": "JAIRO SANCHEZ BARRIOS",
       "celular": "3163075847",
       "lectura_actual": 1903,
-      "latitud": 2.409715,
-      "longitud": -75.520847
+      "latitud": 2.410048,
+      "longitud": -75.521042
     },
     {
       "codigo": "REC-304-051",
       "nombre": "ANANÍAS ESCOBAR",
       "celular": null,
-      "lectura_actual": 1141,
-      "latitud": 2.409715,
-      "longitud": -75.520847
+      "lectura_actual": 1150,
+      "latitud": 2.410102,
+      "longitud": -75.521196
     },
     {
       "codigo": "REC-304-052",
       "nombre": "ROSELIA RAMOS - 1",
       "celular": null,
-      "lectura_actual": 0,
-      "latitud": 2.408256,
-      "longitud": -75.520658
+      "lectura_actual": 381,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-304-053",
       "nombre": "ROSEMBERTH CARDONA",
       "celular": null,
-      "lectura_actual": 358,
-      "latitud": 2.409583,
-      "longitud": -75.520976
+      "lectura_actual": 362,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-304-054",
       "nombre": "JAIRO TRUJILLO",
       "celular": null,
       "lectura_actual": 46,
-      "latitud": 2.408275,
-      "longitud": -75.521636
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-304-055",
       "nombre": "PAOLA REYES MONTEALEGRE",
       "celular": null,
-      "lectura_actual": 754,
-      "latitud": 2.407768,
-      "longitud": -75.521855
+      "lectura_actual": 724,
+      "latitud": 2.408312,
+      "longitud": -75.521887
     },
     {
       "codigo": "REC-304-056",
       "nombre": "CARLOS CASTILLO -1",
       "celular": null,
-      "lectura_actual": 388,
-      "latitud": 2.408482,
-      "longitud": -75.523697
+      "lectura_actual": 0,
+      "latitud": 2.408224,
+      "longitud": -75.522801
     },
     {
       "codigo": "REC-304-057",
       "nombre": "ORLANDO MOSQUERA FINCA",
       "celular": null,
-      "lectura_actual": 8,
-      "latitud": 2.410045,
-      "longitud": -75.522504
+      "lectura_actual": 7,
+      "latitud": 2.409223,
+      "longitud": -75.521307
     },
     {
       "codigo": "REC-304-058",
       "nombre": "FLOR ALBA MOTTA",
       "celular": null,
-      "lectura_actual": 4814,
-      "latitud": 2.408024,
-      "longitud": -75.52282
+      "lectura_actual": 4833,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-304-059",
       "nombre": "ORLANDO CERQUERA",
       "celular": "304137833",
-      "lectura_actual": 3384,
-      "latitud": 2.413152,
-      "longitud": -75.52086
+      "lectura_actual": 3393,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-196",
       "nombre": "YENNY MARCELA HERNANDEZ CACHAYA",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.411022,
-      "longitud": -75.522903
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-304-060",
       "nombre": "FREDY PERDOMO",
       "celular": null,
-      "lectura_actual": 6975,
-      "latitud": 2.410512,
-      "longitud": -75.52249
+      "lectura_actual": 6987,
+      "latitud": 2.410126,
+      "longitud": -75.522246
     },
     {
       "codigo": "REC-304-061",
       "nombre": "LIGIA MONTEALEGRE CHAMBO",
       "celular": "3222869957",
-      "lectura_actual": 2123,
-      "latitud": 2.267166,
-      "longitud": -75.530806
+      "lectura_actual": 2145,
+      "latitud": 2.410257,
+      "longitud": -75.522723
     },
     {
       "codigo": "REC-304-062",
@@ -1271,56 +1279,56 @@
       "nombre": "MERCEDES CRISTANCHO",
       "celular": "3178237132",
       "lectura_actual": 2391,
-      "latitud": 2.267167,
-      "longitud": -75.530805
+      "latitud": 2.409739,
+      "longitud": -75.523052
     },
     {
       "codigo": "REC-304-064",
       "nombre": "HERNANDO ORDOÑEZ",
       "celular": null,
       "lectura_actual": 1188,
-      "latitud": 2.267166,
-      "longitud": -75.530806
+      "latitud": 2.410018,
+      "longitud": -75.523096
     },
     {
       "codigo": "REC-304-065",
       "nombre": "LUZ ANGÉLICA CERQUERA",
       "celular": "3138307808",
-      "lectura_actual": 2162,
-      "latitud": 2.411074,
-      "longitud": -75.523394
+      "lectura_actual": 2171,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-304-066",
       "nombre": "MIGUEL ANGEL FAJARDO",
       "celular": "3102704361",
-      "lectura_actual": 1985,
-      "latitud": 2.407457,
-      "longitud": -75.522
+      "lectura_actual": 2003,
+      "latitud": 2.410111,
+      "longitud": -75.523326
     },
     {
       "codigo": "REC-304-067",
       "nombre": "NOHEMY SEGURA HERNANDEZ",
       "celular": null,
-      "lectura_actual": 1780,
-      "latitud": 2.409607,
-      "longitud": -75.523233
+      "lectura_actual": 1824,
+      "latitud": 2.410008,
+      "longitud": -75.523506
     },
     {
       "codigo": "REC-304-068",
       "nombre": "LUZ MARINA FAJARDO",
       "celular": null,
-      "lectura_actual": 2765,
-      "latitud": 2.414014,
-      "longitud": -75.525538
+      "lectura_actual": 2809,
+      "latitud": 2.410155,
+      "longitud": -75.523642
     },
     {
       "codigo": "REC-304-069",
       "nombre": "EDGAR FAJARDO",
       "celular": "3165730234",
       "lectura_actual": 1621,
-      "latitud": 2.267166,
-      "longitud": -75.530806
+      "latitud": 2.410141,
+      "longitud": -75.523166
     },
     {
       "codigo": "REC-304-070",
@@ -1334,15 +1342,15 @@
       "codigo": "REC-304-071",
       "nombre": "RAFAEL LASSO",
       "celular": "3213335179",
-      "lectura_actual": 2576,
-      "latitud": 2.408824,
-      "longitud": -75.523567
+      "lectura_actual": 2578,
+      "latitud": 2.410012,
+      "longitud": -75.524008
     },
     {
       "codigo": "REC-304-072",
       "nombre": "ELIA DIVA ACOSTA",
       "celular": null,
-      "lectura_actual": 1151,
+      "lectura_actual": 1152,
       "latitud": 2.410415,
       "longitud": -75.523956
     },
@@ -1350,7 +1358,7 @@
       "codigo": "REC-304-073",
       "nombre": "ÁNGELA CERQUERA",
       "celular": null,
-      "lectura_actual": 3952,
+      "lectura_actual": 3959,
       "latitud": null,
       "longitud": null
     },
@@ -1359,14 +1367,14 @@
       "nombre": "ELÍAS BARRERA LLANOS - 2",
       "celular": "3138073363",
       "lectura_actual": 0,
-      "latitud": 2.410228,
-      "longitud": -75.521746
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-304-075",
       "nombre": "JORGE ARTURO CORREA",
       "celular": null,
-      "lectura_actual": 2810,
+      "lectura_actual": 2836,
       "latitud": 2.408562,
       "longitud": -75.526158
     },
@@ -1374,9 +1382,9 @@
       "codigo": "REC-304-076",
       "nombre": "CARLOS ANDRES CASTILLO - 2",
       "celular": null,
-      "lectura_actual": 599,
-      "latitud": 2.410045,
-      "longitud": -75.522504
+      "lectura_actual": 0,
+      "latitud": 2.408376,
+      "longitud": -75.523405
     },
     {
       "codigo": "REC-304-077",
@@ -1390,7 +1398,7 @@
       "codigo": "REC-304-078",
       "nombre": "ESCUELA NORMAL SUPERIOR (S.EL RECREO)",
       "celular": null,
-      "lectura_actual": 1023,
+      "lectura_actual": 0,
       "latitud": null,
       "longitud": null
     },
@@ -1398,7 +1406,7 @@
       "codigo": "REC-304-079",
       "nombre": "ARGENYS ARDILA ZABALA",
       "celular": null,
-      "lectura_actual": 60,
+      "lectura_actual": 67,
       "latitud": 2.408414,
       "longitud": -75.526602
     },
@@ -1406,55 +1414,55 @@
       "codigo": "REC-304-080",
       "nombre": "NURY MAYORCA",
       "celular": null,
-      "lectura_actual": 0,
-      "latitud": 2.413152,
-      "longitud": -75.52086
+      "lectura_actual": 2908,
+      "latitud": 2.413561,
+      "longitud": -75.520811
     },
     {
       "codigo": "REC-304-081",
       "nombre": "FERNANDO OVIEDO",
       "celular": "3142935824",
-      "lectura_actual": 859,
-      "latitud": 2.414051,
-      "longitud": -75.520749
+      "lectura_actual": 863,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-304-082",
       "nombre": "SARA PASTRANA",
       "celular": null,
-      "lectura_actual": 1297,
-      "latitud": 2.414326,
-      "longitud": -75.520715
+      "lectura_actual": 1299,
+      "latitud": 2.414327,
+      "longitud": -75.520652
     },
     {
       "codigo": "REC-304-083",
       "nombre": "GLORIA VARGAS",
       "celular": null,
       "lectura_actual": 277,
-      "latitud": 2.414391,
-      "longitud": -75.520639
+      "latitud": 2.414362,
+      "longitud": -75.520679
     },
     {
       "codigo": "REC-304-084",
       "nombre": "MARÍA GREGORIA VARGAS",
       "celular": null,
-      "lectura_actual": 913,
-      "latitud": 2.408824,
-      "longitud": -75.523567
+      "lectura_actual": 918,
+      "latitud": 2.414684,
+      "longitud": -75.520808
     },
     {
       "codigo": "REC-304-085",
       "nombre": "MARTÍN CERÓN",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.414703,
-      "longitud": -75.520681
+      "latitud": 2.414341,
+      "longitud": -75.520662
     },
     {
       "codigo": "REC-304-086",
       "nombre": "FELIPE MEDINA",
       "celular": null,
-      "lectura_actual": 0,
+      "lectura_actual": 2245,
       "latitud": null,
       "longitud": null
     },
@@ -1478,9 +1486,9 @@
       "codigo": "REC-304-196",
       "nombre": "JEIMY LORENA REYES CERON",
       "celular": "3174995597",
-      "lectura_actual": 606,
-      "latitud": 2.409283,
-      "longitud": -75.528826
+      "lectura_actual": 758,
+      "latitud": 2.409268,
+      "longitud": -75.528938
     },
     {
       "codigo": "REC-304-089",
@@ -1502,7 +1510,7 @@
       "codigo": "REC-304-091",
       "nombre": "ALBENIS SEGURA",
       "celular": "3162329081",
-      "lectura_actual": 0,
+      "lectura_actual": 3910,
       "latitud": 2.408603,
       "longitud": -75.526333
     },
@@ -1518,7 +1526,7 @@
       "codigo": "REC-304-093",
       "nombre": "LIBARDO LOSADA",
       "celular": "3115226340",
-      "lectura_actual": 4031,
+      "lectura_actual": 4032,
       "latitud": null,
       "longitud": null
     },
@@ -1558,31 +1566,31 @@
       "codigo": "REC-304-195",
       "nombre": "JOSE ARQUIMEDES IBARRA FLORES",
       "celular": null,
-      "lectura_actual": 37,
-      "latitud": 2.408305,
-      "longitud": -75.516911
+      "lectura_actual": 43,
+      "latitud": 2.408422,
+      "longitud": -75.517118
     },
     {
       "codigo": "REC-305-098",
       "nombre": "RUBÉN FALLA",
       "celular": null,
-      "lectura_actual": 1087,
-      "latitud": 2.41012,
-      "longitud": -75.520406
+      "lectura_actual": 1091,
+      "latitud": 2.410201,
+      "longitud": -75.520416
     },
     {
       "codigo": "REC-305-099",
       "nombre": "ESPERANZA FALLA",
       "celular": "3208529184",
       "lectura_actual": 1763,
-      "latitud": 2.4105,
-      "longitud": -75.519965
+      "latitud": 2.410221,
+      "longitud": -75.519992
     },
     {
       "codigo": "REC-305-100",
       "nombre": "DIANA CELENY MOSQUERA",
       "celular": null,
-      "lectura_actual": 132,
+      "lectura_actual": 146,
       "latitud": 2.4105917,
       "longitud": -75.5198241
     },
@@ -1590,785 +1598,785 @@
       "codigo": "REC-305-101",
       "nombre": "YULY ANGÉLICA MOSQUERA",
       "celular": "3125260893",
-      "lectura_actual": 1120,
-      "latitud": 2.40397,
-      "longitud": -75.517431
+      "lectura_actual": 1127,
+      "latitud": 2.407957,
+      "longitud": -75.520471
     },
     {
       "codigo": "REC-305-102",
       "nombre": "DAGOBERTO MOSQUERA",
       "celular": "3138674961",
-      "lectura_actual": 3005,
-      "latitud": 2.410598,
-      "longitud": -75.519976
+      "lectura_actual": 3009,
+      "latitud": 2.410827,
+      "longitud": -75.519759
     },
     {
       "codigo": "REC-305-103",
       "nombre": "CRISTIAN CAMILO ESCOBAR FAJARDO",
       "celular": null,
-      "lectura_actual": 2390,
-      "latitud": 2.410687,
-      "longitud": -75.519547
+      "lectura_actual": 2408,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-305-104",
       "nombre": "CARLOS ARTURO MOSQUERA",
       "celular": "3114641874",
-      "lectura_actual": 1263,
-      "latitud": 2.410652,
-      "longitud": -75.519402
+      "lectura_actual": 1268,
+      "latitud": 2.410232,
+      "longitud": -75.518704
     },
     {
       "codigo": "REC-305-105",
       "nombre": "LUIS CARLOS MOSQUERA",
       "celular": null,
-      "lectura_actual": 4199,
-      "latitud": 2.410273,
-      "longitud": -75.519201
+      "lectura_actual": 4214,
+      "latitud": 2.410439,
+      "longitud": -75.519526
     },
     {
       "codigo": "REC-305-106",
       "nombre": "WILLIAM MOSQUERA",
       "celular": "3196441185",
       "lectura_actual": 0,
-      "latitud": 2.410273,
-      "longitud": -75.519201
+      "latitud": 2.410586,
+      "longitud": -75.518871
     },
     {
       "codigo": "REC-305-107",
       "nombre": "GONZALO MOSQUERA",
       "celular": "3227089237",
-      "lectura_actual": 2150,
-      "latitud": 2.411793,
-      "longitud": -75.517971
+      "lectura_actual": 2157,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-305-108",
       "nombre": "YOLANDA MOSQUERA",
       "celular": "3214065686",
       "lectura_actual": 1959,
-      "latitud": 2.410587,
-      "longitud": -75.518548
+      "latitud": 2.410562,
+      "longitud": -75.518985
     },
     {
       "codigo": "REC-305-109",
       "nombre": "ORLANDO MOSQUERA BARRIOS - 1",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.410273,
-      "longitud": -75.519201
+      "latitud": 2.410473,
+      "longitud": -75.519357
     },
     {
       "codigo": "REC-305-110",
       "nombre": "CRISTINA CERQUERA",
       "celular": "3155019844",
-      "lectura_actual": 1597,
-      "latitud": 2.410538,
-      "longitud": -75.520329
+      "lectura_actual": 1617,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-111",
       "nombre": "AMPARO REYES",
       "celular": "3134322585",
-      "lectura_actual": 293,
-      "latitud": 2.409993,
-      "longitud": -75.520611
+      "lectura_actual": 272,
+      "latitud": 2.410003,
+      "longitud": -75.520704
     },
     {
       "codigo": "REC-306-112",
       "nombre": "WILSON ALONSO RIVERA",
       "celular": "3507093785",
-      "lectura_actual": 3075,
-      "latitud": 2.407704,
-      "longitud": -75.517048
+      "lectura_actual": 3087,
+      "latitud": 2.406845,
+      "longitud": -75.514557
     },
     {
       "codigo": "REC-306-113",
       "nombre": "NURY GUTIÉRREZ",
       "celular": "3202436664",
-      "lectura_actual": 3883,
-      "latitud": 2.313519,
-      "longitud": -75.504837
+      "lectura_actual": 3916,
+      "latitud": 2.409656,
+      "longitud": -75.519677
     },
     {
       "codigo": "REC-306-114",
       "nombre": "ISAURO CHAUX",
       "celular": "3103299168",
       "lectura_actual": 7054,
-      "latitud": 2.413918,
-      "longitud": -75.520799
+      "latitud": 2.414742,
+      "longitud": -75.520886
     },
     {
       "codigo": "REC-306-115",
       "nombre": "MARÍA DOLORES ACHURY",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.410238,
-      "longitud": -75.522483
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-116",
       "nombre": "NILGIA CHAMBO REYES",
       "celular": "3155424971",
       "lectura_actual": 0,
-      "latitud": 2.313518,
-      "longitud": -75.504838
+      "latitud": 2.409548,
+      "longitud": -75.519552
     },
     {
       "codigo": "REC-306-117",
       "nombre": "LUCELY CALDERÓN",
       "celular": null,
-      "lectura_actual": 0,
-      "latitud": 2.410201,
-      "longitud": -75.524313
+      "lectura_actual": 6,
+      "latitud": 2.410519,
+      "longitud": -75.523783
     },
     {
       "codigo": "REC-306-118",
       "nombre": "MÉLIDA MOSQUERA",
       "celular": null,
-      "lectura_actual": 6,
-      "latitud": 2.409261,
-      "longitud": -75.521287
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-119",
       "nombre": "RICHARD RUIZ",
       "celular": "3202366427",
-      "lectura_actual": 1623,
-      "latitud": 2.408574,
-      "longitud": -75.530115
+      "lectura_actual": 1703,
+      "latitud": 2.408902,
+      "longitud": -75.529181
     },
     {
       "codigo": "REC-306-120",
       "nombre": "NEYID CELIS - 1",
       "celular": "3133449404",
-      "lectura_actual": 5955,
-      "latitud": 2.409696,
-      "longitud": -75.525141
+      "lectura_actual": 6000,
+      "latitud": 2.410246,
+      "longitud": -75.524254
     },
     {
       "codigo": "REC-306-121",
       "nombre": "MARCO AURELIO POLANIA BARRIOS",
       "celular": null,
       "lectura_actual": 197,
-      "latitud": 2.409332,
-      "longitud": -75.518124
+      "latitud": 2.409291,
+      "longitud": -75.518242
     },
     {
       "codigo": "REC-306-122",
       "nombre": "RUBÉN DARÍO FALLA",
       "celular": "3112821221",
-      "lectura_actual": 2172,
-      "latitud": 2.410171,
-      "longitud": -75.520566
+      "lectura_actual": 2191,
+      "latitud": 2.410409,
+      "longitud": -75.520192
     },
     {
       "codigo": "REC-306-123",
       "nombre": "MARÍA OLIVA BARRIOS",
       "celular": null,
-      "lectura_actual": 2338,
-      "latitud": 2.410652,
-      "longitud": -75.519402
+      "lectura_actual": 2350,
+      "latitud": 2.410738,
+      "longitud": -75.519406
     },
     {
       "codigo": "REC-306-124",
       "nombre": "EFRAÍN OCHOA VIDAL",
       "celular": null,
-      "lectura_actual": 1647,
-      "latitud": 2.313518,
-      "longitud": -75.504838
+      "lectura_actual": 1663,
+      "latitud": 2.409769,
+      "longitud": -75.519293
     },
     {
       "codigo": "REC-306-125",
       "nombre": "CARLOS LUCIANO HERRERA",
       "celular": "3115229980",
-      "lectura_actual": 7476,
-      "latitud": 2.41028,
-      "longitud": -75.524189
+      "lectura_actual": 7486,
+      "latitud": 2.410306,
+      "longitud": -75.524057
     },
     {
       "codigo": "REC-306-126",
       "nombre": "CÉLIMO TRIANA GONZALEZ",
       "celular": "3157359189",
-      "lectura_actual": 145,
-      "latitud": 2.410599,
-      "longitud": -75.519718
+      "lectura_actual": 0,
+      "latitud": 2.410988,
+      "longitud": -75.519468
     },
     {
       "codigo": "REC-306-127",
       "nombre": "DIANA MAYORCA",
       "celular": null,
       "lectura_actual": 2909,
-      "latitud": 2.407619,
-      "longitud": -75.530164
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-128",
       "nombre": "SERGIO CERQUERA",
       "celular": "3184371192",
-      "lectura_actual": 86,
-      "latitud": 2.408215,
-      "longitud": -75.521479
+      "lectura_actual": 99,
+      "latitud": 2.410026,
+      "longitud": -75.521178
     },
     {
       "codigo": "REC-306-129",
       "nombre": "FRANCY ESNITH PARDO",
       "celular": "3182545490",
-      "lectura_actual": 2309,
-      "latitud": 2.313518,
-      "longitud": -75.504836
+      "lectura_actual": 2326,
+      "latitud": 2.409742,
+      "longitud": -75.519903
     },
     {
       "codigo": "REC-306-130",
       "nombre": "ESTACIÓN DE SERVICIO LA FORTALEZA",
       "celular": null,
       "lectura_actual": 2977,
-      "latitud": 2.408563,
-      "longitud": -75.53012
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-131",
       "nombre": "JOSÉ HORACIO TRUJILLO - 1",
       "celular": "3222124062",
-      "lectura_actual": 643,
-      "latitud": 2.31352,
-      "longitud": -75.504837
+      "lectura_actual": 651,
+      "latitud": 2.409657,
+      "longitud": -75.519795
     },
     {
       "codigo": "REC-306-132",
       "nombre": "MARTINIANO TRUJILLO",
       "celular": "3138239790",
       "lectura_actual": 0,
-      "latitud": 2.411029,
-      "longitud": -75.523088
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-133",
       "nombre": "ABEL ANTONIO YARA RUIZ",
       "celular": "3134744943",
-      "lectura_actual": 1464,
-      "latitud": 2.409347,
-      "longitud": -75.519274
+      "lectura_actual": 1481,
+      "latitud": 2.410574,
+      "longitud": -75.519851
     },
     {
       "codigo": "REC-306-134",
       "nombre": "JOSÉ IGNACIO CAMACHO V.",
       "celular": "3133496111",
       "lectura_actual": 2845,
-      "latitud": 2.40397,
-      "longitud": -75.517431
+      "latitud": 2.404126,
+      "longitud": -75.517402
     },
     {
       "codigo": "REC-306-135",
       "nombre": "ROSELIA RAMOS - 2",
       "celular": "3144575576",
-      "lectura_actual": 0,
-      "latitud": 2.410114,
-      "longitud": -75.52147
+      "lectura_actual": 386,
+      "latitud": 2.410143,
+      "longitud": -75.521384
     },
     {
       "codigo": "REC-306-136",
       "nombre": "LUIS ENRIQUE GUEVARA",
       "celular": null,
-      "lectura_actual": 1323,
-      "latitud": 2.313519,
-      "longitud": -75.504837
+      "lectura_actual": 1341,
+      "latitud": 2.409655,
+      "longitud": -75.519606
     },
     {
       "codigo": "REC-306-137",
       "nombre": "ORDUVAY MONTERO AYA",
       "celular": null,
       "lectura_actual": 889,
-      "latitud": 2.411157,
-      "longitud": -75.521945
+      "latitud": 2.411031,
+      "longitud": -75.522199
     },
     {
       "codigo": "REC-306-138",
       "nombre": "MAXIMILIANO VALDERRAMA - 1",
       "celular": null,
-      "lectura_actual": 334,
-      "latitud": 2.410994,
-      "longitud": -75.522756
+      "lectura_actual": 344,
+      "latitud": 2.411114,
+      "longitud": -75.523143
     },
     {
       "codigo": "REC-306-139",
       "nombre": "BENJAMÍN ARTUNDUAGA",
       "celular": "3143401507",
-      "lectura_actual": 25,
-      "latitud": 2.410605,
-      "longitud": -75.519598
+      "lectura_actual": 39,
+      "latitud": 2.410539,
+      "longitud": -75.519628
     },
     {
       "codigo": "REC-306-140",
       "nombre": "YULIETH CHAMBO ORTIZ",
       "celular": null,
-      "lectura_actual": 931,
-      "latitud": 2.40834,
-      "longitud": -75.517845
+      "lectura_actual": 932,
+      "latitud": 2.408301,
+      "longitud": -75.517522
     },
     {
       "codigo": "REC-306-141",
       "nombre": "OLGA MARÍA ORTIZ",
       "celular": "3162351461",
-      "lectura_actual": 418,
-      "latitud": 2.408635,
-      "longitud": -75.517207
+      "lectura_actual": 423,
+      "latitud": 2.408364,
+      "longitud": -75.51718
     },
     {
       "codigo": "REC-306-142",
       "nombre": "CRISTIAN CAMILO CHAVEZ",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.410717,
-      "longitud": -75.519281
+      "latitud": 2.410626,
+      "longitud": -75.518891
     },
     {
       "codigo": "REC-306-143",
       "nombre": "JOSÉ IGNACIO ACOSTA",
       "celular": "3107215896",
-      "lectura_actual": 2137,
-      "latitud": 2.405507,
-      "longitud": -75.51921
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-144",
       "nombre": "GLORIA LOSADA TORRES",
       "celular": "3143820238",
-      "lectura_actual": 2455,
-      "latitud": 2.408539,
-      "longitud": -75.530095
+      "lectura_actual": 2470,
+      "latitud": 2.409067,
+      "longitud": -75.529878
     },
     {
       "codigo": "REC-306-145",
       "nombre": "DORA LIDIA VELASCO",
       "celular": null,
-      "lectura_actual": 1092,
-      "latitud": 2.408802,
-      "longitud": -75.517888
+      "lectura_actual": 1098,
+      "latitud": 2.408849,
+      "longitud": -75.517926
     },
     {
       "codigo": "REC-306-146",
       "nombre": "JOSÉ HORACIO TRUJILLO - 2",
       "celular": null,
       "lectura_actual": 1496,
-      "latitud": 2.31352,
-      "longitud": -75.504836
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-147",
       "nombre": "DORIAN SIERRA",
       "celular": "3134614470",
-      "lectura_actual": 451,
-      "latitud": 2.404423,
-      "longitud": -75.519837
+      "lectura_actual": 505,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-148",
       "nombre": "GLORIA AZUCENA TELLO",
       "celular": null,
-      "lectura_actual": 2177,
-      "latitud": 2.404501,
-      "longitud": -75.519786
+      "lectura_actual": 2777,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-149",
       "nombre": "BETY CALERO BALCERO",
       "celular": "3176636939",
       "lectura_actual": 2760,
-      "latitud": 2.40547,
-      "longitud": -75.520347
+      "latitud": 2.404901,
+      "longitud": -75.519079
     },
     {
       "codigo": "REC-306-150",
       "nombre": "NEYDA YORLEDY BELTRÁN",
       "celular": "3184823880",
-      "lectura_actual": 647,
-      "latitud": 2.409062,
-      "longitud": -75.518593
+      "lectura_actual": 660,
+      "latitud": 2.40924,
+      "longitud": -75.518472
     },
     {
       "codigo": "REC-306-151",
       "nombre": "GIOVANNY SANCHEZ",
       "celular": "3177031183",
-      "lectura_actual": 1388,
-      "latitud": 2.313518,
-      "longitud": -75.504838
+      "lectura_actual": 1463,
+      "latitud": 2.409893,
+      "longitud": -75.520049
     },
     {
       "codigo": "REC-306-152",
       "nombre": "CARLOS ALBERTO CACERES",
       "celular": "3204856262",
-      "lectura_actual": 688,
-      "latitud": 2.411215,
-      "longitud": -75.519705
+      "lectura_actual": 696,
+      "latitud": 2.410679,
+      "longitud": -75.518949
     },
     {
       "codigo": "REC-306-153",
       "nombre": "BERTHA ROJAS RAMIREZ",
       "celular": null,
-      "lectura_actual": 647,
-      "latitud": 2.410587,
-      "longitud": -75.518548
+      "lectura_actual": 657,
+      "latitud": 2.410669,
+      "longitud": -75.518296
     },
     {
       "codigo": "REC-306-154",
       "nombre": "NESTOR MONTEALEGRE",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.41106,
-      "longitud": -75.522839
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-155",
       "nombre": "CÉSAR AUGUSTO URRIAGO",
       "celular": null,
-      "lectura_actual": 514,
-      "latitud": 2.414391,
-      "longitud": -75.520639
+      "lectura_actual": 523,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-156",
       "nombre": "HERNANDO LUGO VELASQUEZ",
       "celular": null,
       "lectura_actual": 725,
-      "latitud": 2.411157,
-      "longitud": -75.521945
+      "latitud": 2.411028,
+      "longitud": -75.522196
     },
     {
       "codigo": "REC-306-157",
       "nombre": "RICARDO MOSQUERA",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.407713,
-      "longitud": -75.530209
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-158",
       "nombre": "BERTILDA MOSQUERA",
       "celular": null,
-      "lectura_actual": 1104,
-      "latitud": 2.407913,
-      "longitud": -75.515276
+      "lectura_actual": 1114,
+      "latitud": 2.407985,
+      "longitud": -75.515353
     },
     {
       "codigo": "REC-306-159",
       "nombre": "LILIANA MARCELA ORTIZ",
       "celular": "3124453293",
-      "lectura_actual": 383,
-      "latitud": 2.412809,
-      "longitud": -75.518851
+      "lectura_actual": 387,
+      "latitud": 2.411384,
+      "longitud": -75.517947
     },
     {
       "codigo": "REC-306-160",
       "nombre": "ROSARIO MOSQUERA",
       "celular": "3125934415",
-      "lectura_actual": 243,
-      "latitud": 2.412809,
-      "longitud": -75.518851
+      "lectura_actual": 247,
+      "latitud": 2.411636,
+      "longitud": -75.517764
     },
     {
       "codigo": "REC-306-161",
       "nombre": "DUBER ANDRÉS RODRÍGUEZ",
       "celular": "3132953910",
-      "lectura_actual": 167,
-      "latitud": 2.41306,
-      "longitud": -75.518485
+      "lectura_actual": 169,
+      "latitud": 2.412639,
+      "longitud": -75.518676
     },
     {
       "codigo": "REC-306-162",
       "nombre": "ORLANDO MOSQUERA BARRIOS - 2",
       "celular": "3184336248",
       "lectura_actual": 62,
-      "latitud": 2.313516,
-      "longitud": -75.504843
+      "latitud": 2.412816,
+      "longitud": -75.518567
     },
     {
       "codigo": "REC-306-163",
       "nombre": "LEONOR ORDOÑEZ",
       "celular": "3115770321",
       "lectura_actual": 482,
-      "latitud": 2.408215,
-      "longitud": -75.521479
+      "latitud": 2.410515,
+      "longitud": -75.523571
     },
     {
       "codigo": "REC-306-164",
       "nombre": "YESID OCHOA",
       "celular": null,
-      "lectura_actual": 658,
-      "latitud": 2.40844,
-      "longitud": -75.526557
+      "lectura_actual": 663,
+      "latitud": 2.408467,
+      "longitud": -75.526777
     },
     {
       "codigo": "REC-306-165",
       "nombre": "EDNA ROCÍO RÍOS",
       "celular": null,
-      "lectura_actual": 748,
-      "latitud": 2.410602,
-      "longitud": -75.520373
+      "lectura_actual": 768,
+      "latitud": 2.410445,
+      "longitud": -75.520291
     },
     {
       "codigo": "REC-306-166",
       "nombre": "JORGE GUEVARA CUÉLLAR",
       "celular": null,
       "lectura_actual": 719,
-      "latitud": 2.40547,
-      "longitud": -75.520347
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-167",
       "nombre": "SANTIAGO CARDONA",
       "celular": "3154823720",
-      "lectura_actual": 680,
-      "latitud": 2.409583,
-      "longitud": -75.520976
+      "lectura_actual": 710,
+      "latitud": 2.410047,
+      "longitud": -75.521271
     },
     {
       "codigo": "REC-306-168",
       "nombre": "ROBINSON CADENA GALVIS",
       "celular": null,
-      "lectura_actual": 275,
-      "latitud": 2.410587,
-      "longitud": -75.518548
+      "lectura_actual": 283,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-169",
       "nombre": "MARTHA CECILIA TAMARA",
       "celular": null,
-      "lectura_actual": 363,
-      "latitud": 2.410962,
-      "longitud": -75.518878
+      "lectura_actual": 372,
+      "latitud": 2.410546,
+      "longitud": -75.518998
     },
     {
       "codigo": "REC-306-170",
       "nombre": "LUZ MARINA VILLANUEVA",
       "celular": "3219066968",
-      "lectura_actual": 575,
-      "latitud": 2.409409,
-      "longitud": -75.518444
+      "lectura_actual": 583,
+      "latitud": 2.409294,
+      "longitud": -75.518523
     },
     {
       "codigo": "REC-306-171",
       "nombre": "MELISA MOSQUERA TAMARA",
       "celular": "3167886498",
-      "lectura_actual": 148,
-      "latitud": 2.409966,
-      "longitud": -75.518377
+      "lectura_actual": 164,
+      "latitud": 2.410695,
+      "longitud": -75.518997
     },
     {
       "codigo": "REC-306-172",
       "nombre": "SAUL ARTUNDUAGA",
       "celular": "3134611746",
-      "lectura_actual": 526,
-      "latitud": 2.412809,
-      "longitud": -75.518851
+      "lectura_actual": 543,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-173",
       "nombre": "NINI JOHANA CRUZ CASTILLO",
       "celular": "3204332099",
       "lectura_actual": 663,
-      "latitud": 2.267166,
-      "longitud": -75.53081
+      "latitud": 2.410003,
+      "longitud": -75.523262
     },
     {
       "codigo": "REC-306-174",
       "nombre": "DEYANITH FALLA PASTRANA",
       "celular": "3147248952",
-      "lectura_actual": 9848,
-      "latitud": 2.41044,
-      "longitud": -75.520274
+      "lectura_actual": 9825,
+      "latitud": 2.410339,
+      "longitud": -75.520197
     },
     {
       "codigo": "REC-306-175",
       "nombre": "RODRIGO ROJAS",
       "celular": "3225177802",
-      "lectura_actual": 46,
-      "latitud": 2.413918,
-      "longitud": -75.520799
+      "lectura_actual": 50,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-176",
       "nombre": "GLORIA TRUJILLO",
       "celular": "3108691210",
-      "lectura_actual": 68,
-      "latitud": 2.408275,
-      "longitud": -75.521636
+      "lectura_actual": 69,
+      "latitud": 2.408461,
+      "longitud": -75.521699
     },
     {
       "codigo": "REC-306-177",
       "nombre": "LUZ AMPARO CALDERÓN",
       "celular": null,
-      "lectura_actual": 337,
-      "latitud": 2.410997,
-      "longitud": -75.522924
+      "lectura_actual": 338,
+      "latitud": 2.408939,
+      "longitud": -75.517492
     },
     {
       "codigo": "REC-306-178",
       "nombre": "OLGA PATRICIA MOSQUERA",
       "celular": null,
       "lectura_actual": 182,
-      "latitud": 2.411793,
-      "longitud": -75.517971
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-179",
       "nombre": "YAZMÍN BOHORQUEZ",
       "celular": null,
-      "lectura_actual": 987,
-      "latitud": 2.40933,
-      "longitud": -75.518635
+      "lectura_actual": 1034,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-180",
       "nombre": "SANDRA MARITZA PAVA",
       "celular": null,
-      "lectura_actual": 415,
-      "latitud": 2.410851,
-      "longitud": -75.522683
+      "lectura_actual": 416,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-181",
       "nombre": "NEYID CELIS - 2",
       "celular": "3133449404",
-      "lectura_actual": 2102,
-      "latitud": 2.409635,
-      "longitud": -75.525125
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-182",
       "nombre": "MAXIMILIANO VALDERRAMA - 2",
       "celular": null,
       "lectura_actual": 329,
-      "latitud": 2.410981,
-      "longitud": -75.522773
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-183",
       "nombre": "LEIDY YOHANA SUÁREZ",
       "celular": null,
-      "lectura_actual": 0,
-      "latitud": 2.410207,
-      "longitud": -75.522972
+      "lectura_actual": 164,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-184",
       "nombre": "JORGE EDUARDO PUENTES",
       "celular": null,
       "lectura_actual": 97,
-      "latitud": 2.412809,
-      "longitud": -75.518851
+      "latitud": 2.412875,
+      "longitud": -75.518835
     },
     {
       "codigo": "REC-306-185",
       "nombre": "NILSA CHAMBO REYES - 2",
       "celular": null,
-      "lectura_actual": 1640,
-      "latitud": 2.408256,
-      "longitud": -75.520658
+      "lectura_actual": 10,
+      "latitud": 2.408417,
+      "longitud": -75.520469
     },
     {
       "codigo": "REC-306-186",
       "nombre": "YINA PAOLA AYALA",
       "celular": null,
       "lectura_actual": 52,
-      "latitud": 2.406593,
-      "longitud": -75.515844
+      "latitud": 2.406876,
+      "longitud": -75.515375
     },
     {
       "codigo": "REC-306-187",
       "nombre": "JOSÉ ANTONIO SAAVEDRA FAJARDO",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.405517,
-      "longitud": -75.5192
+      "latitud": 2.404909,
+      "longitud": -75.519066
     },
     {
       "codigo": "REC-306-188",
       "nombre": "STEVEN ALEJANDRO REYES",
       "celular": null,
-      "lectura_actual": 260,
-      "latitud": 2.409285,
-      "longitud": -75.528753
+      "lectura_actual": 9355,
+      "latitud": 2.409422,
+      "longitud": -75.528897
     },
     {
       "codigo": "REC-306-189",
       "nombre": "MARIA DEL PILAR MORALES QUIMBAYA",
       "celular": null,
-      "lectura_actual": 102,
-      "latitud": 2.407713,
-      "longitud": -75.530209
+      "lectura_actual": 112,
+      "latitud": 2.410668,
+      "longitud": -75.518408
     },
     {
       "codigo": "REC-306-190",
       "nombre": "LINA MARCELA PEREZ GRANADOS",
       "celular": null,
       "lectura_actual": 499,
-      "latitud": 2.410371,
-      "longitud": -75.519648
+      "latitud": 2.410627,
+      "longitud": -75.519783
     },
     {
       "codigo": "REC-306-191",
       "nombre": "JORGE ENRIQUE LASSO JIMÉNEZ",
       "celular": null,
-      "lectura_actual": 197,
-      "latitud": 2.410109,
-      "longitud": -75.523481
+      "lectura_actual": 207,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-192",
       "nombre": "ARNUBIO ANTURY",
       "celular": null,
-      "lectura_actual": 96,
-      "latitud": 2.414051,
-      "longitud": -75.520749
+      "lectura_actual": 108,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-193",
       "nombre": "EDER PERDOMO ESPITIA",
       "celular": null,
-      "lectura_actual": 0,
-      "latitud": 2.410189,
-      "longitud": -75.522156
+      "lectura_actual": 3353,
+      "latitud": 2.410093,
+      "longitud": -75.522295
     },
     {
       "codigo": "REC-306-194",
       "nombre": "MIREYA SOTELO SOLANO",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.410229,
-      "longitud": -75.523192
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-197",
       "nombre": "ELIZABETH ROJAS AMESQUITA",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.410125,
-      "longitud": -75.523087
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-198",
       "nombre": "BERTILDA MOSQUERA DE TOLEDO",
       "celular": null,
-      "lectura_actual": 8379,
-      "latitud": 2.408135,
-      "longitud": -75.515423
+      "lectura_actual": 8372,
+      "latitud": 2.408075,
+      "longitud": -75.515642
     },
     {
       "codigo": "REC-306-199",
       "nombre": "MARIA DISNEY QUINTERO",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.410242,
-      "longitud": -75.523165
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-200",
       "nombre": "YENNY MARCELA HERNANDEZ CACHAYA",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.410231,
-      "longitud": -75.523199
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "REC-306-201",
@@ -2384,1737 +2392,1745 @@
       "codigo": "PUE-101-001",
       "nombre": "MELIDA SANCHEZ - 1(VIANEY RIOS SANCHEZ)",
       "celular": "3112712026",
-      "lectura_actual": 781,
-      "latitud": 2.410058,
-      "longitud": -75.521302
+      "lectura_actual": 0,
+      "latitud": 2.401367,
+      "longitud": -75.525088
     },
     {
       "codigo": "PUE-101-002",
       "nombre": "AUTORIDAD NAL. DE ACUICULTURA Y PESCA",
       "celular": null,
-      "lectura_actual": 3340,
-      "latitud": 2.396883,
-      "longitud": -75.520889
+      "lectura_actual": 3356,
+      "latitud": 2.401367,
+      "longitud": -75.525088
     },
     {
       "codigo": "PUE-101-003",
       "nombre": "SERGIO VILLA - 1",
       "celular": "3015914748",
       "lectura_actual": 0,
-      "latitud": 2.401496,
-      "longitud": -75.525068
+      "latitud": 2.401397,
+      "longitud": -75.525075
     },
     {
       "codigo": "PUE-101-004",
       "nombre": "DANIEL RAMIREZ",
       "celular": "3133365722",
-      "lectura_actual": 3169,
-      "latitud": 2.402718,
-      "longitud": -75.526001
+      "lectura_actual": 3191,
+      "latitud": 2.403632,
+      "longitud": -75.528746
     },
     {
       "codigo": "PUE-101-005",
       "nombre": "GUSTAVO OLAYA",
       "celular": null,
-      "lectura_actual": 4035,
-      "latitud": 2.401939,
-      "longitud": -75.527775
+      "lectura_actual": 4039,
+      "latitud": 2.401721,
+      "longitud": -75.527791
     },
     {
       "codigo": "PUE-101-006",
       "nombre": "JAIME BAUTISTA",
       "celular": "3187165647",
       "lectura_actual": 0,
-      "latitud": 2.399483,
-      "longitud": -75.525685
+      "latitud": 2.398624,
+      "longitud": -75.525979
     },
     {
       "codigo": "PUE-102-007",
       "nombre": "MELANIA COMETA",
       "celular": "3214387742",
-      "lectura_actual": 3910,
-      "latitud": 2.401985,
-      "longitud": -75.527738
+      "lectura_actual": 3928,
+      "latitud": 2.401826,
+      "longitud": -75.528065
     },
     {
       "codigo": "PUE-102-008",
       "nombre": "CONCEPCIÓN QUINTERO",
       "celular": null,
-      "lectura_actual": 1870,
-      "latitud": 2.401772,
-      "longitud": -75.528133
+      "lectura_actual": 1874,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-102-009",
       "nombre": "YENITH PINTO",
       "celular": "3134773065",
-      "lectura_actual": 467,
-      "latitud": 2.401993,
-      "longitud": -75.527785
+      "lectura_actual": 486,
+      "latitud": 2.401948,
+      "longitud": -75.527812
     },
     {
       "codigo": "PUE-102-010",
       "nombre": "MERCEDES AROS DE RUIZ",
       "celular": "3123502255",
       "lectura_actual": 4784,
-      "latitud": 2.401963,
-      "longitud": -75.52776
+      "latitud": 2.401794,
+      "longitud": -75.528044
     },
     {
       "codigo": "PUE-102-011",
       "nombre": "ISIDORA HERNÁNDEZ",
       "celular": "3224686009",
-      "lectura_actual": 2174,
-      "latitud": 2.401867,
-      "longitud": -75.527947
+      "lectura_actual": 2176,
+      "latitud": 2.401835,
+      "longitud": -75.528049
     },
     {
       "codigo": "PUE-102-012",
       "nombre": "EMILIA VICTORIA",
       "celular": "3228658952",
-      "lectura_actual": 3437,
-      "latitud": 2.401786,
-      "longitud": -75.528103
+      "lectura_actual": 3449,
+      "latitud": 2.401854,
+      "longitud": -75.528003
     },
     {
       "codigo": "PUE-102-013",
       "nombre": "MISAEL LOSADA",
       "celular": "3132403441",
-      "lectura_actual": 4401,
-      "latitud": 2.40176,
-      "longitud": -75.528136
+      "lectura_actual": 4406,
+      "latitud": 2.401739,
+      "longitud": -75.528103
     },
     {
       "codigo": "PUE-102-014",
       "nombre": "MARIA DOLORES CASTILLO",
       "celular": "3148682938",
-      "lectura_actual": 4396,
-      "latitud": 2.401712,
+      "lectura_actual": 4441,
+      "latitud": 2.401695,
       "longitud": -75.528143
     },
     {
       "codigo": "PUE-102-015",
       "nombre": "CARLOS JULIO CALDERÓN",
       "celular": "3133501116",
-      "lectura_actual": 3503,
-      "latitud": 2.40179,
-      "longitud": -75.528155
+      "lectura_actual": 3536,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-102-016",
       "nombre": "DORIAN PLAZAS",
       "celular": null,
-      "lectura_actual": 871,
-      "latitud": 2.401764,
-      "longitud": -75.528177
+      "lectura_actual": 881,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-102-017",
       "nombre": "GENTIL CLEVES",
       "celular": null,
-      "lectura_actual": 2018,
-      "latitud": 2.401666,
-      "longitud": -75.528328
+      "lectura_actual": 2023,
+      "latitud": 2.401706,
+      "longitud": -75.528364
     },
     {
       "codigo": "PUE-102-018",
       "nombre": "IRENE RAMOS",
       "celular": "3132031441",
-      "lectura_actual": 1035,
-      "latitud": 2.401282,
-      "longitud": -75.528666
+      "lectura_actual": 1045,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-102-019",
       "nombre": "AGUSTÍN QUINTERO",
       "celular": null,
-      "lectura_actual": 2395,
-      "latitud": 2.40174,
-      "longitud": -75.528436
+      "lectura_actual": 2404,
+      "latitud": 2.401599,
+      "longitud": -75.528772
     },
     {
       "codigo": "PUE-102-020",
       "nombre": "LUIS ANGEL QUINTERO",
       "celular": "3133069666",
-      "lectura_actual": 0,
-      "latitud": 2.401542,
-      "longitud": -75.52883
+      "lectura_actual": 7442,
+      "latitud": 2.401494,
+      "longitud": -75.528846
     },
     {
       "codigo": "PUE-102-021",
       "nombre": "HERNANDO CASTILLO",
       "celular": null,
-      "lectura_actual": 797,
-      "latitud": 2.401545,
-      "longitud": -75.529006
+      "lectura_actual": 816,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-102-022",
       "nombre": "DORIS QUINTERO",
       "celular": "3156771570",
-      "lectura_actual": 0,
-      "latitud": 2.40155,
-      "longitud": -75.528984
+      "lectura_actual": 3756,
+      "latitud": 2.401501,
+      "longitud": -75.528935
     },
     {
       "codigo": "PUE-102-023",
       "nombre": "ROSA HELENA CASTILLO",
       "celular": "3115841981",
-      "lectura_actual": 3993,
-      "latitud": 2.40143,
-      "longitud": -75.529187
+      "lectura_actual": 4023,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-102-024",
-      "nombre": "GLORIA INES CASTILLO",
+      "nombre": "JOSÉ CASTILLO",
       "celular": null,
-      "lectura_actual": 1686,
-      "latitud": 2.401433,
-      "longitud": -75.529233
+      "lectura_actual": 1695,
+      "latitud": 2.401534,
+      "longitud": -75.529241
     },
     {
       "codigo": "PUE-102-025",
       "nombre": "ISABEL CASTILLO",
       "celular": "3125301312",
-      "lectura_actual": 1198,
-      "latitud": 2.401456,
-      "longitud": -75.529275
+      "lectura_actual": 1221,
+      "latitud": 2.401522,
+      "longitud": -75.529205
     },
     {
       "codigo": "PUE-102-026",
       "nombre": "JUDITH CLEVES - 1",
       "celular": "3142728596",
-      "lectura_actual": 1931,
-      "latitud": 2.401904,
-      "longitud": -75.527815
+      "lectura_actual": 1991,
+      "latitud": 2.401822,
+      "longitud": -75.527962
     },
     {
       "codigo": "PUE-102-027",
       "nombre": "JUDITH CLEVES - 2",
       "celular": "3142728596",
-      "lectura_actual": 1640,
-      "latitud": 2.401964,
-      "longitud": -75.52776
+      "lectura_actual": 1647,
+      "latitud": 2.401968,
+      "longitud": -75.527811
     },
     {
       "codigo": "PUE-102-028",
       "nombre": "JUDITH CLEVES - 3",
       "celular": "3142728596",
-      "lectura_actual": 1818,
-      "latitud": 2.401984,
-      "longitud": -75.527769
+      "lectura_actual": 1828,
+      "latitud": 2.401936,
+      "longitud": -75.527888
     },
     {
       "codigo": "PUE-102-029",
       "nombre": "ESCUELA NORMAL SUPERIOR",
       "celular": null,
-      "lectura_actual": 0,
-      "latitud": 2.402023,
-      "longitud": -75.52782
+      "lectura_actual": 7251,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-102-030",
       "nombre": "ALFONSO ESCOBAR",
       "celular": null,
-      "lectura_actual": 4614,
-      "latitud": 2.401754,
-      "longitud": -75.528136
+      "lectura_actual": 4620,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-102-031",
       "nombre": "BELLANIRA LLANOS",
       "celular": "3132403441",
-      "lectura_actual": 772,
-      "latitud": 2.401731,
-      "longitud": -75.528141
+      "lectura_actual": 776,
+      "latitud": 2.401713,
+      "longitud": -75.528122
     },
     {
       "codigo": "PUE-102-032",
       "nombre": "LAURA MOSQUERA DE OSORIO",
       "celular": null,
-      "lectura_actual": 5386,
-      "latitud": 2.401825,
-      "longitud": -75.528161
+      "lectura_actual": 5403,
+      "latitud": 2.401743,
+      "longitud": -75.528167
     },
     {
       "codigo": "PUE-102-033",
       "nombre": "LINO ENRIQUE RÍOS",
       "celular": "3166797277",
       "lectura_actual": 0,
-      "latitud": 2.401638,
-      "longitud": -75.528142
+      "latitud": 2.401689,
+      "longitud": -75.528129
     },
     {
       "codigo": "PUE-102-034",
       "nombre": "CARLOS RÍOS",
       "celular": "3176843368",
-      "lectura_actual": 2329,
-      "latitud": 2.401783,
-      "longitud": -75.528459
+      "lectura_actual": 2333,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-102-035",
       "nombre": "NIDIA MEDINA",
       "celular": "3142935995",
       "lectura_actual": 0,
-      "latitud": 2.401975,
-      "longitud": -75.528431
+      "latitud": 2.401923,
+      "longitud": -75.528415
     },
     {
       "codigo": "PUE-102-036",
       "nombre": "MELBA CONSTANZA RUIZ",
       "celular": "3117603746",
-      "lectura_actual": 2644,
-      "latitud": 2.401966,
-      "longitud": -75.528433
+      "lectura_actual": 2654,
+      "latitud": 2.401875,
+      "longitud": -75.528653
     },
     {
       "codigo": "PUE-102-037",
       "nombre": "GILBERTO RUIZ",
       "celular": "3202482870",
       "lectura_actual": 0,
-      "latitud": 2.401743,
-      "longitud": -75.5282
+      "latitud": 2.401943,
+      "longitud": -75.527953
     },
     {
       "codigo": "PUE-102-038",
       "nombre": "MIRIAM PINTO - 1",
       "celular": null,
-      "lectura_actual": 1121,
-      "latitud": 2.401452,
-      "longitud": -75.528847
+      "lectura_actual": 1123,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-102-039",
       "nombre": "JORGE ENRIQUE MAZABEL",
       "celular": null,
-      "lectura_actual": 3789,
-      "latitud": 2.401868,
-      "longitud": -75.528482
+      "lectura_actual": 3842,
+      "latitud": 2.401822,
+      "longitud": -75.528448
     },
     {
       "codigo": "PUE-102-040",
       "nombre": "DIOSELINA CALDERÓN ARDILA",
       "celular": null,
-      "lectura_actual": 2640,
-      "latitud": 2.401909,
-      "longitud": -75.528459
+      "lectura_actual": 2657,
+      "latitud": 2.401893,
+      "longitud": -75.528454
     },
     {
       "codigo": "PUE-102-041",
       "nombre": "LIGIA BELTRÁN VARGAS",
       "celular": "3153896186",
-      "lectura_actual": 3379,
-      "latitud": 2.401858,
-      "longitud": -75.528512
+      "lectura_actual": 3397,
+      "latitud": 2.401718,
+      "longitud": -75.528189
     },
     {
       "codigo": "PUE-102-042",
       "nombre": "BORIS RIOS CASTILLO",
       "celular": null,
-      "lectura_actual": 3481,
-      "latitud": 2.401727,
-      "longitud": -75.528414
+      "lectura_actual": 3512,
+      "latitud": 2.401687,
+      "longitud": -75.528241
     },
     {
       "codigo": "PUE-102-043",
       "nombre": "JOSÉ ASUNCIÓN ANGEL",
       "celular": null,
-      "lectura_actual": 0,
-      "latitud": 2.401487,
-      "longitud": -75.528772
+      "lectura_actual": 1909,
+      "latitud": 2.401584,
+      "longitud": -75.528746
     },
     {
       "codigo": "PUE-102-044",
       "nombre": "OSCAR EDUARDO SEGURA",
       "celular": "3148196441",
-      "lectura_actual": 2231,
-      "latitud": 2.401454,
-      "longitud": -75.529208
+      "lectura_actual": 2246,
+      "latitud": 2.401437,
+      "longitud": -75.529034
     },
     {
       "codigo": "PUE-102-045",
       "nombre": "MYRIAM PINTO - 2",
       "celular": null,
       "lectura_actual": 1923,
-      "latitud": 2.401881,
-      "longitud": -75.528506
+      "latitud": 2.401915,
+      "longitud": -75.528583
     },
     {
       "codigo": "PUE-102-046",
       "nombre": "MARTHA CECILIA FIGUEROA",
       "celular": "3212022183",
-      "lectura_actual": 0,
-      "latitud": 2.401444,
-      "longitud": -75.528854
+      "lectura_actual": 4020,
+      "latitud": 2.401554,
+      "longitud": -75.528878
     },
     {
       "codigo": "PUE-102-047",
       "nombre": "FRANCY CALDERÓN",
       "celular": null,
-      "lectura_actual": 3714,
-      "latitud": 2.401699,
-      "longitud": -75.52888
+      "lectura_actual": 3730,
+      "latitud": 2.401612,
+      "longitud": -75.528889
     },
     {
       "codigo": "PUE-102-048",
       "nombre": "RUTH CLEVES",
       "celular": "3118828167",
-      "lectura_actual": 2409,
-      "latitud": 2.401707,
-      "longitud": -75.528927
+      "lectura_actual": 0,
+      "latitud": 2.401605,
+      "longitud": -75.528972
     },
     {
       "codigo": "PUE-102-049",
       "nombre": "JAIME RUIZ",
       "celular": "3102657833",
-      "lectura_actual": 0,
-      "latitud": 2.401672,
-      "longitud": -75.528967
+      "lectura_actual": 3674,
+      "latitud": 2.401648,
+      "longitud": -75.528952
     },
     {
       "codigo": "PUE-102-050",
       "nombre": "OLGA NINCO",
       "celular": null,
-      "lectura_actual": 362,
-      "latitud": 2.401757,
-      "longitud": -75.52891
+      "lectura_actual": 374,
+      "latitud": 2.401726,
+      "longitud": -75.528958
     },
     {
       "codigo": "PUE-102-051",
       "nombre": "NANCY BELTRÁN",
       "celular": "3165327548",
-      "lectura_actual": 811,
-      "latitud": 2.401861,
-      "longitud": -75.528946
+      "lectura_actual": 842,
+      "latitud": 2.401749,
+      "longitud": -75.528951
     },
     {
       "codigo": "PUE-102-052",
       "nombre": "ANA MILENA PÉREZ",
       "celular": "3203219046",
-      "lectura_actual": 3629,
-      "latitud": 2.401485,
-      "longitud": -75.529977
+      "lectura_actual": 3639,
+      "latitud": 2.401472,
+      "longitud": -75.529917
     },
     {
       "codigo": "PUE-102-053",
       "nombre": "ACENED BENITEZ RIVAS",
       "celular": null,
-      "lectura_actual": 2625,
-      "latitud": 2.40149,
-      "longitud": -75.530047
+      "lectura_actual": 2639,
+      "latitud": 2.401459,
+      "longitud": -75.530012
     },
     {
       "codigo": "PUE-102-054",
       "nombre": "RUDBEL MOSQUERA",
       "celular": "3167540194",
       "lectura_actual": 0,
-      "latitud": 2.40143,
-      "longitud": -75.53065
+      "latitud": 2.401466,
+      "longitud": -75.530638
     },
     {
       "codigo": "PUE-102-055",
       "nombre": "LILIA MOTTA",
       "celular": "3227163345",
-      "lectura_actual": 3456,
-      "latitud": 2.401342,
-      "longitud": -75.530773
+      "lectura_actual": 3471,
+      "latitud": 2.401303,
+      "longitud": -75.530845
     },
     {
       "codigo": "PUE-102-056",
       "nombre": "JOSÉ RICAUTE FAJARDO",
       "celular": "3143068292",
       "lectura_actual": 1950,
-      "latitud": 2.401342,
-      "longitud": -75.530825
+      "latitud": 2.401258,
+      "longitud": -75.530906
     },
     {
       "codigo": "PUE-102-057",
       "nombre": "SANDRA MILENA CHAVARRO",
       "celular": null,
-      "lectura_actual": 6279,
-      "latitud": 2.401312,
-      "longitud": -75.53107
+      "lectura_actual": 6300,
+      "latitud": 2.401304,
+      "longitud": -75.531025
     },
     {
       "codigo": "PUE-102-058",
       "nombre": "GLORIA BEATRIZ QUINTERO",
       "celular": null,
-      "lectura_actual": 157,
-      "latitud": 2.401206,
-      "longitud": -75.531223
+      "lectura_actual": 169,
+      "latitud": 2.401321,
+      "longitud": -75.531084
     },
     {
       "codigo": "PUE-102-059",
       "nombre": "YOLANDA RUIZ",
       "celular": "3102226626",
-      "lectura_actual": 1336,
-      "latitud": 2.401209,
-      "longitud": -75.531188
+      "lectura_actual": 1351,
+      "latitud": 2.401382,
+      "longitud": -75.531238
     },
     {
       "codigo": "PUE-102-060",
       "nombre": "ADELIO REAL",
       "celular": null,
-      "lectura_actual": 2952,
-      "latitud": 2.401377,
-      "longitud": -75.531307
+      "lectura_actual": 2958,
+      "latitud": 2.401411,
+      "longitud": -75.531256
     },
     {
       "codigo": "PUE-102-061",
       "nombre": "HERNEY CHAVARRO",
       "celular": null,
-      "lectura_actual": 1583,
-      "latitud": 2.402349,
-      "longitud": -75.530857
+      "lectura_actual": 1611,
+      "latitud": 2.402377,
+      "longitud": -75.530783
     },
     {
       "codigo": "PUE-102-062",
       "nombre": "REYNALDO OLAYA - 1",
       "celular": null,
-      "lectura_actual": 0,
-      "latitud": 2.401273,
-      "longitud": -75.531269
+      "lectura_actual": 3379,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-102-063",
       "nombre": "CECILIA MOTTA",
       "celular": null,
-      "lectura_actual": 4959,
-      "latitud": 2.401195,
-      "longitud": -75.531242
+      "lectura_actual": 4990,
+      "latitud": 2.401344,
+      "longitud": -75.531326
     },
     {
       "codigo": "PUE-102-064",
       "nombre": "FLOR ALBA MOTTA",
       "celular": null,
-      "lectura_actual": 4156,
-      "latitud": 2.401312,
-      "longitud": -75.531331
+      "lectura_actual": 4168,
+      "latitud": 2.401389,
+      "longitud": -75.531298
     },
     {
       "codigo": "PUE-102-065",
       "nombre": "MARLENY MOTTA",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.401315,
-      "longitud": -75.531371
+      "latitud": 2.401404,
+      "longitud": -75.531346
     },
     {
       "codigo": "PUE-102-066",
       "nombre": "LUCÉLIDA RAMÍREZ",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.401368,
-      "longitud": -75.531335
+      "latitud": 2.401407,
+      "longitud": -75.531334
     },
     {
       "codigo": "PUE-102-067",
       "nombre": "FLOR FLOREZ",
       "celular": null,
-      "lectura_actual": 2824,
-      "latitud": 2.400827,
-      "longitud": -75.534379
+      "lectura_actual": 2852,
+      "latitud": 2.401443,
+      "longitud": -75.531334
     },
     {
       "codigo": "PUE-102-068",
       "nombre": "MANUEL AGUSTÍN GARCÍA",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.400827,
-      "longitud": -75.534379
+      "latitud": 2.400732,
+      "longitud": -75.534665
     },
     {
       "codigo": "PUE-103-069",
       "nombre": "AMPARO LOSADA",
       "celular": "3214314704",
-      "lectura_actual": 0,
-      "latitud": 2.402157,
-      "longitud": -75.529313
+      "lectura_actual": 2830,
+      "latitud": 2.401808,
+      "longitud": -75.529028
     },
     {
       "codigo": "PUE-103-070",
       "nombre": "MARINA COQUECO",
       "celular": "3155925829",
-      "lectura_actual": 1824,
-      "latitud": 2.402155,
-      "longitud": -75.529314
+      "lectura_actual": 1843,
+      "latitud": 2.402177,
+      "longitud": -75.529332
     },
     {
       "codigo": "PUE-103-071",
       "nombre": "MARÍA FERNANDA PASTRANA",
       "celular": "3103337532",
-      "lectura_actual": 979,
-      "latitud": 2.402317,
-      "longitud": -75.52935
+      "lectura_actual": 994,
+      "latitud": 2.402545,
+      "longitud": -75.529606
     },
     {
       "codigo": "PUE-103-072",
       "nombre": "CLARA MERCEDES FIGUEROA",
       "celular": "3115203728",
-      "lectura_actual": 717,
-      "latitud": 2.401151,
-      "longitud": -75.531236
+      "lectura_actual": 742,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-103-073",
       "nombre": "CECILIA RUIZ",
       "celular": "3142851230",
-      "lectura_actual": 4393,
-      "latitud": 2.402597,
-      "longitud": -75.529613
+      "lectura_actual": 4450,
+      "latitud": 2.402553,
+      "longitud": -75.529586
     },
     {
       "codigo": "PUE-103-074",
       "nombre": "BLANCA CÁRDENAS",
       "celular": "3213405781",
       "lectura_actual": 0,
-      "latitud": 2.403332,
-      "longitud": -75.53034
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-103-075",
       "nombre": "ALICIA VELASCO - 1",
       "celular": null,
-      "lectura_actual": 2557,
-      "latitud": 2.403277,
-      "longitud": -75.530419
+      "lectura_actual": 2558,
+      "latitud": 2.403305,
+      "longitud": -75.530516
     },
     {
       "codigo": "PUE-103-076",
       "nombre": "JAIRO JIMÉNEZ VELASCO",
       "celular": null,
-      "lectura_actual": 721,
-      "latitud": 2.403317,
-      "longitud": -75.530371
+      "lectura_actual": 0,
+      "latitud": 2.403305,
+      "longitud": -75.530516
     },
     {
       "codigo": "PUE-103-077",
       "nombre": "NANCY JIMÉNEZ VELASCO",
       "celular": null,
-      "lectura_actual": 4496,
-      "latitud": 2.403278,
-      "longitud": -75.530438
+      "lectura_actual": 4528,
+      "latitud": 2.403323,
+      "longitud": -75.530539
     },
     {
       "codigo": "PUE-103-078",
       "nombre": "EMILIO ROJAS",
       "celular": null,
-      "lectura_actual": 50,
-      "latitud": 2.403276,
-      "longitud": -75.530365
+      "lectura_actual": 0,
+      "latitud": 2.403035,
+      "longitud": -75.530193
     },
     {
       "codigo": "PUE-103-079",
       "nombre": "YOLANDA PERDOMO DE AGUDELO",
       "celular": "3186142362",
-      "lectura_actual": 3014,
-      "latitud": 2.402781,
-      "longitud": -75.530208
+      "lectura_actual": 3032,
+      "latitud": 2.402757,
+      "longitud": -75.529947
     },
     {
       "codigo": "PUE-103-080",
       "nombre": "ROSALBA ARDILA",
       "celular": "3107588207",
       "lectura_actual": 0,
-      "latitud": 2.402805,
-      "longitud": -75.529766
+      "latitud": 2.402678,
+      "longitud": -75.529808
     },
     {
       "codigo": "PUE-103-081",
       "nombre": "DORIAN CUÉLLAR",
       "celular": "3142292278",
-      "lectura_actual": 1114,
-      "latitud": 2.402422,
-      "longitud": -75.529517
+      "lectura_actual": 1157,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-103-082",
       "nombre": "GUSTAVO MONTILLA - 1",
       "celular": "3134082240",
-      "lectura_actual": 591,
-      "latitud": 2.401535,
-      "longitud": -75.52916
+      "lectura_actual": 602,
+      "latitud": 2.401562,
+      "longitud": -75.529054
     },
     {
       "codigo": "PUE-104-083",
       "nombre": "ONORIO BAHAMÓN",
       "celular": null,
-      "lectura_actual": 4730,
-      "latitud": 2.403239,
-      "longitud": -75.528874
+      "lectura_actual": 4752,
+      "latitud": 2.403291,
+      "longitud": -75.528847
     },
     {
       "codigo": "PUE-104-084",
       "nombre": "GLADYS FIGUERÓA RUIZ",
       "celular": "3176779095",
-      "lectura_actual": 0,
-      "latitud": 2.403433,
-      "longitud": -75.528707
+      "lectura_actual": 3965,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-104-085",
       "nombre": "MÉLIDA SÁNCHEZ",
       "celular": "3112712026",
       "lectura_actual": 0,
-      "latitud": 2.403432,
+      "latitud": 2.403498,
       "longitud": -75.528674
     },
     {
       "codigo": "PUE-104-086",
       "nombre": "BORIS RENÉ RÍOS COQUECO",
       "celular": "3158318006",
-      "lectura_actual": 5792,
-      "latitud": 2.40348,
-      "longitud": -75.528689
+      "lectura_actual": 5800,
+      "latitud": 2.403507,
+      "longitud": -75.528664
     },
     {
       "codigo": "PUE-104-087",
       "nombre": "VIVIANA MONTEALEGRE",
       "celular": null,
-      "lectura_actual": 4500,
-      "latitud": 2.403497,
-      "longitud": -75.5286811
+      "lectura_actual": 4516,
+      "latitud": 2.403522,
+      "longitud": -75.528661
     },
     {
       "codigo": "PUE-104-088",
       "nombre": "ALBEIRO PERDOMO",
       "celular": "3138097502",
-      "lectura_actual": 3799,
-      "latitud": 2.403522,
-      "longitud": -75.528671
+      "lectura_actual": 3817,
+      "latitud": 2.403518,
+      "longitud": -75.528664
     },
     {
       "codigo": "PUE-104-089",
       "nombre": "MATILDE ROJAS VILLEGAS",
       "celular": "3105619202",
       "lectura_actual": 0,
-      "latitud": 2.404737,
-      "longitud": -75.528168
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-104-090",
       "nombre": "LUZ MARY RUIZ",
       "celular": "3203008818",
       "lectura_actual": 3707,
-      "latitud": 2.403713,
-      "longitud": -75.528924
+      "latitud": 2.403677,
+      "longitud": -75.528936
     },
     {
       "codigo": "PUE-104-091",
       "nombre": "EMERSON EMBUS - 1",
       "celular": null,
-      "lectura_actual": 55,
-      "latitud": 2.403663,
-      "longitud": -75.528964
+      "lectura_actual": 60,
+      "latitud": 2.403675,
+      "longitud": -75.528956
     },
     {
       "codigo": "PUE-104-092",
       "nombre": "NELCY CASTAÑEDA MAYORCA",
       "celular": null,
-      "lectura_actual": 1073,
-      "latitud": 2.403616,
-      "longitud": -75.528989
+      "lectura_actual": 1094,
+      "latitud": 2.403667,
+      "longitud": -75.528944
     },
     {
       "codigo": "PUE-104-093",
       "nombre": "ANA MARIA ROJAS",
       "celular": null,
       "lectura_actual": 5573,
-      "latitud": 2.403656,
-      "longitud": -75.528955
+      "latitud": 2.403674,
+      "longitud": -75.528981
     },
     {
       "codigo": "PUE-104-094",
       "nombre": "REINALDO CARVAJAL",
       "celular": null,
-      "lectura_actual": 3097,
-      "latitud": 2.403591,
-      "longitud": -75.5289998
+      "lectura_actual": 3100,
+      "latitud": 2.403632,
+      "longitud": -75.528998
     },
     {
       "codigo": "PUE-104-095",
       "nombre": "PAULETTE RUIZ",
       "celular": "3234890218",
-      "lectura_actual": 304,
-      "latitud": 2.403578,
-      "longitud": -75.529025
+      "lectura_actual": 318,
+      "latitud": 2.403634,
+      "longitud": -75.529023
     },
     {
       "codigo": "PUE-104-096",
       "nombre": "EDNA ROCÍO LOSADA",
       "celular": "3202341356",
-      "lectura_actual": 0,
-      "latitud": 2.403535,
-      "longitud": -75.529065
+      "lectura_actual": 2303,
+      "latitud": 2.403621,
+      "longitud": -75.529054
     },
     {
       "codigo": "PUE-104-097",
       "nombre": "GIOVANNY RÍOS",
       "celular": "3144910491",
       "lectura_actual": 9102,
-      "latitud": 2.403473,
-      "longitud": -75.529025
+      "latitud": 2.403509,
+      "longitud": -75.529019
     },
     {
       "codigo": "PUE-104-098",
       "nombre": "BERTILDA BELTRÁN",
       "celular": "3123317982",
       "lectura_actual": 2985,
-      "latitud": 2.403493,
-      "longitud": -75.52905
+      "latitud": 2.403538,
+      "longitud": -75.529072
     },
     {
       "codigo": "PUE-104-099",
       "nombre": "MAGALI YANTÉN",
       "celular": "3188177914",
-      "lectura_actual": 3136,
-      "latitud": 2.403437,
-      "longitud": -75.529087
+      "lectura_actual": 3145,
+      "latitud": 2.403475,
+      "longitud": -75.529066
     },
     {
       "codigo": "PUE-104-100",
       "nombre": "LOURDES CASTILLO",
       "celular": "3133611892",
-      "lectura_actual": 5444,
-      "latitud": 2.403438,
-      "longitud": -75.529099
+      "lectura_actual": 5463,
+      "latitud": 2.403472,
+      "longitud": -75.529062
     },
     {
       "codigo": "PUE-104-101",
       "nombre": "MARTHA CRISTINA RUIZ",
       "celular": "3124513117",
       "lectura_actual": 0,
-      "latitud": 2.403353,
-      "longitud": -75.529149
+      "latitud": 2.403366,
+      "longitud": -75.529151
     },
     {
       "codigo": "PUE-104-102",
       "nombre": "BLANCA AMEZQUITA",
       "celular": null,
-      "lectura_actual": 7171,
-      "latitud": 2.403374,
-      "longitud": -75.529101
+      "lectura_actual": 7172,
+      "latitud": 2.403351,
+      "longitud": -75.529184
     },
     {
       "codigo": "PUE-104-103",
       "nombre": "LUIS ERNESTO FAJARDO",
       "celular": "3124322086",
-      "lectura_actual": 0,
-      "latitud": 2.403541,
-      "longitud": -75.529364
+      "lectura_actual": 2995,
+      "latitud": 2.403363,
+      "longitud": -75.529232
     },
     {
       "codigo": "PUE-104-104",
       "nombre": "JHON JAUMER URRIAGO",
       "celular": null,
-      "lectura_actual": 4484,
-      "latitud": 2.403547,
-      "longitud": -75.529368
+      "lectura_actual": 4503,
+      "latitud": 2.403611,
+      "longitud": -75.529418
     },
     {
       "codigo": "PUE-104-105",
       "nombre": "ARMANDO COQUECO",
       "celular": "3041175299",
-      "lectura_actual": 0,
-      "latitud": 2.403711,
-      "longitud": -75.529304
+      "lectura_actual": 4688,
+      "latitud": 2.403697,
+      "longitud": -75.529406
     },
     {
       "codigo": "PUE-104-106",
       "nombre": "NOHORA FAJARDO",
       "celular": "3222013378",
-      "lectura_actual": 4363,
-      "latitud": 2.403724,
-      "longitud": -75.529346
+      "lectura_actual": 4380,
+      "latitud": 2.403656,
+      "longitud": -75.529361
     },
     {
       "codigo": "PUE-104-107",
       "nombre": "GUSTAVO SÁNCHEZ",
       "celular": "3224177914",
-      "lectura_actual": 3715,
-      "latitud": 2.403303,
-      "longitud": -75.529188
+      "lectura_actual": 3734,
+      "latitud": 2.403745,
+      "longitud": -75.529353
     },
     {
       "codigo": "PUE-104-108",
       "nombre": "MÓNICA POLANÍA QUINTERO",
       "celular": "3102474616",
-      "lectura_actual": 1072,
-      "latitud": 2.403736,
-      "longitud": -75.529246
+      "lectura_actual": 1175,
+      "latitud": 2.403738,
+      "longitud": -75.529357
     },
     {
       "codigo": "PUE-104-109",
       "nombre": "ADOLFO FAJARDO",
       "celular": "3142448145",
-      "lectura_actual": 4387,
-      "latitud": 2.403759,
-      "longitud": -75.529247
+      "lectura_actual": 4402,
+      "latitud": 2.403851,
+      "longitud": -75.529257
     },
     {
       "codigo": "PUE-104-110",
       "nombre": "GLORIA COQUECO",
       "celular": "3132571795",
-      "lectura_actual": 2557,
-      "latitud": 2.403852,
-      "longitud": -75.529137
+      "lectura_actual": 2571,
+      "latitud": 2.403856,
+      "longitud": -75.529262
     },
     {
       "codigo": "PUE-104-111",
       "nombre": "DIEGO ANDRÉS MANRIQUE",
       "celular": "3125244488",
-      "lectura_actual": 6770,
-      "latitud": 2.403808,
-      "longitud": -75.529231
+      "lectura_actual": 0,
+      "latitud": 2.403903,
+      "longitud": -75.529216
     },
     {
       "codigo": "PUE-104-112",
       "nombre": "CAMILO MANRIQUE",
       "celular": "3114959041",
-      "lectura_actual": 0,
-      "latitud": 2.403734,
-      "longitud": -75.529231
+      "lectura_actual": 2904,
+      "latitud": 2.403931,
+      "longitud": -75.529156
     },
     {
       "codigo": "PUE-104-113",
       "nombre": "HERNÁN CAMILO MANRIQUE",
       "celular": "3118200102",
-      "lectura_actual": 1162,
-      "latitud": 2.403855,
-      "longitud": -75.529431
+      "lectura_actual": 1196,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-104-114",
       "nombre": "SERGIO VILLA",
       "celular": "3222145669",
       "lectura_actual": 0,
-      "latitud": 2.403529,
-      "longitud": -75.529314
+      "latitud": 2.403719,
+      "longitud": -75.529451
     },
     {
       "codigo": "PUE-105-115",
       "nombre": "AVELINO MOSQUERA",
       "celular": "3102801359",
-      "lectura_actual": 1248,
-      "latitud": 2.400664,
-      "longitud": -75.534744
+      "lectura_actual": 1261,
+      "latitud": 2.401443,
+      "longitud": -75.531334
     },
     {
       "codigo": "PUE-105-116",
       "nombre": "IVÁN PERDOMO",
       "celular": null,
       "lectura_actual": 4604,
-      "latitud": 2.403205,
-      "longitud": -75.536663
+      "latitud": 2.401443,
+      "longitud": -75.531334
     },
     {
       "codigo": "PUE-105-117",
       "nombre": "CARMENZA PIEDRAHITA",
       "celular": null,
       "lectura_actual": 2010,
-      "latitud": 2.397893,
-      "longitud": -75.536366
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-105-118",
       "nombre": "ALVARO OSPINA",
       "celular": null,
-      "lectura_actual": 255,
-      "latitud": 2.397467,
-      "longitud": -75.537574
+      "lectura_actual": 312,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-105-119",
       "nombre": "RICARDO TOVAR - 1",
       "celular": null,
-      "lectura_actual": 975,
-      "latitud": 2.398484,
-      "longitud": -75.537897
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-105-120",
       "nombre": "DEIBY CUELLAR (INTERLAKEN)",
       "celular": "3506423298",
-      "lectura_actual": 1414,
-      "latitud": 2.397312,
-      "longitud": -75.537527
+      "lectura_actual": 1446,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-105-121",
       "nombre": "ALCANOS DE COLOMBIA S.A.",
       "celular": null,
-      "lectura_actual": 0,
-      "latitud": 2.396618,
-      "longitud": -75.538358
+      "lectura_actual": 2477,
+      "latitud": 2.396652,
+      "longitud": -75.538179
     },
     {
       "codigo": "PUE-105-122",
       "nombre": "DAGOBERTO ROJAS -EDS LOS HALCONES",
       "celular": null,
       "lectura_actual": 782,
-      "latitud": 2.396908,
-      "longitud": -75.538575
+      "latitud": 2.396692,
+      "longitud": -75.538355
     },
     {
       "codigo": "PUE-105-123",
       "nombre": "DAGOBERTO ROJAS-CAFETERÍA",
       "celular": null,
-      "lectura_actual": 1842,
-      "latitud": 2.396586,
-      "longitud": -75.53841
+      "lectura_actual": 1742,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-105-124",
       "nombre": "GABRIEL MOSQUERA",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.396685,
-      "longitud": -75.539029
+      "latitud": 2.396727,
+      "longitud": -75.539084
     },
     {
       "codigo": "PUE-105-125",
       "nombre": "RUBY TAMAYO",
       "celular": null,
-      "lectura_actual": 4041,
-      "latitud": 2.39668,
-      "longitud": -75.539026
+      "lectura_actual": 4046,
+      "latitud": 2.396691,
+      "longitud": -75.538973
     },
     {
       "codigo": "PUE-105-126",
       "nombre": "MARLENY MOSQUERA",
       "celular": "314287407",
       "lectura_actual": 0,
-      "latitud": 2.396523,
-      "longitud": -75.539204
+      "latitud": 2.396669,
+      "longitud": -75.538355
     },
     {
       "codigo": "PUE-105-127",
       "nombre": "MANUEL MOSQUERA",
       "celular": "3118483894",
       "lectura_actual": 3933,
-      "latitud": 2.396547,
-      "longitud": -75.539203
+      "latitud": 2.396659,
+      "longitud": -75.538384
     },
     {
       "codigo": "PUE-105-128",
       "nombre": "JHON JAIRO MOSQUERA",
       "celular": "3186219971",
-      "lectura_actual": 5465,
-      "latitud": 2.396523,
-      "longitud": -75.539225
+      "lectura_actual": 5496,
+      "latitud": 2.396636,
+      "longitud": -75.538416
     },
     {
       "codigo": "PUE-105-129",
       "nombre": "ALFONSO MARTÍNEZ - 1",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.399463,
-      "longitud": -75.525697
+      "latitud": 2.396702,
+      "longitud": -75.539026
     },
     {
       "codigo": "PUE-105-130",
       "nombre": "JAIRO FIGUEROA",
       "celular": "3166199173",
-      "lectura_actual": 795,
-      "latitud": 2.393595,
-      "longitud": -75.541615
+      "lectura_actual": 848,
+      "latitud": 2.392933,
+      "longitud": -75.542502
     },
     {
       "codigo": "PUE-105-131",
       "nombre": "ADELA MANRIQUE",
       "celular": null,
-      "lectura_actual": 0,
-      "latitud": 2.392905,
-      "longitud": -75.542436
+      "lectura_actual": 3507,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-105-132",
       "nombre": "BÚCAROS (JAIME PINEDA)",
       "celular": null,
-      "lectura_actual": 1710,
-      "latitud": 2.392961,
-      "longitud": -75.543155
+      "lectura_actual": 1735,
+      "latitud": 2.392893,
+      "longitud": -75.543195
     },
     {
       "codigo": "PUE-105-133",
       "nombre": "SORAYA CARVAJAL",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.392226,
-      "longitud": -75.543581
+      "latitud": 2.392086,
+      "longitud": -75.543606
     },
     {
       "codigo": "PUE-105-134",
       "nombre": "KELY JOHANA QUINTERO (REST. LLANERO)ABANDONADO",
       "celular": null,
-      "lectura_actual": null,
-      "latitud": 2.392214,
-      "longitud": -75.543583
+      "lectura_actual": 0,
+      "latitud": 2.392084,
+      "longitud": -75.543608
     },
     {
       "codigo": "PUE-105-135",
       "nombre": "SABINA ORTIZ",
       "celular": null,
       "lectura_actual": 4761,
-      "latitud": 2.392199,
-      "longitud": -75.543589
+      "latitud": 2.392075,
+      "longitud": -75.543607
     },
     {
       "codigo": "PUE-105-136",
       "nombre": "REYNEL MARÍN",
       "celular": "3107548509",
       "lectura_actual": 617,
-      "latitud": 2.392199,
-      "longitud": -75.543589
+      "latitud": 2.392297,
+      "longitud": -75.543502
     },
     {
       "codigo": "PUE-105-137",
       "nombre": "LEONOR CHAVARRO",
       "celular": "3204138804",
       "lectura_actual": 0,
-      "latitud": 2.393593,
-      "longitud": -75.541621
+      "latitud": 2.392948,
+      "longitud": -75.542478
     },
     {
       "codigo": "PUE-105-138",
       "nombre": "EFRAÍN MARTINEZ",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.398631,
-      "longitud": -75.536139
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-105-139",
       "nombre": "MARTHA PATRICIA LASSO (VILLA TINA)",
       "celular": "3204221406",
-      "lectura_actual": 7522,
-      "latitud": 2.397437,
-      "longitud": -75.537598
+      "lectura_actual": 7550,
+      "latitud": 2.397454,
+      "longitud": -75.537588
     },
     {
       "codigo": "PUE-105-140",
       "nombre": "MARTHA PATRICIA LASSO (LA ARRIERÍA)",
       "celular": "3204221406",
-      "lectura_actual": 2691,
-      "latitud": 2.397469,
-      "longitud": -75.537602
+      "lectura_actual": 2727,
+      "latitud": 2.397483,
+      "longitud": -75.537526
     },
     {
       "codigo": "PUE-105-141",
       "nombre": "DIANA CAROLINA AVILA (SOL Y LUNA)",
       "celular": "3165304265",
-      "lectura_actual": 792,
-      "latitud": 2.396933,
-      "longitud": -75.537468
+      "lectura_actual": 805,
+      "latitud": 2.397429,
+      "longitud": -75.537588
     },
     {
       "codigo": "PUE-105-142",
       "nombre": "DIANA CAROLINA AVILA (AVENTURAS DE GTES)",
       "celular": "3212682514",
       "lectura_actual": 0,
-      "latitud": 2.397396,
-      "longitud": -75.537607
+      "latitud": 2.397348,
+      "longitud": -75.537627
     },
     {
       "codigo": "PUE-105-143",
       "nombre": "DIANA CAROLINA AVILA (MAÍCES FOOD)",
       "celular": "3102291841",
       "lectura_actual": 191,
-      "latitud": 2.397882,
-      "longitud": -75.536373
+      "latitud": 2.397796,
+      "longitud": -75.536499
     },
     {
       "codigo": "PUE-105-144",
       "nombre": "CARLOS REYNALDO ALVAREZ",
       "celular": null,
-      "lectura_actual": 5480,
-      "latitud": 2.403327,
-      "longitud": -75.530342
+      "lectura_actual": 5504,
+      "latitud": 2.403304,
+      "longitud": -75.530516
     },
     {
       "codigo": "PUE-105-145",
       "nombre": "EDGAR CERQUERA CARDOZO",
       "celular": "3124728962",
       "lectura_actual": 0,
-      "latitud": 2.403575,
-      "longitud": -75.533012
+      "latitud": 2.403408,
+      "longitud": -75.533371
     },
     {
       "codigo": "PUE-105-146",
       "nombre": "CARMENZA PASTRANA",
       "celular": null,
-      "lectura_actual": 290,
-      "latitud": 2.403575,
-      "longitud": -75.533012
+      "lectura_actual": 0,
+      "latitud": 2.403415,
+      "longitud": -75.533361
     },
     {
       "codigo": "PUE-105-147",
       "nombre": "HERMELINA ANACONA - 1",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.404101,
-      "longitud": -75.531517
+      "latitud": 2.404389,
+      "longitud": -75.531386
     },
     {
       "codigo": "PUE-105-148",
       "nombre": "JOSÉ FAIVER GUZMÁN",
       "celular": null,
-      "lectura_actual": 37,
-      "latitud": 2.404102,
-      "longitud": -75.531516
+      "lectura_actual": 0,
+      "latitud": 2.404389,
+      "longitud": -75.531387
     },
     {
       "codigo": "PUE-105-149",
       "nombre": "HERMELINA ANACONA - 2",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.404099,
-      "longitud": -75.531521
+      "latitud": 2.404389,
+      "longitud": -75.531386
     },
     {
       "codigo": "PUE-105-150",
       "nombre": "GLORIA AZUCENA TELLO",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.399462,
-      "longitud": -75.525698
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-105-151",
       "nombre": "MERCEDES GALINDO",
       "celular": null,
-      "lectura_actual": 290,
-      "latitud": 2.404098,
-      "longitud": -75.531523
+      "lectura_actual": 0,
+      "latitud": 2.404351,
+      "longitud": -75.531466
     },
     {
       "codigo": "PUE-105-152",
       "nombre": "MARÍA GLADYS GORDILLO",
       "celular": "3143886030",
-      "lectura_actual": 6678,
-      "latitud": 2.404099,
-      "longitud": -75.53152
+      "lectura_actual": 6784,
+      "latitud": 2.404389,
+      "longitud": -75.531387
     },
     {
       "codigo": "PUE-105-153",
       "nombre": "JOSÉ RUFINO LEÓN",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.404297,
-      "longitud": -75.531583
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-105-154",
       "nombre": "HELÍ PASTRANA",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.405231,
-      "longitud": -75.532024
+      "latitud": 2.401753,
+      "longitud": -75.531273
     },
     {
       "codigo": "PUE-105-155",
       "nombre": "JAIME PINEDA (TRILLADORA)",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.405296,
-      "longitud": -75.531898
+      "latitud": 2.405289,
+      "longitud": -75.531869
     },
     {
       "codigo": "PUE-105-156",
       "nombre": "LUZ NELLY PLAZAS RUIZ",
       "celular": null,
-      "lectura_actual": 74,
-      "latitud": 2.405007,
-      "longitud": -75.532197
+      "lectura_actual": 78,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-105-157",
       "nombre": "ORLANDO RODRÍGUEZ",
       "celular": "3203890072",
-      "lectura_actual": 2412,
-      "latitud": 2.405302,
-      "longitud": -75.531952
+      "lectura_actual": 2448,
+      "latitud": 2.405274,
+      "longitud": -75.531884
     },
     {
       "codigo": "PUE-105-158",
       "nombre": "RAUL ROJAS",
       "celular": "3208324042",
       "lectura_actual": 4526,
-      "latitud": 2.405322,
-      "longitud": -75.531807
+      "latitud": 2.405287,
+      "longitud": -75.531871
     },
     {
       "codigo": "PUE-105-159",
       "nombre": "URIEL BALDIVIA",
       "celular": "3132454416",
-      "lectura_actual": 4287,
-      "latitud": 2.405343,
-      "longitud": -75.53172
+      "lectura_actual": 4318,
+      "latitud": 2.405287,
+      "longitud": -75.531871
     },
     {
       "codigo": "PUE-105-160",
       "nombre": "BEATRIZ ORTIZ",
       "celular": "3212790377",
-      "lectura_actual": 9078,
-      "latitud": 2.405358,
-      "longitud": -75.531704
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-105-161",
       "nombre": "ADOLFO CRUZ",
       "celular": null,
-      "lectura_actual": 2815,
-      "latitud": 2.405354,
-      "longitud": -75.531709
+      "lectura_actual": 2826,
+      "latitud": 2.405886,
+      "longitud": -75.531136
     },
     {
       "codigo": "PUE-105-162",
       "nombre": "MIRNA SEGURA ALDANA",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.405939,
-      "longitud": -75.531074
+      "latitud": 2.405477,
+      "longitud": -75.531665
     },
     {
       "codigo": "PUE-105-163",
       "nombre": "ROSALBA RAMÍREZ",
       "celular": "3203888686",
       "lectura_actual": 0,
-      "latitud": 2.406026,
-      "longitud": -75.53098
+      "latitud": 2.406302,
+      "longitud": -75.531084
     },
     {
       "codigo": "PUE-105-164",
       "nombre": "CARMEN RITA HERRERA",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.406166,
-      "longitud": -75.531372
+      "latitud": 2.406236,
+      "longitud": -75.531497
     },
     {
       "codigo": "PUE-105-165",
       "nombre": "FLOR ORTENCIA MONTIEL",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.406211,
-      "longitud": -75.531522
+      "latitud": 2.406243,
+      "longitud": -75.531519
     },
     {
       "codigo": "PUE-105-166",
       "nombre": "JAIME PINEDA (VILLA CLAUDIA)",
       "celular": "3208318028",
-      "lectura_actual": 3165,
-      "latitud": 2.406449,
-      "longitud": -75.530896
+      "lectura_actual": 3181,
+      "latitud": 2.406443,
+      "longitud": -75.530879
     },
     {
       "codigo": "PUE-105-167",
       "nombre": "JAIME PINEDA (FINCA)",
       "celular": null,
-      "lectura_actual": 236,
-      "latitud": 2.406468,
-      "longitud": -75.531075
+      "lectura_actual": 263,
+      "latitud": 2.406541,
+      "longitud": -75.530959
     },
     {
       "codigo": "PUE-105-168",
       "nombre": "MANUEL CEDEÑO",
       "celular": "3202772623",
       "lectura_actual": 0,
-      "latitud": 2.400664,
-      "longitud": -75.534744
+      "latitud": 2.403177,
+      "longitud": -75.536659
     },
     {
       "codigo": "PUE-105-169",
       "nombre": "DANIEL MONJE SILVA",
       "celular": null,
-      "lectura_actual": 2978,
-      "latitud": 2.398037,
-      "longitud": -75.537598
+      "lectura_actual": 2982,
+      "latitud": 2.397663,
+      "longitud": -75.537454
     },
     {
       "codigo": "PUE-105-170",
       "nombre": "JAVIER URRIAGO",
       "celular": "3138753940",
-      "lectura_actual": 1636,
-      "latitud": 2.395289,
-      "longitud": -75.539934
+      "lectura_actual": 1662,
+      "latitud": 2.395192,
+      "longitud": -75.539597
     },
     {
       "codigo": "PUE-105-171",
       "nombre": "JORGE I SANMIGUEL",
       "celular": "3117298725",
-      "lectura_actual": 2821,
-      "latitud": 2.403052,
-      "longitud": -75.530253
+      "lectura_actual": 2845,
+      "latitud": 2.402957,
+      "longitud": -75.530141
     },
     {
       "codigo": "PUE-105-172",
       "nombre": "OLGA LILIANA FLOREZ MOTTA",
       "celular": "3154249518",
       "lectura_actual": 1266,
-      "latitud": 2.401718,
-      "longitud": -75.531259
+      "latitud": 2.401756,
+      "longitud": -75.531268
     },
     {
       "codigo": "PUE-105-173",
       "nombre": "HENRY DUSSAN",
       "celular": "3133489263",
-      "lectura_actual": 15,
-      "latitud": 2.398759,
-      "longitud": -75.526203
+      "lectura_actual": 0,
+      "latitud": 2.398626,
+      "longitud": -75.525976
     },
     {
       "codigo": "PUE-105-174",
       "nombre": "MERCEDES PAMA",
       "celular": "3235727604",
       "lectura_actual": 0,
-      "latitud": 2.403246,
-      "longitud": -75.530374
+      "latitud": 2.402854,
+      "longitud": -75.529976
     },
     {
       "codigo": "PUE-105-175",
       "nombre": "DANUBIA VARGAS",
       "celular": "3133501116",
-      "lectura_actual": 3194,
-      "latitud": 2.401737,
-      "longitud": -75.52818
+      "lectura_actual": 3211,
+      "latitud": 2.401697,
+      "longitud": -75.528193
     },
     {
       "codigo": "PUE-105-176",
       "nombre": "EMERSON EMBÚS - 2",
       "celular": null,
-      "lectura_actual": 1428,
-      "latitud": 2.403699,
-      "longitud": -75.528921
+      "lectura_actual": 1438,
+      "latitud": 2.403624,
+      "longitud": -75.528733
     },
     {
       "codigo": "PUE-105-177",
       "nombre": "RICARDO TOVAR - 2",
       "celular": null,
-      "lectura_actual": 2655,
-      "latitud": 2.401409,
-      "longitud": -75.531568
+      "lectura_actual": 2682,
+      "latitud": 2.406188,
+      "longitud": -75.523485
     },
     {
       "codigo": "PUE-105-178",
       "nombre": "ANGEL MARÍA LOSADA",
       "celular": null,
-      "lectura_actual": 5871,
-      "latitud": 2.401424,
-      "longitud": -75.52928
+      "lectura_actual": 5887,
+      "latitud": 2.401464,
+      "longitud": -75.529883
     },
     {
       "codigo": "PUE-105-179",
       "nombre": "GUSTAVO MONTILLA - 2",
       "celular": "3112462085",
-      "lectura_actual": 0,
-      "latitud": 2.401427,
-      "longitud": -75.529302
+      "lectura_actual": 1368,
+      "latitud": 2.401524,
+      "longitud": -75.529259
     },
     {
       "codigo": "PUE-105-180",
       "nombre": "VICKY FERNANDA CEDEÑO",
       "celular": "3185952428",
-      "lectura_actual": 401,
-      "latitud": 2.399252,
-      "longitud": -75.535624
+      "lectura_actual": 439,
+      "latitud": 2.399219,
+      "longitud": -75.535572
     },
     {
       "codigo": "PUE-105-181",
       "nombre": "ANDURINA MONTEALEGRE",
       "celular": "3125820354",
-      "lectura_actual": 7554,
-      "latitud": 2.40134,
-      "longitud": -75.530777
+      "lectura_actual": 7643,
+      "latitud": 2.401345,
+      "longitud": -75.530747
     },
     {
       "codigo": "PUE-105-182",
       "nombre": "EFRAÍN MARÍN",
       "celular": null,
       "lectura_actual": 4060,
-      "latitud": 2.401381,
-      "longitud": -75.531594
+      "latitud": 2.401444,
+      "longitud": -75.531332
     },
     {
       "codigo": "PUE-105-183",
       "nombre": "ALBEIRO SUÁREZ",
       "celular": "3105757708",
-      "lectura_actual": 2,
-      "latitud": 2.393746,
-      "longitud": -75.541578
+      "lectura_actual": 0,
+      "latitud": 2.394407,
+      "longitud": -75.541364
     },
     {
       "codigo": "PUE-105-184",
       "nombre": "HERNAN CAMILO MANRIQUE - 2",
       "celular": "3118200102",
       "lectura_actual": 0,
-      "latitud": 2.403389,
-      "longitud": -75.529092
+      "latitud": 2.403472,
+      "longitud": -75.529093
     },
     {
       "codigo": "PUE-105-185",
       "nombre": "RUBÉN MOSQUERA",
       "celular": "3118483894",
-      "lectura_actual": 485,
-      "latitud": 2.396767,
-      "longitud": -75.539154
+      "lectura_actual": 493,
+      "latitud": 2.396704,
+      "longitud": -75.539108
     },
     {
       "codigo": "PUE-105-186",
       "nombre": "HERNANDO VEGA MURCIA",
       "celular": null,
       "lectura_actual": 2064,
-      "latitud": 2.402845,
-      "longitud": -75.529802
+      "latitud": 2.402754,
+      "longitud": -75.529897
     },
     {
       "codigo": "PUE-105-187",
       "nombre": "MARÍA ODILIA ROMERO",
       "celular": null,
-      "lectura_actual": 3987,
-      "latitud": 2.401715,
+      "lectura_actual": 4010,
+      "latitud": 2.401753,
       "longitud": -75.531273
     },
     {
       "codigo": "PUE-105-188",
       "nombre": "OCTAVIO MANRIQUE",
       "celular": null,
-      "lectura_actual": 1003,
-      "latitud": 2.396639,
-      "longitud": -75.538093
+      "lectura_actual": 1055,
+      "latitud": 2.396691,
+      "longitud": -75.538356
     },
     {
       "codigo": "PUE-105-189",
       "nombre": "LEIDY VIVIANA",
       "celular": "3133914440",
-      "lectura_actual": 0,
-      "latitud": 2.396606,
-      "longitud": -75.53832
+      "lectura_actual": 2821,
+      "latitud": 2.396692,
+      "longitud": -75.538343
     },
     {
       "codigo": "PUE-105-190",
       "nombre": "CRISTIAN HUMBERTO ROJAS",
       "celular": "3212748595",
       "lectura_actual": 675,
-      "latitud": 2.39545,
-      "longitud": -75.539952
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-105-191",
       "nombre": "LIBARDO CHAVARRO",
       "celular": null,
-      "lectura_actual": 574,
-      "latitud": 2.402349,
-      "longitud": -75.530857
+      "lectura_actual": 593,
+      "latitud": 2.401542,
+      "longitud": -75.531048
     },
     {
       "codigo": "PUE-105-192",
       "nombre": "CARMEN FLOREZ",
       "celular": "3133544634",
-      "lectura_actual": 1976,
-      "latitud": 2.400827,
-      "longitud": -75.534379
+      "lectura_actual": 2015,
+      "latitud": 2.401443,
+      "longitud": -75.531335
     },
     {
       "codigo": "PUE-105-193",
       "nombre": "OSCAR ORLANDO AROS",
       "celular": null,
-      "lectura_actual": 1042,
-      "latitud": 2.396642,
-      "longitud": -75.538323
+      "lectura_actual": 5074,
+      "latitud": 2.396723,
+      "longitud": -75.538378
     },
     {
       "codigo": "PUE-105-194",
       "nombre": "CARMEN MARÍA OLAYA",
       "celular": null,
-      "lectura_actual": 883,
-      "latitud": 2.401405,
-      "longitud": -75.531124
+      "lectura_actual": 907,
+      "latitud": 2.401409,
+      "longitud": -75.531307
     },
     {
       "codigo": "PUE-105-195",
       "nombre": "WILLIAM ALEXANDER FLOREZ",
       "celular": "3125914401",
-      "lectura_actual": 473,
-      "latitud": 2.401281,
-      "longitud": -75.53098
+      "lectura_actual": 485,
+      "latitud": 2.401559,
+      "longitud": -75.531016
     },
     {
       "codigo": "PUE-105-196",
       "nombre": "RICARDO DUSSÁN",
       "celular": "3143886030",
-      "lectura_actual": 452,
-      "latitud": 2.404099,
-      "longitud": -75.53152
+      "lectura_actual": 461,
+      "latitud": 2.404389,
+      "longitud": -75.531387
     },
     {
       "codigo": "PUE-105-197",
       "nombre": "LUZ DARY PLAZAS",
       "celular": null,
-      "lectura_actual": 409,
-      "latitud": 2.395414,
-      "longitud": -75.539747
+      "lectura_actual": 418,
+      "latitud": 2.395182,
+      "longitud": -75.539643
     },
     {
       "codigo": "PUE-105-198",
       "nombre": "ANA MARÍA ACOSTA",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.397901,
-      "longitud": -75.536368
+      "latitud": 2.399227,
+      "longitud": -75.535575
     },
     {
       "codigo": "PUE-105-199",
       "nombre": "CLAUDIA MOYA TRIVIÑO",
       "celular": "3154960320",
-      "lectura_actual": 102,
-      "latitud": 2.402817,
-      "longitud": -75.529743
+      "lectura_actual": 104,
+      "latitud": 2.402736,
+      "longitud": -75.529825
     },
     {
       "codigo": "PUE-105-200",
       "nombre": "MÓNICA POLANÍA QUINTERO - 2",
       "celular": "3102474616",
-      "lectura_actual": 1073,
-      "latitud": 2.398724,
-      "longitud": -75.536028
+      "lectura_actual": 676,
+      "latitud": 2.397832,
+      "longitud": -75.536567
     },
     {
       "codigo": "PUE-105-201",
       "nombre": "DIANA CAROLINA AVILA (EL AREPAZZO)",
       "celular": "3128949967",
-      "lectura_actual": 1074,
-      "latitud": 2.397688,
-      "longitud": -75.537629
+      "lectura_actual": 1097,
+      "latitud": 2.397462,
+      "longitud": -75.536853
     },
     {
       "codigo": "PUE-105-202",
       "nombre": "NEYIB CELIS",
       "celular": "3133449404",
-      "lectura_actual": 1928,
-      "latitud": 2.398728,
-      "longitud": -75.535865
+      "lectura_actual": 1960,
+      "latitud": 2.398783,
+      "longitud": -75.535959
     },
     {
       "codigo": "PUE-105-203",
       "nombre": "JUAN DIEGO QUINTERO",
       "celular": null,
-      "lectura_actual": 628,
-      "latitud": 2.402058,
-      "longitud": -75.527907
+      "lectura_actual": 648,
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-105-204",
       "nombre": "MARTHA PATRICIA LASSO - TOMA CAFÉ",
       "celular": null,
-      "lectura_actual": 126,
-      "latitud": 2.397047,
-      "longitud": -75.537314
+      "lectura_actual": 164,
+      "latitud": 2.397482,
+      "longitud": -75.537535
     },
     {
       "codigo": "PUE-105-205",
       "nombre": "MARTHA PATRICIA LASSO - DONDE FAIBER",
       "celular": null,
       "lectura_actual": 3568,
-      "latitud": 2.397858,
-      "longitud": -75.536387
+      "latitud": 2.397445,
+      "longitud": -75.536858
     },
     {
       "codigo": "PUE-105-206",
       "nombre": "DIANA CAROLINA AVILA - LA AMAPOLA",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.397451,
-      "longitud": -75.537608
+      "latitud": 2.397493,
+      "longitud": -75.537597
     },
     {
       "codigo": "PUE-105-207",
       "nombre": "DIANA CAROLINA AVILA - LA CHINGADA",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.397891,
-      "longitud": -75.536366
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-105-208",
       "nombre": "YURY CLANERA MAYORGA CUBILLOS",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.398691,
-      "longitud": -75.536151
+      "latitud": 2.398683,
+      "longitud": -75.537258
     },
     {
       "codigo": "PUE-105-209",
       "nombre": "JAQUELINE CHAVARRO",
       "celular": "3167492631",
       "lectura_actual": 0,
-      "latitud": 2.398794,
-      "longitud": -75.537213
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-105-210",
       "nombre": "LUZ NERY BAHAMON QUINTERO",
       "celular": null,
-      "lectura_actual": 71,
-      "latitud": 2.398671,
-      "longitud": -75.536129
+      "lectura_actual": 90,
+      "latitud": 2.398686,
+      "longitud": -75.536115
     },
     {
       "codigo": "PUE-105-211",
       "nombre": "LUIS HUMBERTO SIERRA GONZALEZ",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.401288,
-      "longitud": -75.531284
+      "latitud": 2.398713,
+      "longitud": -75.537243
     },
     {
       "codigo": "PUE-105-212",
       "nombre": "FEDERACION NACIONAL DE CACAOTEROS",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.396883,
-      "longitud": -75.520889
+      "latitud": 2.401367,
+      "longitud": -75.525088
     },
     {
       "codigo": "PUE-105-213",
       "nombre": "LILIANA OSPINA PIEDRAHITA",
       "celular": null,
       "lectura_actual": 7,
-      "latitud": 2.398778,
-      "longitud": -75.535874
+      "latitud": 2.399166,
+      "longitud": -75.535611
     },
     {
       "codigo": "PUE-105-214",
       "nombre": "OMAR ORTIZ",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.400827,
-      "longitud": -75.534379
+      "latitud": 2.401443,
+      "longitud": -75.531335
     },
     {
       "codigo": "PUE-105-215",
       "nombre": "ARGENIS MONTEALEGRE VEGA",
       "celular": null,
-      "lectura_actual": 46,
-      "latitud": 2.398759,
-      "longitud": -75.535989
+      "lectura_actual": 48,
+      "latitud": 2.398707,
+      "longitud": -75.536011
     },
     {
       "codigo": "PUE-105-216",
       "nombre": "BORIS FERNANDO RÍOS",
       "celular": null,
       "lectura_actual": 0,
-      "latitud": 2.401757,
-      "longitud": -75.528489
+      "latitud": null,
+      "longitud": null
     },
     {
       "codigo": "PUE-105-217",
       "nombre": "GUSTAVO ADOLFO MONTILLA RIOS",
       "celular": null,
-      "lectura_actual": 417,
-      "latitud": 2.401438,
-      "longitud": -75.529287
+      "lectura_actual": 473,
+      "latitud": 2.401528,
+      "longitud": -75.529248
+    },
+    {
+      "codigo": "PUE-105-218",
+      "nombre": "BELISARIO DIAZ BARRERA",
+      "celular": null,
+      "lectura_actual": 5,
+      "latitud": null,
+      "longitud": null
     }
   ]
 }

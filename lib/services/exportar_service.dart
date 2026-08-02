@@ -6,23 +6,23 @@ import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../data/database.dart';
+import '../models/acueducto.dart';
 
 class ExportarService {
   final AppDatabase _db;
+  final Acueducto acueducto;
 
-  ExportarService(this._db);
+  ExportarService(this._db, {required this.acueducto});
 
   // ─────────────────────────────────────────────
   // EXPORTAR LECTURAS DEL DÍA + FOTOS
   // ─────────────────────────────────────────────
 
-  /// Exporta Excel + fotos comprimidos en un ZIP
   Future<String> exportarLecturasDia({DateTime? fecha}) async {
     final dia = fecha ?? DateTime.now();
     final nombreBase =
-        'lecturas_${DateFormat('yyyy-MM-dd').format(dia)}';
+        '${acueducto.nombre}_${DateFormat('yyyy-MM-dd').format(dia)}';
 
-    // Obtener lecturas del día por sector
     final todasLecturas = await _db.obtenerLecturasReales();
     final lecturasHoy = todasLecturas
         .where((l) =>
@@ -31,22 +31,21 @@ class ExportarService {
             l.fechaLectura.day == dia.day)
         .toList();
 
-    final tendido =
-        lecturasHoy.where((l) => l.sector == 'TENDIDO').toList();
-    final recreo =
-        lecturasHoy.where((l) => l.sector == 'RECREO').toList();
-    final puebloNuevo =
-        lecturasHoy.where((l) => l.sector == 'PUEBLO NUEVO').toList();
+    // Agrupar por sector dinámicamente
+    final porSector = <String, List<Lectura>>{};
+    for (final l in lecturasHoy) {
+      final sector = l.sector ?? 'Sin sector';
+      porSector.putIfAbsent(sector, () => []).add(l);
+    }
 
-    // ── Crear Excel ──
+    // Crear Excel con una hoja por sector
     final excel = Excel.createExcel();
     excel.delete('Sheet1');
-    _crearHoja(excel, 'Tendido', tendido);
-    _crearHoja(excel, 'Recreo', recreo);
-    _crearHoja(excel, 'Pueblo Nuevo', puebloNuevo);
-    _crearHojaResumen(excel, tendido, recreo, puebloNuevo, dia);
+    for (final entry in porSector.entries) {
+      _crearHoja(excel, entry.key, entry.value);
+    }
+    _crearHojaResumen(excel, porSector, dia);
 
-    // ── Crear ZIP con Excel + fotos ──
     final rutaZip = await _crearZip(
       excel: excel,
       nombreBase: nombreBase,
@@ -73,50 +72,41 @@ class ExportarService {
     final rutaZip = '${carpeta.path}/$nombreBase.zip';
     encoder.create(rutaZip);
 
-    // ── Agregar Excel al ZIP ──
     final bytesExcel = excel.encode();
     if (bytesExcel == null) throw Exception('Error al generar el Excel');
 
-    final rutaExcelTemp =
-        '${carpeta.path}/${nombreBase}_temp.xlsx';
+    final rutaExcelTemp = '${carpeta.path}/${nombreBase}_temp.xlsx';
     await File(rutaExcelTemp).writeAsBytes(bytesExcel);
     encoder.addFile(File(rutaExcelTemp), '$nombreBase.xlsx');
 
-    // ── Agregar fotos al ZIP ──
     int contadorFoto = 1;
     for (final lectura in lecturas) {
       if (lectura.rutaFoto.isEmpty) continue;
       final archivo = File(lectura.rutaFoto);
       if (!await archivo.exists()) continue;
 
-      // Nombre de la foto: codigo_estado_fecha_001.jpg
-      final codigo =
-          (lectura.codigoMedidor ?? 'SIN_CODIGO').replaceAll(
-              RegExp(r'[^a-zA-Z0-9_-]'), '_');
+      final codigo = (lectura.codigoMedidor ?? 'SIN_CODIGO')
+          .replaceAll(RegExp(r'[^a-zA-Z0-9_-]'), '_');
       final estado = lectura.estadoMedidor != null
           ? '_${lectura.estadoMedidor!.replaceAll(' ', '_')}'
           : '';
-      final fecha =
+      final fechaFoto =
           DateFormat('yyyyMMdd_HHmm').format(lectura.fechaLectura);
       final nombreFoto =
-          'fotos/${codigo}${estado}_${fecha}_${contadorFoto.toString().padLeft(3, '0')}.jpg';
+          'fotos/${codigo}${estado}_${fechaFoto}_${contadorFoto.toString().padLeft(3, '0')}.jpg';
 
       encoder.addFile(archivo, nombreFoto);
       contadorFoto++;
     }
 
     encoder.close();
-
-    // Limpiar Excel temporal
-    try {
-      await File(rutaExcelTemp).delete();
-    } catch (_) {}
+    try { await File(rutaExcelTemp).delete(); } catch (_) {}
 
     return rutaZip;
   }
 
   // ─────────────────────────────────────────────
-  // CREAR HOJA POR SECTOR
+  // CREAR HOJA POR SECTOR — dinámica
   // ─────────────────────────────────────────────
 
   void _crearHoja(
@@ -124,18 +114,9 @@ class ExportarService {
     final hoja = excel[nombreHoja];
 
     _escribirEncabezado(hoja, [
-      'Código',
-      'Nombre Abonado',
-      'Lectura Anterior',
-      'Lectura Actual',
-      'Consumo',
-      'Fecha Lectura',
-      'Hora Lectura',
-      'Estado Medidor',
-      'Latitud',
-      'Longitud',
-      'Precisión GPS (m)',
-      'Observaciones',
+      'Código', 'Nombre Abonado', 'Lectura Anterior', 'Lectura Actual',
+      'Consumo', 'Fecha Lectura', 'Hora Lectura', 'Estado Medidor',
+      'Latitud', 'Longitud', 'Precisión GPS (m)', 'Observaciones',
       'Nombre Foto',
     ]);
 
@@ -143,22 +124,18 @@ class ExportarService {
     for (int i = 0; i < lecturas.length; i++) {
       final l = lecturas[i];
       final fila = i + 1;
-      final consumo =
-          (l.lecturaAnterior != null && l.lectura > 0)
-              ? l.lectura - l.lecturaAnterior!
-              : null;
+      final consumo = (l.lecturaAnterior != null && l.lectura > 0)
+          ? l.lectura - l.lecturaAnterior!
+          : null;
 
-      // Nombre de la foto para referencia en Excel
       String? nombreFoto;
       if (l.rutaFoto.isNotEmpty && File(l.rutaFoto).existsSync()) {
-        final codigo =
-            (l.codigoMedidor ?? 'SIN_CODIGO').replaceAll(
-                RegExp(r'[^a-zA-Z0-9_-]'), '_');
+        final codigo = (l.codigoMedidor ?? 'SIN_CODIGO')
+            .replaceAll(RegExp(r'[^a-zA-Z0-9_-]'), '_');
         final estado = l.estadoMedidor != null
             ? '_${l.estadoMedidor!.replaceAll(' ', '_')}'
             : '';
-        final fecha =
-            DateFormat('yyyyMMdd_HHmm').format(l.fechaLectura);
+        final fecha = DateFormat('yyyyMMdd_HHmm').format(l.fechaLectura);
         nombreFoto =
             'fotos/${codigo}${estado}_${fecha}_${contadorFoto.toString().padLeft(3, '0')}.jpg';
         contadorFoto++;
@@ -174,10 +151,8 @@ class ExportarService {
       _escribirCelda(hoja, fila, 6,
           DateFormat('HH:mm:ss').format(l.fechaLectura));
       _escribirCelda(hoja, fila, 7, l.estadoMedidor ?? 'No reportado');
-      _escribirCeldaNumero(
-          hoja, fila, 8, l.latitud != 0 ? l.latitud : null);
-      _escribirCeldaNumero(
-          hoja, fila, 9, l.longitud != 0 ? l.longitud : null);
+      _escribirCeldaNumero(hoja, fila, 8, l.latitud != 0 ? l.latitud : null);
+      _escribirCeldaNumero(hoja, fila, 9, l.longitud != 0 ? l.longitud : null);
       _escribirCeldaNumero(hoja, fila, 10, l.precision);
       _escribirCelda(hoja, fila, 11, l.notas ?? '');
       _escribirCelda(hoja, fila, 12, nombreFoto ?? 'Sin foto');
@@ -193,54 +168,45 @@ class ExportarService {
   }
 
   // ─────────────────────────────────────────────
-  // HOJA DE RESUMEN
+  // HOJA DE RESUMEN — dinámica
   // ─────────────────────────────────────────────
 
   void _crearHojaResumen(
     Excel excel,
-    List<Lectura> tendido,
-    List<Lectura> recreo,
-    List<Lectura> puebloNuevo,
+    Map<String, List<Lectura>> porSector,
     DateTime fecha,
   ) {
     final hoja = excel['Resumen'];
 
-    _escribirCeldaNegrita(hoja, 0, 0,
-        'REPORTE LECTURAS ASOAGUAPO — ${DateFormat('dd/MM/yyyy').format(fecha)}');
+    _escribirCeldaNegrita(
+      hoja, 0, 0,
+      'REPORTE LECTURAS ${acueducto.nombre} — '
+      '${DateFormat('dd/MM/yyyy').format(fecha)}',
+    );
 
     _escribirEncabezadoDesde(hoja, 2, [
-      'Sector',
-      'Total Leídos',
-      'Sin Lectura (0)',
-      'Con Observación',
-      'Con Foto',
+      'Sector', 'Total Leídos', 'Sin Lectura (0)',
+      'Con Observación', 'Con Foto',
     ]);
 
-    _escribirFilaResumen(hoja, 3, 'Tendido', tendido);
-    _escribirFilaResumen(hoja, 4, 'Recreo', recreo);
-    _escribirFilaResumen(hoja, 5, 'Pueblo Nuevo', puebloNuevo);
+    int fila = 3;
+    final todos = <Lectura>[];
+    for (final entry in porSector.entries) {
+      _escribirFilaResumen(hoja, fila, entry.key, entry.value);
+      todos.addAll(entry.value);
+      fila++;
+    }
 
-    final todos = [...tendido, ...recreo, ...puebloNuevo];
-    const filaTotales = 7;
+    final filaTotales = fila + 1;
     _escribirCeldaNegrita(hoja, filaTotales, 0, 'TOTAL GENERAL');
     _escribirCeldaNumero(hoja, filaTotales, 1, todos.length);
     _escribirCeldaNumero(hoja, filaTotales, 2,
         todos.where((l) => l.lectura == 0).length);
-    _escribirCeldaNumero(
-        hoja,
-        filaTotales,
-        3,
-        todos
-            .where((l) => l.notas != null && l.notas!.isNotEmpty)
-            .length);
-    _escribirCeldaNumero(
-        hoja,
-        filaTotales,
-        4,
-        todos
-            .where((l) =>
-                l.rutaFoto.isNotEmpty && File(l.rutaFoto).existsSync())
-            .length);
+    _escribirCeldaNumero(hoja, filaTotales, 3,
+        todos.where((l) => l.notas != null && l.notas!.isNotEmpty).length);
+    _escribirCeldaNumero(hoja, filaTotales, 4,
+        todos.where((l) =>
+            l.rutaFoto.isNotEmpty && File(l.rutaFoto).existsSync()).length);
 
     _ajustarAnchoColumnas(hoja);
   }
@@ -249,23 +215,13 @@ class ExportarService {
       Sheet hoja, int fila, String sector, List<Lectura> lecturas) {
     _escribirCelda(hoja, fila, 0, sector);
     _escribirCeldaNumero(hoja, fila, 1, lecturas.length);
-    _escribirCeldaNumero(
-        hoja, fila, 2, lecturas.where((l) => l.lectura == 0).length);
-    _escribirCeldaNumero(
-        hoja,
-        fila,
-        3,
-        lecturas
-            .where((l) => l.notas != null && l.notas!.isNotEmpty)
-            .length);
-    _escribirCeldaNumero(
-        hoja,
-        fila,
-        4,
-        lecturas
-            .where((l) =>
-                l.rutaFoto.isNotEmpty && File(l.rutaFoto).existsSync())
-            .length);
+    _escribirCeldaNumero(hoja, fila, 2,
+        lecturas.where((l) => l.lectura == 0).length);
+    _escribirCeldaNumero(hoja, fila, 3,
+        lecturas.where((l) => l.notas != null && l.notas!.isNotEmpty).length);
+    _escribirCeldaNumero(hoja, fila, 4,
+        lecturas.where((l) =>
+            l.rutaFoto.isNotEmpty && File(l.rutaFoto).existsSync()).length);
   }
 
   // ─────────────────────────────────────────────
@@ -291,16 +247,14 @@ class ExportarService {
   }
 
   void _escribirCelda(Sheet hoja, int fila, int col, String valor) {
-    hoja
-        .cell(CellIndex.indexByColumnRow(
+    hoja.cell(CellIndex.indexByColumnRow(
             columnIndex: col, rowIndex: fila))
         .value = TextCellValue(valor);
   }
 
   void _escribirCeldaNumero(Sheet hoja, int fila, int col, num? valor) {
     if (valor == null) return;
-    hoja
-        .cell(CellIndex.indexByColumnRow(
+    hoja.cell(CellIndex.indexByColumnRow(
             columnIndex: col, rowIndex: fila))
         .value = DoubleCellValue(valor.toDouble());
   }
@@ -314,30 +268,25 @@ class ExportarService {
   }
 
   void _ajustarAnchoColumnas(Sheet hoja) {
-    hoja.setColumnWidth(0, 18);  // código
-    hoja.setColumnWidth(1, 35);  // nombre
-    hoja.setColumnWidth(2, 16);  // lectura anterior
-    hoja.setColumnWidth(3, 14);  // lectura actual
-    hoja.setColumnWidth(4, 10);  // consumo
-    hoja.setColumnWidth(5, 14);  // fecha
-    hoja.setColumnWidth(6, 12);  // hora
-    hoja.setColumnWidth(7, 18);  // estado medidor
-    hoja.setColumnWidth(8, 14);  // latitud
-    hoja.setColumnWidth(9, 14);  // longitud
-    hoja.setColumnWidth(10, 16); // precisión
-    hoja.setColumnWidth(11, 40); // observaciones
-    hoja.setColumnWidth(12, 35); // nombre foto
+    hoja.setColumnWidth(0, 18);
+    hoja.setColumnWidth(1, 35);
+    hoja.setColumnWidth(2, 16);
+    hoja.setColumnWidth(3, 14);
+    hoja.setColumnWidth(4, 10);
+    hoja.setColumnWidth(5, 14);
+    hoja.setColumnWidth(6, 12);
+    hoja.setColumnWidth(7, 18);
+    hoja.setColumnWidth(8, 14);
+    hoja.setColumnWidth(9, 14);
+    hoja.setColumnWidth(10, 16);
+    hoja.setColumnWidth(11, 40);
+    hoja.setColumnWidth(12, 35);
   }
 
-  // ─────────────────────────────────────────────
-  // COMPARTIR
-  // ─────────────────────────────────────────────
-
   Future<void> compartirArchivo(String ruta) async {
-    final file = XFile(ruta);
     await Share.shareXFiles(
-      [file],
-      subject: 'Lecturas de medidores ASOAGUAPO',
+      [XFile(ruta)],
+      subject: 'Lecturas de medidores ${acueducto.nombre}',
       text: 'Reporte de lecturas generado desde la app',
     );
   }

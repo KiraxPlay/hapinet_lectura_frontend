@@ -35,7 +35,7 @@ class _HistorialScreenState extends State<HistorialScreen> {
   void initState() {
     super.initState();
     initializeDateFormatting('es', null);
-    _exportar = ExportarService(widget.db);
+    _exportar = ExportarService(widget.db , acueducto: widget.acueducto);
     _historialService = HistorialService(widget.db);
   }
 
@@ -194,7 +194,7 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
     if (_historial == null || _historial!.total == 0) return;
     setState(() => _exportandoPdf = true);
     try {
-      final pdfService = ExportarPdfService(widget.db);
+      final pdfService = ExportarPdfService(widget.db , acueducto: widget.exportar.acueducto);
       final ruta = await pdfService.exportarTodasLasFacturasDelDia(
           fecha: widget.fecha);
       await pdfService.compartirPdf(ruta);

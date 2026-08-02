@@ -2,16 +2,14 @@
 import 'package:flutter/material.dart';
 
 enum EstadoMedidor {
-  bueno,
   danado,
   empanado,
   conFuga,
   sinContador,
   accesoDenegado;
 
-  /// Clave que se guarda en la BD
+  // Clave que se guarda en la BD
   String get clave => switch (this) {
-        EstadoMedidor.bueno => 'bueno',
         EstadoMedidor.danado => 'danado',
         EstadoMedidor.empanado => 'empanado',
         EstadoMedidor.conFuga => 'con_fuga',
@@ -19,9 +17,8 @@ enum EstadoMedidor {
         EstadoMedidor.accesoDenegado => 'acceso_denegado',
       };
 
-  /// Etiqueta visible para el técnico
+  // Etiqueta visible para el técnico
   String get etiqueta => switch (this) {
-        EstadoMedidor.bueno => 'Bueno',
         EstadoMedidor.danado => 'Dañado',
         EstadoMedidor.empanado => 'Empañado',
         EstadoMedidor.conFuga => 'Con fuga',
@@ -29,9 +26,8 @@ enum EstadoMedidor {
         EstadoMedidor.accesoDenegado => 'Acceso denegado',
       };
 
-  /// Ícono representativo
+  // Ícono representativo
   IconData get icono => switch (this) {
-        EstadoMedidor.bueno => Icons.check_circle_outline,
         EstadoMedidor.danado => Icons.build_circle_outlined,
         EstadoMedidor.empanado => Icons.blur_on,
         EstadoMedidor.conFuga => Icons.water_damage_outlined,
@@ -39,19 +35,17 @@ enum EstadoMedidor {
         EstadoMedidor.accesoDenegado => Icons.lock_outline,
       };
 
-  /// Color del marcador en el mapa
+  // Color del marcador en el mapa
   Color get colorMapa => switch (this) {
-        EstadoMedidor.bueno => Colors.green,
         EstadoMedidor.danado => Colors.red,
-        EstadoMedidor.empanado => const Color(0xFFFDD835), // amarillo
+        EstadoMedidor.empanado => const Color(0xFFFDD835),
         EstadoMedidor.conFuga => Colors.blue,
         EstadoMedidor.sinContador => Colors.orange,
-        EstadoMedidor.accesoDenegado => const Color(0xFF424242), // gris oscuro
+        EstadoMedidor.accesoDenegado => const Color(0xFF424242),
       };
 
-  /// Color del badge en listas e historial
+  // Color del badge en listas e historial
   Color get colorBadge => switch (this) {
-        EstadoMedidor.bueno => Colors.green,
         EstadoMedidor.danado => Colors.red,
         EstadoMedidor.empanado => const Color(0xFFF9A825),
         EstadoMedidor.conFuga => Colors.blue,
@@ -59,12 +53,22 @@ enum EstadoMedidor {
         EstadoMedidor.accesoDenegado => Colors.grey.shade700,
       };
 
-  /// Construir desde la clave guardada en BD
+  // Si true → al seleccionar este estado la lectura se pone en 0
+  bool get poneLecturaEnCero => switch (this) {
+        EstadoMedidor.empanado => false,
+        EstadoMedidor.danado => true,
+        EstadoMedidor.conFuga => true,
+        EstadoMedidor.sinContador => true,
+        EstadoMedidor.accesoDenegado => true,
+      };
+
+  // Construir desde la clave guardada en BD
   static EstadoMedidor? desdeClave(String? clave) {
     if (clave == null) return null;
-    return EstadoMedidor.values.firstWhere(
-      (e) => e.clave == clave,
-      orElse: () => EstadoMedidor.bueno,
-    );
+    try {
+      return EstadoMedidor.values.firstWhere((e) => e.clave == clave);
+    } catch (_) {
+      return null;
+    }
   }
 }

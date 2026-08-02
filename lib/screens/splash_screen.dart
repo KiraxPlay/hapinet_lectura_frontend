@@ -2,9 +2,11 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../data/database.dart';
+import '../utils/constantes.dart';
 import '../models/acueducto.dart';
 import '../services/importar_abonados_service.dart';
 import '../services/ocr_service.dart';
+import '../services/asr_service.dart';
 import '../services/tiles_service.dart';
 import 'home_screen.dart';
 
@@ -36,6 +38,7 @@ class _SplashScreenState extends State<SplashScreen>
   // ── Animación de fade del logo ──
   late final AnimationController _fadeCtrl;
   late final Animation<double> _fade;
+
 
   @override
   void initState() {
@@ -87,6 +90,8 @@ class _SplashScreenState extends State<SplashScreen>
       ).importar(),
       ocr.precalentarModelo(),
       tiles.descargarSiNecesario(),
+      // Inicializar Vosk ASR en paralelo — modelo offline de español
+      AsrService.instancia.inicializar(),
       Future.delayed(const Duration(milliseconds: 3200)),
     ]);
 
@@ -184,14 +189,15 @@ class _SplashScreenState extends State<SplashScreen>
           ),
 
           // ── Versión en esquina inferior ──
-          const Positioned(
+          Positioned(
             bottom: 24,
             left: 0,
             right: 0,
             child: Text(
-              'v1.0.0',
+              'v$kVersion — $kNombreApp',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 11, color: Color(0xFF90CAF9)),
+              style: const TextStyle(
+                  fontSize: 11, color: Color(0xFF90CAF9)),
             ),
           ),
         ],
