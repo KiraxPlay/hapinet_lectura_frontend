@@ -1,0 +1,4661 @@
+{
+  "TENDIDO": [
+    {
+      "codigo": "TEN-0001",
+      "nombre": "DIEGO BENÍTEZ",
+      "celular": null,
+      "lectura_actual": 13552,
+      "observaciones": "SE CORRIGE LECTURA ANTERIOR ES 13347",
+      "latitud": 2.388693,
+      "longitud": -75.518402
+    },
+    {
+      "codigo": "TEN-0002",
+      "nombre": "NOLBERTO GALEANO",
+      "celular": "3213887430",
+      "lectura_actual": 0,
+      "observaciones": "promediar Contador no Encontrar",
+      "latitud": 2.387617,
+      "longitud": -75.518323
+    },
+    {
+      "codigo": "TEN-0003",
+      "nombre": "ROBERTO ZAMBRANO",
+      "celular": "3132403441",
+      "lectura_actual": 3352,
+      "observaciones": null,
+      "latitud": 2.388693,
+      "longitud": -75.518402
+    },
+    {
+      "codigo": "TEN-0004",
+      "nombre": "NIRSA ROMERO PERDOMO",
+      "celular": "3125820060",
+      "lectura_actual": 991,
+      "observaciones": null,
+      "latitud": 2.38872,
+      "longitud": -75.520647
+    },
+    {
+      "codigo": "TEN-0005",
+      "nombre": "ALBERT PIÑA QUINTERO",
+      "celular": "3223247496",
+      "lectura_actual": 2940,
+      "observaciones": null,
+      "latitud": 2.387617,
+      "longitud": -75.518323
+    },
+    {
+      "codigo": "TEN-0006",
+      "nombre": "OLGA LUCIA VARGAS",
+      "celular": null,
+      "lectura_actual": 1540,
+      "observaciones": null,
+      "latitud": 2.38872,
+      "longitud": -75.520647
+    },
+    {
+      "codigo": "TEN-0007",
+      "nombre": "SANDRA RODRÍGUEZ",
+      "celular": "3123520954",
+      "lectura_actual": 0,
+      "observaciones": "es un punto  \ncargo básico",
+      "latitud": 2.387657,
+      "longitud": -75.536447
+    },
+    {
+      "codigo": "TEN-0008",
+      "nombre": "GLADYS ESCOBAR",
+      "celular": null,
+      "lectura_actual": 3369,
+      "observaciones": null,
+      "latitud": 2.388475,
+      "longitud": -75.520238
+    },
+    {
+      "codigo": "TEN-0009",
+      "nombre": "ANA JULIA ESCOBAR",
+      "celular": "32221655342",
+      "lectura_actual": 2800,
+      "observaciones": null,
+      "latitud": 2.38855,
+      "longitud": -75.520888
+    },
+    {
+      "codigo": "TEN-0010",
+      "nombre": "LUIS FELIPE AROS",
+      "celular": "3209587701",
+      "lectura_actual": 655,
+      "observaciones": null,
+      "latitud": 2.38889,
+      "longitud": -75.521607
+    },
+    {
+      "codigo": "TEN-0011",
+      "nombre": "ANÍBAL ALMARIO CAVIEDES",
+      "celular": null,
+      "lectura_actual": 642,
+      "observaciones": null,
+      "latitud": 2.388802,
+      "longitud": -75.522307
+    },
+    {
+      "codigo": "TEN-0012",
+      "nombre": "JOSÉ ESCOBAR ROJAS",
+      "celular": "3134837754",
+      "lectura_actual": 1157,
+      "observaciones": "promediar Consumo",
+      "latitud": 2.388713,
+      "longitud": -75.522502
+    },
+    {
+      "codigo": "TEN-0013",
+      "nombre": "JESÚS ANTONIO ALMARIO",
+      "celular": "3134657308",
+      "lectura_actual": 3527,
+      "observaciones": null,
+      "latitud": 2.388952,
+      "longitud": -75.522392
+    },
+    {
+      "codigo": "TEN-0014",
+      "nombre": "MILTON MONTERO PÉREZ",
+      "celular": "3103132699",
+      "lectura_actual": 1726,
+      "observaciones": "casa campo Mir",
+      "latitud": 2.388582,
+      "longitud": -75.522683
+    },
+    {
+      "codigo": "TEN-0015",
+      "nombre": "DIOSELINA EMBUS",
+      "celular": "3185469494",
+      "lectura_actual": 0,
+      "observaciones": "contador dañado promediar",
+      "latitud": 2.388952,
+      "longitud": -75.522392
+    },
+    {
+      "codigo": "TEN-0016",
+      "nombre": "MIGDONIA RODRÍGUEZ",
+      "celular": "3176004399",
+      "lectura_actual": 3519,
+      "observaciones": "promediar",
+      "latitud": 2.389468,
+      "longitud": -75.521903
+    },
+    {
+      "codigo": "TEN-0017",
+      "nombre": "NINFA ESCOBAR ROJAS",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "sin Acceso A La Vivienda",
+      "latitud": 2.389882,
+      "longitud": -75.521982
+    },
+    {
+      "codigo": "TEN-0018",
+      "nombre": "ISIDRO CASTRO",
+      "celular": "3212285751",
+      "lectura_actual": 7051,
+      "observaciones": null,
+      "latitud": 2.390013,
+      "longitud": -75.522197
+    },
+    {
+      "codigo": "TEN-0019",
+      "nombre": "SÓSIMO ALMARIO",
+      "celular": "3125610310",
+      "lectura_actual": 2398,
+      "observaciones": null,
+      "latitud": 2.390252,
+      "longitud": -75.522038
+    },
+    {
+      "codigo": "TEN-0020",
+      "nombre": "EDUVIJES ALMARIO",
+      "celular": "3103392420",
+      "lectura_actual": 6154,
+      "observaciones": "el Contador Está Dañado \ntiene Mucho Consumo De agua Toca Promediar",
+      "latitud": 2.390312,
+      "longitud": -75.522095
+    },
+    {
+      "codigo": "TEN-0021",
+      "nombre": "HEBERT ROJAS ALMARIO",
+      "celular": "3214960275",
+      "lectura_actual": 3466,
+      "observaciones": null,
+      "latitud": 2.390312,
+      "longitud": -75.522095
+    },
+    {
+      "codigo": "TEN-0022",
+      "nombre": "MIRTHA CELADA CARDOZO - 1",
+      "celular": null,
+      "lectura_actual": 35,
+      "observaciones": null,
+      "latitud": 2.390625,
+      "longitud": -75.5232
+    },
+    {
+      "codigo": "TEN-0023",
+      "nombre": "GUSTAVO ALMARIO",
+      "celular": "3142563918",
+      "lectura_actual": 215,
+      "observaciones": null,
+      "latitud": 2.391047,
+      "longitud": -75.522247
+    },
+    {
+      "codigo": "TEN-0024",
+      "nombre": "GLORIA GUZMÁN MURCIA",
+      "celular": "3203060736",
+      "lectura_actual": 6630,
+      "observaciones": null,
+      "latitud": 2.391913,
+      "longitud": -75.521348
+    },
+    {
+      "codigo": "TEN-0025",
+      "nombre": "LILIA CAVIEDES",
+      "celular": "3125673313",
+      "lectura_actual": 0,
+      "observaciones": "sin. acceso a la vivienda promediar Consumo",
+      "latitud": 2.390522,
+      "longitud": -75.521988
+    },
+    {
+      "codigo": "TEN-0026",
+      "nombre": "MARIELA CAVIEDES TOVAR",
+      "celular": null,
+      "lectura_actual": 1912,
+      "observaciones": null,
+      "latitud": 2.38991,
+      "longitud": -75.521562
+    },
+    {
+      "codigo": "TEN-0027",
+      "nombre": "MIRTHA CELADA CARDOZO - 2",
+      "celular": null,
+      "lectura_actual": 24,
+      "observaciones": "cargo Básico Casa Desocupada",
+      "latitud": 2.390785,
+      "longitud": -75.522638
+    },
+    {
+      "codigo": "TEN-0028",
+      "nombre": "RULBER SILVA",
+      "celular": "3203300822",
+      "lectura_actual": 88,
+      "observaciones": "2309089 código",
+      "latitud": 2.387768,
+      "longitud": -75.528788
+    },
+    {
+      "codigo": "TEN-0029",
+      "nombre": "MIRTHA CELADA CARDOZO - 3",
+      "celular": null,
+      "lectura_actual": 1509,
+      "observaciones": "cobrar solo el básico",
+      "latitud": 2.390625,
+      "longitud": -75.5232
+    },
+    {
+      "codigo": "TEN-0030",
+      "nombre": "RAMON GIL QUINTERO",
+      "celular": "3208095115",
+      "lectura_actual": 2698,
+      "observaciones": null,
+      "latitud": 2.390855,
+      "longitud": -75.523485
+    },
+    {
+      "codigo": "TEN-0031",
+      "nombre": "HERNANDO ALMARIO",
+      "celular": "3165868749",
+      "lectura_actual": 2340,
+      "observaciones": "promediar",
+      "latitud": 2.390855,
+      "longitud": -75.523485
+    },
+    {
+      "codigo": "TEN-0032",
+      "nombre": "GILMA GALEANO ESCOBAR -2",
+      "celular": null,
+      "lectura_actual": 40,
+      "observaciones": "Suministro de medidor (Cuota 2 de 3)",
+      "latitud": 2.38991,
+      "longitud": -75.521562
+    },
+    {
+      "codigo": "TEN-0033",
+      "nombre": "RUBELIO CIFUENTES",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "promediar",
+      "latitud": 2.392665,
+      "longitud": -75.52109
+    },
+    {
+      "codigo": "TEN-0034",
+      "nombre": "ALDEMAR PUENTES",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "contador no encontrado",
+      "latitud": 2.392477,
+      "longitud": -75.521032
+    },
+    {
+      "codigo": "TEN-0035",
+      "nombre": "ADELA SANCHEZ QUESADA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "cerrado para ingresar A La Vivienda",
+      "latitud": 2.39101,
+      "longitud": -75.522147
+    },
+    {
+      "codigo": "TEN-0036",
+      "nombre": "MARTHA GONZALEZ",
+      "celular": "3159023974",
+      "lectura_actual": 2285,
+      "observaciones": null,
+      "latitud": 2.391202,
+      "longitud": -75.522447
+    },
+    {
+      "codigo": "TEN-0037",
+      "nombre": "SARA LIZ",
+      "celular": null,
+      "lectura_actual": 3930,
+      "observaciones": null,
+      "latitud": 2.391513,
+      "longitud": -75.522495
+    },
+    {
+      "codigo": "TEN-0038",
+      "nombre": "ESCUELA NORMAL SEDE EL TENDIDO",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "contador dañado promediar Consumo",
+      "latitud": 2.391138,
+      "longitud": -75.522605
+    },
+    {
+      "codigo": "TEN-0039",
+      "nombre": "LUZ MARINA FALLA",
+      "celular": "3168825510",
+      "lectura_actual": 0,
+      "observaciones": "casa Deshabitada.\nconsumo Básico",
+      "latitud": 2.390478,
+      "longitud": -75.535947
+    },
+    {
+      "codigo": "TEN-0040",
+      "nombre": "FRANCY ENITH TORRES",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "contador dañado \npromediar Consumo",
+      "latitud": 2.391513,
+      "longitud": -75.522495
+    },
+    {
+      "codigo": "TEN-0041",
+      "nombre": "NANCY QUINTERO",
+      "celular": "3142029542",
+      "lectura_actual": 3928,
+      "observaciones": "promediar Consumo",
+      "latitud": 2.391073,
+      "longitud": -75.52281
+    },
+    {
+      "codigo": "TEN-0042",
+      "nombre": "AURORA FALLA",
+      "celular": "3142029542",
+      "lectura_actual": 0,
+      "observaciones": "código 25020732 promediar Consumo MEDIDOR NUEVO INSTALADO 160 MIL 4 CUOTAS PARA PROXIMA FACTURA",
+      "latitud": 2.390843,
+      "longitud": -75.522835
+    },
+    {
+      "codigo": "TEN-0043",
+      "nombre": "EDGAR TORRES CERÓN",
+      "celular": "3202397513",
+      "lectura_actual": 270,
+      "observaciones": "Suministro de medidor (Cuota 2 de 3)",
+      "latitud": 2.390523,
+      "longitud": -75.523893
+    },
+    {
+      "codigo": "TEN-0044",
+      "nombre": "REYNALDO GUZMÁN ROMERO",
+      "celular": "3153597971",
+      "lectura_actual": 4415,
+      "observaciones": "promediar",
+      "latitud": 2.391706,
+      "longitud": -75.526665
+    },
+    {
+      "codigo": "TEN-0045",
+      "nombre": "CARLOS HUMBERTO ROJAS",
+      "celular": null,
+      "lectura_actual": 356,
+      "observaciones": "25007089 Código",
+      "latitud": 2.399045,
+      "longitud": -75.527488
+    },
+    {
+      "codigo": "TEN-0046",
+      "nombre": "AURORA DE MOTTA",
+      "celular": null,
+      "lectura_actual": 3398,
+      "observaciones": null,
+      "latitud": 2.389085,
+      "longitud": -75.532375
+    },
+    {
+      "codigo": "TEN-0047",
+      "nombre": "BELISARIO MONTEALEGRE",
+      "celular": "3164623229",
+      "lectura_actual": 3704,
+      "observaciones": "código 13 1533015",
+      "latitud": 2.392665,
+      "longitud": -75.52109
+    },
+    {
+      "codigo": "TEN-0048",
+      "nombre": "LUIS HERMINSO RODRIGUEZ - 1",
+      "celular": "3108810378",
+      "lectura_actual": 0,
+      "observaciones": "promediar",
+      "latitud": 2.388883,
+      "longitud": -75.526723
+    },
+    {
+      "codigo": "TEN-0049",
+      "nombre": "NORBERTO QUINTERO",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "Promediar Consumo",
+      "latitud": 2.399465,
+      "longitud": -75.535578
+    },
+    {
+      "codigo": "TEN-0050",
+      "nombre": "ALGEMILBER OSORIO",
+      "celular": null,
+      "lectura_actual": 1268,
+      "observaciones": "cargo básico",
+      "latitud": 2.388475,
+      "longitud": -75.520238
+    },
+    {
+      "codigo": "TEN-0051",
+      "nombre": "NUVIA ALMARIO ESCOBAR",
+      "celular": "3132078384",
+      "lectura_actual": 969,
+      "observaciones": "código 23019181",
+      "latitud": 2.388547,
+      "longitud": -75.522592
+    },
+    {
+      "codigo": "TEN-0052",
+      "nombre": "ARTURO ALMARIO",
+      "celular": null,
+      "lectura_actual": 1164,
+      "observaciones": "promediar Consumo",
+      "latitud": 2.388922,
+      "longitud": -75.521965
+    },
+    {
+      "codigo": "TEN-0053",
+      "nombre": "ISRAEL URIBE ROMERO",
+      "celular": "3124266282",
+      "lectura_actual": 57,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "TEN-0054",
+      "nombre": "LUIS HERMINSO RODRIGUEZ - 2",
+      "celular": "3108810378",
+      "lectura_actual": 0,
+      "observaciones": "promediar",
+      "latitud": 2.388637,
+      "longitud": -75.526873
+    },
+    {
+      "codigo": "TEN-0055",
+      "nombre": "LUCY CRISTINA LONGAS",
+      "celular": "3133102836",
+      "lectura_actual": 4996,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "TEN-0056",
+      "nombre": "RUBIELA TRIVIÑO VALENCIA",
+      "celular": "3132214642",
+      "lectura_actual": 0,
+      "observaciones": "contador empañado promediar",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "TEN-0057",
+      "nombre": "REYNALDO FALLA SON",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "código 14 021611 La Señora Solicito El Cambio De Contador",
+      "latitud": 2.388853,
+      "longitud": -75.522148
+    },
+    {
+      "codigo": "TEN-0058",
+      "nombre": "EPIFANIO ROJAS",
+      "celular": "3156945193",
+      "lectura_actual": 363,
+      "observaciones": null,
+      "latitud": 2.388853,
+      "longitud": -75.522148
+    },
+    {
+      "codigo": "TEN-0059",
+      "nombre": "DAGOBERTO ROJAS GÓMEZ",
+      "celular": "3115509029",
+      "lectura_actual": 0,
+      "observaciones": "promediar Consumo Esta Muy Enmontado",
+      "latitud": 2.387748,
+      "longitud": -75.528162
+    },
+    {
+      "codigo": "TEN-0060",
+      "nombre": "VICTOR FELIX ALDANA",
+      "celular": null,
+      "lectura_actual": 9944,
+      "observaciones": null,
+      "latitud": 2.38838,
+      "longitud": -75.523732
+    },
+    {
+      "codigo": "TEN-0061",
+      "nombre": "ANA SÁNCHEZ",
+      "celular": "3118083799",
+      "lectura_actual": 764,
+      "observaciones": "19 146149 Código \nfinca villa Samoray",
+      "latitud": 2.388635,
+      "longitud": -75.52381
+    },
+    {
+      "codigo": "TEN-0062",
+      "nombre": "CARLINA IQUIRA",
+      "celular": null,
+      "lectura_actual": 91,
+      "observaciones": "Matricula (cuota 9/13)",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "TEN-0063",
+      "nombre": "NEGLY MARTÍNEZ",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "NO SE TOMO LECTURA",
+      "latitud": 2.38769,
+      "longitud": -75.529945
+    },
+    {
+      "codigo": "TEN-0064",
+      "nombre": "JHON FREDY ARIAS",
+      "celular": null,
+      "lectura_actual": 4,
+      "observaciones": null,
+      "latitud": 2.390118,
+      "longitud": -75.531263
+    },
+    {
+      "codigo": "TEN-0065",
+      "nombre": "SANDRA MILENA MEDINA",
+      "celular": "3192710098",
+      "lectura_actual": 720,
+      "observaciones": null,
+      "latitud": 2.388459,
+      "longitud": -75.534419
+    },
+    {
+      "codigo": "TEN-0066",
+      "nombre": "HERIBERTO SANTOS",
+      "celular": null,
+      "lectura_actual": 322,
+      "observaciones": null,
+      "latitud": 2.388627,
+      "longitud": -75.524572
+    },
+    {
+      "codigo": "TEN-0067",
+      "nombre": "CLEMENCIA GUZMÁN",
+      "celular": null,
+      "lectura_actual": 2431,
+      "observaciones": null,
+      "latitud": 2.388512,
+      "longitud": -75.524153
+    },
+    {
+      "codigo": "TEN-0068",
+      "nombre": "CARLOS CÁCERES",
+      "celular": "3142750774",
+      "lectura_actual": 554,
+      "observaciones": "19152659 código",
+      "latitud": 2.3907,
+      "longitud": -75.527948
+    },
+    {
+      "codigo": "TEN-0069",
+      "nombre": "ALEXIS MANRIQUE",
+      "celular": "3167519897",
+      "lectura_actual": 229,
+      "observaciones": null,
+      "latitud": 2.389335,
+      "longitud": -75.532333
+    },
+    {
+      "codigo": "TEN-0070",
+      "nombre": "CRISTIAN MAURICIO DÍAZ",
+      "celular": "3166362825",
+      "lectura_actual": 0,
+      "observaciones": "consumo Bajo \npromediar",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "TEN-0071",
+      "nombre": "ALIRIO SANCHEZ",
+      "celular": null,
+      "lectura_actual": 914,
+      "observaciones": "casa De Rejas Negra",
+      "latitud": 2.388457,
+      "longitud": -75.523427
+    },
+    {
+      "codigo": "TEN-0072",
+      "nombre": "CARLOS HERNANDO MANRIQUE",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "casa Sin Contador Con Servicio \nseguir Promediando",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "TEN-0073",
+      "nombre": "GUILLERMO MENDEZ",
+      "celular": null,
+      "lectura_actual": 91,
+      "observaciones": null,
+      "latitud": 2.39146,
+      "longitud": -75.523182
+    },
+    {
+      "codigo": "TEN-0074",
+      "nombre": "YOBANY RAMÍREZ",
+      "celular": null,
+      "lectura_actual": 501,
+      "observaciones": null,
+      "latitud": 2.388345,
+      "longitud": -75.524482
+    },
+    {
+      "codigo": "TEN-0075",
+      "nombre": "ANITA SÁNCHEZ MONTEALEGRE",
+      "celular": null,
+      "lectura_actual": 481,
+      "observaciones": "23090742 código",
+      "latitud": 2.388627,
+      "longitud": -75.524572
+    },
+    {
+      "codigo": "TEN-0076",
+      "nombre": "JORGE ALFREDO ROJAS ALMARIO",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "promediar no deja mirar contador",
+      "latitud": 2.3907,
+      "longitud": -75.527948
+    },
+    {
+      "codigo": "TEN-0077",
+      "nombre": "LEONOR MOTTA SANCHEZ",
+      "celular": null,
+      "lectura_actual": 388,
+      "observaciones": "23008439  Código",
+      "latitud": 2.38873,
+      "longitud": -75.522793
+    },
+    {
+      "codigo": "TEN-0078",
+      "nombre": "MARIA RUBIELA PÉREZ AGUIRRE",
+      "celular": null,
+      "lectura_actual": 678,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "TEN-0079",
+      "nombre": "LUIS ENRIQUE GUTIÉ?RREZ",
+      "celular": null,
+      "lectura_actual": 564,
+      "observaciones": "finca cruce recreo",
+      "latitud": 2.388465,
+      "longitud": -75.523477
+    },
+    {
+      "codigo": "TEN-0080",
+      "nombre": "HERMES CACERES GONZALEZ",
+      "celular": null,
+      "lectura_actual": 829,
+      "observaciones": null,
+      "latitud": 2.390962,
+      "longitud": -75.523248
+    },
+    {
+      "codigo": "TEN-0081",
+      "nombre": "JOSE HENRY MONTEALEGRE",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "no se encuentra El Contador",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "TEN-0082",
+      "nombre": "ANA ELCY QUINAYA DIAZ",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "25001017",
+      "latitud": 2.38769,
+      "longitud": -75.529945
+    },
+    {
+      "codigo": "TEN-0083",
+      "nombre": "MIGUEL ÁNGEL GONZALEZ ANZOLA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "promediar Consumo",
+      "latitud": 2.390532,
+      "longitud": -75.52455
+    },
+    {
+      "codigo": "TEN-0084",
+      "nombre": "MÁXIMO VILLANUEVA VARGAS",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "no encuentro la Casa",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "TEN-0085",
+      "nombre": "JUAN PABLO GONZALEZ SILVA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "un punto cargo básico",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "TEN-0086",
+      "nombre": "DORIS TORO ORTIZ",
+      "celular": null,
+      "lectura_actual": 411,
+      "observaciones": null,
+      "latitud": 2.389975,
+      "longitud": -75.530089
+    },
+    {
+      "codigo": "TEN-0087",
+      "nombre": "LUIS ESTEBAN SOTTO RAMIREZ",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "solicitó el punto aun no lo han instalado",
+      "latitud": 2.388477,
+      "longitud": -75.526273
+    },
+    {
+      "codigo": "TEN-0088",
+      "nombre": "JAIME FRANCISCO TORRES MONTEALEGRE",
+      "celular": null,
+      "lectura_actual": 29,
+      "observaciones": "23002044 código",
+      "latitud": 2.392003,
+      "longitud": -75.523278
+    },
+    {
+      "codigo": "TEN-0089",
+      "nombre": "YENY VIVIANA ROJAS SÁNCHEZ",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "consumo básico",
+      "latitud": 2.407365,
+      "longitud": -75.530383
+    },
+    {
+      "codigo": "TEN-0090",
+      "nombre": "CRISTIAN ANDRÉS POLO",
+      "celular": null,
+      "lectura_actual": 115,
+      "observaciones": null,
+      "latitud": 2.392998,
+      "longitud": -75.528632
+    },
+    {
+      "codigo": "TEN-0091",
+      "nombre": "MARTHA LUCÍA MARÍN ALVAREZ",
+      "celular": null,
+      "lectura_actual": 32,
+      "observaciones": "2025058243 código",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "TEN-0092",
+      "nombre": "FANNY MOSQUERA MANRIQUE",
+      "celular": null,
+      "lectura_actual": 37,
+      "observaciones": null,
+      "latitud": 2.410196,
+      "longitud": -75.523013
+    },
+    {
+      "codigo": "TEN-0093",
+      "nombre": "CLAUDIA PATRICIA PUENTES CRUZ",
+      "celular": null,
+      "lectura_actual": 44,
+      "observaciones": "2025208978 ,código \n\ncédula 55112503\n3124240832 corregir datos",
+      "latitud": 2.411014,
+      "longitud": -75.52297
+    },
+    {
+      "codigo": "TEN-0094",
+      "nombre": "MARIA MARCELA LONGAS CADENA",
+      "celular": null,
+      "lectura_actual": 18,
+      "observaciones": "19100740 código",
+      "latitud": 2.411094,
+      "longitud": -75.522719
+    },
+    {
+      "codigo": "TEN-0095",
+      "nombre": "GENTIL ESCOBAR ROJAS",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    }
+  ],
+  "RECREO": [
+    {
+      "codigo": "REC-0001",
+      "nombre": "ESCUELA NORMAL SUPERIOR",
+      "celular": "3123469104",
+      "lectura_actual": 2460,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0002",
+      "nombre": "ARNED PEDROZA VELEZ",
+      "celular": "3134524736",
+      "lectura_actual": 0,
+      "observaciones": "NO SE TOMO LECTURA",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0003",
+      "nombre": "JOSe CALDERÓN",
+      "celular": null,
+      "lectura_actual": 972,
+      "observaciones": null,
+      "latitud": 2.406287,
+      "longitud": -75.51463
+    },
+    {
+      "codigo": "REC-0004",
+      "nombre": "YENNY PASTRANA",
+      "celular": "3134155414",
+      "lectura_actual": 1112,
+      "observaciones": "promediar Misma lectura Anterior",
+      "latitud": 2.406118,
+      "longitud": -75.514663
+    },
+    {
+      "codigo": "REC-0005",
+      "nombre": "ALBA LUZ OCHOA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "sin acceso ALa Vivienda Promediar Consumo",
+      "latitud": 2.406773,
+      "longitud": -75.514447
+    },
+    {
+      "codigo": "REC-0006",
+      "nombre": "YOLANDA OCHOA VIDAL",
+      "celular": "3166104015",
+      "lectura_actual": 2857,
+      "observaciones": "promediar Consumo",
+      "latitud": 2.407113,
+      "longitud": -75.514806
+    },
+    {
+      "codigo": "REC-0007",
+      "nombre": "FABIAN OCHOA VIDAL",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "promediar Consumo Contador no legible Empañado",
+      "latitud": 2.406872,
+      "longitud": -75.515375
+    },
+    {
+      "codigo": "REC-0008",
+      "nombre": "DORIAN PASTRANA",
+      "celular": "3167403113",
+      "lectura_actual": 0,
+      "observaciones": "cargo Básico",
+      "latitud": 2.406876,
+      "longitud": -75.515375
+    },
+    {
+      "codigo": "REC-0009",
+      "nombre": "ALEJANDRO OCHOA VIDAL",
+      "celular": "3103723682",
+      "lectura_actual": 1008,
+      "observaciones": null,
+      "latitud": 2.406869,
+      "longitud": -75.515353
+    },
+    {
+      "codigo": "REC-0010",
+      "nombre": "ALFONSO PASTUSO",
+      "celular": "3214964772",
+      "lectura_actual": 0,
+      "observaciones": "promediar Consumo",
+      "latitud": 2.406368,
+      "longitud": -75.514943
+    },
+    {
+      "codigo": "REC-0011",
+      "nombre": "DIANA PASTUSO",
+      "celular": "3132729905",
+      "lectura_actual": 278,
+      "observaciones": "revisar contador promediar Consumo",
+      "latitud": 2.406367,
+      "longitud": -75.514942
+    },
+    {
+      "codigo": "REC-0012",
+      "nombre": "JOSE EDUARDO VALDERRAMA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "NO SE TOMO LECTURA",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0013",
+      "nombre": "JAIME SÁNCHEZ",
+      "celular": null,
+      "lectura_actual": 747,
+      "observaciones": null,
+      "latitud": 2.408447,
+      "longitud": -75.515728
+    },
+    {
+      "codigo": "REC-0014",
+      "nombre": "JORGE E. GARCÍ?A",
+      "celular": "3132623994",
+      "lectura_actual": 4925,
+      "observaciones": null,
+      "latitud": 2.409955,
+      "longitud": -75.515678
+    },
+    {
+      "codigo": "REC-0015",
+      "nombre": "HERIBERTO OSORIO PERALTA",
+      "celular": null,
+      "lectura_actual": 3690,
+      "observaciones": null,
+      "latitud": 2.408102,
+      "longitud": -75.516659
+    },
+    {
+      "codigo": "REC-0016",
+      "nombre": "JAVIER CHAMBO",
+      "celular": null,
+      "lectura_actual": 4358,
+      "observaciones": "promediar Consumo",
+      "latitud": 2.408378,
+      "longitud": -75.517153
+    },
+    {
+      "codigo": "REC-0017",
+      "nombre": "GLADYS AMARILLO ORJUELA",
+      "celular": "3162351461",
+      "lectura_actual": 3357,
+      "observaciones": null,
+      "latitud": 2.408306,
+      "longitud": -75.517245
+    },
+    {
+      "codigo": "REC-0018",
+      "nombre": "FRANCISCO CHAMBO",
+      "celular": null,
+      "lectura_actual": 4414,
+      "observaciones": null,
+      "latitud": 2.408122,
+      "longitud": -75.517305
+    },
+    {
+      "codigo": "REC-0019",
+      "nombre": "JAIRO AMAYA",
+      "celular": "3132488539",
+      "lectura_actual": 1289,
+      "observaciones": null,
+      "latitud": 2.408116,
+      "longitud": -75.517308
+    },
+    {
+      "codigo": "REC-0020",
+      "nombre": "GEOVANNY CHAMBO",
+      "celular": "3164601644",
+      "lectura_actual": 88,
+      "observaciones": null,
+      "latitud": 2.40823,
+      "longitud": -75.517469
+    },
+    {
+      "codigo": "REC-0021",
+      "nombre": "MARIA CONSUELO SÁNCHEZ VALDERRAMA",
+      "celular": null,
+      "lectura_actual": 1894,
+      "observaciones": null,
+      "latitud": 2.408726,
+      "longitud": -75.517897
+    },
+    {
+      "codigo": "REC-0022",
+      "nombre": "JAVIER EDUARDO HERRERA",
+      "celular": "3176677302",
+      "lectura_actual": 140,
+      "observaciones": null,
+      "latitud": 2.408307,
+      "longitud": -75.517621
+    },
+    {
+      "codigo": "REC-0023",
+      "nombre": "GUSTAVO BELTRÁN",
+      "celular": null,
+      "lectura_actual": 3947,
+      "observaciones": null,
+      "latitud": 2.409167,
+      "longitud": -75.518603
+    },
+    {
+      "codigo": "REC-0024",
+      "nombre": "HUGO ISNOVER CHAMBO",
+      "celular": "3222868816",
+      "lectura_actual": 915,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0025",
+      "nombre": "ORSAÍN PÉREZ",
+      "celular": "3153433487",
+      "lectura_actual": 0,
+      "observaciones": "promediar Consumo No Sirve El Contador",
+      "latitud": 2.40925,
+      "longitud": -75.51808
+    },
+    {
+      "codigo": "REC-0026",
+      "nombre": "ANA TULIA PASTRANA OSPINA",
+      "celular": "3223856831",
+      "lectura_actual": 1901,
+      "observaciones": "promediar Consumo no Limpian el contador y está tapado",
+      "latitud": 2.409289,
+      "longitud": -75.51824
+    },
+    {
+      "codigo": "REC-0027",
+      "nombre": "ELSA ROJAS ALVAREZ",
+      "celular": null,
+      "lectura_actual": 3733,
+      "observaciones": null,
+      "latitud": 2.409544,
+      "longitud": -75.518191
+    },
+    {
+      "codigo": "REC-0028",
+      "nombre": "LEONOR PASTRANA OSPINA",
+      "celular": "3114556465",
+      "lectura_actual": 9249,
+      "observaciones": null,
+      "latitud": 2.409511,
+      "longitud": -75.518214
+    },
+    {
+      "codigo": "REC-0029",
+      "nombre": "ABELARDO PASTRANA OSPINA",
+      "celular": "3104832774",
+      "lectura_actual": 1202,
+      "observaciones": "promediar Consumo contador empañado",
+      "latitud": 2.409392,
+      "longitud": -75.518285
+    },
+    {
+      "codigo": "REC-0030",
+      "nombre": "JOSÉ EUDANER LUNA",
+      "celular": null,
+      "lectura_actual": 1977,
+      "observaciones": null,
+      "latitud": 2.409425,
+      "longitud": -75.51827
+    },
+    {
+      "codigo": "REC-0031",
+      "nombre": "HERMELINA FAJARDO",
+      "celular": null,
+      "lectura_actual": 204,
+      "observaciones": "No Hacen Consumo Del agua Revisar",
+      "latitud": 2.409328,
+      "longitud": -75.518521
+    },
+    {
+      "codigo": "REC-0032",
+      "nombre": "MERCEDES TRUJILLO",
+      "celular": "3164997834",
+      "lectura_actual": 2473,
+      "observaciones": null,
+      "latitud": 2.409427,
+      "longitud": -75.518663
+    },
+    {
+      "codigo": "REC-0033",
+      "nombre": "FRANCY TRUJILLO",
+      "celular": "3188943503",
+      "lectura_actual": 1788,
+      "observaciones": null,
+      "latitud": 2.409499,
+      "longitud": -75.518925
+    },
+    {
+      "codigo": "REC-0034",
+      "nombre": "EPIFANIO PASTRANA",
+      "celular": null,
+      "lectura_actual": 587,
+      "observaciones": null,
+      "latitud": 2.409426,
+      "longitud": -75.518645
+    },
+    {
+      "codigo": "REC-0035",
+      "nombre": "CARLOS MAURICIO PASTRANA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "promediar Consumo contador dañado",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0036",
+      "nombre": "MARÍA EMILSE TRUJILLO",
+      "celular": null,
+      "lectura_actual": 1874,
+      "observaciones": "consumo Solo Básico",
+      "latitud": 2.409774,
+      "longitud": -75.519222
+    },
+    {
+      "codigo": "REC-0037",
+      "nombre": "MERCEDES CÁCERES",
+      "celular": null,
+      "lectura_actual": 7541,
+      "observaciones": null,
+      "latitud": 2.410079,
+      "longitud": -75.518096
+    },
+    {
+      "codigo": "REC-0038",
+      "nombre": "ENED CHAMBO",
+      "celular": null,
+      "lectura_actual": 1264,
+      "observaciones": null,
+      "latitud": 2.409611,
+      "longitud": -75.518975
+    },
+    {
+      "codigo": "REC-0039",
+      "nombre": "EXTALIZ CHAMBO REYES",
+      "celular": "3202047885",
+      "lectura_actual": 0,
+      "observaciones": "consumo básico",
+      "latitud": 2.409473,
+      "longitud": -75.518702
+    },
+    {
+      "codigo": "REC-0040",
+      "nombre": "MARLENY OCHOA VIDAL",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "contador enterrado Promediar Consumo",
+      "latitud": 2.409856,
+      "longitud": -75.519399
+    },
+    {
+      "codigo": "REC-0041",
+      "nombre": "OCTAVIO OCHOA",
+      "celular": "3133690298",
+      "lectura_actual": 251,
+      "observaciones": null,
+      "latitud": 2.409632,
+      "longitud": -75.519713
+    },
+    {
+      "codigo": "REC-0042",
+      "nombre": "NILSA CHAMBO -1",
+      "celular": "3124019964",
+      "lectura_actual": 506,
+      "observaciones": null,
+      "latitud": 2.409708,
+      "longitud": -75.519823
+    },
+    {
+      "codigo": "REC-0203",
+      "nombre": "MONICA ARTUNDUGA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "Nuevo",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0043",
+      "nombre": "NOELVIA GOMEZ",
+      "celular": null,
+      "lectura_actual": 580,
+      "observaciones": "misma lectura anterior Promediar Consumo",
+      "latitud": 2.409761,
+      "longitud": -75.519858
+    },
+    {
+      "codigo": "REC-0044",
+      "nombre": "JOSÉ RICARDO TRUJILLO",
+      "celular": "3118641281",
+      "lectura_actual": 1711,
+      "observaciones": null,
+      "latitud": 2.409831,
+      "longitud": -75.520107
+    },
+    {
+      "codigo": "REC-0045",
+      "nombre": "CARMENZA TRUJILLO",
+      "celular": "3204345540",
+      "lectura_actual": 10,
+      "observaciones": "no consumes agua",
+      "latitud": 2.409991,
+      "longitud": -75.520362
+    },
+    {
+      "codigo": "REC-0046",
+      "nombre": "RODRIGO REYES",
+      "celular": null,
+      "lectura_actual": 927,
+      "observaciones": null,
+      "latitud": 2.409947,
+      "longitud": -75.520816
+    },
+    {
+      "codigo": "REC-0047",
+      "nombre": "SIMÓN REYES",
+      "celular": null,
+      "lectura_actual": 3054,
+      "observaciones": null,
+      "latitud": 2.410015,
+      "longitud": -75.520977
+    },
+    {
+      "codigo": "REC-0048",
+      "nombre": "ELÍAS BARRERA LLANOS - 1",
+      "celular": "3138073363",
+      "lectura_actual": 0,
+      "observaciones": "SALDO A FAVOR MAYOR VALOR PAGADO",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0049",
+      "nombre": "ARGEMIRO REYES",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "promediar Consumo contador Dañado",
+      "latitud": 2.410036,
+      "longitud": -75.521115
+    },
+    {
+      "codigo": "REC-0050",
+      "nombre": "JAIRO SANCHEZ BARRIOS",
+      "celular": "3163075847",
+      "lectura_actual": 1903,
+      "observaciones": null,
+      "latitud": 2.410048,
+      "longitud": -75.521042
+    },
+    {
+      "codigo": "REC-0051",
+      "nombre": "ANANÍAS ESCOBAR",
+      "celular": null,
+      "lectura_actual": 1158,
+      "observaciones": null,
+      "latitud": 2.410102,
+      "longitud": -75.521196
+    },
+    {
+      "codigo": "REC-0052",
+      "nombre": "ROSELIA RAMOS - 1",
+      "celular": null,
+      "lectura_actual": 387,
+      "observaciones": "SALDO A FAVOR MAYOR VALOR PAGADO",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0053",
+      "nombre": "ROSEMBERTH CARDONA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0054",
+      "nombre": "JAIRO TRUJILLO",
+      "celular": null,
+      "lectura_actual": 46,
+      "observaciones": "cargo Básico",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0055",
+      "nombre": "PAOLA REYES MONTEALEGRE",
+      "celular": null,
+      "lectura_actual": 764,
+      "observaciones": "no consumen Agua Consumo Básico",
+      "latitud": 2.408312,
+      "longitud": -75.521887
+    },
+    {
+      "codigo": "REC-0056",
+      "nombre": "CARLOS CASTILLO -1",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "promediar Sin Acceso A La Vivienda",
+      "latitud": 2.408224,
+      "longitud": -75.522801
+    },
+    {
+      "codigo": "REC-0057",
+      "nombre": "ORLANDO MOSQUERA FINCA",
+      "celular": null,
+      "lectura_actual": 7,
+      "observaciones": null,
+      "latitud": 2.409223,
+      "longitud": -75.521307
+    },
+    {
+      "codigo": "REC-0058",
+      "nombre": "FLOR ALBA MOTTA",
+      "celular": null,
+      "lectura_actual": 4855,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0059",
+      "nombre": "ORLANDO CERQUERA",
+      "celular": "304137833",
+      "lectura_actual": 3427,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0196",
+      "nombre": "YENNY MARCELA HERNANDEZ CACHAYA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "NO SE TOMO LECTURA",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0060",
+      "nombre": "FREDY PERDOMO",
+      "celular": null,
+      "lectura_actual": 6997,
+      "observaciones": null,
+      "latitud": 2.410126,
+      "longitud": -75.522246
+    },
+    {
+      "codigo": "REC-0061",
+      "nombre": "LIGIA MONTEALEGRE CHAMBO",
+      "celular": "3222869957",
+      "lectura_actual": 2199,
+      "observaciones": null,
+      "latitud": 2.410257,
+      "longitud": -75.522723
+    },
+    {
+      "codigo": "REC-0062",
+      "nombre": "GERMÁN VARGAS",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "sin Acceso a La Vivienda Promediar Consumo",
+      "latitud": 2.408907,
+      "longitud": -75.523269
+    },
+    {
+      "codigo": "REC-0063",
+      "nombre": "MERCEDES CRISTANCHO",
+      "celular": "3178237132",
+      "lectura_actual": 2392,
+      "observaciones": null,
+      "latitud": 2.409739,
+      "longitud": -75.523052
+    },
+    {
+      "codigo": "REC-0064",
+      "nombre": "HERNANDO ORDOÑEZ",
+      "celular": null,
+      "lectura_actual": 1188,
+      "observaciones": "promediar Consumo",
+      "latitud": 2.410018,
+      "longitud": -75.523096
+    },
+    {
+      "codigo": "REC-0065",
+      "nombre": "LUZ ANGÉLICA CERQUERA",
+      "celular": "3138307808",
+      "lectura_actual": 2177,
+      "observaciones": "SALDO A FAVOR MAYOR VALOR PAGADO",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0066",
+      "nombre": "MIGUEL ANGEL FAJARDO",
+      "celular": "3102704361",
+      "lectura_actual": 2021,
+      "observaciones": null,
+      "latitud": 2.410111,
+      "longitud": -75.523326
+    },
+    {
+      "codigo": "REC-0067",
+      "nombre": "NOHEMY SEGURA HERNANDEZ",
+      "celular": null,
+      "lectura_actual": 1859,
+      "observaciones": null,
+      "latitud": 2.410008,
+      "longitud": -75.523506
+    },
+    {
+      "codigo": "REC-0068",
+      "nombre": "LUZ MARINA FAJARDO",
+      "celular": null,
+      "lectura_actual": 2904,
+      "observaciones": null,
+      "latitud": 2.410155,
+      "longitud": -75.523642
+    },
+    {
+      "codigo": "REC-0069",
+      "nombre": "EDGAR FAJARDO",
+      "celular": "3165730234",
+      "lectura_actual": 1621,
+      "observaciones": "promediar a consumo",
+      "latitud": 2.410141,
+      "longitud": -75.523166
+    },
+    {
+      "codigo": "REC-0070",
+      "nombre": "OLGA BEATRIZ FAJARDO",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "NO SE TOMO LECTURA",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0071",
+      "nombre": "RAFAEL LASSO",
+      "celular": "3213335179",
+      "lectura_actual": 2579,
+      "observaciones": null,
+      "latitud": 2.410012,
+      "longitud": -75.524008
+    },
+    {
+      "codigo": "REC-0072",
+      "nombre": "ELIA DIVA ACOSTA",
+      "celular": null,
+      "lectura_actual": 1152,
+      "observaciones": null,
+      "latitud": 2.410415,
+      "longitud": -75.523956
+    },
+    {
+      "codigo": "REC-0073",
+      "nombre": "ÁNGELA CERQUERA",
+      "celular": null,
+      "lectura_actual": 3964,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0074",
+      "nombre": "ELÍAS BARRERA LLANOS - 2",
+      "celular": "3138073363",
+      "lectura_actual": 0,
+      "observaciones": "no registra consumo cargo básico",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0075",
+      "nombre": "JORGE ARTURO CORREA",
+      "celular": null,
+      "lectura_actual": 2848,
+      "observaciones": null,
+      "latitud": 2.408562,
+      "longitud": -75.526158
+    },
+    {
+      "codigo": "REC-0076",
+      "nombre": "CARLOS ANDRES CASTILLO - 2",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "promediar Consumo Sin Acceso A La Vivienda",
+      "latitud": 2.408376,
+      "longitud": -75.523405
+    },
+    {
+      "codigo": "REC-0077",
+      "nombre": "BEATRIZ IBARRA",
+      "celular": "3214989028",
+      "lectura_actual": 0,
+      "observaciones": "promediar Sin Acceso A La Vivienda",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0078",
+      "nombre": "ESCUELA NORMAL SUPERIOR (S.EL RECREO)",
+      "celular": null,
+      "lectura_actual": 1023,
+      "observaciones": "son acceso Promediar Consumo",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0079",
+      "nombre": "ARGENYS ARDILA ZABALA",
+      "celular": null,
+      "lectura_actual": 76,
+      "observaciones": null,
+      "latitud": 2.408414,
+      "longitud": -75.526602
+    },
+    {
+      "codigo": "REC-0080",
+      "nombre": "NURY MAYORCA",
+      "celular": null,
+      "lectura_actual": 2914,
+      "observaciones": "promediar Consumo está es la lectura actual",
+      "latitud": 2.413561,
+      "longitud": -75.520811
+    },
+    {
+      "codigo": "REC-0081",
+      "nombre": "FERNANDO OVIEDO",
+      "celular": "3142935824",
+      "lectura_actual": 864,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0082",
+      "nombre": "SARA PASTRANA",
+      "celular": null,
+      "lectura_actual": 1293,
+      "observaciones": "CONSUMO ANTERIOR MAYOR QUE ACTUAL SOLO BASICO",
+      "latitud": 2.414327,
+      "longitud": -75.520652
+    },
+    {
+      "codigo": "REC-0083",
+      "nombre": "GLORIA VARGAS",
+      "celular": null,
+      "lectura_actual": 279,
+      "observaciones": null,
+      "latitud": 2.414362,
+      "longitud": -75.520679
+    },
+    {
+      "codigo": "REC-0084",
+      "nombre": "MARÍA GREGORIA VARGAS",
+      "celular": null,
+      "lectura_actual": 923,
+      "observaciones": null,
+      "latitud": 2.414684,
+      "longitud": -75.520808
+    },
+    {
+      "codigo": "REC-0085",
+      "nombre": "MARTÍN CERÓN",
+      "celular": null,
+      "lectura_actual": 6700,
+      "observaciones": "promediar Consumo no hay acceso a la vivienda",
+      "latitud": 2.414341,
+      "longitud": -75.520662
+    },
+    {
+      "codigo": "REC-0086",
+      "nombre": "FELIPE MEDINA",
+      "celular": null,
+      "lectura_actual": 2263,
+      "observaciones": "promediar Consumo Sin lectura anterior",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0087",
+      "nombre": "JORGE HOME",
+      "celular": "3125156328",
+      "lectura_actual": 752,
+      "observaciones": "promediar Consumo misma lectura Anterior",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0088",
+      "nombre": "ESCILDA CERÓN",
+      "celular": "3168214037",
+      "lectura_actual": 1478,
+      "observaciones": "misma Lectura Anterior",
+      "latitud": 2.408827,
+      "longitud": -75.529035
+    },
+    {
+      "codigo": "REC-0202",
+      "nombre": "JEIMY LORENA REYES CERON",
+      "celular": "3174995597",
+      "lectura_actual": 922,
+      "observaciones": null,
+      "latitud": 2.409268,
+      "longitud": -75.528938
+    },
+    {
+      "codigo": "REC-0089",
+      "nombre": "ALEJANDRO CERÓN",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "SALDO A FAVOR MAYOR VALOR PAGADO",
+      "latitud": 2.409086,
+      "longitud": -75.528852
+    },
+    {
+      "codigo": "REC-0090",
+      "nombre": "ALBA CHAUX",
+      "celular": "3138727029",
+      "lectura_actual": 3700,
+      "observaciones": "misma Lectura Anterior Promediar Consumo",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0091",
+      "nombre": "ALBENIS SEGURA",
+      "celular": "3162329081",
+      "lectura_actual": 3970,
+      "observaciones": "promediar Consumo Lectura Actual 3910",
+      "latitud": 2.408603,
+      "longitud": -75.526333
+    },
+    {
+      "codigo": "REC-0092",
+      "nombre": "JAIME PINEDA (MARRANERA)",
+      "celular": "3118192681",
+      "lectura_actual": 5414,
+      "observaciones": "misma lectura anterior Promediar Consumo alto",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0093",
+      "nombre": "LIBARDO LOSADA",
+      "celular": "3115226340",
+      "lectura_actual": 4033,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0094",
+      "nombre": "EDWAR CABRERA",
+      "celular": null,
+      "lectura_actual": 4924,
+      "observaciones": "contador enterrado",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0095",
+      "nombre": "DANIEL GUANÚMEN - 1",
+      "celular": null,
+      "lectura_actual": 4499,
+      "observaciones": "promediar.",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0096",
+      "nombre": "DANIEL GUANÚMEN - 2",
+      "celular": null,
+      "lectura_actual": 1323,
+      "observaciones": "promediar Consumo",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0097",
+      "nombre": "JAIME PINEDA (CIELITO)",
+      "celular": null,
+      "lectura_actual": 984,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0195",
+      "nombre": "JOSE ARQUIMEDES IBARRA FLORES",
+      "celular": null,
+      "lectura_actual": 51,
+      "observaciones": null,
+      "latitud": 2.408422,
+      "longitud": -75.517118
+    },
+    {
+      "codigo": "REC-0098",
+      "nombre": "RUBÉN FALLA",
+      "celular": null,
+      "lectura_actual": 1091,
+      "observaciones": null,
+      "latitud": 2.410201,
+      "longitud": -75.520416
+    },
+    {
+      "codigo": "REC-0099",
+      "nombre": "ESPERANZA FALLA",
+      "celular": "3208529184",
+      "lectura_actual": 1764,
+      "observaciones": "consumo básico",
+      "latitud": 2.410221,
+      "longitud": -75.519992
+    },
+    {
+      "codigo": "REC-0100",
+      "nombre": "DIANA CELENY MOSQUERA",
+      "celular": null,
+      "lectura_actual": 153,
+      "observaciones": null,
+      "latitud": 2.4105917,
+      "longitud": -75.5198241
+    },
+    {
+      "codigo": "REC-0101",
+      "nombre": "YULY ANGÉLICA MOSQUERA",
+      "celular": "3125260893",
+      "lectura_actual": 1127,
+      "observaciones": null,
+      "latitud": 2.407957,
+      "longitud": -75.520471
+    },
+    {
+      "codigo": "REC-0102",
+      "nombre": "DAGOBERTO MOSQUERA",
+      "celular": "3138674961",
+      "lectura_actual": 3012,
+      "observaciones": null,
+      "latitud": 2.410827,
+      "longitud": -75.519759
+    },
+    {
+      "codigo": "REC-0103",
+      "nombre": "CRISTIAN CAMILO ESCOBAR FAJARDO",
+      "celular": null,
+      "lectura_actual": 2535,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0104",
+      "nombre": "CARLOS ARTURO MOSQUERA",
+      "celular": "3114641874",
+      "lectura_actual": 1268,
+      "observaciones": null,
+      "latitud": 2.410232,
+      "longitud": -75.518704
+    },
+    {
+      "codigo": "REC-0105",
+      "nombre": "LUIS CARLOS MOSQUERA",
+      "celular": null,
+      "lectura_actual": 4231,
+      "observaciones": null,
+      "latitud": 2.410439,
+      "longitud": -75.519526
+    },
+    {
+      "codigo": "REC-0106",
+      "nombre": "WILLIAM MOSQUERA",
+      "celular": "3196441185",
+      "lectura_actual": 0,
+      "observaciones": "contador Dañado Pero Gira Promediar Consumo",
+      "latitud": 2.410586,
+      "longitud": -75.518871
+    },
+    {
+      "codigo": "REC-0107",
+      "nombre": "GONZALO MOSQUERA",
+      "celular": "3227089237",
+      "lectura_actual": 2162,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0108",
+      "nombre": "YOLANDA MOSQUERA",
+      "celular": "3214065686",
+      "lectura_actual": 1959,
+      "observaciones": "contador Dañado Promediar Consumo",
+      "latitud": 2.410562,
+      "longitud": -75.518985
+    },
+    {
+      "codigo": "REC-0109",
+      "nombre": "ORLANDO MOSQUERA BARRIOS - 1",
+      "celular": null,
+      "lectura_actual": 2580,
+      "observaciones": "promediar Consumo medio",
+      "latitud": 2.410473,
+      "longitud": -75.519357
+    },
+    {
+      "codigo": "REC-0110",
+      "nombre": "CRISTINA CERQUERA",
+      "celular": "3155019844",
+      "lectura_actual": 1627,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0111",
+      "nombre": "AMPARO REYES",
+      "celular": "3134322585",
+      "lectura_actual": 268,
+      "observaciones": "CONSUMO ANTERIOR MAYOR QUE ACTUAL SOLO BASICO",
+      "latitud": 2.410003,
+      "longitud": -75.520704
+    },
+    {
+      "codigo": "REC-0112",
+      "nombre": "WILSON ALONSO RIVERA",
+      "celular": "3507093785",
+      "lectura_actual": 0,
+      "observaciones": "#N/A",
+      "latitud": 2.406845,
+      "longitud": -75.514557
+    },
+    {
+      "codigo": "REC-0113",
+      "nombre": "NURY GUTIÉRREZ",
+      "celular": "3202436664",
+      "lectura_actual": 3939,
+      "observaciones": null,
+      "latitud": 2.409656,
+      "longitud": -75.519677
+    },
+    {
+      "codigo": "REC-0114",
+      "nombre": "ISAURO CHAUX",
+      "celular": "3103299168",
+      "lectura_actual": 7054,
+      "observaciones": "misma lectura promediar Consumo",
+      "latitud": 2.414742,
+      "longitud": -75.520886
+    },
+    {
+      "codigo": "REC-0115",
+      "nombre": "MARÍA DOLORES ACHURY",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "consumo básico NO SE TOMO LECTURA",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0116",
+      "nombre": "NILGIA CHAMBO REYES",
+      "celular": "3155424971",
+      "lectura_actual": 801,
+      "observaciones": "consumo Básico Contador alleno De Agua",
+      "latitud": 2.409548,
+      "longitud": -75.519552
+    },
+    {
+      "codigo": "REC-0117",
+      "nombre": "LUCELY CALDERÓN",
+      "celular": null,
+      "lectura_actual": 6,
+      "observaciones": null,
+      "latitud": 2.410519,
+      "longitud": -75.523783
+    },
+    {
+      "codigo": "REC-0118",
+      "nombre": "MÉLIDA MOSQUERA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "promediar Consumo Sin acceso a La Vivienda",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0119",
+      "nombre": "RICHARD RUIZ",
+      "celular": "3202366427",
+      "lectura_actual": 1703,
+      "observaciones": "mucho Consumo",
+      "latitud": 2.408902,
+      "longitud": -75.529181
+    },
+    {
+      "codigo": "REC-0120",
+      "nombre": "NEYID CELIS - 1",
+      "celular": "3133449404",
+      "lectura_actual": 3898,
+      "observaciones": "SALDO A FAVOR MAYOR VALOR PAGADO",
+      "latitud": 2.410246,
+      "longitud": -75.524254
+    },
+    {
+      "codigo": "REC-0121",
+      "nombre": "MARCO AURELIO POLANIA BARRIOS",
+      "celular": null,
+      "lectura_actual": 197,
+      "observaciones": "promediar\nconsumo \nbajo",
+      "latitud": 2.409291,
+      "longitud": -75.518242
+    },
+    {
+      "codigo": "REC-0122",
+      "nombre": "RUBÉN DARÍO FALLA",
+      "celular": "3112821221",
+      "lectura_actual": 2212,
+      "observaciones": null,
+      "latitud": 2.410409,
+      "longitud": -75.520192
+    },
+    {
+      "codigo": "REC-0123",
+      "nombre": "MARÍA OLIVA BARRIOS",
+      "celular": null,
+      "lectura_actual": 2364,
+      "observaciones": null,
+      "latitud": 2.410738,
+      "longitud": -75.519406
+    },
+    {
+      "codigo": "REC-0124",
+      "nombre": "EFRAÍN OCHOA VIDAL",
+      "celular": null,
+      "lectura_actual": 1678,
+      "observaciones": null,
+      "latitud": 2.409769,
+      "longitud": -75.519293
+    },
+    {
+      "codigo": "REC-0125",
+      "nombre": "CARLOS LUCIANO HERRERA",
+      "celular": "3115229980",
+      "lectura_actual": 7491,
+      "observaciones": null,
+      "latitud": 2.410306,
+      "longitud": -75.524057
+    },
+    {
+      "codigo": "REC-0126",
+      "nombre": "CÉLIMO TRIANA GONZALEZ",
+      "celular": "3157359189",
+      "lectura_actual": 499,
+      "observaciones": "contador robado",
+      "latitud": 2.410988,
+      "longitud": -75.519468
+    },
+    {
+      "codigo": "REC-0127",
+      "nombre": "DIANA MAYORCA",
+      "celular": null,
+      "lectura_actual": 2909,
+      "observaciones": "misma Lectura Promediar Consumo Medio",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0128",
+      "nombre": "SERGIO CERQUERA",
+      "celular": "3184371192",
+      "lectura_actual": 115,
+      "observaciones": null,
+      "latitud": 2.410026,
+      "longitud": -75.521178
+    },
+    {
+      "codigo": "REC-0129",
+      "nombre": "FRANCY ESNITH PARDO",
+      "celular": "3182545490",
+      "lectura_actual": 2337,
+      "observaciones": null,
+      "latitud": 2.409742,
+      "longitud": -75.519903
+    },
+    {
+      "codigo": "REC-0130",
+      "nombre": "ESTACIÓN DE SERVICIO LA FORTALEZA",
+      "celular": null,
+      "lectura_actual": 2977,
+      "observaciones": "misma Lectura anterior Promediar Consumo",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0131",
+      "nombre": "JOSÉ HORACIO TRUJILLO - 1",
+      "celular": "3222124062",
+      "lectura_actual": 658,
+      "observaciones": null,
+      "latitud": 2.409657,
+      "longitud": -75.519795
+    },
+    {
+      "codigo": "REC-0132",
+      "nombre": "MARTINIANO TRUJILLO",
+      "celular": "3138239790",
+      "lectura_actual": 0,
+      "observaciones": "NO SE TOMO LECTURA",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0133",
+      "nombre": "ABEL ANTONIO YARA RUIZ",
+      "celular": "3134744943",
+      "lectura_actual": 1481,
+      "observaciones": null,
+      "latitud": 2.410574,
+      "longitud": -75.519851
+    },
+    {
+      "codigo": "REC-0134",
+      "nombre": "JOSÉ IGNACIO CAMACHO V.",
+      "celular": "3133496111",
+      "lectura_actual": 2845,
+      "observaciones": "contador dañado promediar Consumo 35 metros",
+      "latitud": 2.404126,
+      "longitud": -75.517402
+    },
+    {
+      "codigo": "REC-0135",
+      "nombre": "ROSELIA RAMOS - 2",
+      "celular": "3144575576",
+      "lectura_actual": 396,
+      "observaciones": "SALDO A FAVOR MAYOR VALOR PAGADO",
+      "latitud": 2.410143,
+      "longitud": -75.521384
+    },
+    {
+      "codigo": "REC-0136",
+      "nombre": "LUIS ENRIQUE GUEVARA",
+      "celular": null,
+      "lectura_actual": 1352,
+      "observaciones": null,
+      "latitud": 2.409655,
+      "longitud": -75.519606
+    },
+    {
+      "codigo": "REC-0137",
+      "nombre": "ORDUVAY MONTERO AYA",
+      "celular": null,
+      "lectura_actual": 889,
+      "observaciones": "misma lectura promediar Consumo",
+      "latitud": 2.411031,
+      "longitud": -75.522199
+    },
+    {
+      "codigo": "REC-0138",
+      "nombre": "MAXIMILIANO VALDERRAMA - 1",
+      "celular": null,
+      "lectura_actual": 347,
+      "observaciones": null,
+      "latitud": 2.411114,
+      "longitud": -75.523143
+    },
+    {
+      "codigo": "REC-0139",
+      "nombre": "BENJAMÍN ARTUNDUAGA",
+      "celular": "3143401507",
+      "lectura_actual": 49,
+      "observaciones": "Suministro de medidor (Cuota 2 de 3)",
+      "latitud": 2.410539,
+      "longitud": -75.519628
+    },
+    {
+      "codigo": "REC-0140",
+      "nombre": "YULIETH CHAMBO ORTIZ",
+      "celular": null,
+      "lectura_actual": 932,
+      "observaciones": null,
+      "latitud": 2.408301,
+      "longitud": -75.517522
+    },
+    {
+      "codigo": "REC-0141",
+      "nombre": "OLGA MARÍA ORTIZ",
+      "celular": "3162351461",
+      "lectura_actual": 0,
+      "observaciones": null,
+      "latitud": 2.408364,
+      "longitud": -75.51718
+    },
+    {
+      "codigo": "REC-0142",
+      "nombre": "CRISTIAN CAMILO CHAVEZ",
+      "celular": null,
+      "lectura_actual": 4380,
+      "observaciones": "promediar Consumo contador dañado",
+      "latitud": 2.410626,
+      "longitud": -75.518891
+    },
+    {
+      "codigo": "REC-0143",
+      "nombre": "JOSÉ IGNACIO ACOSTA",
+      "celular": "3107215896",
+      "lectura_actual": 2154,
+      "observaciones": "#N/A",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0144",
+      "nombre": "GLORIA LOSADA TORRES",
+      "celular": "3143820238",
+      "lectura_actual": 2489,
+      "observaciones": null,
+      "latitud": 2.409067,
+      "longitud": -75.529878
+    },
+    {
+      "codigo": "REC-0145",
+      "nombre": "DORA LIDIA VELASCO",
+      "celular": null,
+      "lectura_actual": 1102,
+      "observaciones": null,
+      "latitud": 2.408849,
+      "longitud": -75.517926
+    },
+    {
+      "codigo": "REC-0146",
+      "nombre": "JOSÉ HORACIO TRUJILLO - 2",
+      "celular": null,
+      "lectura_actual": 1496,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0147",
+      "nombre": "DORIAN SIERRA",
+      "celular": "3134614470",
+      "lectura_actual": 550,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0148",
+      "nombre": "GLORIA AZUCENA TELLO",
+      "celular": null,
+      "lectura_actual": 2777,
+      "observaciones": "consumo básico nada más (revisar y quitar cobro para la proxima factura)",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0149",
+      "nombre": "BETY CALERO BALCERO",
+      "celular": "3176636939",
+      "lectura_actual": 2760,
+      "observaciones": "misma lectura anterior contador dañado",
+      "latitud": 2.404901,
+      "longitud": -75.519079
+    },
+    {
+      "codigo": "REC-0150",
+      "nombre": "NEYDA YORLEDY BELTRÁN",
+      "celular": "3184823880",
+      "lectura_actual": 674,
+      "observaciones": null,
+      "latitud": 2.40924,
+      "longitud": -75.518472
+    },
+    {
+      "codigo": "REC-0151",
+      "nombre": "GIOVANNY SANCHEZ",
+      "celular": "3177031183",
+      "lectura_actual": 1417,
+      "observaciones": "LECTURA ANTERIOR MAYOR QUE LA ACTUAL BASICO SE CORRIGE LA DEUDA ANTERIOR A 22000 POR SOBRE COBRO EN EL MES PASADO",
+      "latitud": 2.409893,
+      "longitud": -75.520049
+    },
+    {
+      "codigo": "REC-0152",
+      "nombre": "CARLOS ALBERTO CACERES",
+      "celular": "3204856262",
+      "lectura_actual": 706,
+      "observaciones": null,
+      "latitud": 2.410679,
+      "longitud": -75.518949
+    },
+    {
+      "codigo": "REC-0153",
+      "nombre": "BERTHA ROJAS RAMIREZ",
+      "celular": null,
+      "lectura_actual": 670,
+      "observaciones": null,
+      "latitud": 2.410669,
+      "longitud": -75.518296
+    },
+    {
+      "codigo": "REC-0154",
+      "nombre": "NESTOR MONTEALEGRE",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "NO SE TOMO LECTURA",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0155",
+      "nombre": "CÉSAR AUGUSTO URRIAGO",
+      "celular": null,
+      "lectura_actual": 532,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0156",
+      "nombre": "HERNANDO LUGO VELASQUEZ",
+      "celular": null,
+      "lectura_actual": 726,
+      "observaciones": "misma lectura promediar Consumo",
+      "latitud": 2.411028,
+      "longitud": -75.522196
+    },
+    {
+      "codigo": "REC-0157",
+      "nombre": "RICARDO MOSQUERA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "promedio bajo no se encuentran viviendo en el momento hay",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0158",
+      "nombre": "BERTILDA MOSQUERA",
+      "celular": null,
+      "lectura_actual": 1124,
+      "observaciones": null,
+      "latitud": 2.407985,
+      "longitud": -75.515353
+    },
+    {
+      "codigo": "REC-0159",
+      "nombre": "LILIANA MARCELA ORTIZ",
+      "celular": "3124453293",
+      "lectura_actual": 427,
+      "observaciones": null,
+      "latitud": 2.411384,
+      "longitud": -75.517947
+    },
+    {
+      "codigo": "REC-0160",
+      "nombre": "ROSARIO MOSQUERA",
+      "celular": "3125934415",
+      "lectura_actual": 250,
+      "observaciones": null,
+      "latitud": 2.411636,
+      "longitud": -75.517764
+    },
+    {
+      "codigo": "REC-0161",
+      "nombre": "DUBER ANDRÉS RODRÍGUEZ",
+      "celular": "3132953910",
+      "lectura_actual": 171,
+      "observaciones": null,
+      "latitud": 2.412639,
+      "longitud": -75.518676
+    },
+    {
+      "codigo": "REC-0162",
+      "nombre": "ORLANDO MOSQUERA BARRIOS - 2",
+      "celular": "3184336248",
+      "lectura_actual": 63,
+      "observaciones": "no consumen Agua Están Haciendo Apenas La Casa",
+      "latitud": 2.412816,
+      "longitud": -75.518567
+    },
+    {
+      "codigo": "REC-0163",
+      "nombre": "LEONOR ORDOÑEZ",
+      "celular": "3115770321",
+      "lectura_actual": 483,
+      "observaciones": "misma lectura promediar Consumo",
+      "latitud": 2.410515,
+      "longitud": -75.523571
+    },
+    {
+      "codigo": "REC-0164",
+      "nombre": "YESID OCHOA",
+      "celular": null,
+      "lectura_actual": 655,
+      "observaciones": "LECTURA ANTERIOR MAYOR QUE LA ACTUAL BASICO",
+      "latitud": 2.408467,
+      "longitud": -75.526777
+    },
+    {
+      "codigo": "REC-0165",
+      "nombre": "EDNA ROCÍO RÍOS",
+      "celular": null,
+      "lectura_actual": 790,
+      "observaciones": null,
+      "latitud": 2.410445,
+      "longitud": -75.520291
+    },
+    {
+      "codigo": "REC-0166",
+      "nombre": "JORGE GUEVARA CUÉLLAR",
+      "celular": null,
+      "lectura_actual": 719,
+      "observaciones": "misma lectura promediar Consumo",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0167",
+      "nombre": "SANTIAGO CARDONA",
+      "celular": "3154823720",
+      "lectura_actual": 741,
+      "observaciones": null,
+      "latitud": 2.410047,
+      "longitud": -75.521271
+    },
+    {
+      "codigo": "REC-0168",
+      "nombre": "ROBINSON CADENA GALVIS",
+      "celular": null,
+      "lectura_actual": 293,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0169",
+      "nombre": "MARTHA CECILIA TAMARA",
+      "celular": null,
+      "lectura_actual": 379,
+      "observaciones": null,
+      "latitud": 2.410546,
+      "longitud": -75.518998
+    },
+    {
+      "codigo": "REC-0170",
+      "nombre": "LUZ MARINA VILLANUEVA",
+      "celular": "3219066968",
+      "lectura_actual": 598,
+      "observaciones": null,
+      "latitud": 2.409294,
+      "longitud": -75.518523
+    },
+    {
+      "codigo": "REC-0171",
+      "nombre": "MELISA MOSQUERA TAMARA",
+      "celular": "3167886498",
+      "lectura_actual": 176,
+      "observaciones": null,
+      "latitud": 2.410695,
+      "longitud": -75.518997
+    },
+    {
+      "codigo": "REC-0172",
+      "nombre": "SAUL ARTUNDUAGA",
+      "celular": "3134611746",
+      "lectura_actual": 543,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0173",
+      "nombre": "NINI JOHANA CRUZ CASTILLO",
+      "celular": "3204332099",
+      "lectura_actual": 663,
+      "observaciones": "promediar Consumo",
+      "latitud": 2.410003,
+      "longitud": -75.523262
+    },
+    {
+      "codigo": "REC-0174",
+      "nombre": "DEYANITH FALLA PASTRANA",
+      "celular": "3147248952",
+      "lectura_actual": 9825,
+      "observaciones": "promediar Consumo lectura Anterior Equivocada",
+      "latitud": 2.410339,
+      "longitud": -75.520197
+    },
+    {
+      "codigo": "REC-0175",
+      "nombre": "RODRIGO ROJAS",
+      "celular": "3225177802",
+      "lectura_actual": 51,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0176",
+      "nombre": "GLORIA TRUJILLO",
+      "celular": "3108691210",
+      "lectura_actual": 69,
+      "observaciones": null,
+      "latitud": 2.408461,
+      "longitud": -75.521699
+    },
+    {
+      "codigo": "REC-0177",
+      "nombre": "LUZ AMPARO CALDERÓN",
+      "celular": null,
+      "lectura_actual": 339,
+      "observaciones": null,
+      "latitud": 2.408939,
+      "longitud": -75.517492
+    },
+    {
+      "codigo": "REC-0178",
+      "nombre": "OLGA PATRICIA MOSQUERA",
+      "celular": null,
+      "lectura_actual": 182,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0179",
+      "nombre": "YAZMÍN BOHORQUEZ",
+      "celular": null,
+      "lectura_actual": 1039,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0180",
+      "nombre": "SANDRA MARITZA PAVA",
+      "celular": null,
+      "lectura_actual": 418,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0181",
+      "nombre": "NEYID CELIS - 2",
+      "celular": "3133449404",
+      "lectura_actual": 7461,
+      "observaciones": "promediar Consumo no encontré el contador",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0182",
+      "nombre": "MAXIMILIANO VALDERRAMA - 2",
+      "celular": null,
+      "lectura_actual": 331,
+      "observaciones": "promediar Consumo misma lectura anterior",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0183",
+      "nombre": "LEIDY YOHANA SUÁREZ",
+      "celular": null,
+      "lectura_actual": 178,
+      "observaciones": "promedio bajo lectura actual para el próximo recibo 164",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0184",
+      "nombre": "JORGE EDUARDO PUENTES",
+      "celular": null,
+      "lectura_actual": 98,
+      "observaciones": null,
+      "latitud": 2.412875,
+      "longitud": -75.518835
+    },
+    {
+      "codigo": "REC-0185",
+      "nombre": "NILSA CHAMBO REYES - 2",
+      "celular": null,
+      "lectura_actual": 21,
+      "observaciones": "contador nuevo promediar apor Este Mes",
+      "latitud": 2.408417,
+      "longitud": -75.520469
+    },
+    {
+      "codigo": "REC-0186",
+      "nombre": "YINA PAOLA AYALA",
+      "celular": null,
+      "lectura_actual": 52,
+      "observaciones": "misma Lectura Anterior Promediar Consumo",
+      "latitud": 2.406876,
+      "longitud": -75.515375
+    },
+    {
+      "codigo": "REC-0187",
+      "nombre": "JOSÉ ANTONIO SAAVEDRA FAJARDO",
+      "celular": null,
+      "lectura_actual": 4,
+      "observaciones": "promediar Consumo",
+      "latitud": 2.404909,
+      "longitud": -75.519066
+    },
+    {
+      "codigo": "REC-0188",
+      "nombre": "STEVEN ALEJANDRO REYES",
+      "celular": null,
+      "lectura_actual": 9355,
+      "observaciones": "ojo mal tomada\nla lectura anterior \nera 9340 han consumido 15 metros corregir",
+      "latitud": 2.409422,
+      "longitud": -75.528897
+    },
+    {
+      "codigo": "REC-0189",
+      "nombre": "MARIA DEL PILAR MORALES QUIMBAYA",
+      "celular": null,
+      "lectura_actual": 118,
+      "observaciones": null,
+      "latitud": 2.410668,
+      "longitud": -75.518408
+    },
+    {
+      "codigo": "REC-0190",
+      "nombre": "LINA MARCELA PEREZ GRANADOS",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "NO SE TOMO LECTURA",
+      "latitud": 2.410627,
+      "longitud": -75.519783
+    },
+    {
+      "codigo": "REC-0191",
+      "nombre": "JORGE ENRIQUE LASSO JIMÉNEZ",
+      "celular": null,
+      "lectura_actual": 218,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0192",
+      "nombre": "ARNUBIO ANTURY",
+      "celular": null,
+      "lectura_actual": 122,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0193",
+      "nombre": "EDER PERDOMO ESPITIA",
+      "celular": null,
+      "lectura_actual": 3353,
+      "observaciones": "consumo básico",
+      "latitud": 2.410093,
+      "longitud": -75.522295
+    },
+    {
+      "codigo": "REC-0194",
+      "nombre": "MIREYA SOTELO SOLANO",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "NO SE TOMO LECTURA",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0197",
+      "nombre": "ELIZABETH ROJAS AMESQUITA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "NO SE TOMO LECTURA",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0198",
+      "nombre": "BERTILDA MOSQUERA DE TOLEDO",
+      "celular": null,
+      "lectura_actual": 8371,
+      "observaciones": "lectura Anterior 8369 Tener encuenta lectura Actual 8372 LECTURA ACTUAL MAYOR QUE LA ANT ERIOR BASICO",
+      "latitud": 2.408075,
+      "longitud": -75.515642
+    },
+    {
+      "codigo": "REC-0199",
+      "nombre": "MARIA DISNEY QUINTERO",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "NO SE TOMO LECTURA",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0200",
+      "nombre": "YENNY MARCELA HERNANDEZ CACHAYA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "NO SE TOMO LECTURA",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0201",
+      "nombre": "ARNED PEDROZA VELEZ",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "NO SE TOMO LECTURA",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "REC-0204",
+      "nombre": "LINA MARIA ARRIGUI AVILA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "Nuevo",
+      "latitud": "#N/A",
+      "longitud": "#N/A"
+    }
+  ],
+  "PUEBLO NUEVO": [
+    {
+      "codigo": "PUE-0001",
+      "nombre": "MELIDA SANCHEZ - 1(VIANEY RIOS SANCHEZ)",
+      "celular": "3112712026",
+      "lectura_actual": 0,
+      "observaciones": "sin contador",
+      "latitud": 2.401367,
+      "longitud": -75.525088
+    },
+    {
+      "codigo": "PUE-0002",
+      "nombre": "AUTORIDAD NAL. DE ACUICULTURA Y PESCA",
+      "celular": null,
+      "lectura_actual": 3395,
+      "observaciones": null,
+      "latitud": 2.401367,
+      "longitud": -75.525088
+    },
+    {
+      "codigo": "PUE-0003",
+      "nombre": "SERGIO VILLA - 1",
+      "celular": "3015914748",
+      "lectura_actual": 0,
+      "observaciones": "casa Desocupada . contador enterrado",
+      "latitud": 2.401397,
+      "longitud": -75.525075
+    },
+    {
+      "codigo": "PUE-0004",
+      "nombre": "DANIEL RAMIREZ",
+      "celular": "3133365722",
+      "lectura_actual": 3209,
+      "observaciones": null,
+      "latitud": 2.403632,
+      "longitud": -75.528746
+    },
+    {
+      "codigo": "PUE-0005",
+      "nombre": "GUSTAVO OLAYA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "promediar",
+      "latitud": 2.401721,
+      "longitud": -75.527791
+    },
+    {
+      "codigo": "PUE-0006",
+      "nombre": "JAIME BAUTISTA",
+      "celular": "3187165647",
+      "lectura_actual": 0,
+      "observaciones": "promediar",
+      "latitud": 2.398624,
+      "longitud": -75.525979
+    },
+    {
+      "codigo": "PUE-0007",
+      "nombre": "MELANIA COMETA",
+      "celular": "3214387742",
+      "lectura_actual": 3942,
+      "observaciones": null,
+      "latitud": 2.401826,
+      "longitud": -75.528065
+    },
+    {
+      "codigo": "PUE-0008",
+      "nombre": "CONCEPCIÓN QUINTERO",
+      "celular": null,
+      "lectura_actual": 1876,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0009",
+      "nombre": "YENITH PINTO",
+      "celular": "3134773065",
+      "lectura_actual": 516,
+      "observaciones": null,
+      "latitud": 2.401948,
+      "longitud": -75.527812
+    },
+    {
+      "codigo": "PUE-0010",
+      "nombre": "MERCEDES AROS DE RUIZ",
+      "celular": "3123502255",
+      "lectura_actual": 4784,
+      "observaciones": "promediar 20m",
+      "latitud": 2.401794,
+      "longitud": -75.528044
+    },
+    {
+      "codigo": "PUE-0011",
+      "nombre": "ISIDORA HERNÁNDEZ",
+      "celular": "3224686009",
+      "lectura_actual": 0,
+      "observaciones": "no está habitada",
+      "latitud": 2.401835,
+      "longitud": -75.528049
+    },
+    {
+      "codigo": "PUE-0012",
+      "nombre": "EMILIA VICTORIA",
+      "celular": "3228658952",
+      "lectura_actual": 3461,
+      "observaciones": null,
+      "latitud": 2.401854,
+      "longitud": -75.528003
+    },
+    {
+      "codigo": "PUE-0013",
+      "nombre": "MISAEL LOSADA",
+      "celular": "3132403441",
+      "lectura_actual": 4408,
+      "observaciones": null,
+      "latitud": 2.401739,
+      "longitud": -75.528103
+    },
+    {
+      "codigo": "PUE-0014",
+      "nombre": "MARIA DOLORES CASTILLO",
+      "celular": "3148682938",
+      "lectura_actual": 4472,
+      "observaciones": null,
+      "latitud": 2.401695,
+      "longitud": -75.528143
+    },
+    {
+      "codigo": "PUE-0015",
+      "nombre": "CARLOS JULIO CALDERÓN",
+      "celular": "3133501116",
+      "lectura_actual": 3558,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0016",
+      "nombre": "DORIAN PLAZAS",
+      "celular": null,
+      "lectura_actual": 886,
+      "observaciones": "ABONO 56000",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0017",
+      "nombre": "GENTIL CLEVES",
+      "celular": null,
+      "lectura_actual": 2025,
+      "observaciones": null,
+      "latitud": 2.401706,
+      "longitud": -75.528364
+    },
+    {
+      "codigo": "PUE-0018",
+      "nombre": "IRENE RAMOS",
+      "celular": "3132031441",
+      "lectura_actual": 1056,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0019",
+      "nombre": "AGUSTÍN QUINTERO",
+      "celular": null,
+      "lectura_actual": 2412,
+      "observaciones": null,
+      "latitud": 2.401599,
+      "longitud": -75.528772
+    },
+    {
+      "codigo": "PUE-0020",
+      "nombre": "LUIS ANGEL QUINTERO",
+      "celular": "3133069666",
+      "lectura_actual": 7469,
+      "observaciones": null,
+      "latitud": 2.401494,
+      "longitud": -75.528846
+    },
+    {
+      "codigo": "PUE-0021",
+      "nombre": "HERNANDO CASTILLO",
+      "celular": null,
+      "lectura_actual": 832,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0022",
+      "nombre": "DORIS QUINTERO",
+      "celular": "3156771570",
+      "lectura_actual": 3772,
+      "observaciones": null,
+      "latitud": 2.401501,
+      "longitud": -75.528935
+    },
+    {
+      "codigo": "PUE-0023",
+      "nombre": "ROSA HELENA CASTILLO",
+      "celular": "3115841981",
+      "lectura_actual": 4051,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0024",
+      "nombre": "GLORIA INES CASTILLO",
+      "celular": null,
+      "lectura_actual": 1695,
+      "observaciones": "lectura anterior 1595 SE DEJA LA ANTERIOR COMO LA ACTUAL",
+      "latitud": 2.401534,
+      "longitud": -75.529241
+    },
+    {
+      "codigo": "PUE-0025",
+      "nombre": "ISABEL CASTILLO",
+      "celular": "3125301312",
+      "lectura_actual": 0,
+      "observaciones": "contador no legible promediar",
+      "latitud": 2.401522,
+      "longitud": -75.529205
+    },
+    {
+      "codigo": "PUE-0026",
+      "nombre": "JUDITH CLEVES - 1",
+      "celular": "3142728596",
+      "lectura_actual": 1998,
+      "observaciones": null,
+      "latitud": 2.401822,
+      "longitud": -75.527962
+    },
+    {
+      "codigo": "PUE-0027",
+      "nombre": "JUDITH CLEVES - 2",
+      "celular": "3142728596",
+      "lectura_actual": 1654,
+      "observaciones": null,
+      "latitud": 2.401968,
+      "longitud": -75.527811
+    },
+    {
+      "codigo": "PUE-0028",
+      "nombre": "JUDITH CLEVES - 3",
+      "celular": "3142728596",
+      "lectura_actual": 1840,
+      "observaciones": null,
+      "latitud": 2.401936,
+      "longitud": -75.527888
+    },
+    {
+      "codigo": "PUE-0029",
+      "nombre": "ESCUELA NORMAL SUPERIOR",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "promediar",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0030",
+      "nombre": "ALFONSO ESCOBAR",
+      "celular": null,
+      "lectura_actual": 4623,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0031",
+      "nombre": "BELLANIRA LLANOS",
+      "celular": "3132403441",
+      "lectura_actual": 0,
+      "observaciones": "LECTURA MAL TOMADA SE DEJA EN CEROS Y PROMEDIO",
+      "latitud": 2.401713,
+      "longitud": -75.528122
+    },
+    {
+      "codigo": "PUE-0032",
+      "nombre": "LAURA MOSQUERA DE OSORIO",
+      "celular": null,
+      "lectura_actual": 5426,
+      "observaciones": null,
+      "latitud": 2.401743,
+      "longitud": -75.528167
+    },
+    {
+      "codigo": "PUE-0033",
+      "nombre": "LINO ENRIQUE RÍOS",
+      "celular": "3166797277",
+      "lectura_actual": 0,
+      "observaciones": "promediar no legible",
+      "latitud": 2.401689,
+      "longitud": -75.528129
+    },
+    {
+      "codigo": "PUE-0034",
+      "nombre": "CARLOS RÍOS",
+      "celular": "3176843368",
+      "lectura_actual": 2336,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0035",
+      "nombre": "NIDIA MEDINA",
+      "celular": "3142935995",
+      "lectura_actual": 6047,
+      "observaciones": "promediar",
+      "latitud": 2.401923,
+      "longitud": -75.528415
+    },
+    {
+      "codigo": "PUE-0036",
+      "nombre": "MELBA CONSTANZA RUIZ",
+      "celular": "3117603746",
+      "lectura_actual": 2666,
+      "observaciones": null,
+      "latitud": 2.401875,
+      "longitud": -75.528653
+    },
+    {
+      "codigo": "PUE-0037",
+      "nombre": "GILBERTO RUIZ",
+      "celular": "3202482870",
+      "lectura_actual": 0,
+      "observaciones": "perro bravo ABONO 60.000",
+      "latitud": 2.401943,
+      "longitud": -75.527953
+    },
+    {
+      "codigo": "PUE-0038",
+      "nombre": "MIRIAM PINTO - 1",
+      "celular": null,
+      "lectura_actual": 1135,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0039",
+      "nombre": "JORGE ENRIQUE MAZABEL",
+      "celular": null,
+      "lectura_actual": 3892,
+      "observaciones": null,
+      "latitud": 2.401822,
+      "longitud": -75.528448
+    },
+    {
+      "codigo": "PUE-0040",
+      "nombre": "DIOSELINA CALDERÓN ARDILA",
+      "celular": null,
+      "lectura_actual": 2672,
+      "observaciones": null,
+      "latitud": 2.401893,
+      "longitud": -75.528454
+    },
+    {
+      "codigo": "PUE-0041",
+      "nombre": "LIGIA BELTRÁN VARGAS",
+      "celular": "3153896186",
+      "lectura_actual": 3419,
+      "observaciones": null,
+      "latitud": 2.401718,
+      "longitud": -75.528189
+    },
+    {
+      "codigo": "PUE-0042",
+      "nombre": "BORIS RIOS CASTILLO",
+      "celular": null,
+      "lectura_actual": 3529,
+      "observaciones": null,
+      "latitud": 2.401687,
+      "longitud": -75.528241
+    },
+    {
+      "codigo": "PUE-0043",
+      "nombre": "JOSÉ ASUNCIÓN ANGEL",
+      "celular": null,
+      "lectura_actual": 1914,
+      "observaciones": null,
+      "latitud": 2.401584,
+      "longitud": -75.528746
+    },
+    {
+      "codigo": "PUE-0044",
+      "nombre": "OSCAR EDUARDO SEGURA",
+      "celular": "3148196441",
+      "lectura_actual": 2258,
+      "observaciones": null,
+      "latitud": 2.401437,
+      "longitud": -75.529034
+    },
+    {
+      "codigo": "PUE-0045",
+      "nombre": "MYRIAM PINTO - 2",
+      "celular": null,
+      "lectura_actual": 1923,
+      "observaciones": "promediar misma lectura anterior",
+      "latitud": 2.401915,
+      "longitud": -75.528583
+    },
+    {
+      "codigo": "PUE-0046",
+      "nombre": "MARTHA CECILIA FIGUEROA",
+      "celular": "3212022183",
+      "lectura_actual": 4037,
+      "observaciones": null,
+      "latitud": 2.401554,
+      "longitud": -75.528878
+    },
+    {
+      "codigo": "PUE-0047",
+      "nombre": "FRANCY CALDERÓN",
+      "celular": null,
+      "lectura_actual": 3751,
+      "observaciones": null,
+      "latitud": 2.401612,
+      "longitud": -75.528889
+    },
+    {
+      "codigo": "PUE-0048",
+      "nombre": "RUTH CLEVES",
+      "celular": "3118828167",
+      "lectura_actual": 2409,
+      "observaciones": null,
+      "latitud": 2.401605,
+      "longitud": -75.528972
+    },
+    {
+      "codigo": "PUE-0049",
+      "nombre": "JAIME RUIZ",
+      "celular": "3102657833",
+      "lectura_actual": 0,
+      "observaciones": "no legible. promediar",
+      "latitud": 2.401648,
+      "longitud": -75.528952
+    },
+    {
+      "codigo": "PUE-0050",
+      "nombre": "OLGA NINCO",
+      "celular": null,
+      "lectura_actual": 389,
+      "observaciones": null,
+      "latitud": 2.401726,
+      "longitud": -75.528958
+    },
+    {
+      "codigo": "PUE-0051",
+      "nombre": "NANCY BELTRÁN",
+      "celular": "3165327548",
+      "lectura_actual": 872,
+      "observaciones": null,
+      "latitud": 2.401749,
+      "longitud": -75.528951
+    },
+    {
+      "codigo": "PUE-0052",
+      "nombre": "ANA MILENA PÉREZ",
+      "celular": "3203219046",
+      "lectura_actual": 3649,
+      "observaciones": null,
+      "latitud": 2.401472,
+      "longitud": -75.529917
+    },
+    {
+      "codigo": "PUE-0053",
+      "nombre": "ACENED BENITEZ RIVAS",
+      "celular": null,
+      "lectura_actual": 2650,
+      "observaciones": null,
+      "latitud": 2.401459,
+      "longitud": -75.530012
+    },
+    {
+      "codigo": "PUE-0054",
+      "nombre": "RUDBEL MOSQUERA",
+      "celular": "3167540194",
+      "lectura_actual": 6688,
+      "observaciones": "Promediar Consumo",
+      "latitud": 2.401466,
+      "longitud": -75.530638
+    },
+    {
+      "codigo": "PUE-0055",
+      "nombre": "LILIA MOTTA",
+      "celular": "3227163345",
+      "lectura_actual": 3483,
+      "observaciones": "SE CORRIGE LECTURA MAL TOMADA",
+      "latitud": 2.401303,
+      "longitud": -75.530845
+    },
+    {
+      "codigo": "PUE-0056",
+      "nombre": "JOSÉ RICAUTE FAJARDO",
+      "celular": "3143068292",
+      "lectura_actual": 1950,
+      "observaciones": null,
+      "latitud": 2.401258,
+      "longitud": -75.530906
+    },
+    {
+      "codigo": "PUE-0057",
+      "nombre": "SANDRA MILENA CHAVARRO",
+      "celular": null,
+      "lectura_actual": 6317,
+      "observaciones": null,
+      "latitud": 2.401304,
+      "longitud": -75.531025
+    },
+    {
+      "codigo": "PUE-0058",
+      "nombre": "GLORIA BEATRIZ QUINTERO",
+      "celular": null,
+      "lectura_actual": 180,
+      "observaciones": null,
+      "latitud": 2.401321,
+      "longitud": -75.531084
+    },
+    {
+      "codigo": "PUE-0059",
+      "nombre": "YOLANDA RUIZ",
+      "celular": "3102226626",
+      "lectura_actual": 1361,
+      "observaciones": null,
+      "latitud": 2.401382,
+      "longitud": -75.531238
+    },
+    {
+      "codigo": "PUE-0060",
+      "nombre": "ADELIO REAL",
+      "celular": null,
+      "lectura_actual": 2976,
+      "observaciones": null,
+      "latitud": 2.401411,
+      "longitud": -75.531256
+    },
+    {
+      "codigo": "PUE-0061",
+      "nombre": "HERNEY CHAVARRO",
+      "celular": null,
+      "lectura_actual": 1627,
+      "observaciones": null,
+      "latitud": 2.402377,
+      "longitud": -75.530783
+    },
+    {
+      "codigo": "PUE-0062",
+      "nombre": "REYNALDO OLAYA - 1",
+      "celular": null,
+      "lectura_actual": 3400,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0063",
+      "nombre": "CECILIA MOTTA",
+      "celular": null,
+      "lectura_actual": 5027,
+      "observaciones": null,
+      "latitud": 2.401344,
+      "longitud": -75.531326
+    },
+    {
+      "codigo": "PUE-0064",
+      "nombre": "NUBIA CABRERA CALDERON",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "cambiar suscriptor aNubia Cabrera Calderón Cc.41461367 de Bta",
+      "latitud": 2.401389,
+      "longitud": -75.531298
+    },
+    {
+      "codigo": "PUE-0065",
+      "nombre": "MARLENY MOTTA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "hacer promedio",
+      "latitud": 2.401404,
+      "longitud": -75.531346
+    },
+    {
+      "codigo": "PUE-0066",
+      "nombre": "LUCÉLIDA RAMÍREZ",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "sin contador",
+      "latitud": 2.401407,
+      "longitud": -75.531334
+    },
+    {
+      "codigo": "PUE-0067",
+      "nombre": "FLOR FLOREZ",
+      "celular": null,
+      "lectura_actual": 2878,
+      "observaciones": null,
+      "latitud": 2.401443,
+      "longitud": -75.531334
+    },
+    {
+      "codigo": "PUE-0068",
+      "nombre": "MANUEL AGUSTÍN GARCÍA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "empañado hacer Promedio",
+      "latitud": 2.400732,
+      "longitud": -75.534665
+    },
+    {
+      "codigo": "PUE-0069",
+      "nombre": "AMPARO LOSADA",
+      "celular": "3214314704",
+      "lectura_actual": 2842,
+      "observaciones": null,
+      "latitud": 2.401808,
+      "longitud": -75.529028
+    },
+    {
+      "codigo": "PUE-0070",
+      "nombre": "MARINA COQUECO",
+      "celular": "3155925829",
+      "lectura_actual": 1854,
+      "observaciones": null,
+      "latitud": 2.402177,
+      "longitud": -75.529332
+    },
+    {
+      "codigo": "PUE-0071",
+      "nombre": "MARÍA FERNANDA PASTRANA",
+      "celular": "3103337532",
+      "lectura_actual": 1009,
+      "observaciones": null,
+      "latitud": 2.402545,
+      "longitud": -75.529606
+    },
+    {
+      "codigo": "PUE-0072",
+      "nombre": "CLARA MERCEDES FIGUEROA",
+      "celular": "3115203728",
+      "lectura_actual": 0,
+      "observaciones": "perro bv . odi",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0073",
+      "nombre": "CECILIA RUIZ",
+      "celular": "3142851230",
+      "lectura_actual": 4492,
+      "observaciones": null,
+      "latitud": 2.402553,
+      "longitud": -75.529586
+    },
+    {
+      "codigo": "PUE-0074",
+      "nombre": "BLANCA CÁRDENAS",
+      "celular": "3213405781",
+      "lectura_actual": 2179,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0075",
+      "nombre": "ALICIA VELASCO - 1",
+      "celular": null,
+      "lectura_actual": 2558,
+      "observaciones": null,
+      "latitud": 2.403305,
+      "longitud": -75.530516
+    },
+    {
+      "codigo": "PUE-0076",
+      "nombre": "JAIRO JIMÉNEZ VELASCO",
+      "celular": null,
+      "lectura_actual": 716,
+      "observaciones": "p",
+      "latitud": 2.403305,
+      "longitud": -75.530516
+    },
+    {
+      "codigo": "PUE-0077",
+      "nombre": "NANCY JIMÉNEZ VELASCO",
+      "celular": null,
+      "lectura_actual": 4551,
+      "observaciones": null,
+      "latitud": 2.403323,
+      "longitud": -75.530539
+    },
+    {
+      "codigo": "PUE-0078",
+      "nombre": "EMILIO ROJAS",
+      "celular": null,
+      "lectura_actual": 50,
+      "observaciones": null,
+      "latitud": 2.403035,
+      "longitud": -75.530193
+    },
+    {
+      "codigo": "PUE-0079",
+      "nombre": "YOLANDA PERDOMO DE AGUDELO",
+      "celular": "3186142362",
+      "lectura_actual": 3049,
+      "observaciones": null,
+      "latitud": 2.402757,
+      "longitud": -75.529947
+    },
+    {
+      "codigo": "PUE-0080",
+      "nombre": "ROSALBA ARDILA",
+      "celular": "3107588207",
+      "lectura_actual": 0,
+      "observaciones": "no legible. promediar",
+      "latitud": 2.402678,
+      "longitud": -75.529808
+    },
+    {
+      "codigo": "PUE-0081",
+      "nombre": "DORIAN CUÉLLAR",
+      "celular": "3142292278",
+      "lectura_actual": 1167,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0082",
+      "nombre": "GUSTAVO MONTILLA - 1",
+      "celular": "3134082240",
+      "lectura_actual": 613,
+      "observaciones": null,
+      "latitud": 2.401562,
+      "longitud": -75.529054
+    },
+    {
+      "codigo": "PUE-0083",
+      "nombre": "ONORIO BAHAMÓN",
+      "celular": null,
+      "lectura_actual": 4780,
+      "observaciones": null,
+      "latitud": 2.403291,
+      "longitud": -75.528847
+    },
+    {
+      "codigo": "PUE-0084",
+      "nombre": "GLADYS FIGUERÓA RUIZ",
+      "celular": "3176779095",
+      "lectura_actual": 3990,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0085",
+      "nombre": "MÉLIDA SÁNCHEZ",
+      "celular": "3112712026",
+      "lectura_actual": 0,
+      "observaciones": "perro bravo",
+      "latitud": 2.403498,
+      "longitud": -75.528674
+    },
+    {
+      "codigo": "PUE-0086",
+      "nombre": "BORIS RENÉ RÍOS COQUECO",
+      "celular": "3158318006",
+      "lectura_actual": 5805,
+      "observaciones": null,
+      "latitud": 2.403507,
+      "longitud": -75.528664
+    },
+    {
+      "codigo": "PUE-0087",
+      "nombre": "VIVIANA MONTEALEGRE",
+      "celular": null,
+      "lectura_actual": 4539,
+      "observaciones": null,
+      "latitud": 2.403522,
+      "longitud": -75.528661
+    },
+    {
+      "codigo": "PUE-0088",
+      "nombre": "ALBEIRO PERDOMO",
+      "celular": "3138097502",
+      "lectura_actual": 3837,
+      "observaciones": null,
+      "latitud": 2.403518,
+      "longitud": -75.528664
+    },
+    {
+      "codigo": "PUE-0089",
+      "nombre": "MATILDE ROJAS VILLEGAS",
+      "celular": "3105619202",
+      "lectura_actual": 0,
+      "observaciones": "promediar. perro bravo SE REPORTA LECTURA DE 3 PERO POR ERROR",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0090",
+      "nombre": "LUZ MARY RUIZ",
+      "celular": "3203008818",
+      "lectura_actual": 3707,
+      "observaciones": "promediar tiene la misma lectura anterior pero consume",
+      "latitud": 2.403677,
+      "longitud": -75.528936
+    },
+    {
+      "codigo": "PUE-0091",
+      "nombre": "EMERSON EMBUS - 1",
+      "celular": null,
+      "lectura_actual": 63,
+      "observaciones": null,
+      "latitud": 2.403675,
+      "longitud": -75.528956
+    },
+    {
+      "codigo": "PUE-0092",
+      "nombre": "NELCY CASTAÑEDA MAYORCA",
+      "celular": null,
+      "lectura_actual": 1117,
+      "observaciones": "cod. 19152743",
+      "latitud": 2.403667,
+      "longitud": -75.528944
+    },
+    {
+      "codigo": "PUE-0093",
+      "nombre": "ANA MARIA ROJAS",
+      "celular": null,
+      "lectura_actual": 5573,
+      "observaciones": "LECTURA MAL TOMADA SE DEJA IGUAL A LA ANTERIOR PROMEDIO",
+      "latitud": 2.403674,
+      "longitud": -75.528981
+    },
+    {
+      "codigo": "PUE-0094",
+      "nombre": "REINALDO CARVAJAL",
+      "celular": null,
+      "lectura_actual": 3103,
+      "observaciones": null,
+      "latitud": 2.403632,
+      "longitud": -75.528998
+    },
+    {
+      "codigo": "PUE-0095",
+      "nombre": "PAULETTE RUIZ",
+      "celular": "3234890218",
+      "lectura_actual": 331,
+      "observaciones": null,
+      "latitud": 2.403634,
+      "longitud": -75.529023
+    },
+    {
+      "codigo": "PUE-0096",
+      "nombre": "EDNA ROCÍO LOSADA",
+      "celular": "3202341356",
+      "lectura_actual": 2310,
+      "observaciones": null,
+      "latitud": 2.403621,
+      "longitud": -75.529054
+    },
+    {
+      "codigo": "PUE-0097",
+      "nombre": "GIOVANNY RÍOS",
+      "celular": "3144910491",
+      "lectura_actual": 9102,
+      "observaciones": "promediar",
+      "latitud": 2.403509,
+      "longitud": -75.529019
+    },
+    {
+      "codigo": "PUE-0098",
+      "nombre": "BERTILDA BELTRÁN",
+      "celular": "3123317982",
+      "lectura_actual": 2985,
+      "observaciones": "promediar unos 20m",
+      "latitud": 2.403538,
+      "longitud": -75.529072
+    },
+    {
+      "codigo": "PUE-0099",
+      "nombre": "MAGALI YANTÉN",
+      "celular": "3188177914",
+      "lectura_actual": 3146,
+      "observaciones": null,
+      "latitud": 2.403475,
+      "longitud": -75.529066
+    },
+    {
+      "codigo": "PUE-0100",
+      "nombre": "LOURDES CASTILLO",
+      "celular": "3133611892",
+      "lectura_actual": 5435,
+      "observaciones": "MENOR A LA ANTERIOR SE COBRA SOLO BASICO",
+      "latitud": 2.403472,
+      "longitud": -75.529062
+    },
+    {
+      "codigo": "PUE-0101",
+      "nombre": "MARTHA CRISTINA RUIZ",
+      "celular": "3124513117",
+      "lectura_actual": 4156,
+      "observaciones": "promediar alto",
+      "latitud": 2.403366,
+      "longitud": -75.529151
+    },
+    {
+      "codigo": "PUE-0102",
+      "nombre": "BLANCA AMEZQUITA",
+      "celular": null,
+      "lectura_actual": 7185,
+      "observaciones": null,
+      "latitud": 2.403351,
+      "longitud": -75.529184
+    },
+    {
+      "codigo": "PUE-0103",
+      "nombre": "LUIS ERNESTO FAJARDO",
+      "celular": "3124322086",
+      "lectura_actual": 2995,
+      "observaciones": "tiene la misma lectura promediar  20metros",
+      "latitud": 2.403363,
+      "longitud": -75.529232
+    },
+    {
+      "codigo": "PUE-0104",
+      "nombre": "JHON JAUMER URRIAGO",
+      "celular": null,
+      "lectura_actual": 4515,
+      "observaciones": null,
+      "latitud": 2.403611,
+      "longitud": -75.529418
+    },
+    {
+      "codigo": "PUE-0105",
+      "nombre": "ARMANDO COQUECO",
+      "celular": "3041175299",
+      "lectura_actual": 4712,
+      "observaciones": null,
+      "latitud": 2.403697,
+      "longitud": -75.529406
+    },
+    {
+      "codigo": "PUE-0106",
+      "nombre": "NOHORA FAJARDO",
+      "celular": "3222013378",
+      "lectura_actual": 4398,
+      "observaciones": null,
+      "latitud": 2.403656,
+      "longitud": -75.529361
+    },
+    {
+      "codigo": "PUE-0107",
+      "nombre": "GUSTAVO SÁNCHEZ",
+      "celular": "3224177914",
+      "lectura_actual": 3748,
+      "observaciones": null,
+      "latitud": 2.403745,
+      "longitud": -75.529353
+    },
+    {
+      "codigo": "PUE-0108",
+      "nombre": "MÓNICA POLANÍA QUINTERO",
+      "celular": "3102474616",
+      "lectura_actual": 1181,
+      "observaciones": "SALDO A FAVOR MAYOR VALOR PAGADO",
+      "latitud": 2.403738,
+      "longitud": -75.529357
+    },
+    {
+      "codigo": "PUE-0109",
+      "nombre": "ADOLFO FAJARDO",
+      "celular": "3142448145",
+      "lectura_actual": 4415,
+      "observaciones": null,
+      "latitud": 2.403851,
+      "longitud": -75.529257
+    },
+    {
+      "codigo": "PUE-0110",
+      "nombre": "GLORIA COQUECO",
+      "celular": "3132571795",
+      "lectura_actual": 2582,
+      "observaciones": null,
+      "latitud": 2.403856,
+      "longitud": -75.529262
+    },
+    {
+      "codigo": "PUE-0111",
+      "nombre": "DIEGO ANDRÉS MANRIQUE",
+      "celular": "3125244488",
+      "lectura_actual": 6171,
+      "observaciones": "promediar porque no tiene Lectura anterior",
+      "latitud": 2.403903,
+      "longitud": -75.529216
+    },
+    {
+      "codigo": "PUE-0112",
+      "nombre": "CAMILO MANRIQUE",
+      "celular": "3114959041",
+      "lectura_actual": 2920,
+      "observaciones": null,
+      "latitud": 2.403931,
+      "longitud": -75.529156
+    },
+    {
+      "codigo": "PUE-0113",
+      "nombre": "HERNÁN CAMILO MANRIQUE",
+      "celular": "3118200102",
+      "lectura_actual": 1220,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0114",
+      "nombre": "SERGIO VILLA",
+      "celular": "3222145669",
+      "lectura_actual": 0,
+      "observaciones": "promediar",
+      "latitud": 2.403719,
+      "longitud": -75.529451
+    },
+    {
+      "codigo": "PUE-0115",
+      "nombre": "AVELINO MOSQUERA",
+      "celular": "3102801359",
+      "lectura_actual": 1275,
+      "observaciones": null,
+      "latitud": 2.401443,
+      "longitud": -75.531334
+    },
+    {
+      "codigo": "PUE-0116",
+      "nombre": "IVÁN PERDOMO",
+      "celular": null,
+      "lectura_actual": 4604,
+      "observaciones": "contador Dañado \nsacar El Contador De Allí Para Una Mejor Toma De Lectura",
+      "latitud": 2.401443,
+      "longitud": -75.531334
+    },
+    {
+      "codigo": "PUE-0117",
+      "nombre": "CARMENZA PIEDRAHITA",
+      "celular": null,
+      "lectura_actual": 2010,
+      "observaciones": "19 150599 codigo",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0118",
+      "nombre": "ALVARO OSPINA",
+      "celular": null,
+      "lectura_actual": 329,
+      "observaciones": "código 25 007149",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0119",
+      "nombre": "RICARDO TOVAR - 1",
+      "celular": null,
+      "lectura_actual": 964,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0120",
+      "nombre": "DEIBY CUELLAR (INTERLAKEN)",
+      "celular": "3506423298",
+      "lectura_actual": 1502,
+      "observaciones": "cod18051114",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0121",
+      "nombre": "ALCANOS DE COLOMBIA S.A.",
+      "celular": null,
+      "lectura_actual": 2480,
+      "observaciones": "sin código",
+      "latitud": 2.396652,
+      "longitud": -75.538179
+    },
+    {
+      "codigo": "PUE-0122",
+      "nombre": "DAGOBERTO ROJAS -EDS LOS HALCONES",
+      "celular": null,
+      "lectura_actual": 782,
+      "observaciones": null,
+      "latitud": 2.396692,
+      "longitud": -75.538355
+    },
+    {
+      "codigo": "PUE-0123",
+      "nombre": "DAGOBERTO ROJAS-CAFETERÍA",
+      "celular": null,
+      "lectura_actual": 1749,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0124",
+      "nombre": "GABRIEL MOSQUERA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "punto",
+      "latitud": 2.396727,
+      "longitud": -75.539084
+    },
+    {
+      "codigo": "PUE-0125",
+      "nombre": "RUBY TAMAYO",
+      "celular": null,
+      "lectura_actual": 4048,
+      "observaciones": null,
+      "latitud": 2.396691,
+      "longitud": -75.538973
+    },
+    {
+      "codigo": "PUE-0126",
+      "nombre": "MARLENY MOSQUERA",
+      "celular": "314287407",
+      "lectura_actual": 0,
+      "observaciones": "no Sé Ve Promediar ABONO 60.000",
+      "latitud": 2.396669,
+      "longitud": -75.538355
+    },
+    {
+      "codigo": "PUE-0127",
+      "nombre": "MANUEL MOSQUERA",
+      "celular": "3118483894",
+      "lectura_actual": 0,
+      "observaciones": "no legible",
+      "latitud": 2.396659,
+      "longitud": -75.538384
+    },
+    {
+      "codigo": "PUE-0128",
+      "nombre": "JHON JAIRO MOSQUERA",
+      "celular": "3186219971",
+      "lectura_actual": 5524,
+      "observaciones": null,
+      "latitud": 2.396636,
+      "longitud": -75.538416
+    },
+    {
+      "codigo": "PUE-0129",
+      "nombre": "ALFONSO MARTÍNEZ - 1",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "promedio",
+      "latitud": 2.396702,
+      "longitud": -75.539026
+    },
+    {
+      "codigo": "PUE-0130",
+      "nombre": "JAIRO FIGUEROA",
+      "celular": "3166199173",
+      "lectura_actual": 877,
+      "observaciones": null,
+      "latitud": 2.392933,
+      "longitud": -75.542502
+    },
+    {
+      "codigo": "PUE-0131",
+      "nombre": "ADELA MANRIQUE",
+      "celular": null,
+      "lectura_actual": 3509,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0132",
+      "nombre": "BÚCAROS (JAIME PINEDA)",
+      "celular": null,
+      "lectura_actual": 1759,
+      "observaciones": "código 21312139",
+      "latitud": 2.392893,
+      "longitud": -75.543195
+    },
+    {
+      "codigo": "PUE-0133",
+      "nombre": "SORAYA CARVAJAL",
+      "celular": null,
+      "lectura_actual": 1916,
+      "observaciones": null,
+      "latitud": 2.392086,
+      "longitud": -75.543606
+    },
+    {
+      "codigo": "PUE-0134",
+      "nombre": "KELY JOHANA QUINTERO (REST. LLANERO)ABANDONADO",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "abandonado",
+      "latitud": 2.392084,
+      "longitud": -75.543608
+    },
+    {
+      "codigo": "PUE-0135",
+      "nombre": "SABINA ORTIZ",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "no legible promediar",
+      "latitud": 2.392075,
+      "longitud": -75.543607
+    },
+    {
+      "codigo": "PUE-0136",
+      "nombre": "REYNEL MARÍN",
+      "celular": "3107548509",
+      "lectura_actual": 617,
+      "observaciones": "cargo básico",
+      "latitud": 2.392297,
+      "longitud": -75.543502
+    },
+    {
+      "codigo": "PUE-0137",
+      "nombre": "LEONOR CHAVARRO",
+      "celular": "3204138804",
+      "lectura_actual": 0,
+      "observaciones": "suspendido",
+      "latitud": 2.392948,
+      "longitud": -75.542478
+    },
+    {
+      "codigo": "PUE-0138",
+      "nombre": "EFRAÍN MARTINEZ",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "sin contador",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0139",
+      "nombre": "MARTHA PATRICIA LASSO (VILLA TINA)",
+      "celular": "3204221406",
+      "lectura_actual": 0,
+      "observaciones": "sin codigo",
+      "latitud": 2.397454,
+      "longitud": -75.537588
+    },
+    {
+      "codigo": "PUE-0140",
+      "nombre": "MARTHA PATRICIA LASSO (LA ARRIERÍA)",
+      "celular": "3204221406",
+      "lectura_actual": 2782,
+      "observaciones": "18047894",
+      "latitud": 2.397483,
+      "longitud": -75.537526
+    },
+    {
+      "codigo": "PUE-0141",
+      "nombre": "DIANA CAROLINA AVILA (SOL Y LUNA)",
+      "celular": "3165304265",
+      "lectura_actual": 816,
+      "observaciones": "22046392",
+      "latitud": 2.397429,
+      "longitud": -75.537588
+    },
+    {
+      "codigo": "PUE-0142",
+      "nombre": "DIANA CAROLINA AVILA (AVENTURAS DE GTES)",
+      "celular": "3212682514",
+      "lectura_actual": 0,
+      "observaciones": "sin contador",
+      "latitud": 2.397348,
+      "longitud": -75.537627
+    },
+    {
+      "codigo": "PUE-0143",
+      "nombre": "DIANA CAROLINA AVILA (MAÍCES FOOD)",
+      "celular": "3102291841",
+      "lectura_actual": 306,
+      "observaciones": "promediar Consumo",
+      "latitud": 2.397796,
+      "longitud": -75.536499
+    },
+    {
+      "codigo": "PUE-0144",
+      "nombre": "CARLOS REYNALDO ALVAREZ",
+      "celular": null,
+      "lectura_actual": 5525,
+      "observaciones": null,
+      "latitud": 2.403304,
+      "longitud": -75.530516
+    },
+    {
+      "codigo": "PUE-0145",
+      "nombre": "EDGAR CERQUERA CARDOZO",
+      "celular": "3124728962",
+      "lectura_actual": 0,
+      "observaciones": "contador enterrado",
+      "latitud": 2.403408,
+      "longitud": -75.533371
+    },
+    {
+      "codigo": "PUE-0146",
+      "nombre": "CARMENZA PASTRANA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "broche con  candado",
+      "latitud": 2.403415,
+      "longitud": -75.533361
+    },
+    {
+      "codigo": "PUE-0147",
+      "nombre": "HERMELINA ANACONA - 1",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "sin acceso perro bravo",
+      "latitud": 2.404389,
+      "longitud": -75.531386
+    },
+    {
+      "codigo": "PUE-0148",
+      "nombre": "JOSÉ FAIVER GUZMÁN",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "sin acceso a la vivienda perros bravos",
+      "latitud": 2.404389,
+      "longitud": -75.531387
+    },
+    {
+      "codigo": "PUE-0149",
+      "nombre": "HERMELINA ANACONA - 2",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "sin contador",
+      "latitud": 2.404389,
+      "longitud": -75.531386
+    },
+    {
+      "codigo": "PUE-0150",
+      "nombre": "GLORIA AZUCENA TELLO",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "sin contador DOÑA MERCEDES CONCILIO CON ELLOS TA QUE HABIA MAYOR COBRO SE VA A COBRAR EL BASICO DE UN AÑO",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0151",
+      "nombre": "MERCEDES GALINDO",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "no había nadie en la vivienda",
+      "latitud": 2.404351,
+      "longitud": -75.531466
+    },
+    {
+      "codigo": "PUE-0152",
+      "nombre": "MARÍA GLADYS GORDILLO",
+      "celular": "3143886030",
+      "lectura_actual": 0,
+      "observaciones": "no Legible",
+      "latitud": 2.404389,
+      "longitud": -75.531387
+    },
+    {
+      "codigo": "PUE-0153",
+      "nombre": "JOSÉ RUFINO LEÓN",
+      "celular": null,
+      "lectura_actual": 4366,
+      "observaciones": "sin Lectura Anterior Promediar",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0154",
+      "nombre": "HELÍ PASTRANA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "sin contador",
+      "latitud": 2.401753,
+      "longitud": -75.531273
+    },
+    {
+      "codigo": "PUE-0155",
+      "nombre": "JAIME PINEDA (TRILLADORA)",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "mantiene cerrado",
+      "latitud": 2.405289,
+      "longitud": -75.531869
+    },
+    {
+      "codigo": "PUE-0156",
+      "nombre": "LUZ NELLY PLAZAS RUIZ",
+      "celular": null,
+      "lectura_actual": 79,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0157",
+      "nombre": "ORLANDO RODRÍGUEZ",
+      "celular": "3203890072",
+      "lectura_actual": 2468,
+      "observaciones": "cod 19150595",
+      "latitud": 2.405274,
+      "longitud": -75.531884
+    },
+    {
+      "codigo": "PUE-0158",
+      "nombre": "RAUL ROJAS",
+      "celular": "3208324042",
+      "lectura_actual": 4526,
+      "observaciones": null,
+      "latitud": 2.405287,
+      "longitud": -75.531871
+    },
+    {
+      "codigo": "PUE-0159",
+      "nombre": "URIEL BALDIVIA",
+      "celular": "3132454416",
+      "lectura_actual": 0,
+      "observaciones": "llanta del carro encima",
+      "latitud": 2.405287,
+      "longitud": -75.531871
+    },
+    {
+      "codigo": "PUE-0160",
+      "nombre": "BEATRIZ ORTIZ",
+      "celular": "3212790377",
+      "lectura_actual": 208,
+      "observaciones": null,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0161",
+      "nombre": "ADOLFO CRUZ",
+      "celular": null,
+      "lectura_actual": 2832,
+      "observaciones": null,
+      "latitud": 2.405886,
+      "longitud": -75.531136
+    },
+    {
+      "codigo": "PUE-0162",
+      "nombre": "MIRNA SEGURA ALDANA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "lleno de tierra",
+      "latitud": 2.405477,
+      "longitud": -75.531665
+    },
+    {
+      "codigo": "PUE-0163",
+      "nombre": "ROSALBA RAMÍREZ",
+      "celular": "3203888686",
+      "lectura_actual": 0,
+      "observaciones": "contador dañado",
+      "latitud": 2.406302,
+      "longitud": -75.531084
+    },
+    {
+      "codigo": "PUE-0164",
+      "nombre": "CARMEN RITA HERRERA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "enterrado",
+      "latitud": 2.406236,
+      "longitud": -75.531497
+    },
+    {
+      "codigo": "PUE-0165",
+      "nombre": "FLOR ORTENCIA MONTIEL",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "empañado",
+      "latitud": 2.406243,
+      "longitud": -75.531519
+    },
+    {
+      "codigo": "PUE-0166",
+      "nombre": "JAIME PINEDA (VILLA CLAUDIA)",
+      "celular": "3208318028",
+      "lectura_actual": 3193,
+      "observaciones": null,
+      "latitud": 2.406443,
+      "longitud": -75.530879
+    },
+    {
+      "codigo": "PUE-0167",
+      "nombre": "JAIME PINEDA (FINCA)",
+      "celular": null,
+      "lectura_actual": 289,
+      "observaciones": null,
+      "latitud": 2.406541,
+      "longitud": -75.530959
+    },
+    {
+      "codigo": "PUE-0168",
+      "nombre": "MANUEL CEDEÑO",
+      "celular": "3202772623",
+      "lectura_actual": 0,
+      "observaciones": "contador ilegible",
+      "latitud": 2.403177,
+      "longitud": -75.536659
+    },
+    {
+      "codigo": "PUE-0169",
+      "nombre": "DANIEL MONJE SILVA",
+      "celular": null,
+      "lectura_actual": 2982,
+      "observaciones": null,
+      "latitud": 2.397663,
+      "longitud": -75.537454
+    },
+    {
+      "codigo": "PUE-0170",
+      "nombre": "JAVIER URRIAGO",
+      "celular": "3138753940",
+      "lectura_actual": 1678,
+      "observaciones": "código 14059537",
+      "latitud": 2.395192,
+      "longitud": -75.539597
+    },
+    {
+      "codigo": "PUE-0171",
+      "nombre": "JORGE I SANMIGUEL",
+      "celular": "3117298725",
+      "lectura_actual": 2872,
+      "observaciones": null,
+      "latitud": 2.402957,
+      "longitud": -75.530141
+    },
+    {
+      "codigo": "PUE-0172",
+      "nombre": "OLGA LILIANA FLOREZ MOTTA",
+      "celular": "3154249518",
+      "lectura_actual": 1266,
+      "observaciones": "contador dañado",
+      "latitud": 2.401756,
+      "longitud": -75.531268
+    },
+    {
+      "codigo": "PUE-0173",
+      "nombre": "HENRY DUSSAN",
+      "celular": "3133489263",
+      "lectura_actual": 15,
+      "observaciones": null,
+      "latitud": 2.398626,
+      "longitud": -75.525976
+    },
+    {
+      "codigo": "PUE-0174",
+      "nombre": "MERCEDES PAMA",
+      "celular": "3235727604",
+      "lectura_actual": 0,
+      "observaciones": "enterrado .  hacer promedio",
+      "latitud": 2.402854,
+      "longitud": -75.529976
+    },
+    {
+      "codigo": "PUE-0175",
+      "nombre": "DANUBIA VARGAS",
+      "celular": "3133501116",
+      "lectura_actual": 0,
+      "observaciones": "12006673",
+      "latitud": 2.401697,
+      "longitud": -75.528193
+    },
+    {
+      "codigo": "PUE-0176",
+      "nombre": "EMERSON EMBÚS - 2",
+      "celular": null,
+      "lectura_actual": 1441,
+      "observaciones": null,
+      "latitud": 2.403624,
+      "longitud": -75.528733
+    },
+    {
+      "codigo": "PUE-0177",
+      "nombre": "RICARDO TOVAR - 2",
+      "celular": null,
+      "lectura_actual": 2728,
+      "observaciones": "cod 19149977",
+      "latitud": 2.406188,
+      "longitud": -75.523485
+    },
+    {
+      "codigo": "PUE-0178",
+      "nombre": "ANGEL MARÍA LOSADA",
+      "celular": null,
+      "lectura_actual": 5903,
+      "observaciones": null,
+      "latitud": 2.401464,
+      "longitud": -75.529883
+    },
+    {
+      "codigo": "PUE-0179",
+      "nombre": "GUSTAVO MONTILLA - 2",
+      "celular": "3112462085",
+      "lectura_actual": 1377,
+      "observaciones": "15026582",
+      "latitud": 2.401524,
+      "longitud": -75.529259
+    },
+    {
+      "codigo": "PUE-0180",
+      "nombre": "VICKY FERNANDA CEDEÑO",
+      "celular": "3185952428",
+      "lectura_actual": 483,
+      "observaciones": null,
+      "latitud": 2.399219,
+      "longitud": -75.535572
+    },
+    {
+      "codigo": "PUE-0181",
+      "nombre": "ANDURINA MONTEALEGRE",
+      "celular": "3125820354",
+      "lectura_actual": 7727,
+      "observaciones": null,
+      "latitud": 2.401345,
+      "longitud": -75.530747
+    },
+    {
+      "codigo": "PUE-0182",
+      "nombre": "EFRAÍN MARÍN",
+      "celular": null,
+      "lectura_actual": 4063,
+      "observaciones": null,
+      "latitud": 2.401444,
+      "longitud": -75.531332
+    },
+    {
+      "codigo": "PUE-0183",
+      "nombre": "ALBEIRO SUÁREZ",
+      "celular": "3105757708",
+      "lectura_actual": 0,
+      "observaciones": "suspendido",
+      "latitud": 2.394407,
+      "longitud": -75.541364
+    },
+    {
+      "codigo": "PUE-0184",
+      "nombre": "HERNAN CAMILO MANRIQUE - 2",
+      "celular": "3118200102",
+      "lectura_actual": 767,
+      "observaciones": null,
+      "latitud": 2.403472,
+      "longitud": -75.529093
+    },
+    {
+      "codigo": "PUE-0185",
+      "nombre": "RUBÉN MOSQUERA",
+      "celular": "3118483894",
+      "lectura_actual": 498,
+      "observaciones": null,
+      "latitud": 2.396704,
+      "longitud": -75.539108
+    },
+    {
+      "codigo": "PUE-0186",
+      "nombre": "HERNANDO VEGA MURCIA",
+      "celular": null,
+      "lectura_actual": 2064,
+      "observaciones": "revisar contador",
+      "latitud": 2.402754,
+      "longitud": -75.529897
+    },
+    {
+      "codigo": "PUE-0187",
+      "nombre": "MARÍA ODILIA ROMERO",
+      "celular": null,
+      "lectura_actual": 4026,
+      "observaciones": "cod 16036549",
+      "latitud": 2.401753,
+      "longitud": -75.531273
+    },
+    {
+      "codigo": "PUE-0188",
+      "nombre": "OCTAVIO MANRIQUE",
+      "celular": null,
+      "lectura_actual": 1077,
+      "observaciones": "21316950",
+      "latitud": 2.396691,
+      "longitud": -75.538356
+    },
+    {
+      "codigo": "PUE-0189",
+      "nombre": "LEIDY VIVIANA",
+      "celular": "3133914440",
+      "lectura_actual": 2850,
+      "observaciones": "19 150604",
+      "latitud": 2.396692,
+      "longitud": -75.538343
+    },
+    {
+      "codigo": "PUE-0190",
+      "nombre": "CRISTIAN HUMBERTO ROJAS",
+      "celular": "3212748595",
+      "lectura_actual": 675,
+      "observaciones": "misma Lectura \ncódigo 20 035866",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0191",
+      "nombre": "LIBARDO CHAVARRO",
+      "celular": null,
+      "lectura_actual": 613,
+      "observaciones": null,
+      "latitud": 2.401542,
+      "longitud": -75.531048
+    },
+    {
+      "codigo": "PUE-0192",
+      "nombre": "CARMEN FLOREZ",
+      "celular": "3133544634",
+      "lectura_actual": 2015,
+      "observaciones": "19150590 código LECTURA MAL TOMADA EN FOTO ES IGUAL A LA ANTERIOR",
+      "latitud": 2.401443,
+      "longitud": -75.531335
+    },
+    {
+      "codigo": "PUE-0193",
+      "nombre": "OSCAR ORLANDO AROS",
+      "celular": null,
+      "lectura_actual": 5102,
+      "observaciones": null,
+      "latitud": 2.396723,
+      "longitud": -75.538378
+    },
+    {
+      "codigo": "PUE-0194",
+      "nombre": "CARMEN MARÍA OLAYA",
+      "celular": null,
+      "lectura_actual": 926,
+      "observaciones": null,
+      "latitud": 2.401409,
+      "longitud": -75.531307
+    },
+    {
+      "codigo": "PUE-0195",
+      "nombre": "WILLIAM ALEXANDER FLOREZ",
+      "celular": "3125914401",
+      "lectura_actual": 495,
+      "observaciones": null,
+      "latitud": 2.401559,
+      "longitud": -75.531016
+    },
+    {
+      "codigo": "PUE-0196",
+      "nombre": "RICARDO DUSSÁN",
+      "celular": "3143886030",
+      "lectura_actual": 470,
+      "observaciones": "cod131530115",
+      "latitud": 2.404389,
+      "longitud": -75.531387
+    },
+    {
+      "codigo": "PUE-0197",
+      "nombre": "LUZ DARY PLAZAS",
+      "celular": null,
+      "lectura_actual": 424,
+      "observaciones": "18047886",
+      "latitud": 2.395182,
+      "longitud": -75.539643
+    },
+    {
+      "codigo": "PUE-0198",
+      "nombre": "ANA MARÍA ACOSTA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "punto",
+      "latitud": 2.399227,
+      "longitud": -75.535575
+    },
+    {
+      "codigo": "PUE-0199",
+      "nombre": "CLAUDIA MOYA TRIVIÑO",
+      "celular": "3154960320",
+      "lectura_actual": 106,
+      "observaciones": null,
+      "latitud": 2.402736,
+      "longitud": -75.529825
+    },
+    {
+      "codigo": "PUE-0200",
+      "nombre": "MÓNICA POLANÍA QUINTERO - 2",
+      "celular": "3102474616",
+      "lectura_actual": 686,
+      "observaciones": "21317945 código",
+      "latitud": 2.397832,
+      "longitud": -75.536567
+    },
+    {
+      "codigo": "PUE-0201",
+      "nombre": "DIANA CAROLINA AVILA (EL AREPAZZO)",
+      "celular": "3128949967",
+      "lectura_actual": 1118,
+      "observaciones": null,
+      "latitud": 2.397462,
+      "longitud": -75.536853
+    },
+    {
+      "codigo": "PUE-0202",
+      "nombre": "NEYIB CELIS",
+      "celular": "3133449404",
+      "lectura_actual": 1989,
+      "observaciones": null,
+      "latitud": 2.398783,
+      "longitud": -75.535959
+    },
+    {
+      "codigo": "PUE-0203",
+      "nombre": "JUAN DIEGO QUINTERO",
+      "celular": null,
+      "lectura_actual": 671,
+      "observaciones": "cod 22046389",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0204",
+      "nombre": "MARTHA PATRICIA LASSO - TOMA CAFÉ",
+      "celular": null,
+      "lectura_actual": 201,
+      "observaciones": null,
+      "latitud": 2.397482,
+      "longitud": -75.537535
+    },
+    {
+      "codigo": "PUE-0205",
+      "nombre": "MARTHA PATRICIA LASSO - DONDE FAIBER",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "contador desconectado NO ABREN EL NEGOCIO",
+      "latitud": 2.397445,
+      "longitud": -75.536858
+    },
+    {
+      "codigo": "PUE-0206",
+      "nombre": "DIANA CAROLINA AVILA - LA AMAPOLA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "no tiene contador",
+      "latitud": 2.397493,
+      "longitud": -75.537597
+    },
+    {
+      "codigo": "PUE-0207",
+      "nombre": "DIANA CAROLINA AVILA - LA CHINGADA",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "no tiene contador promediar",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0208",
+      "nombre": "YURY CLANERA MAYORGA CUBILLOS",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "sin Contador",
+      "latitud": 2.398683,
+      "longitud": -75.537258
+    },
+    {
+      "codigo": "PUE-0209",
+      "nombre": "JAQUELINE CHAVARRO",
+      "celular": "3167492631",
+      "lectura_actual": 0,
+      "observaciones": "código 13 1531325",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0210",
+      "nombre": "LUZ NERY BAHAMON QUINTERO",
+      "celular": null,
+      "lectura_actual": 114,
+      "observaciones": "25017848",
+      "latitud": 2.398686,
+      "longitud": -75.536115
+    },
+    {
+      "codigo": "PUE-0211",
+      "nombre": "LUIS HUMBERTO SIERRA GONZALEZ",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "puntp",
+      "latitud": 2.398713,
+      "longitud": -75.537243
+    },
+    {
+      "codigo": "PUE-0212",
+      "nombre": "FEDERACION NACIONAL DE CACAOTEROS",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "sin contador",
+      "latitud": 2.401367,
+      "longitud": -75.525088
+    },
+    {
+      "codigo": "PUE-0213",
+      "nombre": "LILIANA OSPINA PIEDRAHITA",
+      "celular": null,
+      "lectura_actual": 7,
+      "observaciones": "24 030686\n\nbasico solamente",
+      "latitud": 2.399166,
+      "longitud": -75.535611
+    },
+    {
+      "codigo": "PUE-0214",
+      "nombre": "OMAR ORTIZ",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "no tiene contador es un punto",
+      "latitud": 2.401443,
+      "longitud": -75.531335
+    },
+    {
+      "codigo": "PUE-0215",
+      "nombre": "ARGENIS MONTEALEGRE VEGA",
+      "celular": null,
+      "lectura_actual": 63,
+      "observaciones": "25017846 código",
+      "latitud": 2.398707,
+      "longitud": -75.536011
+    },
+    {
+      "codigo": "PUE-0216",
+      "nombre": "BORIS FERNANDO RÍOS",
+      "celular": null,
+      "lectura_actual": 0,
+      "observaciones": "punto",
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PUE-0217",
+      "nombre": "GUSTAVO ADOLFO MONTILLA RIOS",
+      "celular": null,
+      "lectura_actual": 547,
+      "observaciones": null,
+      "latitud": 2.401528,
+      "longitud": -75.529248
+    },
+    {
+      "codigo": "PUE-0218",
+      "nombre": "BELISARIO DIAZ BARRERA",
+      "celular": null,
+      "lectura_actual": 9,
+      "observaciones": "23131434 codigo",
+      "latitud": null,
+      "longitud": null
+    }
+  ]
+}

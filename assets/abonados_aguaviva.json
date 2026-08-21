@@ -1,0 +1,4348 @@
+{
+  "La Palma": [
+    {
+      "codigo": "PAL-0001",
+      "nombre": "Ramiro Tierradentro",
+      "celular": null,
+      "lectura_actual": 332,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0002",
+      "nombre": "Serbulo Chala",
+      "celular": null,
+      "lectura_actual": 3228,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0003",
+      "nombre": "Alexander Murcia",
+      "celular": null,
+      "lectura_actual": 1577,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0004",
+      "nombre": "Marlio Arias",
+      "celular": null,
+      "lectura_actual": 9678,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0005",
+      "nombre": "Alvaro Camacho",
+      "celular": null,
+      "lectura_actual": 4209,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0006",
+      "nombre": "Miller Tierradentro",
+      "celular": null,
+      "lectura_actual": 2933,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0007",
+      "nombre": "Hector Fabio Trujillo",
+      "celular": null,
+      "lectura_actual": 1032,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0008",
+      "nombre": "Jairo Garcia",
+      "celular": null,
+      "lectura_actual": 11606,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0009",
+      "nombre": "Farid Rojas Cuenca",
+      "celular": null,
+      "lectura_actual": 1337,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0010",
+      "nombre": "Rosa Virginia Gonzales",
+      "celular": null,
+      "lectura_actual": 5319,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0011",
+      "nombre": "Martha Lucia Suarez",
+      "celular": null,
+      "lectura_actual": 18997,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0012",
+      "nombre": "Miguel Angel Alvarez",
+      "celular": null,
+      "lectura_actual": 6960,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0013",
+      "nombre": "Melquiceded Dussan",
+      "celular": null,
+      "lectura_actual": 7416,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0014",
+      "nombre": "Melida Moreno Rojas",
+      "celular": null,
+      "lectura_actual": 7091,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0015",
+      "nombre": "David Sierra",
+      "celular": null,
+      "lectura_actual": 5142,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0016",
+      "nombre": "Luz Edith Tierradentro Sierra",
+      "celular": null,
+      "lectura_actual": 1072,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0017",
+      "nombre": "Alvaro Pastrana",
+      "celular": null,
+      "lectura_actual": 1845,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0018",
+      "nombre": "Antonio Maria Vargas Salazar",
+      "celular": null,
+      "lectura_actual": 10972,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0019",
+      "nombre": "Hernando Bernal",
+      "celular": null,
+      "lectura_actual": 1589,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0020",
+      "nombre": "Roger Cabrera",
+      "celular": null,
+      "lectura_actual": 2654,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0021",
+      "nombre": "Nidia Cabrera",
+      "celular": null,
+      "lectura_actual": 2178,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0022",
+      "nombre": "Marlio Arias",
+      "celular": null,
+      "lectura_actual": 3850,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0023",
+      "nombre": "Guillermo Angel",
+      "celular": null,
+      "lectura_actual": 7193,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0024",
+      "nombre": "Rosebel Murcia",
+      "celular": null,
+      "lectura_actual": 1519,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0025",
+      "nombre": "David Olaya",
+      "celular": null,
+      "lectura_actual": 5033,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0026",
+      "nombre": "Leonidas Tovar",
+      "celular": null,
+      "lectura_actual": 441,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0027",
+      "nombre": "Leonor Rincon",
+      "celular": null,
+      "lectura_actual": 5652,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0028",
+      "nombre": "Arismendi Cuenca",
+      "celular": null,
+      "lectura_actual": 288,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0029",
+      "nombre": "Jairo Angel",
+      "celular": null,
+      "lectura_actual": 3480,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0030",
+      "nombre": "Edgar Angel",
+      "celular": null,
+      "lectura_actual": 3410,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0031",
+      "nombre": "Osman Motta",
+      "celular": null,
+      "lectura_actual": 14134,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0032",
+      "nombre": "Osman Motta",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0033",
+      "nombre": "Juan Carlos Pastrana",
+      "celular": null,
+      "lectura_actual": 8304,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0034",
+      "nombre": "Cecilio Cuenca",
+      "celular": null,
+      "lectura_actual": 2606,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0035",
+      "nombre": "Adolfo Urrea",
+      "celular": null,
+      "lectura_actual": 6911,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0036",
+      "nombre": "Fredy Angel",
+      "celular": null,
+      "lectura_actual": 2972,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0037",
+      "nombre": "Ruth Bernal Trujillo",
+      "celular": null,
+      "lectura_actual": 4167,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0038",
+      "nombre": "Misael Sierra",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0039",
+      "nombre": "Gustavo Romero",
+      "celular": null,
+      "lectura_actual": 5511,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0040",
+      "nombre": "Jhon Jairo Ibañez",
+      "celular": null,
+      "lectura_actual": 4572,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0041",
+      "nombre": "Juan Evangelista Cubillos",
+      "celular": null,
+      "lectura_actual": 4563,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0042",
+      "nombre": "Sandra Patricia Mosquera",
+      "celular": null,
+      "lectura_actual": 5429,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0043",
+      "nombre": "Rafael Trujillo",
+      "celular": null,
+      "lectura_actual": 5544,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0044",
+      "nombre": "Carlos Solarte",
+      "celular": null,
+      "lectura_actual": 628,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0045",
+      "nombre": "Fernando Ramirez",
+      "celular": null,
+      "lectura_actual": 456,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0046",
+      "nombre": "Fernando Ramirez",
+      "celular": null,
+      "lectura_actual": 1854,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0047",
+      "nombre": "Wilson Moreno",
+      "celular": null,
+      "lectura_actual": 3977,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0048",
+      "nombre": "Ismael Arcadio Sierra",
+      "celular": null,
+      "lectura_actual": 2660,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0049",
+      "nombre": "Anderson Chila Embus",
+      "celular": null,
+      "lectura_actual": 3815,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0050",
+      "nombre": "Nubia Sierra",
+      "celular": null,
+      "lectura_actual": 3210,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0051",
+      "nombre": "Nohora Rojas",
+      "celular": null,
+      "lectura_actual": 6363,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0052",
+      "nombre": "Diego Andres Ramirez Monje",
+      "celular": null,
+      "lectura_actual": 3937,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0053",
+      "nombre": "Rufino  Tierradentro",
+      "celular": null,
+      "lectura_actual": 2441,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0054",
+      "nombre": "Alfonso Trujillo",
+      "celular": null,
+      "lectura_actual": 9063,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0055",
+      "nombre": "Gustavo Carvajal",
+      "celular": null,
+      "lectura_actual": 8670,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0056",
+      "nombre": "Marina Torres",
+      "celular": null,
+      "lectura_actual": 790,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0057",
+      "nombre": "Alexander Murcia",
+      "celular": null,
+      "lectura_actual": 12113,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0058",
+      "nombre": "Gustavo Carvajal",
+      "celular": null,
+      "lectura_actual": 11890,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0059",
+      "nombre": "Fidela  Tierradentro",
+      "celular": null,
+      "lectura_actual": 2411,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0060",
+      "nombre": "Myriam Vargas Escorcia",
+      "celular": null,
+      "lectura_actual": 5181,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0061",
+      "nombre": "Rosalba Polania",
+      "celular": null,
+      "lectura_actual": 1040,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0062",
+      "nombre": "Centro Docente La Palma",
+      "celular": null,
+      "lectura_actual": 6974,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0063",
+      "nombre": "Liuber Alvarez Yaime",
+      "celular": null,
+      "lectura_actual": 129,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0064",
+      "nombre": "Alvaro Pastrana",
+      "celular": null,
+      "lectura_actual": 1264,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0065",
+      "nombre": "Misael Sierra",
+      "celular": null,
+      "lectura_actual": 3371,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0066",
+      "nombre": "Ludy Esnith Castellanos  Arenas",
+      "celular": null,
+      "lectura_actual": 2557,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0067",
+      "nombre": "Melquiceded Dussan",
+      "celular": null,
+      "lectura_actual": 2345,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0068",
+      "nombre": "Abdon Farid Cabrera",
+      "celular": null,
+      "lectura_actual": 1377,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0069",
+      "nombre": "Dario Guerrero",
+      "celular": null,
+      "lectura_actual": 1210,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0070",
+      "nombre": "Regino Cuellar Rodriguez",
+      "celular": null,
+      "lectura_actual": 4759,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0071",
+      "nombre": "Martha Estela Osman JavierMotta Gasca",
+      "celular": null,
+      "lectura_actual": 2468,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0072",
+      "nombre": "Armando Palomino Suarez",
+      "celular": null,
+      "lectura_actual": 2328,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0073",
+      "nombre": "Henry Arturo Carvajal",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0074",
+      "nombre": "Harry Tierradentro Cuenca",
+      "celular": null,
+      "lectura_actual": 650,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0075",
+      "nombre": "Alexander /Raul / Urriago Vargas",
+      "celular": null,
+      "lectura_actual": 1207,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0076",
+      "nombre": "Anselmo Cruz",
+      "celular": null,
+      "lectura_actual": 1256,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0077",
+      "nombre": "Alexander Quintero",
+      "celular": null,
+      "lectura_actual": 20,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0078",
+      "nombre": "Andres Antonio Murcia Vargas",
+      "celular": null,
+      "lectura_actual": 4852,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0079",
+      "nombre": "Gerardo Vargas",
+      "celular": null,
+      "lectura_actual": 1229,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0080",
+      "nombre": "Adriana Baicue Bahamon",
+      "celular": null,
+      "lectura_actual": 2198,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0081",
+      "nombre": "Octavio Rios Pastrana",
+      "celular": null,
+      "lectura_actual": 284,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0082",
+      "nombre": "Armando Gonzales",
+      "celular": null,
+      "lectura_actual": 2814,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0083",
+      "nombre": "Asovisagro Sas",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0084",
+      "nombre": "Gersy Dussan",
+      "celular": null,
+      "lectura_actual": 84,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0085",
+      "nombre": "Dairo Tierradentro",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0086",
+      "nombre": "Regino Cuellar Rodriguez",
+      "celular": null,
+      "lectura_actual": 339,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0087",
+      "nombre": "Maria Laura Camila Campos",
+      "celular": null,
+      "lectura_actual": 352,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0088",
+      "nombre": "Armando Pinzon",
+      "celular": null,
+      "lectura_actual": 214,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0089",
+      "nombre": "Nelson Suarez Bedoya",
+      "celular": null,
+      "lectura_actual": 241,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0090",
+      "nombre": "Mario Romero Perdomo",
+      "celular": null,
+      "lectura_actual": 115,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0091",
+      "nombre": "Herminso Rodriguez",
+      "celular": null,
+      "lectura_actual": 99837,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0092",
+      "nombre": "Reinaldo Mosquera Vargas",
+      "celular": null,
+      "lectura_actual": 121,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0093",
+      "nombre": "Fredy Tierradentro",
+      "celular": null,
+      "lectura_actual": 1,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0094",
+      "nombre": "Marleny Tierradentro",
+      "celular": null,
+      "lectura_actual": 7,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0001",
+      "nombre": "Ramiro Tierradentro",
+      "celular": null,
+      "lectura_actual": 332,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0002",
+      "nombre": "Serbulo Chala",
+      "celular": null,
+      "lectura_actual": 3228,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0003",
+      "nombre": "Alexander Murcia",
+      "celular": null,
+      "lectura_actual": 1577,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0004",
+      "nombre": "Marlio Arias",
+      "celular": null,
+      "lectura_actual": 9678,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0005",
+      "nombre": "Alvaro Camacho",
+      "celular": null,
+      "lectura_actual": 4209,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0006",
+      "nombre": "Miller Tierradentro",
+      "celular": null,
+      "lectura_actual": 2933,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0007",
+      "nombre": "Hector Fabio Trujillo",
+      "celular": null,
+      "lectura_actual": 1032,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0008",
+      "nombre": "Jairo Garcia",
+      "celular": null,
+      "lectura_actual": 11606,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0009",
+      "nombre": "Farid Rojas Cuenca",
+      "celular": null,
+      "lectura_actual": 1337,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0010",
+      "nombre": "Rosa Virginia Gonzales",
+      "celular": null,
+      "lectura_actual": 5319,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0011",
+      "nombre": "Martha Lucia Suarez",
+      "celular": null,
+      "lectura_actual": 18997,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0012",
+      "nombre": "Miguel Angel Alvarez",
+      "celular": null,
+      "lectura_actual": 6960,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0013",
+      "nombre": "Melquiceded Dussan",
+      "celular": null,
+      "lectura_actual": 7416,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0014",
+      "nombre": "Melida Moreno Rojas",
+      "celular": null,
+      "lectura_actual": 7091,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0015",
+      "nombre": "David Sierra",
+      "celular": null,
+      "lectura_actual": 5142,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0016",
+      "nombre": "Luz Edith Tierradentro Sierra",
+      "celular": null,
+      "lectura_actual": 1072,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0017",
+      "nombre": "Alvaro Pastrana",
+      "celular": null,
+      "lectura_actual": 1845,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0018",
+      "nombre": "Antonio Maria Vargas Salazar",
+      "celular": null,
+      "lectura_actual": 10972,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0019",
+      "nombre": "Hernando Bernal",
+      "celular": null,
+      "lectura_actual": 1589,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0020",
+      "nombre": "Roger Cabrera",
+      "celular": null,
+      "lectura_actual": 2654,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0021",
+      "nombre": "Nidia Cabrera",
+      "celular": null,
+      "lectura_actual": 2178,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0022",
+      "nombre": "Marlio Arias",
+      "celular": null,
+      "lectura_actual": 3850,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0023",
+      "nombre": "Guillermo Angel",
+      "celular": null,
+      "lectura_actual": 7193,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0024",
+      "nombre": "Rosebel Murcia",
+      "celular": null,
+      "lectura_actual": 1519,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0025",
+      "nombre": "David Olaya",
+      "celular": null,
+      "lectura_actual": 5033,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0026",
+      "nombre": "Leonidas Tovar",
+      "celular": null,
+      "lectura_actual": 441,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0027",
+      "nombre": "Leonor Rincon",
+      "celular": null,
+      "lectura_actual": 5652,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0028",
+      "nombre": "Arismendi Cuenca",
+      "celular": null,
+      "lectura_actual": 288,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0029",
+      "nombre": "Jairo Angel",
+      "celular": null,
+      "lectura_actual": 3480,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0030",
+      "nombre": "Edgar Angel",
+      "celular": null,
+      "lectura_actual": 3410,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0031",
+      "nombre": "Osman Motta",
+      "celular": null,
+      "lectura_actual": 14134,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0032",
+      "nombre": "Osman Motta",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0033",
+      "nombre": "Juan Carlos Pastrana",
+      "celular": null,
+      "lectura_actual": 8304,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0034",
+      "nombre": "Cecilio Cuenca",
+      "celular": null,
+      "lectura_actual": 2606,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0035",
+      "nombre": "Adolfo Urrea",
+      "celular": null,
+      "lectura_actual": 6911,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0036",
+      "nombre": "Fredy Angel",
+      "celular": null,
+      "lectura_actual": 2972,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0037",
+      "nombre": "Ruth Bernal Trujillo",
+      "celular": null,
+      "lectura_actual": 4167,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0038",
+      "nombre": "Misael Sierra",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0039",
+      "nombre": "Gustavo Romero",
+      "celular": null,
+      "lectura_actual": 5511,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0040",
+      "nombre": "Jhon Jairo Ibañez",
+      "celular": null,
+      "lectura_actual": 4572,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0041",
+      "nombre": "Juan Evangelista Cubillos",
+      "celular": null,
+      "lectura_actual": 4563,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0042",
+      "nombre": "Sandra Patricia Mosquera",
+      "celular": null,
+      "lectura_actual": 5429,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0043",
+      "nombre": "Rafael Trujillo",
+      "celular": null,
+      "lectura_actual": 5544,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0044",
+      "nombre": "Carlos Solarte",
+      "celular": null,
+      "lectura_actual": 628,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0045",
+      "nombre": "Fernando Ramirez",
+      "celular": null,
+      "lectura_actual": 456,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0046",
+      "nombre": "Fernando Ramirez",
+      "celular": null,
+      "lectura_actual": 1854,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0047",
+      "nombre": "Wilson Moreno",
+      "celular": null,
+      "lectura_actual": 3977,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0048",
+      "nombre": "Ismael Arcadio Sierra",
+      "celular": null,
+      "lectura_actual": 2660,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0049",
+      "nombre": "Anderson Chila Embus",
+      "celular": null,
+      "lectura_actual": 3815,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0050",
+      "nombre": "Nubia Sierra",
+      "celular": null,
+      "lectura_actual": 3210,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0051",
+      "nombre": "Nohora Rojas",
+      "celular": null,
+      "lectura_actual": 6363,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0052",
+      "nombre": "Diego Andres Ramirez Monje",
+      "celular": null,
+      "lectura_actual": 3937,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0053",
+      "nombre": "Rufino  Tierradentro",
+      "celular": null,
+      "lectura_actual": 2441,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0054",
+      "nombre": "Alfonso Trujillo",
+      "celular": null,
+      "lectura_actual": 9063,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0055",
+      "nombre": "Gustavo Carvajal",
+      "celular": null,
+      "lectura_actual": 8670,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0056",
+      "nombre": "Marina Torres",
+      "celular": null,
+      "lectura_actual": 790,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0057",
+      "nombre": "Alexander Murcia",
+      "celular": null,
+      "lectura_actual": 12113,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0058",
+      "nombre": "Gustavo Carvajal",
+      "celular": null,
+      "lectura_actual": 11890,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0059",
+      "nombre": "Fidela  Tierradentro",
+      "celular": null,
+      "lectura_actual": 2411,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0060",
+      "nombre": "Myriam Vargas Escorcia",
+      "celular": null,
+      "lectura_actual": 5181,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0061",
+      "nombre": "Rosalba Polania",
+      "celular": null,
+      "lectura_actual": 1040,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0062",
+      "nombre": "Centro Docente La Palma",
+      "celular": null,
+      "lectura_actual": 6974,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0063",
+      "nombre": "Liuber Alvarez Yaime",
+      "celular": null,
+      "lectura_actual": 129,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0064",
+      "nombre": "Alvaro Pastrana",
+      "celular": null,
+      "lectura_actual": 1264,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0065",
+      "nombre": "Misael Sierra",
+      "celular": null,
+      "lectura_actual": 3371,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0066",
+      "nombre": "Ludy Esnith Castellanos  Arenas",
+      "celular": null,
+      "lectura_actual": 2557,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0067",
+      "nombre": "Melquiceded Dussan",
+      "celular": null,
+      "lectura_actual": 2345,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0068",
+      "nombre": "Abdon Farid Cabrera",
+      "celular": null,
+      "lectura_actual": 1377,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0069",
+      "nombre": "Dario Guerrero",
+      "celular": null,
+      "lectura_actual": 1210,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0070",
+      "nombre": "Regino Cuellar Rodriguez",
+      "celular": null,
+      "lectura_actual": 4759,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0071",
+      "nombre": "Martha Estela Osman JavierMotta Gasca",
+      "celular": null,
+      "lectura_actual": 2468,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0072",
+      "nombre": "Armando Palomino Suarez",
+      "celular": null,
+      "lectura_actual": 2328,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0073",
+      "nombre": "Henry Arturo Carvajal",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0074",
+      "nombre": "Harry Tierradentro Cuenca",
+      "celular": null,
+      "lectura_actual": 650,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0075",
+      "nombre": "Alexander /Raul / Urriago Vargas",
+      "celular": null,
+      "lectura_actual": 1207,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0076",
+      "nombre": "Anselmo Cruz",
+      "celular": null,
+      "lectura_actual": 1256,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0077",
+      "nombre": "Alexander Quintero",
+      "celular": null,
+      "lectura_actual": 20,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0078",
+      "nombre": "Andres Antonio Murcia Vargas",
+      "celular": null,
+      "lectura_actual": 4852,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0079",
+      "nombre": "Gerardo Vargas",
+      "celular": null,
+      "lectura_actual": 1229,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0080",
+      "nombre": "Adriana Baicue Bahamon",
+      "celular": null,
+      "lectura_actual": 2198,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0081",
+      "nombre": "Octavio Rios Pastrana",
+      "celular": null,
+      "lectura_actual": 284,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0082",
+      "nombre": "Armando Gonzales",
+      "celular": null,
+      "lectura_actual": 2814,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0083",
+      "nombre": "Asovisagro Sas",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0084",
+      "nombre": "Gersy Dussan",
+      "celular": null,
+      "lectura_actual": 84,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0085",
+      "nombre": "Dairo Tierradentro",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0086",
+      "nombre": "Regino Cuellar Rodriguez",
+      "celular": null,
+      "lectura_actual": 339,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0087",
+      "nombre": "Maria Laura Camila Campos",
+      "celular": null,
+      "lectura_actual": 352,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0088",
+      "nombre": "Armando Pinzon",
+      "celular": null,
+      "lectura_actual": 214,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0089",
+      "nombre": "Nelson Suarez Bedoya",
+      "celular": null,
+      "lectura_actual": 241,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0090",
+      "nombre": "Mario Romero Perdomo",
+      "celular": null,
+      "lectura_actual": 115,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0091",
+      "nombre": "Herminso Rodriguez",
+      "celular": null,
+      "lectura_actual": 99837,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0092",
+      "nombre": "Reinaldo Mosquera Vargas",
+      "celular": null,
+      "lectura_actual": 121,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0093",
+      "nombre": "Fredy Tierradentro",
+      "celular": null,
+      "lectura_actual": 1,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "PAL-0094",
+      "nombre": "Marleny Tierradentro",
+      "celular": null,
+      "lectura_actual": 7,
+      "latitud": null,
+      "longitud": null
+    }
+  ],
+  "Cachaya": [
+    {
+      "codigo": "CAC-0001",
+      "nombre": "Ana Dolores Sierra",
+      "celular": null,
+      "lectura_actual": 56,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0002",
+      "nombre": "Yolanda Sepulveda",
+      "celular": null,
+      "lectura_actual": 290,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0003",
+      "nombre": "Gilberto Montealegre",
+      "celular": null,
+      "lectura_actual": 10075,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0004",
+      "nombre": "Audias Canas",
+      "celular": null,
+      "lectura_actual": 7,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0005",
+      "nombre": "Carmenza Caicedo Palencia",
+      "celular": null,
+      "lectura_actual": 637,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0006",
+      "nombre": "Luis Antonio Vela",
+      "celular": null,
+      "lectura_actual": 865,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0007",
+      "nombre": "Alba Luz Criollo",
+      "celular": null,
+      "lectura_actual": 203,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0008",
+      "nombre": "Zacarias Sanchez",
+      "celular": null,
+      "lectura_actual": 268,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0009",
+      "nombre": "Gentil Cardenas",
+      "celular": null,
+      "lectura_actual": 307,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0010",
+      "nombre": "Maria Denis Martinez",
+      "celular": null,
+      "lectura_actual": 397,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0011",
+      "nombre": "Laureno Gomez",
+      "celular": null,
+      "lectura_actual": 21,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0012",
+      "nombre": "Marisol Quintero",
+      "celular": null,
+      "lectura_actual": 1874,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0013",
+      "nombre": "Alfredo Tamayo",
+      "celular": null,
+      "lectura_actual": 590,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0014",
+      "nombre": "Anyelo Sosa",
+      "celular": null,
+      "lectura_actual": 435,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0015",
+      "nombre": "Rosa Elena Perez",
+      "celular": null,
+      "lectura_actual": 939,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0016",
+      "nombre": "Reinelio Mazabel",
+      "celular": null,
+      "lectura_actual": 1316,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0017",
+      "nombre": "Marco Tulio Vela",
+      "celular": null,
+      "lectura_actual": 1416,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0018",
+      "nombre": "German Perez Rincon",
+      "celular": null,
+      "lectura_actual": 399,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0019",
+      "nombre": "Luz Dary Fierro",
+      "celular": null,
+      "lectura_actual": 13,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0020",
+      "nombre": "Nancy Milena Posada",
+      "celular": null,
+      "lectura_actual": 1013,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0021",
+      "nombre": "Guillermo Rodriguez",
+      "celular": null,
+      "lectura_actual": 2736,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0022",
+      "nombre": "Eduardo Montealegre",
+      "celular": null,
+      "lectura_actual": 6257,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0023",
+      "nombre": "Luis Tafur",
+      "celular": null,
+      "lectura_actual": 285,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0024",
+      "nombre": "Ana Julieta Muñoz Varona",
+      "celular": null,
+      "lectura_actual": 232,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0025",
+      "nombre": "Jairo Perdomo",
+      "celular": null,
+      "lectura_actual": 1315,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0026",
+      "nombre": "Melva Ortiz",
+      "celular": null,
+      "lectura_actual": 136,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0027",
+      "nombre": "Luz Marina Vasquez Muñoz",
+      "celular": null,
+      "lectura_actual": 9984,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0028",
+      "nombre": "Norberto Sandoval",
+      "celular": null,
+      "lectura_actual": 1041,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0029",
+      "nombre": "Alirio Macias",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0030",
+      "nombre": "Pedro Lara",
+      "celular": null,
+      "lectura_actual": 2770,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0031",
+      "nombre": "Amparo Chala Zuñiga",
+      "celular": null,
+      "lectura_actual": 64,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0032",
+      "nombre": "Fanny Polo Manjarrez",
+      "celular": null,
+      "lectura_actual": 9961,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0033",
+      "nombre": "Jaime Polo",
+      "celular": null,
+      "lectura_actual": 45,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0034",
+      "nombre": "Luz Neida Uribe Criollo",
+      "celular": null,
+      "lectura_actual": 2036,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0035",
+      "nombre": "Dilfredo Medina Llanos",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0036",
+      "nombre": "Nohemy Ortiz Florez",
+      "celular": null,
+      "lectura_actual": 1259,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0037",
+      "nombre": "Gerardo Sanchez",
+      "celular": null,
+      "lectura_actual": 1495,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0038",
+      "nombre": "Enrique Olaya",
+      "celular": null,
+      "lectura_actual": 53,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0039",
+      "nombre": "Danilo Olaya",
+      "celular": null,
+      "lectura_actual": 143,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0040",
+      "nombre": "Miriam Consuelo Urrea Garzon",
+      "celular": null,
+      "lectura_actual": 3258,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0041",
+      "nombre": "Yeison -Jose Miguel Galindo",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0042",
+      "nombre": "Humberto Macias",
+      "celular": null,
+      "lectura_actual": 132,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0043",
+      "nombre": "Luz Dary Montealegre",
+      "celular": null,
+      "lectura_actual": 1458,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0044",
+      "nombre": "Jhon Fredy Reyes Duque",
+      "celular": null,
+      "lectura_actual": 2066,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0045",
+      "nombre": "Escuela Alto Cachaya",
+      "celular": null,
+      "lectura_actual": 9946,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0046",
+      "nombre": "Jhon Jairo Sandoval",
+      "celular": null,
+      "lectura_actual": 21,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0047",
+      "nombre": "Jose Maria Calderon",
+      "celular": null,
+      "lectura_actual": 940,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0048",
+      "nombre": "Cesar Camilo Calderon Montealegre",
+      "celular": null,
+      "lectura_actual": 152,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0049",
+      "nombre": "Campo Elias Albino",
+      "celular": null,
+      "lectura_actual": 349,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0050",
+      "nombre": "Israel Urriago",
+      "celular": null,
+      "lectura_actual": 9954,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0051",
+      "nombre": "Cesar Cuenca",
+      "celular": null,
+      "lectura_actual": 2590,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0052",
+      "nombre": "Luis Alfredo Tafur",
+      "celular": null,
+      "lectura_actual": 52,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0053",
+      "nombre": "Jesus Tovar",
+      "celular": null,
+      "lectura_actual": 707,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0054",
+      "nombre": "Yeimmy Moreno Martinez",
+      "celular": null,
+      "lectura_actual": 1799,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0055",
+      "nombre": "Orlando Calderon Serrano",
+      "celular": null,
+      "lectura_actual": 2373,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0056",
+      "nombre": "Luis Lopez Rendon",
+      "celular": null,
+      "lectura_actual": 276,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0001",
+      "nombre": "Ana Dolores Sierra",
+      "celular": null,
+      "lectura_actual": 56,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0002",
+      "nombre": "Yolanda Sepulveda",
+      "celular": null,
+      "lectura_actual": 290,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0003",
+      "nombre": "Gilberto Montealegre",
+      "celular": null,
+      "lectura_actual": 10075,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0004",
+      "nombre": "Audias Canas",
+      "celular": null,
+      "lectura_actual": 7,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0005",
+      "nombre": "Carmenza Caicedo Palencia",
+      "celular": null,
+      "lectura_actual": 637,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0006",
+      "nombre": "Luis Antonio Vela",
+      "celular": null,
+      "lectura_actual": 865,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0007",
+      "nombre": "Alba Luz Criollo",
+      "celular": null,
+      "lectura_actual": 203,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0008",
+      "nombre": "Zacarias Sanchez",
+      "celular": null,
+      "lectura_actual": 268,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0009",
+      "nombre": "Gentil Cardenas",
+      "celular": null,
+      "lectura_actual": 307,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0010",
+      "nombre": "Maria Denis Martinez",
+      "celular": null,
+      "lectura_actual": 397,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0011",
+      "nombre": "Laureno Gomez",
+      "celular": null,
+      "lectura_actual": 21,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0012",
+      "nombre": "Marisol Quintero",
+      "celular": null,
+      "lectura_actual": 1874,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0013",
+      "nombre": "Alfredo Tamayo",
+      "celular": null,
+      "lectura_actual": 590,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0014",
+      "nombre": "Anyelo Sosa",
+      "celular": null,
+      "lectura_actual": 435,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0015",
+      "nombre": "Rosa Elena Perez",
+      "celular": null,
+      "lectura_actual": 939,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0016",
+      "nombre": "Reinelio Mazabel",
+      "celular": null,
+      "lectura_actual": 1316,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0017",
+      "nombre": "Marco Tulio Vela",
+      "celular": null,
+      "lectura_actual": 1416,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0018",
+      "nombre": "German Perez Rincon",
+      "celular": null,
+      "lectura_actual": 399,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0019",
+      "nombre": "Luz Dary Fierro",
+      "celular": null,
+      "lectura_actual": 13,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0020",
+      "nombre": "Nancy Milena Posada",
+      "celular": null,
+      "lectura_actual": 1013,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0021",
+      "nombre": "Guillermo Rodriguez",
+      "celular": null,
+      "lectura_actual": 2736,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0022",
+      "nombre": "Eduardo Montealegre",
+      "celular": null,
+      "lectura_actual": 6257,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0023",
+      "nombre": "Luis Tafur",
+      "celular": null,
+      "lectura_actual": 285,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0024",
+      "nombre": "Ana Julieta Muñoz Varona",
+      "celular": null,
+      "lectura_actual": 232,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0025",
+      "nombre": "Jairo Perdomo",
+      "celular": null,
+      "lectura_actual": 1315,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0026",
+      "nombre": "Melva Ortiz",
+      "celular": null,
+      "lectura_actual": 136,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0027",
+      "nombre": "Luz Marina Vasquez Muñoz",
+      "celular": null,
+      "lectura_actual": 9984,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0028",
+      "nombre": "Norberto Sandoval",
+      "celular": null,
+      "lectura_actual": 1041,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0029",
+      "nombre": "Alirio Macias",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0030",
+      "nombre": "Pedro Lara",
+      "celular": null,
+      "lectura_actual": 2770,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0031",
+      "nombre": "Amparo Chala Zuñiga",
+      "celular": null,
+      "lectura_actual": 64,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0032",
+      "nombre": "Fanny Polo Manjarrez",
+      "celular": null,
+      "lectura_actual": 9961,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0033",
+      "nombre": "Jaime Polo",
+      "celular": null,
+      "lectura_actual": 45,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0034",
+      "nombre": "Luz Neida Uribe Criollo",
+      "celular": null,
+      "lectura_actual": 2036,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0035",
+      "nombre": "Dilfredo Medina Llanos",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0036",
+      "nombre": "Nohemy Ortiz Florez",
+      "celular": null,
+      "lectura_actual": 1259,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0037",
+      "nombre": "Gerardo Sanchez",
+      "celular": null,
+      "lectura_actual": 1495,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0038",
+      "nombre": "Enrique Olaya",
+      "celular": null,
+      "lectura_actual": 53,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0039",
+      "nombre": "Danilo Olaya",
+      "celular": null,
+      "lectura_actual": 143,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0040",
+      "nombre": "Miriam Consuelo Urrea Garzon",
+      "celular": null,
+      "lectura_actual": 3258,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0041",
+      "nombre": "Yeison -Jose Miguel Galindo",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0042",
+      "nombre": "Humberto Macias",
+      "celular": null,
+      "lectura_actual": 132,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0043",
+      "nombre": "Luz Dary Montealegre",
+      "celular": null,
+      "lectura_actual": 1458,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0044",
+      "nombre": "Jhon Fredy Reyes Duque",
+      "celular": null,
+      "lectura_actual": 2066,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0045",
+      "nombre": "Escuela Alto Cachaya",
+      "celular": null,
+      "lectura_actual": 9946,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0046",
+      "nombre": "Jhon Jairo Sandoval",
+      "celular": null,
+      "lectura_actual": 21,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0047",
+      "nombre": "Jose Maria Calderon",
+      "celular": null,
+      "lectura_actual": 940,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0048",
+      "nombre": "Cesar Camilo Calderon Montealegre",
+      "celular": null,
+      "lectura_actual": 152,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0049",
+      "nombre": "Campo Elias Albino",
+      "celular": null,
+      "lectura_actual": 349,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0050",
+      "nombre": "Israel Urriago",
+      "celular": null,
+      "lectura_actual": 9954,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0051",
+      "nombre": "Cesar Cuenca",
+      "celular": null,
+      "lectura_actual": 2590,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0052",
+      "nombre": "Luis Alfredo Tafur",
+      "celular": null,
+      "lectura_actual": 52,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0053",
+      "nombre": "Jesus Tovar",
+      "celular": null,
+      "lectura_actual": 707,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0054",
+      "nombre": "Yeimmy Moreno Martinez",
+      "celular": null,
+      "lectura_actual": 1799,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0055",
+      "nombre": "Orlando Calderon Serrano",
+      "celular": null,
+      "lectura_actual": 2373,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAC-0056",
+      "nombre": "Luis Lopez Rendon",
+      "celular": null,
+      "lectura_actual": 276,
+      "latitud": null,
+      "longitud": null
+    }
+  ],
+  "Alto Corozal": [
+    {
+      "codigo": "ALT-0001",
+      "nombre": "Angel  Villabon",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0002",
+      "nombre": "Luis Montilla",
+      "celular": null,
+      "lectura_actual": 1423,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0003",
+      "nombre": "Abimelec Montealegre",
+      "celular": null,
+      "lectura_actual": 8186,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0004",
+      "nombre": "Abimelec Montealegre",
+      "celular": null,
+      "lectura_actual": 363,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0005",
+      "nombre": "Joaquin Emilio Sanchez Silva",
+      "celular": null,
+      "lectura_actual": 3508,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0006",
+      "nombre": "Adelaida Rivera",
+      "celular": null,
+      "lectura_actual": 5388,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0007",
+      "nombre": "Faiber Sanchez",
+      "celular": null,
+      "lectura_actual": 1095,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0008",
+      "nombre": "Eunixe Diaz",
+      "celular": null,
+      "lectura_actual": 4068,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0009",
+      "nombre": "Berardo Villanueva",
+      "celular": null,
+      "lectura_actual": 2875,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0010",
+      "nombre": "Arnobis Sanchez",
+      "celular": null,
+      "lectura_actual": 1351,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0011",
+      "nombre": "Orlando  Yaime",
+      "celular": null,
+      "lectura_actual": 2648,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0012",
+      "nombre": "Gloria  Vargas Moreno",
+      "celular": null,
+      "lectura_actual": 2523,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0013",
+      "nombre": "Tobias  Yaime",
+      "celular": null,
+      "lectura_actual": 4701,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0014",
+      "nombre": "Arlet Viviana Cardozo",
+      "celular": null,
+      "lectura_actual": 1726,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0015",
+      "nombre": "Miller Rodriguez",
+      "celular": null,
+      "lectura_actual": 2719,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0016",
+      "nombre": "Miguel Nasayo",
+      "celular": null,
+      "lectura_actual": 4345,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0017",
+      "nombre": "Jose Lizardo Puentes",
+      "celular": null,
+      "lectura_actual": 4592,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0018",
+      "nombre": "Joaquin Emilio Sanchez Silva",
+      "celular": null,
+      "lectura_actual": 539,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0019",
+      "nombre": "Lucrecia De Yara",
+      "celular": null,
+      "lectura_actual": 3999,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0020",
+      "nombre": "Luis Alberto Yara",
+      "celular": null,
+      "lectura_actual": 3485,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0021",
+      "nombre": "Omar Camilo Diaz",
+      "celular": null,
+      "lectura_actual": 3072,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0022",
+      "nombre": "Justiniano Meneses Moreno",
+      "celular": null,
+      "lectura_actual": 2801,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0023",
+      "nombre": "Isaias Sanchez",
+      "celular": null,
+      "lectura_actual": 10884,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0024",
+      "nombre": "Jose Elver  Calderon",
+      "celular": null,
+      "lectura_actual": 5229,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0025",
+      "nombre": "Hermenegildo Cardona Losada",
+      "celular": null,
+      "lectura_actual": 943,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0026",
+      "nombre": "Amanda Calderon",
+      "celular": null,
+      "lectura_actual": 5121,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0027",
+      "nombre": "Miguel Guluma Valderrama",
+      "celular": null,
+      "lectura_actual": 1882,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0028",
+      "nombre": "Orlando Rios",
+      "celular": null,
+      "lectura_actual": 3363,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0029",
+      "nombre": "Neiro Rios",
+      "celular": null,
+      "lectura_actual": 2544,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0030",
+      "nombre": "Jorge Enrique Rios",
+      "celular": null,
+      "lectura_actual": 4946,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0031",
+      "nombre": "Alexander Liz",
+      "celular": null,
+      "lectura_actual": 2712,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0032",
+      "nombre": "Luis Cordoba",
+      "celular": null,
+      "lectura_actual": 2799,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0033",
+      "nombre": "Aleydys Marin Morales",
+      "celular": null,
+      "lectura_actual": 2004,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0034",
+      "nombre": "Giraul Caballero",
+      "celular": null,
+      "lectura_actual": 2238,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0035",
+      "nombre": "Centro Docente Alto Corozal",
+      "celular": null,
+      "lectura_actual": 7099,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0036",
+      "nombre": "Orlando Rios",
+      "celular": null,
+      "lectura_actual": 393,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0037",
+      "nombre": "Neiro Rios",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0038",
+      "nombre": "Ofelia  Rodriguez",
+      "celular": null,
+      "lectura_actual": 143,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0039",
+      "nombre": "Yolanda  Rodriguez",
+      "celular": null,
+      "lectura_actual": 428,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0040",
+      "nombre": "Beatriz  Rodriguez",
+      "celular": null,
+      "lectura_actual": 97,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0041",
+      "nombre": "Deiby Sair  Sanchez",
+      "celular": null,
+      "lectura_actual": 342,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0042",
+      "nombre": "Hugo  Sandoval",
+      "celular": null,
+      "lectura_actual": 553,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0043",
+      "nombre": "Idaly -Dubier Garces Rojas",
+      "celular": null,
+      "lectura_actual": 448,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0044",
+      "nombre": "Octavio Perdomo",
+      "celular": null,
+      "lectura_actual": 258,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0045",
+      "nombre": "Jesús David Manrique",
+      "celular": null,
+      "lectura_actual": 128,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0046",
+      "nombre": "Lina Paola Perdomo Narvaez",
+      "celular": null,
+      "lectura_actual": 113,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0047",
+      "nombre": "Carlos Andres cordoba",
+      "celular": null,
+      "lectura_actual": 787,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0001",
+      "nombre": "Angel  Villabon",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0002",
+      "nombre": "Luis Montilla",
+      "celular": null,
+      "lectura_actual": 1423,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0003",
+      "nombre": "Abimelec Montealegre",
+      "celular": null,
+      "lectura_actual": 8186,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0004",
+      "nombre": "Abimelec Montealegre",
+      "celular": null,
+      "lectura_actual": 363,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0005",
+      "nombre": "Joaquin Emilio Sanchez Silva",
+      "celular": null,
+      "lectura_actual": 3508,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0006",
+      "nombre": "Adelaida Rivera",
+      "celular": null,
+      "lectura_actual": 5388,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0007",
+      "nombre": "Faiber Sanchez",
+      "celular": null,
+      "lectura_actual": 1095,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0008",
+      "nombre": "Eunixe Diaz",
+      "celular": null,
+      "lectura_actual": 4068,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0009",
+      "nombre": "Berardo Villanueva",
+      "celular": null,
+      "lectura_actual": 2875,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0010",
+      "nombre": "Arnobis Sanchez",
+      "celular": null,
+      "lectura_actual": 1351,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0011",
+      "nombre": "Orlando  Yaime",
+      "celular": null,
+      "lectura_actual": 2648,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0012",
+      "nombre": "Gloria  Vargas Moreno",
+      "celular": null,
+      "lectura_actual": 2523,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0013",
+      "nombre": "Tobias  Yaime",
+      "celular": null,
+      "lectura_actual": 4701,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0014",
+      "nombre": "Arlet Viviana Cardozo",
+      "celular": null,
+      "lectura_actual": 1726,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0015",
+      "nombre": "Miller Rodriguez",
+      "celular": null,
+      "lectura_actual": 2719,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0016",
+      "nombre": "Miguel Nasayo",
+      "celular": null,
+      "lectura_actual": 4345,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0017",
+      "nombre": "Jose Lizardo Puentes",
+      "celular": null,
+      "lectura_actual": 4592,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0018",
+      "nombre": "Joaquin Emilio Sanchez Silva",
+      "celular": null,
+      "lectura_actual": 539,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0019",
+      "nombre": "Lucrecia De Yara",
+      "celular": null,
+      "lectura_actual": 3999,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0020",
+      "nombre": "Luis Alberto Yara",
+      "celular": null,
+      "lectura_actual": 3485,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0021",
+      "nombre": "Omar Camilo Diaz",
+      "celular": null,
+      "lectura_actual": 3072,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0022",
+      "nombre": "Justiniano Meneses Moreno",
+      "celular": null,
+      "lectura_actual": 2801,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0023",
+      "nombre": "Isaias Sanchez",
+      "celular": null,
+      "lectura_actual": 10884,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0024",
+      "nombre": "Jose Elver  Calderon",
+      "celular": null,
+      "lectura_actual": 5229,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0025",
+      "nombre": "Hermenegildo Cardona Losada",
+      "celular": null,
+      "lectura_actual": 943,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0026",
+      "nombre": "Amanda Calderon",
+      "celular": null,
+      "lectura_actual": 5121,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0027",
+      "nombre": "Miguel Guluma Valderrama",
+      "celular": null,
+      "lectura_actual": 1882,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0028",
+      "nombre": "Orlando Rios",
+      "celular": null,
+      "lectura_actual": 3363,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0029",
+      "nombre": "Neiro Rios",
+      "celular": null,
+      "lectura_actual": 2544,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0030",
+      "nombre": "Jorge Enrique Rios",
+      "celular": null,
+      "lectura_actual": 4946,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0031",
+      "nombre": "Alexander Liz",
+      "celular": null,
+      "lectura_actual": 2712,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0032",
+      "nombre": "Luis Cordoba",
+      "celular": null,
+      "lectura_actual": 2799,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0033",
+      "nombre": "Aleydys Marin Morales",
+      "celular": null,
+      "lectura_actual": 2004,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0034",
+      "nombre": "Giraul Caballero",
+      "celular": null,
+      "lectura_actual": 2238,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0035",
+      "nombre": "Centro Docente Alto Corozal",
+      "celular": null,
+      "lectura_actual": 7099,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0036",
+      "nombre": "Orlando Rios",
+      "celular": null,
+      "lectura_actual": 393,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0037",
+      "nombre": "Neiro Rios",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0038",
+      "nombre": "Ofelia  Rodriguez",
+      "celular": null,
+      "lectura_actual": 143,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0039",
+      "nombre": "Yolanda  Rodriguez",
+      "celular": null,
+      "lectura_actual": 428,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0040",
+      "nombre": "Beatriz  Rodriguez",
+      "celular": null,
+      "lectura_actual": 97,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0041",
+      "nombre": "Deiby Sair  Sanchez",
+      "celular": null,
+      "lectura_actual": 342,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0042",
+      "nombre": "Hugo  Sandoval",
+      "celular": null,
+      "lectura_actual": 553,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0043",
+      "nombre": "Idaly -Dubier Garces Rojas",
+      "celular": null,
+      "lectura_actual": 448,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0044",
+      "nombre": "Octavio Perdomo",
+      "celular": null,
+      "lectura_actual": 258,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0045",
+      "nombre": "Jesús David Manrique",
+      "celular": null,
+      "lectura_actual": 128,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0046",
+      "nombre": "Lina Paola Perdomo Narvaez",
+      "celular": null,
+      "lectura_actual": 113,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "ALT-0047",
+      "nombre": "Carlos Andres cordoba",
+      "celular": null,
+      "lectura_actual": 787,
+      "latitud": null,
+      "longitud": null
+    }
+  ],
+  "Los Cafetos": [
+    {
+      "codigo": "CAF-0001",
+      "nombre": "Adonay Dussan",
+      "celular": null,
+      "lectura_actual": 4422,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0002",
+      "nombre": "Jose Vanegas",
+      "celular": null,
+      "lectura_actual": 6068,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0003",
+      "nombre": "Ricardo Cerquera",
+      "celular": null,
+      "lectura_actual": 1324,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0004",
+      "nombre": "GildardoChacue",
+      "celular": null,
+      "lectura_actual": 515,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0005",
+      "nombre": "Luis Enrique Cabrera Polanco",
+      "celular": null,
+      "lectura_actual": 5325,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0006",
+      "nombre": "Holmes Pantoja",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0007",
+      "nombre": "Fener Valderrama",
+      "celular": null,
+      "lectura_actual": 854,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0008",
+      "nombre": "Jose Auberto Saavedra",
+      "celular": null,
+      "lectura_actual": 4496,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0009",
+      "nombre": "Hugo Andres Delgado",
+      "celular": null,
+      "lectura_actual": 350,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0010",
+      "nombre": "Javier Saavedra",
+      "celular": null,
+      "lectura_actual": 72,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0011",
+      "nombre": "Fabian Osorio",
+      "celular": null,
+      "lectura_actual": 4720,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0012",
+      "nombre": "Alonso Gonzales",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0013",
+      "nombre": "Omar Saavedra Sanchez",
+      "celular": null,
+      "lectura_actual": 111,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0014",
+      "nombre": "Ivan   Luna Ortiz",
+      "celular": null,
+      "lectura_actual": 4512,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0015",
+      "nombre": "Tulia Aliky Jicennia Falla Martinez",
+      "celular": null,
+      "lectura_actual": 437,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0016",
+      "nombre": "Nayid L.C. Manrique",
+      "celular": null,
+      "lectura_actual": 5000,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0017",
+      "nombre": "Rosalba -Jose Yamin Villamil Esquivel",
+      "celular": null,
+      "lectura_actual": 793,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0018",
+      "nombre": "Gustavo Sanchez",
+      "celular": null,
+      "lectura_actual": 2709,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0019",
+      "nombre": "Daniel  Mosquera Cuellar",
+      "celular": null,
+      "lectura_actual": 8077,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0020",
+      "nombre": "Carlos Arturo Perdomo",
+      "celular": null,
+      "lectura_actual": 8549,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0021",
+      "nombre": "Carlos Arturo Perdomo",
+      "celular": null,
+      "lectura_actual": 317,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0022",
+      "nombre": "Carlos Arturo Perdomo",
+      "celular": null,
+      "lectura_actual": 4830,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0023",
+      "nombre": "Faiber Zaza",
+      "celular": null,
+      "lectura_actual": 3086,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0024",
+      "nombre": "Octavio Mosquera",
+      "celular": null,
+      "lectura_actual": 3999,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0025",
+      "nombre": "Fenibal Salazar",
+      "celular": null,
+      "lectura_actual": 27160,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0026",
+      "nombre": "Octavio Mosquera",
+      "celular": null,
+      "lectura_actual": 641,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0027",
+      "nombre": "Edgar Quitora",
+      "celular": null,
+      "lectura_actual": 2559,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0028",
+      "nombre": "EmilceTrujillo",
+      "celular": null,
+      "lectura_actual": 1320,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0029",
+      "nombre": "Mercedes Sarrias",
+      "celular": null,
+      "lectura_actual": 5021,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0030",
+      "nombre": "Agustin Valderrama",
+      "celular": null,
+      "lectura_actual": 1169,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0031",
+      "nombre": "Agapito Venegas",
+      "celular": null,
+      "lectura_actual": 4655,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0032",
+      "nombre": "Elicenio Quintero",
+      "celular": null,
+      "lectura_actual": 1806,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0033",
+      "nombre": "Luis Carlos Muñoz",
+      "celular": null,
+      "lectura_actual": 2890,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0034",
+      "nombre": "Luis Carlos Pancho",
+      "celular": null,
+      "lectura_actual": 5049,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0035",
+      "nombre": "Humberto Quintero",
+      "celular": null,
+      "lectura_actual": 2320,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0036",
+      "nombre": "Jose Manuel Gonzales",
+      "celular": null,
+      "lectura_actual": 5668,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0037",
+      "nombre": "Isuaro Benavidez",
+      "celular": null,
+      "lectura_actual": 2913,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0038",
+      "nombre": "Libardo Tierradentro",
+      "celular": null,
+      "lectura_actual": 1204,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0039",
+      "nombre": "Yecid Quintero",
+      "celular": null,
+      "lectura_actual": 1727,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0040",
+      "nombre": "Octavio Mosquera",
+      "celular": null,
+      "lectura_actual": 12833,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0041",
+      "nombre": "Jose Alejandro Venegas",
+      "celular": null,
+      "lectura_actual": 1617,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0042",
+      "nombre": "Johan Herney Aldana Garzon",
+      "celular": null,
+      "lectura_actual": 1471,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0043",
+      "nombre": "Noe Sabala Zorro",
+      "celular": null,
+      "lectura_actual": 1329,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0044",
+      "nombre": "Carolina Vanegas",
+      "celular": null,
+      "lectura_actual": 927,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0045",
+      "nombre": "Manuel Moreno Quintero",
+      "celular": null,
+      "lectura_actual": 794,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0046",
+      "nombre": "Marisol -GustavoMosquera",
+      "celular": null,
+      "lectura_actual": 413,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0047",
+      "nombre": "Dairo Tierradentro",
+      "celular": null,
+      "lectura_actual": 324,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0048",
+      "nombre": "Andrea Vanegas Romero",
+      "celular": null,
+      "lectura_actual": 103,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0049",
+      "nombre": "Jaime Gonzalez Trujillo",
+      "celular": null,
+      "lectura_actual": 4,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0001",
+      "nombre": "Adonay Dussan",
+      "celular": null,
+      "lectura_actual": 4422,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0002",
+      "nombre": "Jose Vanegas",
+      "celular": null,
+      "lectura_actual": 6068,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0003",
+      "nombre": "Ricardo Cerquera",
+      "celular": null,
+      "lectura_actual": 1324,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0004",
+      "nombre": "GildardoChacue",
+      "celular": null,
+      "lectura_actual": 515,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0005",
+      "nombre": "Luis Enrique Cabrera Polanco",
+      "celular": null,
+      "lectura_actual": 5325,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0006",
+      "nombre": "Holmes Pantoja",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0007",
+      "nombre": "Fener Valderrama",
+      "celular": null,
+      "lectura_actual": 854,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0008",
+      "nombre": "Jose Auberto Saavedra",
+      "celular": null,
+      "lectura_actual": 4496,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0009",
+      "nombre": "Hugo Andres Delgado",
+      "celular": null,
+      "lectura_actual": 350,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0010",
+      "nombre": "Javier Saavedra",
+      "celular": null,
+      "lectura_actual": 72,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0011",
+      "nombre": "Fabian Osorio",
+      "celular": null,
+      "lectura_actual": 4720,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0012",
+      "nombre": "Alonso Gonzales",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0013",
+      "nombre": "Omar Saavedra Sanchez",
+      "celular": null,
+      "lectura_actual": 111,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0014",
+      "nombre": "Ivan   Luna Ortiz",
+      "celular": null,
+      "lectura_actual": 4512,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0015",
+      "nombre": "Tulia Aliky Jicennia Falla Martinez",
+      "celular": null,
+      "lectura_actual": 437,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0016",
+      "nombre": "Nayid L.C. Manrique",
+      "celular": null,
+      "lectura_actual": 5000,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0017",
+      "nombre": "Rosalba -Jose Yamin Villamil Esquivel",
+      "celular": null,
+      "lectura_actual": 793,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0018",
+      "nombre": "Gustavo Sanchez",
+      "celular": null,
+      "lectura_actual": 2709,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0019",
+      "nombre": "Daniel  Mosquera Cuellar",
+      "celular": null,
+      "lectura_actual": 8077,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0020",
+      "nombre": "Carlos Arturo Perdomo",
+      "celular": null,
+      "lectura_actual": 8549,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0021",
+      "nombre": "Carlos Arturo Perdomo",
+      "celular": null,
+      "lectura_actual": 317,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0022",
+      "nombre": "Carlos Arturo Perdomo",
+      "celular": null,
+      "lectura_actual": 4830,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0023",
+      "nombre": "Faiber Zaza",
+      "celular": null,
+      "lectura_actual": 3086,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0024",
+      "nombre": "Octavio Mosquera",
+      "celular": null,
+      "lectura_actual": 3999,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0025",
+      "nombre": "Fenibal Salazar",
+      "celular": null,
+      "lectura_actual": 27160,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0026",
+      "nombre": "Octavio Mosquera",
+      "celular": null,
+      "lectura_actual": 641,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0027",
+      "nombre": "Edgar Quitora",
+      "celular": null,
+      "lectura_actual": 2559,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0028",
+      "nombre": "EmilceTrujillo",
+      "celular": null,
+      "lectura_actual": 1320,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0029",
+      "nombre": "Mercedes Sarrias",
+      "celular": null,
+      "lectura_actual": 5021,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0030",
+      "nombre": "Agustin Valderrama",
+      "celular": null,
+      "lectura_actual": 1169,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0031",
+      "nombre": "Agapito Venegas",
+      "celular": null,
+      "lectura_actual": 4655,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0032",
+      "nombre": "Elicenio Quintero",
+      "celular": null,
+      "lectura_actual": 1806,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0033",
+      "nombre": "Luis Carlos Muñoz",
+      "celular": null,
+      "lectura_actual": 2890,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0034",
+      "nombre": "Luis Carlos Pancho",
+      "celular": null,
+      "lectura_actual": 5049,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0035",
+      "nombre": "Humberto Quintero",
+      "celular": null,
+      "lectura_actual": 2320,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0036",
+      "nombre": "Jose Manuel Gonzales",
+      "celular": null,
+      "lectura_actual": 5668,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0037",
+      "nombre": "Isuaro Benavidez",
+      "celular": null,
+      "lectura_actual": 2913,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0038",
+      "nombre": "Libardo Tierradentro",
+      "celular": null,
+      "lectura_actual": 1204,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0039",
+      "nombre": "Yecid Quintero",
+      "celular": null,
+      "lectura_actual": 1727,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0040",
+      "nombre": "Octavio Mosquera",
+      "celular": null,
+      "lectura_actual": 12833,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0041",
+      "nombre": "Jose Alejandro Venegas",
+      "celular": null,
+      "lectura_actual": 1617,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0042",
+      "nombre": "Johan Herney Aldana Garzon",
+      "celular": null,
+      "lectura_actual": 1471,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0043",
+      "nombre": "Noe Sabala Zorro",
+      "celular": null,
+      "lectura_actual": 1329,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0044",
+      "nombre": "Carolina Vanegas",
+      "celular": null,
+      "lectura_actual": 927,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0045",
+      "nombre": "Manuel Moreno Quintero",
+      "celular": null,
+      "lectura_actual": 794,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0046",
+      "nombre": "Marisol -GustavoMosquera",
+      "celular": null,
+      "lectura_actual": 413,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0047",
+      "nombre": "Dairo Tierradentro",
+      "celular": null,
+      "lectura_actual": 324,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0048",
+      "nombre": "Andrea Vanegas Romero",
+      "celular": null,
+      "lectura_actual": 103,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "CAF-0049",
+      "nombre": "Jaime Gonzalez Trujillo",
+      "celular": null,
+      "lectura_actual": 4,
+      "latitud": null,
+      "longitud": null
+    }
+  ],
+  "La Floresta": [
+    {
+      "codigo": "FLO-0001",
+      "nombre": "Reinel Campos",
+      "celular": null,
+      "lectura_actual": 2205,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0002",
+      "nombre": "Luis Eduardo Leon",
+      "celular": null,
+      "lectura_actual": 4696,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0003",
+      "nombre": "Orlando Beltran Cuellar",
+      "celular": null,
+      "lectura_actual": 10967,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0004",
+      "nombre": "Ramiro Castañeda",
+      "celular": null,
+      "lectura_actual": 1098,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0005",
+      "nombre": "Alexander Liz",
+      "celular": null,
+      "lectura_actual": 2682,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0006",
+      "nombre": "Orlando Beltran Cuellar",
+      "celular": null,
+      "lectura_actual": 580,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0007",
+      "nombre": "Orlando Beltran Cuellar",
+      "celular": null,
+      "lectura_actual": 9499,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0008",
+      "nombre": "Orlando Beltran Cuellar",
+      "celular": null,
+      "lectura_actual": 1419,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0009",
+      "nombre": "Ramiro Pedroza",
+      "celular": null,
+      "lectura_actual": 6120,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0010",
+      "nombre": "Hermelina Garcia Reyes",
+      "celular": null,
+      "lectura_actual": 2580,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0011",
+      "nombre": "AngelinoMartinez",
+      "celular": null,
+      "lectura_actual": 4921,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0012",
+      "nombre": "German Perez",
+      "celular": null,
+      "lectura_actual": 635,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0013",
+      "nombre": "Nicanor Cabrera",
+      "celular": null,
+      "lectura_actual": 8986,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0014",
+      "nombre": "German Perez",
+      "celular": null,
+      "lectura_actual": 3201,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0015",
+      "nombre": "Gloria Adriana Adarve",
+      "celular": null,
+      "lectura_actual": 6658,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0016",
+      "nombre": "Jose Dumar Oviedo",
+      "celular": null,
+      "lectura_actual": 1858,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0017",
+      "nombre": "Elena  Bonelo Alvarez",
+      "celular": null,
+      "lectura_actual": 948,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0018",
+      "nombre": "Alberto Ceron",
+      "celular": null,
+      "lectura_actual": 330,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0019",
+      "nombre": "Jose Alonso Esquivel",
+      "celular": null,
+      "lectura_actual": 505,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0020",
+      "nombre": "Elvira  Ossa Sanchez",
+      "celular": null,
+      "lectura_actual": 2281,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0021",
+      "nombre": "Orlando Beltran Cuellar",
+      "celular": null,
+      "lectura_actual": 120,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0022",
+      "nombre": "Armando Rojas Ciceri",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0023",
+      "nombre": "Gonzalo Tarcicio Chavarro",
+      "celular": null,
+      "lectura_actual": 1630,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0024",
+      "nombre": "Tulia Sohley Ramirez Aldana",
+      "celular": null,
+      "lectura_actual": 614,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0025",
+      "nombre": "Nubia Deisy Valencia Ortiz",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0001",
+      "nombre": "Reinel Campos",
+      "celular": null,
+      "lectura_actual": 2205,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0002",
+      "nombre": "Luis Eduardo Leon",
+      "celular": null,
+      "lectura_actual": 4696,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0003",
+      "nombre": "Orlando Beltran Cuellar",
+      "celular": null,
+      "lectura_actual": 10967,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0004",
+      "nombre": "Ramiro Castañeda",
+      "celular": null,
+      "lectura_actual": 1098,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0005",
+      "nombre": "Alexander Liz",
+      "celular": null,
+      "lectura_actual": 2682,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0006",
+      "nombre": "Orlando Beltran Cuellar",
+      "celular": null,
+      "lectura_actual": 580,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0007",
+      "nombre": "Orlando Beltran Cuellar",
+      "celular": null,
+      "lectura_actual": 9499,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0008",
+      "nombre": "Orlando Beltran Cuellar",
+      "celular": null,
+      "lectura_actual": 1419,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0009",
+      "nombre": "Ramiro Pedroza",
+      "celular": null,
+      "lectura_actual": 6120,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0010",
+      "nombre": "Hermelina Garcia Reyes",
+      "celular": null,
+      "lectura_actual": 2580,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0011",
+      "nombre": "AngelinoMartinez",
+      "celular": null,
+      "lectura_actual": 4921,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0012",
+      "nombre": "German Perez",
+      "celular": null,
+      "lectura_actual": 635,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0013",
+      "nombre": "Nicanor Cabrera",
+      "celular": null,
+      "lectura_actual": 8986,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0014",
+      "nombre": "German Perez",
+      "celular": null,
+      "lectura_actual": 3201,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0015",
+      "nombre": "Gloria Adriana Adarve",
+      "celular": null,
+      "lectura_actual": 6658,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0016",
+      "nombre": "Jose Dumar Oviedo",
+      "celular": null,
+      "lectura_actual": 1858,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0017",
+      "nombre": "Elena  Bonelo Alvarez",
+      "celular": null,
+      "lectura_actual": 948,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0018",
+      "nombre": "Alberto Ceron",
+      "celular": null,
+      "lectura_actual": 330,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0019",
+      "nombre": "Jose Alonso Esquivel",
+      "celular": null,
+      "lectura_actual": 505,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0020",
+      "nombre": "Elvira  Ossa Sanchez",
+      "celular": null,
+      "lectura_actual": 2281,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0021",
+      "nombre": "Orlando Beltran Cuellar",
+      "celular": null,
+      "lectura_actual": 120,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0022",
+      "nombre": "Armando Rojas Ciceri",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0023",
+      "nombre": "Gonzalo Tarcicio Chavarro",
+      "celular": null,
+      "lectura_actual": 1630,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0024",
+      "nombre": "Tulia Sohley Ramirez Aldana",
+      "celular": null,
+      "lectura_actual": 614,
+      "latitud": null,
+      "longitud": null
+    },
+    {
+      "codigo": "FLO-0025",
+      "nombre": "Nubia Deisy Valencia Ortiz",
+      "celular": null,
+      "lectura_actual": 0,
+      "latitud": null,
+      "longitud": null
+    }
+  ]
+}
