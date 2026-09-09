@@ -427,6 +427,7 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
               lectura: l,
               db: widget.db,
               onActualizado: _cargar,
+              bloqueada: false,
             ),
           ),
         ),

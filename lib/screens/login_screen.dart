@@ -1,6 +1,7 @@
 // lib/screens/login_screen.dart
 import 'package:flutter/material.dart';
 import '../models/acueducto.dart';
+import '../services/api/api_service.dart';
 import '../services/sesion_service.dart';
 import '../utils/constantes.dart';
 
@@ -13,6 +14,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _usuarioCtrl   = TextEditingController();
   final _contrasenaCtrl = TextEditingController();
   final _focusContrasena = FocusNode();
 
@@ -20,9 +22,11 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _verContrasena = false;
   bool _cargando = false;
   String? _error;
+  String? _mensajeExito;
 
   @override
   void dispose() {
+    _usuarioCtrl.dispose();
     _contrasenaCtrl.dispose();
     _focusContrasena.dispose();
     super.dispose();
@@ -32,9 +36,10 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _acueductoSeleccionado = acueducto;
       _error = null;
+      _mensajeExito = null;
+      _usuarioCtrl.clear();
       _contrasenaCtrl.clear();
     });
-    // Enfocar campo de contraseña automáticamente
     Future.delayed(const Duration(milliseconds: 200), () {
       _focusContrasena.requestFocus();
     });
@@ -43,6 +48,11 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> _login() async {
     if (_acueductoSeleccionado == null) {
       setState(() => _error = 'Selecciona un acueducto');
+      return;
+    }
+    final usuario = _usuarioCtrl.text.trim();
+    if (usuario.isEmpty) {
+      setState(() => _error = 'Ingresa tu usuario');
       return;
     }
     final contrasena = _contrasenaCtrl.text.trim();
@@ -54,25 +64,37 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _cargando = true;
       _error = null;
+      _mensajeExito = null;
     });
 
-    await Future.delayed(const Duration(milliseconds: 200));
+    try {
+      final acueducto = _acueductoSeleccionado!;
+      final api = ApiService(acueducto);
 
-    final acueducto = Acueducto.login(
-      _acueductoSeleccionado!.usuario,
-      contrasena,
-    );
+      final resultado = await api.login(usuario, contrasena);
 
-    if (acueducto == null) {
+      final token   = resultado['token']   as String?;
+      final mensaje = resultado['message'] as String?;
+
+      if (token == null) {
+        setState(() {
+          _error = mensaje ?? 'Credenciales incorrectas';
+          _cargando = false;
+        });
+        return;
+      }
+
+      setState(() => _mensajeExito = mensaje ?? 'Inicio de sesión exitoso');
+      await Future.delayed(const Duration(milliseconds: 600));
+
+      await SesionService.guardarSesion(acueducto, token);
+      if (mounted) widget.onLogin(acueducto);
+    } catch (e) {
       setState(() {
-        _error = 'Contraseña incorrecta';
+        _error = 'Error de conexión: verifica tu red';
         _cargando = false;
       });
-      return;
     }
-
-    await SesionService.guardarSesion(acueducto);
-    if (mounted) widget.onLogin(acueducto);
   }
 
   @override
@@ -156,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       const SizedBox(height: 12),
 
-                      // ── Botones de selección de acueducto ──
+                      // ── Botones acueducto ──────────────
                       Row(
                         children: [
                           _botonAcueducto(
@@ -175,41 +197,31 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
 
-                      // ── Usuario precargado ─────────────────
-                      if (_acueductoSeleccionado != null) ...[
-                        const SizedBox(height: 16),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade100,
+                      const SizedBox(height: 16),
+
+                      // ── Usuario ────────────────────────
+                      TextField(
+                        controller: _usuarioCtrl,
+                        enabled: _acueductoSeleccionado != null,
+                        textInputAction: TextInputAction.next,
+                        onSubmitted: (_) => _focusContrasena.requestFocus(),
+                        decoration: InputDecoration(
+                          labelText: 'Usuario',
+                          hintText: _acueductoSeleccionado == null
+                              ? 'Selecciona un acueducto primero'
+                              : 'Ingresa tu usuario',
+                          prefixIcon: const Icon(Icons.person_outline),
+                          border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            border:
-                                Border.all(color: Colors.grey.shade300),
                           ),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.person_outline,
-                                  size: 18, color: Colors.grey),
-                              const SizedBox(width: 10),
-                              Text(
-                                _acueductoSeleccionado!.usuario,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              const Spacer(),
-                              const Icon(Icons.lock_outline,
-                                  size: 14, color: Colors.grey),
-                            ],
-                          ),
+                          filled: _acueductoSeleccionado == null,
+                          fillColor: Colors.grey.shade100,
                         ),
-                      ],
+                      ),
 
                       const SizedBox(height: 12),
 
-                      // ── Contraseña ─────────────────────────
+                      // ── Contraseña ─────────────────────
                       TextField(
                         controller: _contrasenaCtrl,
                         focusNode: _focusContrasena,
@@ -222,8 +234,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           hintText: _acueductoSeleccionado == null
                               ? 'Selecciona un acueducto primero'
                               : null,
-                          prefixIcon:
-                              const Icon(Icons.lock_outline),
+                          prefixIcon: const Icon(Icons.lock_outline),
                           suffixIcon: IconButton(
                             icon: Icon(_verContrasena
                                 ? Icons.visibility_off
@@ -239,7 +250,35 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
 
-                      // ── Error ──────────────────────────────
+                      // ── Éxito ──────────────────────────
+                      if (_mensajeExito != null) ...[
+                        const SizedBox(height: 10),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: Colors.green.shade50,
+                            borderRadius: BorderRadius.circular(8),
+                            border:
+                                Border.all(color: Colors.green.shade300),
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.check_circle_outline,
+                                  color: Colors.green, size: 16),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(_mensajeExito!,
+                                    style: const TextStyle(
+                                        color: Colors.green,
+                                        fontSize: 13)),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+
+                      // ── Error ──────────────────────────
                       if (_error != null) ...[
                         const SizedBox(height: 10),
                         Container(
@@ -256,9 +295,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               const Icon(Icons.error_outline,
                                   color: Colors.red, size: 16),
                               const SizedBox(width: 8),
-                              Text(_error!,
-                                  style: const TextStyle(
-                                      color: Colors.red, fontSize: 13)),
+                              Expanded(
+                                child: Text(_error!,
+                                    style: const TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 13)),
+                              ),
                             ],
                           ),
                         ),
@@ -266,7 +308,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       const SizedBox(height: 20),
 
-                      // ── Botón ingresar ─────────────────────
+                      // ── Botón ingresar ─────────────────
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
@@ -332,7 +374,6 @@ class _LoginScreenState extends State<LoginScreen> {
   ) {
     final acueducto = Acueducto.porTipo(tipo.name);
     if (acueducto == null) return const SizedBox.shrink();
-
     final seleccionado = _acueductoSeleccionado?.tipo == tipo;
 
     return Expanded(
@@ -361,7 +402,8 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: [
               Icon(icono,
-                  color: seleccionado ? Colors.white : color, size: 28),
+                  color: seleccionado ? Colors.white : color,
+                  size: 28),
               const SizedBox(height: 6),
               Text(
                 nombre,

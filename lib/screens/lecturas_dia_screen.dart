@@ -82,11 +82,43 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
           _actualizarTabs(sectores);
         }
 
-        // Si aún no hay tabs, mostrar loading
+        // Si aún no hay tabs — puede ser BD vacía o cargando
         if (_tabController == null || _sectores.isEmpty) {
+          // Si el stream ya respondió y no hay datos → BD vacía
+          final bdVacia = snapshot.connectionState != ConnectionState.waiting
+              && todos.isEmpty;
+
           return Scaffold(
-            appBar: AppBar(title: const Text('Lecturas del día')),
-            body: const Center(child: CircularProgressIndicator()),
+            appBar: AppBar(
+              title: Text('Lecturas del día — ${widget.acueducto.nombre}'),
+            ),
+            body: Center(
+              child: bdVacia
+                  ? Padding(
+                      padding: const EdgeInsets.all(32),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.cloud_off,
+                              size: 64, color: Colors.grey.shade400),
+                          const SizedBox(height: 16),
+                          const Text(
+                            'Sin datos disponibles',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'No se pudieron cargar los abonados.\n'
+                            'Verifica tu conexión y reinicia la app.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.grey.shade600),
+                          ),
+                        ],
+                      ),
+                    )
+                  : const CircularProgressIndicator(),
+            ),
           );
         }
 
@@ -254,9 +286,16 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
         lectura: lista[i],
         db: widget.db,
         colorSector: _colorSector(lista[i].sector),
+        acueducto: widget.acueducto,
         onCapturar: () => _irACaptura(lista[i]),
       ),
     );
+  }
+
+  int? _extraerPredioId(String? id) {
+    if (id == null) return null;
+    final match = RegExp(r'predio_(\d+)').firstMatch(id);
+    return match != null ? int.tryParse(match.group(1)!) : null;
   }
 
   Future<void> _irACaptura(Lectura lectura) async {
@@ -264,14 +303,16 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
       MaterialPageRoute(
         builder: (_) => InfoAbonadoScreen(
           db: widget.db,
+          acueducto: widget.acueducto,
           codigoMedidor: lectura.codigoMedidor,
           nombreAbonado: lectura.nombreAbonado,
           celular: lectura.celular,
-          lecturaAnterior: lectura.lectura,
+          lecturaAnterior: lectura.lecturaAnterior,
           latitud: lectura.latitud,
           longitud: lectura.longitud,
           sector: lectura.sector,
           estadoMedidorClave: lectura.estadoMedidor,
+          predioId: _extraerPredioId(lectura.id),
         ),
       ),
     );
@@ -287,12 +328,14 @@ class _TarjetaAbonado extends StatelessWidget {
   final VoidCallback onCapturar;
   final AppDatabase db;
   final Color colorSector;
+  final Acueducto acueducto;
 
   const _TarjetaAbonado({
     required this.lectura,
     required this.onCapturar,
     required this.db,
     required this.colorSector,
+    required this.acueducto,
   });
 
   @override
@@ -305,21 +348,27 @@ class _TarjetaAbonado extends StatelessWidget {
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => InfoAbonadoScreen(
-              db: db,
-              codigoMedidor: lectura.codigoMedidor,
-              nombreAbonado: lectura.nombreAbonado,
-              celular: lectura.celular,
-              lecturaAnterior: lectura.lectura,
-              latitud: lectura.latitud,
-              longitud: lectura.longitud,
-              sector: lectura.sector,
-              estadoMedidorClave: lectura.estadoMedidor,
+        onTap: () {
+          final match = RegExp(r'predio_(\d+)').firstMatch(lectura.id ?? '');
+          final predioId = match != null ? int.tryParse(match.group(1)!) : null;
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => InfoAbonadoScreen(
+                db: db,
+                acueducto: acueducto,
+                codigoMedidor: lectura.codigoMedidor,
+                nombreAbonado: lectura.nombreAbonado,
+                celular: lectura.celular,
+                lecturaAnterior: lectura.lecturaAnterior,
+                latitud: lectura.latitud,
+                longitud: lectura.longitud,
+                sector: lectura.sector,
+                estadoMedidorClave: lectura.estadoMedidor,
+                predioId: predioId,
+              ),
             ),
-          ),
-        ),
+          );
+        },
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Row(

@@ -1,11 +1,15 @@
 // lib/screens/home_screen.dart
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../data/database.dart';
 import '../models/acueducto.dart';
 import 'historial_screen.dart';
 import 'mapa_screen.dart';
 import 'lecturas_dia_screen.dart';
 import 'tutorial_screen.dart';
+import 'descarga_mapa_screen.dart';
+import '../services/api/api_service.dart';
+import '../services/api/tarifas_service.dart';
 
 class HomeScreen extends StatefulWidget {
   final AppDatabase db;
@@ -25,6 +29,131 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _tabIndex = 0;
+  bool _sincronizando = false;
+  int _pendientes = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _contarPendientes();
+  }
+
+  // Reconteo cada vez que el usuario vuelve al home
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _contarPendientes();
+  }
+
+  Future<void> _contarPendientes() async {
+    final lista = await widget.db.obtenerPendientesSync();
+    if (mounted) setState(() => _pendientes = lista.length);
+  }
+
+  Future<void> _sincronizar() async {
+    if (_sincronizando) return;
+
+    // Diálogo de confirmación
+    final confirmar = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        icon: const Icon(Icons.sync, color: Colors.blue, size: 36),
+        title: const Text('¿Sincronizar lecturas?'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Se enviarán $_pendientes lectura(s) al servidor.'),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.orange.shade50,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.orange.shade200),
+              ),
+              child: const Row(
+                children: [
+                  Icon(Icons.warning_amber_rounded,
+                      color: Colors.orange, size: 18),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'Una vez sincronizadas, las lecturas '
+                      'no se podrán editar desde la app.',
+                      style: TextStyle(fontSize: 12, color: Colors.orange),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Cancelar'),
+          ),
+          ElevatedButton.icon(
+            onPressed: () => Navigator.pop(ctx, true),
+            icon: const Icon(Icons.sync, size: 16),
+            label: const Text('Confirmar'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmar != true) return;
+
+    setState(() => _sincronizando = true);
+
+    try {
+      // Sincronizar tarifas y empresa en background
+      TarifasService(acueducto: widget.acueducto).sincronizar();
+
+      // Sincronizar lecturas pendientes
+      await ApiService(widget.acueducto)
+          .sincronizarLecturasPendientes(widget.db)
+          .timeout(const Duration(seconds: 30));
+
+      // Limpiar clave de importación para que el próximo arranque
+      // reimporte solo los predios sin lectura en el período activo
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove(
+          'abonados_importados_${widget.acueducto.tipo.name}_v12');
+
+      await _contarPendientes();
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(_pendientes == 0
+                ? '✓ Todo sincronizado'
+                : '⚠ $_pendientes lecturas pendientes'),
+            backgroundColor:
+                _pendientes == 0 ? Colors.green : Colors.orange,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Sin conexión — se sincronizará luego'),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _sincronizando = false);
+    }
+  }
 
   static const _tabs = [
     (icon: Icons.assignment_outlined, label: 'Lecturas'),
@@ -36,29 +165,46 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _confirmarCerrarSesion() async {
     final confirmar = await showDialog<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Cerrar sesión'),
-        content: Text(
-          '¿Salir de la cuenta ${widget.acueducto.nombre}?\n\n'
-          'Las lecturas guardadas no se perderán.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancelar'),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(ctx, true),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              foregroundColor: Colors.white,
+      builder:
+          (ctx) => AlertDialog(
+            title: const Text('Cerrar sesión'),
+            content: Text(
+              '¿Salir de la cuenta ${widget.acueducto.nombre}?\n\n'
+              'Las lecturas guardadas no se perderán.',
             ),
-            child: const Text('Cerrar sesión'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx, false),
+                child: const Text('Cancelar'),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(ctx, true),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text('Cerrar sesión'),
+              ),
+            ],
           ),
-        ],
-      ),
     );
-    if (confirmar == true) widget.onCerrarSesion();
+    if (confirmar != true) return;
+
+    // Llamar al API para invalidar el token
+    try {
+      print('🔄 Cerrando sesión en servidor...');
+      await ApiService(widget.acueducto)
+          .logout()
+          .timeout(const Duration(seconds: 5));
+      print('✓ Logout servidor OK');
+    } catch (e) {
+      print('✗ Error logout servidor: $e — cerrando sesión local igual');
+    }
+
+    if (mounted) {
+      print('🔄 Llamando onCerrarSesion...');
+      widget.onCerrarSesion();
+    }
   }
 
   @override
@@ -66,31 +212,73 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       // AppBar solo visible en la tab de Lecturas para mostrar
       // el nombre del acueducto y el botón de cerrar sesión
-      appBar: _tabIndex == 0
-          ? AppBar(
-              title: Text(widget.acueducto.nombre),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.logout),
-                  onPressed: _confirmarCerrarSesion,
-                  tooltip: 'Cerrar sesión',
-                ),
-              ],
-            )
-          : null,
+      appBar:
+          _tabIndex == 0
+              ? AppBar(
+                title: Text(widget.acueducto.nombre),
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.download_for_offline_outlined),
+                    tooltip: 'Recursos offline',
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const DescargaMapaScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  // Botón sincronizar con badge de pendientes
+                  Stack(
+                    children: [
+                      IconButton(
+                        icon: _sincronizando
+                            ? const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                    strokeWidth: 2, color: Colors.white),
+                              )
+                            : const Icon(Icons.sync),
+                        onPressed: _sincronizando ? null : _sincronizar,
+                        tooltip: 'Sincronizar lecturas',
+                      ),
+                      if (_pendientes > 0 && !_sincronizando)
+                        Positioned(
+                          right: 6,
+                          top: 6,
+                          child: Container(
+                            padding: const EdgeInsets.all(3),
+                            decoration: const BoxDecoration(
+                              color: Colors.orange,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Text(
+                              '$_pendientes',
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.logout),
+                    onPressed: _confirmarCerrarSesion,
+                    tooltip: 'Cerrar sesión',
+                  ),
+                ],
+              )
+              : null,
       body: IndexedStack(
         index: _tabIndex,
         children: [
-          LecturasDiaScreen(
-            db: widget.db,
-            acueducto: widget.acueducto,
-          ),
-          HistorialScreen(db: widget.db, acueducto: widget.acueducto,),
-          MapaScreen(
-            db: widget.db,
-            acueducto: widget.acueducto,
-          ),
-          const TutorialScreen(),
+          LecturasDiaScreen(db: widget.db, acueducto: widget.acueducto),
+          HistorialScreen(db: widget.db, acueducto: widget.acueducto),
+          MapaScreen(db: widget.db, acueducto: widget.acueducto),
+          TutorialScreen(acueducto: widget.acueducto),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -98,15 +286,20 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: (i) => setState(() => _tabIndex = i),
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
-        selectedLabelStyle:
-            const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+        selectedLabelStyle: const TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+        ),
         unselectedLabelStyle: const TextStyle(fontSize: 11),
-        items: _tabs
-            .map((t) => BottomNavigationBarItem(
-                  icon: Icon(t.icon),
-                  label: t.label,
-                ))
-            .toList(),
+        items:
+            _tabs
+                .map(
+                  (t) => BottomNavigationBarItem(
+                    icon: Icon(t.icon),
+                    label: t.label,
+                  ),
+                )
+                .toList(),
       ),
     );
   }

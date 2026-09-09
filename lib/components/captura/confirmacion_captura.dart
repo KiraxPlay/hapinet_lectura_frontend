@@ -24,6 +24,7 @@ class ConfirmacionCaptura extends StatelessWidget {
 
   // ── ASR campos ──
   final bool asrDisponible;
+  final String? campoTranscribiendo; // 'lectura' | 'notas' | null
   final double nivelVolumen;
   // Cuál campo está escuchando: 'lectura' | 'notas' | null
   final String? campoEscuchando;
@@ -47,6 +48,7 @@ class ConfirmacionCaptura extends StatelessWidget {
     required this.esLecturaCero,
     required this.procesando,
     required this.asrDisponible,
+    required this.campoTranscribiendo,
     required this.nivelVolumen,
     required this.campoEscuchando,
     required this.onToggleAsr,
@@ -88,6 +90,7 @@ class ConfirmacionCaptura extends StatelessWidget {
                   controller: lecturaController,
                   asrDisponible: asrDisponible,
                   escuchando: campoEscuchando == 'lectura',
+                  transcribiendo: campoTranscribiendo == 'lectura',
                   nivelVolumen: campoEscuchando == 'lectura' ? nivelVolumen : 0.0,
                   onToggleAsr: () => onToggleAsr('lectura'),
                   onChanged: onChanged,
@@ -110,6 +113,7 @@ class ConfirmacionCaptura extends StatelessWidget {
                   esLecturaCero: esLecturaCero,
                   asrDisponible: asrDisponible,
                   escuchando: campoEscuchando == 'notas',
+                  transcribiendo: campoTranscribiendo == 'notas',
                   nivelVolumen: campoEscuchando == 'notas' ? nivelVolumen : 0.0,
                   onToggleAsr: () => onToggleAsr('notas'),
                   onChanged: onChanged,
@@ -136,6 +140,7 @@ class _CampoLecturaAsr extends StatelessWidget {
   final TextEditingController controller;
   final bool asrDisponible;
   final bool escuchando;
+  final bool transcribiendo; // true solo para este campo
   final double nivelVolumen;
   final VoidCallback onToggleAsr;
   final VoidCallback onChanged;
@@ -144,6 +149,7 @@ class _CampoLecturaAsr extends StatelessWidget {
     required this.controller,
     required this.asrDisponible,
     required this.escuchando,
+    required this.transcribiendo,
     required this.nivelVolumen,
     required this.onToggleAsr,
     required this.onChanged,
@@ -152,68 +158,107 @@ class _CampoLecturaAsr extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextField(
           controller: controller,
           keyboardType: TextInputType.number,
           onChanged: (_) => onChanged(),
-          style: const TextStyle(color: Colors.white, fontSize: 28,
+          style: const TextStyle(
+              color: Colors.white, fontSize: 28,
               fontWeight: FontWeight.bold, letterSpacing: 4),
           decoration: InputDecoration(
             hintText: 'Ej: 012345',
             hintStyle: const TextStyle(color: Colors.white30),
             filled: true,
             fillColor: Colors.white10,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
                 borderSide: const BorderSide(color: Colors.white24)),
-            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
                 borderSide: const BorderSide(color: Colors.white24)),
-            suffixIcon: asrDisponible
+            // Micrófono solo cuando no graba ni procesa
+            suffixIcon: asrDisponible && !escuchando && !transcribiendo
                 ? GestureDetector(
                     onTap: onToggleAsr,
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
+                    child: Container(
                       margin: const EdgeInsets.all(6),
                       padding: const EdgeInsets.all(6),
                       decoration: BoxDecoration(
-                        color: escuchando
-                            ? Colors.blue
-                            : Colors.white.withOpacity(0.15),
+                        color: Colors.white.withOpacity(0.15),
                         shape: BoxShape.circle,
                       ),
-                      child: Transform.scale(
-                        scale: escuchando ? 1.0 + (nivelVolumen / 20) : 1.0,
-                        child: Icon(
-                          escuchando ? Icons.mic : Icons.mic_none,
-                          color: escuchando ? Colors.white : Colors.white54,
-                          size: 18,
-                        ),
-                      ),
+                      child: const Icon(Icons.mic_none,
+                          color: Colors.white54, size: 18),
                     ),
                   )
                 : null,
           ),
         ),
-        if (escuchando) ...[
+
+        // Procesando
+        if (transcribiendo) ...[
           const SizedBox(height: 6),
-          Row(
-            children: [
-              const SizedBox(width: 4),
-              Container(width: 8, height: 8,
-                  decoration: const BoxDecoration(
-                      color: Colors.blue, shape: BoxShape.circle)),
-              const SizedBox(width: 6),
-              const Text('Dicta el número del medidor',
-                  style: TextStyle(color: Colors.blue, fontSize: 11,
-                      fontStyle: FontStyle.italic)),
-              const Spacer(),
-              GestureDetector(
-                onTap: onToggleAsr,
-                child: const Text('Detener',
-                    style: TextStyle(color: Colors.blue, fontSize: 11,
-                        fontWeight: FontWeight.bold)),
+          const Row(children: [
+            SizedBox(width: 4),
+            SizedBox(
+              width: 12, height: 12,
+              child: CircularProgressIndicator(
+                  strokeWidth: 2, color: Colors.blue),
+            ),
+            SizedBox(width: 8),
+            Text('Procesando el número...',
+                style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 12,
+                    fontStyle: FontStyle.italic)),
+          ]),
+        ],
+
+        // Grabando — botón grande
+        if (escuchando) ...[
+          const SizedBox(height: 10),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(3),
+            child: SizedBox(
+              height: 6,
+              child: LinearProgressIndicator(
+                value: (nivelVolumen / 10).clamp(0.0, 1.0),
+                backgroundColor: Colors.blue.withOpacity(0.2),
+                valueColor:
+                    const AlwaysStoppedAnimation<Color>(Colors.blue),
               ),
-            ],
+            ),
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: onToggleAsr,
+              icon: const Icon(Icons.stop_circle, size: 24),
+              label: const Text(
+                'LISTO — Tocar aquí para terminar',
+                style: TextStyle(
+                    fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+              ),
+            ),
+          ),
+          const SizedBox(height: 6),
+          const Text(
+            '🎤 Diga el número del medidor con calma.',
+            style: TextStyle(
+                color: Colors.white60,
+                fontSize: 11,
+                fontStyle: FontStyle.italic),
+            textAlign: TextAlign.center,
           ),
         ],
       ],

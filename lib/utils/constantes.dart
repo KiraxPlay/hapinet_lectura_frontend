@@ -1,2 +1,2 @@
-const String kVersion = '2.2.2';
+const String kVersion = '3.0.0';
 const String kNombreApp = 'Hapinet';

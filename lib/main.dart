@@ -1,14 +1,19 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'data/database.dart';
 import 'models/acueducto.dart';
 import 'screens/login_screen.dart';
 import 'screens/splash_screen.dart';
 import 'services/sesion_service.dart';
+import 'services/api/api_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Cargar variables de entorno desde .env
+  await dotenv.load(fileName: '.env');
 
   // Orientación solo vertical
   await SystemChrome.setPreferredOrientations([
@@ -33,21 +38,24 @@ class MedidorApp extends StatefulWidget {
 class _MedidorAppState extends State<MedidorApp> {
   Acueducto? _acueductoActivo;
   AppDatabase? _db;
+  final _navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   void initState() {
     super.initState();
+    // Callback para cierre automático cuando el token expira definitivamente
+    ApiService.onSesionExpirada = () async {
+      if (mounted) await _cerrarSesion();
+    };
     if (widget.sesionInicial != null) {
       _activarAcueducto(widget.sesionInicial!);
     }
   }
 
-  // Crea la BD específica del acueducto y activa la sesión
   void _activarAcueducto(Acueducto acueducto) {
     _db?.close();
     setState(() {
       _acueductoActivo = acueducto;
-      // Cada acueducto tiene su propia BD separada
       _db = AppDatabase(nombreBd: acueducto.nombreBd);
     });
   }
@@ -59,6 +67,9 @@ class _MedidorAppState extends State<MedidorApp> {
       _acueductoActivo = null;
       _db = null;
     });
+    // Limpiar todo el stack de navegación y volver al login
+    _navigatorKey.currentState?.pushNamedAndRemoveUntil(
+      '/', (route) => false);
   }
 
   @override
@@ -72,6 +83,7 @@ class _MedidorAppState extends State<MedidorApp> {
     return MaterialApp(
       title: 'Medidor Hapinet',
       debugShowCheckedModeBanner: false,
+      navigatorKey: _navigatorKey,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: _acueductoActivo != null
@@ -82,13 +94,11 @@ class _MedidorAppState extends State<MedidorApp> {
         useMaterial3: true,
       ),
       home: _acueductoActivo == null
-          // Sin sesión → pantalla de login
           ? LoginScreen(
               onLogin: (acueducto) {
                 _activarAcueducto(acueducto);
               },
             )
-          // Con sesión → splash que importa abonados y va al home
           : SplashScreen(
               db: _db!,
               acueducto: _acueductoActivo!,

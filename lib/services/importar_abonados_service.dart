@@ -1,138 +1,128 @@
 // lib/services/importar_abonados_service.dart
-import 'package:drift/drift.dart' show Value , InsertMode;
+import 'dart:async';
+import 'package:drift/drift.dart' show Value, InsertMode;
+import 'package:medidor_hapinet_app/services/api/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/database.dart';
-import 'abonados_service.dart';
+import '../models/acueducto.dart';
 
 class ImportarAbonadosService {
   final AppDatabase _db;
-  final String _jsonAsset;
-  final String _keyImportado;
-  final String _keyLimpiado;
+  final Acueducto acueducto;
+
+  String get _keyImportado =>
+      'abonados_importados_${acueducto.tipo.name}_v14';
 
   ImportarAbonadosService({
     required AppDatabase db,
-    required String jsonAsset,
-    required String acueductoId, // 'asoaguapo' o 'aguaviva'
-  })  : _db = db,
-        _jsonAsset = jsonAsset,
-        _keyImportado = 'abonados_importados_${acueductoId}_v12',
-        _keyLimpiado = 'abonados_limpiados_${acueductoId}_v8';
-
-  // Genera el ID interno normalizando ceros
-  // PUE-101-001 → abonado_pue_101_1
-  // PUE-101-120 → abonado_pue_101_120
-  static String _generarId(String codigo) {
-    final partes = codigo
-        .toLowerCase()
-        .replaceAll(RegExp(r'[^a-z0-9]'), '_')
-        .split('_')
-        .where((p) => p.isNotEmpty)
-        .toList();
-
-    if (partes.isNotEmpty) {
-      final ultimo = int.tryParse(partes.last);
-      if (ultimo != null) {
-        partes[partes.length - 1] = ultimo.toString();
-      }
-    }
-
-    return 'abonado_${partes.join('_')}';
-  }
+    required this.acueducto,
+  }) : _db = db;
 
   Future<ImportacionResult> importar() async {
     final prefs = await SharedPreferences.getInstance();
 
-    // ── Paso 1: limpiar duplicados si nunca se ha hecho ──
-    // Esto borra TODOS los abonados sin lectura real
-    // y los reimporta limpios desde el JSON
-    final yaLimpio = prefs.getBool(_keyLimpiado) ?? false;
-    if (!yaLimpio) {
-      await _limpiarYReimportar(prefs);
-      return const ImportacionResult(total: 0, nuevos: 0, yaExistia: false);
-    }
-
-    // ── Paso 2: importación normal (primera vez o nueva versión) ──
+    // Ya importado → retorno instantáneo
     if (prefs.getBool(_keyImportado) == true) {
       return const ImportacionResult(total: 0, nuevos: 0, yaExistia: true);
     }
 
-    await _importarDesdeJson(prefs);
+    // Intentar API con timeout de 10 segundos
+    try {
+      final api = ApiService(acueducto);
+      print('🔄 Intentando descargar predios desde ${acueducto.apiUrl}');
+      final t = DateTime.now();
+
+      // Descargar predios y novedades en paralelo
+      final results = await Future.wait([
+        api.listPredios(),
+        api.novedadesMasivas(),
+      ]).timeout(const Duration(seconds: 30));
+
+      final predios   = results[0];
+      final novedades = results[1];
+      print('✓ Predios: \${predios.length}, Novedades: \${novedades.length} en \${DateTime.now().difference(t).inMilliseconds}ms');
+
+      if (predios.isNotEmpty) {
+        final companions = predios.asMap().entries.map((entry) {
+          final i = entry.key;
+          final p = entry.value as Map<String, dynamic>;
+          final id = 'predio_${p['predio_id']}';
+          final nombre =
+              '${p['abonado_nombre'] ?? ''} ${p['abonado_apellido'] ?? ''}'
+                  .trim();
+          return LecturasCompanion.insert(
+            id: id,
+            lectura: 0,
+            textoCrudo: '',
+            rutaFoto: '',
+            latitud: _parseDouble(p['predio_latitud']) ?? 0.0,
+            longitud: _parseDouble(p['predio_longitud']) ?? 0.0,
+            fechaLectura: DateTime.now(),
+            estadoSync: const Value('pendiente'),
+            codigoMedidor: Value(p['predio_codigo'] as String? ?? id),
+            nombreAbonado: Value(nombre),
+            celular: Value(p['abonado_telefono'] as String?),
+            sector: Value(_sectorDesdeVereda(p['vereda_id'])),
+            esAbonado: const Value(true),
+            tieneLecturaReal: const Value(false),
+            ordenRuta: Value(i + 1),
+          );
+        }).toList();
+
+        await _db.insertarAbonadosEnBatch(companions);
+
+        // Agrupar novedades por predio_id y guardar en BD local
+        if (novedades.isNotEmpty) {
+          final novedadesPorPredio = <int, List<Map<String, dynamic>>>{};
+          for (final n in novedades) {
+            final map = n as Map<String, dynamic>;
+            final id  = map['predio_id'] as int;
+            novedadesPorPredio.putIfAbsent(id, () => []).add(map);
+          }
+          for (final entry in novedadesPorPredio.entries) {
+            await _db.guardarNovedadesPredio(entry.key, entry.value);
+          }
+        }
+
+        await prefs.setBool(_keyImportado, true);
+        return ImportacionResult(
+            total: companions.length, nuevos: companions.length);
+      }
+    } catch (e) {
+      print('✗ Error importando predios: $e');
+      // Sin internet, timeout o error — no bloquear el splash
+    }
+
+    // Sin datos del API — NO marcar como importado
+    // El próximo arranque reintentará la descarga
     return const ImportacionResult(total: 0, nuevos: 0, yaExistia: false);
   }
 
-  // Borra todos los abonados de la BD y los reimporta desde el JSON
-  // Preserva las lecturas ya tomadas (tieneLecturaReal = true)
-  Future<void> _limpiarYReimportar(SharedPreferences prefs) async {
-    // Borrar solo abonados SIN lectura real (pendientes)
-    // Los que ya tienen lectura se conservan
-    await _db.eliminarAbonadosSinLectura();
-
-    // Reimportar desde el JSON
-    await _importarDesdeJson(prefs);
-
-    // Marcar como limpio para no volver a hacerlo
-    await prefs.setBool(_keyLimpiado, true);
+  String _sectorDesdeVereda(dynamic veredaId) {
+    final id = veredaId?.toString();
+    return switch (acueducto.tipo) {
+      TipoAcueducto.asoaguapo => switch (id) {
+          '54' => 'TENDIDO',
+          '55' => 'RECREO',
+          '56' => 'PUEBLO NUEVO',
+          _    => 'Sin sector',
+        },
+      TipoAcueducto.aguaviva => switch (id) {
+          '54' => 'Alto Corozal',
+          '55' => 'Cachaya',
+          '56' => 'La Floresta',
+          '68' => 'La Palma',
+          '69' => 'Los Cafetos',
+          _    => 'Sin sector',
+        },
+    };
   }
 
-  Future<void> _importarDesdeJson(SharedPreferences prefs) async {
-    AbonadosService.limpiarCache(_jsonAsset);
-    final service = AbonadosService(jsonAsset: _jsonAsset);
-    final abonados = await service.cargarTodos();
-
-    // Eliminar duplicados del JSON por ID normalizado
-    final idsVistos = <String>{};
-    final abonadosSinDuplicados = abonados.where((a) {
-      return idsVistos.add(_generarId(a.codigo));
-    }).toList();
-
-    // Preparar todos los companions de una vez
-    final companions = <LecturasCompanion>[];
-    for (int i = 0; i < abonadosSinDuplicados.length; i++) {
-      final abonado = abonadosSinDuplicados[i];
-      companions.add(
-        LecturasCompanion.insert(
-          id: _generarId(abonado.codigo),
-          lectura: abonado.lecturaActual ?? 0,
-          textoCrudo: '',
-          rutaFoto: '',
-          latitud: abonado.latitud ?? 0.0,
-          longitud: abonado.longitud ?? 0.0,
-          fechaLectura: DateTime.now(),
-          estadoSync: const Value('pendiente'),
-          codigoMedidor: Value(abonado.codigo),
-          nombreAbonado: Value(abonado.nombre),
-          sector: Value(abonado.sector),
-          esAbonado: const Value(true),
-          tieneLecturaReal: const Value(false),
-          celular: Value(abonado.celular),
-          ordenRuta: Value(i + 1),
-        ),
-      );
-    }
-
-    // Insertar todos en una sola transacción con batch
-    // Se divide en chunks de 100 para evitar límites de SQLite
-    // (SQLite tiene un máximo de ~999 variables por sentencia)
-    await _db.transaction(() async {
-      const tamanoChunk = 100;
-      for (int i = 0; i < companions.length; i += tamanoChunk) {
-        final fin = (i + tamanoChunk < companions.length)
-            ? i + tamanoChunk
-            : companions.length;
-        final chunk = companions.sublist(i, fin);
-
-        await _db.batch((batch) {
-          batch.insertAll(
-            _db.lecturas,
-            chunk,
-            mode: InsertMode.insertOrIgnore,
-          );
-        });
-      }
-    });
-
-    await prefs.setBool(_keyImportado, true);
+  double? _parseDouble(dynamic val) {
+    if (val == null) return null;
+    if (val is num) return val.toDouble();
+    if (val is String) return double.tryParse(val);
+    return null;
   }
 }
 

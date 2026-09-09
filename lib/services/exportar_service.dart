@@ -14,10 +14,6 @@ class ExportarService {
 
   ExportarService(this._db, {required this.acueducto});
 
-  // ─────────────────────────────────────────────
-  // EXPORTAR LECTURAS DEL DÍA + FOTOS
-  // ─────────────────────────────────────────────
-
   Future<String> exportarLecturasDia({DateTime? fecha}) async {
     final dia = fecha ?? DateTime.now();
     final nombreBase =
@@ -31,20 +27,25 @@ class ExportarService {
             l.fechaLectura.day == dia.day)
         .toList();
 
-    // Agrupar por sector dinámicamente
     final porSector = <String, List<Lectura>>{};
     for (final l in lecturasHoy) {
       final sector = l.sector ?? 'Sin sector';
       porSector.putIfAbsent(sector, () => []).add(l);
     }
 
-    // Crear Excel con una hoja por sector
     final excel = Excel.createExcel();
-    excel.delete('Sheet1');
+
+    // Crear primero todas las hojas de datos
     for (final entry in porSector.entries) {
       _crearHoja(excel, entry.key, entry.value);
     }
     _crearHojaResumen(excel, porSector, dia);
+
+    // Eliminar Sheet1 AL FINAL — después de crear todas las hojas
+    // Si se elimina antes, Excel puede recrearlo al acceder a la primera hoja
+    if (excel.sheets.containsKey('Sheet1')) {
+      excel.delete('Sheet1');
+    }
 
     final rutaZip = await _crearZip(
       excel: excel,
@@ -54,10 +55,6 @@ class ExportarService {
 
     return rutaZip;
   }
-
-  // ─────────────────────────────────────────────
-  // CREAR ZIP
-  // ─────────────────────────────────────────────
 
   Future<String> _crearZip({
     required Excel excel,
@@ -93,7 +90,7 @@ class ExportarService {
       final fechaFoto =
           DateFormat('yyyyMMdd_HHmm').format(lectura.fechaLectura);
       final nombreFoto =
-          'fotos/${codigo}${estado}_${fechaFoto}_${contadorFoto.toString().padLeft(3, '0')}.jpg';
+          'fotos/$codigo${estado}_${fechaFoto}_${contadorFoto.toString().padLeft(3, '0')}.jpg';
 
       encoder.addFile(archivo, nombreFoto);
       contadorFoto++;
@@ -105,12 +102,7 @@ class ExportarService {
     return rutaZip;
   }
 
-  // ─────────────────────────────────────────────
-  // CREAR HOJA POR SECTOR — dinámica
-  // ─────────────────────────────────────────────
-
-  void _crearHoja(
-      Excel excel, String nombreHoja, List<Lectura> lecturas) {
+  void _crearHoja(Excel excel, String nombreHoja, List<Lectura> lecturas) {
     final hoja = excel[nombreHoja];
 
     _escribirEncabezado(hoja, [
@@ -137,7 +129,7 @@ class ExportarService {
             : '';
         final fecha = DateFormat('yyyyMMdd_HHmm').format(l.fechaLectura);
         nombreFoto =
-            'fotos/${codigo}${estado}_${fecha}_${contadorFoto.toString().padLeft(3, '0')}.jpg';
+            'fotos/$codigo${estado}_${fecha}_${contadorFoto.toString().padLeft(3, '0')}.jpg';
         contadorFoto++;
       }
 
@@ -151,8 +143,10 @@ class ExportarService {
       _escribirCelda(hoja, fila, 6,
           DateFormat('HH:mm:ss').format(l.fechaLectura));
       _escribirCelda(hoja, fila, 7, l.estadoMedidor ?? 'No reportado');
-      _escribirCeldaNumero(hoja, fila, 8, l.latitud != 0 ? l.latitud : null);
-      _escribirCeldaNumero(hoja, fila, 9, l.longitud != 0 ? l.longitud : null);
+      _escribirCeldaNumero(
+          hoja, fila, 8, l.latitud != 0 ? l.latitud : null);
+      _escribirCeldaNumero(
+          hoja, fila, 9, l.longitud != 0 ? l.longitud : null);
       _escribirCeldaNumero(hoja, fila, 10, l.precision);
       _escribirCelda(hoja, fila, 11, l.notas ?? '');
       _escribirCelda(hoja, fila, 12, nombreFoto ?? 'Sin foto');
@@ -166,10 +160,6 @@ class ExportarService {
 
     _ajustarAnchoColumnas(hoja);
   }
-
-  // ─────────────────────────────────────────────
-  // HOJA DE RESUMEN — dinámica
-  // ─────────────────────────────────────────────
 
   void _crearHojaResumen(
     Excel excel,
@@ -204,9 +194,14 @@ class ExportarService {
         todos.where((l) => l.lectura == 0).length);
     _escribirCeldaNumero(hoja, filaTotales, 3,
         todos.where((l) => l.notas != null && l.notas!.isNotEmpty).length);
-    _escribirCeldaNumero(hoja, filaTotales, 4,
-        todos.where((l) =>
-            l.rutaFoto.isNotEmpty && File(l.rutaFoto).existsSync()).length);
+    _escribirCeldaNumero(
+        hoja,
+        filaTotales,
+        4,
+        todos
+            .where((l) =>
+                l.rutaFoto.isNotEmpty && File(l.rutaFoto).existsSync())
+            .length);
 
     _ajustarAnchoColumnas(hoja);
   }
@@ -215,18 +210,24 @@ class ExportarService {
       Sheet hoja, int fila, String sector, List<Lectura> lecturas) {
     _escribirCelda(hoja, fila, 0, sector);
     _escribirCeldaNumero(hoja, fila, 1, lecturas.length);
-    _escribirCeldaNumero(hoja, fila, 2,
-        lecturas.where((l) => l.lectura == 0).length);
-    _escribirCeldaNumero(hoja, fila, 3,
-        lecturas.where((l) => l.notas != null && l.notas!.isNotEmpty).length);
-    _escribirCeldaNumero(hoja, fila, 4,
-        lecturas.where((l) =>
-            l.rutaFoto.isNotEmpty && File(l.rutaFoto).existsSync()).length);
+    _escribirCeldaNumero(
+        hoja, fila, 2, lecturas.where((l) => l.lectura == 0).length);
+    _escribirCeldaNumero(
+        hoja,
+        fila,
+        3,
+        lecturas
+            .where((l) => l.notas != null && l.notas!.isNotEmpty)
+            .length);
+    _escribirCeldaNumero(
+        hoja,
+        fila,
+        4,
+        lecturas
+            .where(
+                (l) => l.rutaFoto.isNotEmpty && File(l.rutaFoto).existsSync())
+            .length);
   }
-
-  // ─────────────────────────────────────────────
-  // HELPERS DE ESCRITURA
-  // ─────────────────────────────────────────────
 
   void _escribirEncabezado(Sheet hoja, List<String> columnas) =>
       _escribirEncabezadoDesde(hoja, 0, columnas);
@@ -247,14 +248,16 @@ class ExportarService {
   }
 
   void _escribirCelda(Sheet hoja, int fila, int col, String valor) {
-    hoja.cell(CellIndex.indexByColumnRow(
+    hoja
+        .cell(CellIndex.indexByColumnRow(
             columnIndex: col, rowIndex: fila))
         .value = TextCellValue(valor);
   }
 
   void _escribirCeldaNumero(Sheet hoja, int fila, int col, num? valor) {
     if (valor == null) return;
-    hoja.cell(CellIndex.indexByColumnRow(
+    hoja
+        .cell(CellIndex.indexByColumnRow(
             columnIndex: col, rowIndex: fila))
         .value = DoubleCellValue(valor.toDouble());
   }

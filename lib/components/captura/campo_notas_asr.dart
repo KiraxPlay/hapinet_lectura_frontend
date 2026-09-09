@@ -1,5 +1,4 @@
 // lib/components/captura/campo_notas_asr.dart
-// Campo de observaciones con botón de micrófono ASR integrado
 import 'package:flutter/material.dart';
 
 class CampoNotasAsr extends StatelessWidget {
@@ -7,6 +6,7 @@ class CampoNotasAsr extends StatelessWidget {
   final bool esLecturaCero;
   final bool asrDisponible;
   final bool escuchando;
+  final bool transcribiendo;
   final double nivelVolumen;
   final VoidCallback onToggleAsr;
   final VoidCallback onChanged;
@@ -17,6 +17,7 @@ class CampoNotasAsr extends StatelessWidget {
     required this.esLecturaCero,
     required this.asrDisponible,
     required this.escuchando,
+    required this.transcribiendo,
     required this.nivelVolumen,
     required this.onToggleAsr,
     required this.onChanged,
@@ -58,93 +59,91 @@ class CampoNotasAsr extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: borde),
-            // Botón micrófono — solo si ASR está disponible
-            suffixIcon: asrDisponible
+            // Micrófono solo cuando no está grabando ni procesando
+            suffixIcon: asrDisponible && !escuchando && !transcribiendo
                 ? GestureDetector(
                     onTap: onToggleAsr,
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
+                    child: Container(
                       margin: const EdgeInsets.all(6),
                       padding: const EdgeInsets.all(6),
                       decoration: BoxDecoration(
-                        color: escuchando
-                            ? Colors.red
-                            : Colors.white.withOpacity(0.15),
+                        color: Colors.white.withOpacity(0.15),
                         shape: BoxShape.circle,
                       ),
-                      child: Transform.scale(
-                        scale: escuchando
-                            ? 1.0 + (nivelVolumen / 20)
-                            : 1.0,
-                        child: Icon(
-                          escuchando ? Icons.mic : Icons.mic_none,
-                          color: escuchando ? Colors.white : Colors.white54,
-                          size: 18,
-                        ),
-                      ),
+                      child: const Icon(Icons.mic_none,
+                          color: Colors.white54, size: 18),
                     ),
                   )
                 : null,
           ),
         ),
 
-        // Indicador de escucha activa
-        if (escuchando) ...[
+        // ── Procesando — spinner pequeño ──
+        if (transcribiendo) ...[
           const SizedBox(height: 6),
-          Row(
-            children: [
-              const SizedBox(width: 4),
-              Container(
-                width: 8, height: 8,
-                decoration: const BoxDecoration(
-                    color: Colors.red, shape: BoxShape.circle),
-              ),
-              const SizedBox(width: 6),
-              const Text(
-                'Escuchando... habla ahora',
+          const Row(children: [
+            SizedBox(width: 4),
+            SizedBox(
+              width: 12, height: 12,
+              child: CircularProgressIndicator(
+                  strokeWidth: 2, color: Colors.orange),
+            ),
+            SizedBox(width: 8),
+            Text('Procesando lo que dijo...',
                 style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 11,
-                    fontStyle: FontStyle.italic),
+                    color: Colors.orange,
+                    fontSize: 12,
+                    fontStyle: FontStyle.italic)),
+          ]),
+        ],
+
+        // ── Grabando — botón GRANDE para personas mayores ──
+        if (escuchando) ...[
+          const SizedBox(height: 10),
+          // Barra de volumen
+          ClipRRect(
+            borderRadius: BorderRadius.circular(3),
+            child: SizedBox(
+              height: 6,
+              child: LinearProgressIndicator(
+                value: (nivelVolumen / 10).clamp(0.0, 1.0),
+                backgroundColor: Colors.red.withOpacity(0.2),
+                valueColor: const AlwaysStoppedAnimation<Color>(Colors.red),
               ),
-              const Spacer(),
-              GestureDetector(
-                onTap: onToggleAsr,
-                child: const Text(
-                  'Detener',
-                  style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold),
-                ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          // Botón DETENER grande y visible
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: onToggleAsr,
+              icon: const Icon(Icons.stop_circle, size: 24),
+              label: const Text(
+                'LISTO — Tocar aquí para terminar',
+                style: TextStyle(
+                    fontSize: 14, fontWeight: FontWeight.bold),
               ),
-            ],
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+              ),
+            ),
+          ),
+          const SizedBox(height: 6),
+          const Text(
+            '🎤 Hable con calma. Toque el botón rojo cuando termine.',
+            style: TextStyle(
+                color: Colors.white60,
+                fontSize: 11,
+                fontStyle: FontStyle.italic),
+            textAlign: TextAlign.center,
           ),
         ],
       ],
-    );
-  }
-}
-
-// Barra de volumen animada — muestra el nivel del micrófono
-class _BarraVolumen extends StatelessWidget {
-  final double nivel; // 0.0 → 10.0
-  final Color color;
-
-  const _BarraVolumen({required this.nivel, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 4,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(2),
-        child: LinearProgressIndicator(
-          value: (nivel / 10).clamp(0.0, 1.0),
-          backgroundColor: color.withOpacity(0.2),
-          valueColor: AlwaysStoppedAnimation<Color>(color),
-        ),
-      ),
     );
   }
 }

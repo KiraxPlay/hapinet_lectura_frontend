@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import '../data/database.dart';
 import '../components/fondo_gotas.dart';
+import '../models/acueducto.dart';
 import '../models/estado_medidor.dart';
+import '../services/api/factura_api_service.dart';
 import 'captura_screen.dart';
 
 /// Pantalla intermedia que muestra info del abonado
@@ -12,7 +14,7 @@ import 'captura_screen.dart';
 ///   lecturas_dia_screen o mapa_screen
 ///       → InfoAbonadoScreen  (esta pantalla)
 ///           → CapturaScreen  (cámara)
-class InfoAbonadoScreen extends StatelessWidget {
+class InfoAbonadoScreen extends StatefulWidget {
   final AppDatabase db;
   final String? codigoMedidor;
   final String? nombreAbonado;
@@ -23,9 +25,13 @@ class InfoAbonadoScreen extends StatelessWidget {
   final String? sector;
   final String? estadoMedidorClave; // último estado reportado
 
+  final Acueducto acueducto;
+  final int? predioId; // ID del predio en Laravel para facturación
+
   const InfoAbonadoScreen({
     super.key,
     required this.db,
+    required this.acueducto,
     this.codigoMedidor,
     this.nombreAbonado,
     this.celular,
@@ -34,7 +40,32 @@ class InfoAbonadoScreen extends StatelessWidget {
     this.longitud,
     this.sector,
     this.estadoMedidorClave,
+    this.predioId,
   });
+
+
+
+  @override
+  State<InfoAbonadoScreen> createState() => _InfoAbonadoScreenState();
+}
+
+class _InfoAbonadoScreenState extends State<InfoAbonadoScreen> {
+  DeudaResult? _deuda;
+  bool _cargandoDeuda = false;
+  int? _predioIdResuelto; // resuelto desde la BD cuando predioId es null
+
+  // Getters del widget padre
+  AppDatabase get db => widget.db;
+  Acueducto get acueducto => widget.acueducto;
+  String? get codigoMedidor => widget.codigoMedidor;
+  String? get nombreAbonado => widget.nombreAbonado;
+  String? get celular => widget.celular;
+  int? get lecturaAnterior => widget.lecturaAnterior;
+  double? get latitud => widget.latitud;
+  double? get longitud => widget.longitud;
+  String? get sector => widget.sector;
+  String? get estadoMedidorClave => widget.estadoMedidorClave;
+  int? get predioId => widget.predioId;
 
   // ── Helpers de color/nombre por sector ──
   Color get _colorSector => switch (sector) {
@@ -60,15 +91,48 @@ class InfoAbonadoScreen extends StatelessWidget {
       MaterialPageRoute(
         builder: (_) => CapturaScreen(
           db: db,
+          acueducto: acueducto,
           codigoMedidor: codigoMedidor,
           nombreAbonado: nombreAbonado,
           lecturaAnterior: lecturaAnterior,
           latitudReferencia: latitud,
           longitudReferencia: longitud,
+          predioId: predioId ?? _predioIdResuelto,
         ),
         fullscreenDialog: true,
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _resolverPredioId();
+    if (predioId != null) _cargarDeuda();
+  }
+
+  Future<void> _resolverPredioId() async {
+    if (predioId != null) return;
+    if (codigoMedidor == null) return;
+    // Buscar el id de la lectura en la BD — tiene formato 'predio_123'
+    final lectura = await db.obtenerLecturaPorCodigo(codigoMedidor!);
+    if (lectura == null) return;
+    final match = RegExp(r'predio_(\d+)').firstMatch(lectura.id);
+    if (match != null) {
+      final id = int.tryParse(match.group(1)!);
+      if (id != null && mounted) {
+        setState(() => _predioIdResuelto = id);
+        _cargarDeuda();
+      }
+    }
+  }
+
+  Future<void> _cargarDeuda() async {
+    final id = predioId ?? _predioIdResuelto;
+    if (id == null) return;
+    setState(() => _cargandoDeuda = true);
+    final resultado = await FacturaApiService().deudaAbonado(id);
+    if (mounted) setState(() { _deuda = resultado; _cargandoDeuda = false; });
   }
 
   @override
@@ -199,6 +263,11 @@ class InfoAbonadoScreen extends StatelessWidget {
                 ),
               ),
 
+              const SizedBox(height: 20),
+
+              // ── Deuda del abonado ─────────────────────
+              if (predioId != null || _predioIdResuelto != null) _buildTarjetaDeuda(),
+
               const SizedBox(height: 32),
 
               // ── Botón tomar lectura ───────────────────
@@ -249,6 +318,64 @@ class InfoAbonadoScreen extends StatelessWidget {
   }
 
   // ── Widgets internos ─────────────────────────
+
+  Widget _buildTarjetaDeuda() {
+    if (_cargandoDeuda) {
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 8),
+          child: CircularProgressIndicator(strokeWidth: 2),
+        ),
+      );
+    }
+    if (_deuda == null || !_deuda!.exitoso) return const SizedBox.shrink();
+
+    final tieneDeuda = (_deuda!.totalDeuda ?? 0) > 0;
+    final color = tieneDeuda ? Colors.red : Colors.green;
+    final fmt = _deuda!.totalDeuda ?? 0;
+    final totalStr = '\$${fmt.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '\${m[1]}.')}';
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.06),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            tieneDeuda ? Icons.warning_amber_rounded : Icons.check_circle_outline,
+            color: color, size: 28,
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  tieneDeuda ? 'Tiene deuda pendiente' : 'Sin deuda',
+                  style: TextStyle(
+                    color: color,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
+                  ),
+                ),
+                if (tieneDeuda) ...[
+                  const SizedBox(height: 2),
+                  Text(
+                    '$totalStr — ${_deuda!.cantidadFacturas} factura(s)',
+                    style: TextStyle(color: color, fontSize: 12),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget _fila({
     required IconData icono,

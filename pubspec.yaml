@@ -2,7 +2,7 @@ name: medidor_hapinet_app
 description: "Medidor Hapinet App - Gestión de abonados y lectura de medidores"
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 2.2.2
+version: 3.0.0
 
 environment:
   sdk: ^3.7.2
@@ -11,7 +11,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
- 
+
+  # para conectar con API REST
+  http: ^1.2.0
+  
+  flutter_dotenv: ^5.2.1
+  
   # Cámara
   camera: ^0.10.5+9
  
@@ -54,11 +59,15 @@ dependencies:
   printing: ^5.9.0
 
   #Para Speech-to-Text
-  speech_to_text: ^7.0.0
+  #speech_to_text: ^7.0.0
+
+  flutter_sound: ^9.2.13
+  whisper_flutter_new: ^1.0.1
 
   #Para reproducir videos
   video_player: ^2.9.2
   chewie: ^1.8.5
+  flutter_pdfview: ^1.4.4
  
 dev_dependencies:
   flutter_test:
@@ -79,13 +88,7 @@ flutter_launcher_icons:
 flutter:
   uses-material-design: true
   assets:
-    - assets/abonados_aguaviva.json
-    - assets/abonados_asoaguapo.json
     - assets/images/logo_hapinet.jpeg
     - assets/images/logo_hapinet.png
     - assets/images/hapinet_icon.png
-
-    - assets/videos/tutoriales/tutorial_exportacion.mp4
-    - assets/videos/tutoriales/tutorial_toma_lectura.mp4
-    - assets/videos/tutoriales/tutorial_toma_lectura_voz.mp4
-    - assets/videos/tutoriales/tutorial_mapa.mp4
+    - .env

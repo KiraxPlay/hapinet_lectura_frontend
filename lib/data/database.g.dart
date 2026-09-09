@@ -221,6 +221,44 @@ class $LecturasTable extends Lecturas with TableInfo<$LecturasTable, Lectura> {
     ),
     defaultValue: const Constant(false),
   );
+  static const VerificationMeta _impresoMeta = const VerificationMeta(
+    'impreso',
+  );
+  @override
+  late final GeneratedColumn<bool> impreso = GeneratedColumn<bool>(
+    'impreso',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("impreso" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _fechaImpresionMeta = const VerificationMeta(
+    'fechaImpresion',
+  );
+  @override
+  late final GeneratedColumn<DateTime> fechaImpresion =
+      GeneratedColumn<DateTime>(
+        'fecha_impresion',
+        aliasedName,
+        true,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _tipoFacturacionMeta = const VerificationMeta(
+    'tipoFacturacion',
+  );
+  @override
+  late final GeneratedColumn<int> tipoFacturacion = GeneratedColumn<int>(
+    'tipo_facturacion',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _lecturaAnteriorMeta = const VerificationMeta(
     'lecturaAnterior',
   );
@@ -287,6 +325,9 @@ class $LecturasTable extends Lecturas with TableInfo<$LecturasTable, Lectura> {
     sector,
     esAbonado,
     tieneLecturaReal,
+    impreso,
+    fechaImpresion,
+    tipoFacturacion,
     lecturaAnterior,
     estadoMedidor,
     celular,
@@ -447,6 +488,30 @@ class $LecturasTable extends Lecturas with TableInfo<$LecturasTable, Lectura> {
         ),
       );
     }
+    if (data.containsKey('impreso')) {
+      context.handle(
+        _impresoMeta,
+        impreso.isAcceptableOrUnknown(data['impreso']!, _impresoMeta),
+      );
+    }
+    if (data.containsKey('fecha_impresion')) {
+      context.handle(
+        _fechaImpresionMeta,
+        fechaImpresion.isAcceptableOrUnknown(
+          data['fecha_impresion']!,
+          _fechaImpresionMeta,
+        ),
+      );
+    }
+    if (data.containsKey('tipo_facturacion')) {
+      context.handle(
+        _tipoFacturacionMeta,
+        tipoFacturacion.isAcceptableOrUnknown(
+          data['tipo_facturacion']!,
+          _tipoFacturacionMeta,
+        ),
+      );
+    }
     if (data.containsKey('lectura_anterior')) {
       context.handle(
         _lecturaAnteriorMeta,
@@ -573,6 +638,19 @@ class $LecturasTable extends Lecturas with TableInfo<$LecturasTable, Lectura> {
             DriftSqlType.bool,
             data['${effectivePrefix}tiene_lectura_real'],
           )!,
+      impreso:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.bool,
+            data['${effectivePrefix}impreso'],
+          )!,
+      fechaImpresion: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}fecha_impresion'],
+      ),
+      tipoFacturacion: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}tipo_facturacion'],
+      ),
       lecturaAnterior: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}lectura_anterior'],
@@ -619,6 +697,9 @@ class Lectura extends DataClass implements Insertable<Lectura> {
   final String? sector;
   final bool esAbonado;
   final bool tieneLecturaReal;
+  final bool impreso;
+  final DateTime? fechaImpresion;
+  final int? tipoFacturacion;
   final int? lecturaAnterior;
   final String? estadoMedidor;
   final String? celular;
@@ -643,6 +724,9 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     this.sector,
     required this.esAbonado,
     required this.tieneLecturaReal,
+    required this.impreso,
+    this.fechaImpresion,
+    this.tipoFacturacion,
     this.lecturaAnterior,
     this.estadoMedidor,
     this.celular,
@@ -686,6 +770,13 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     }
     map['es_abonado'] = Variable<bool>(esAbonado);
     map['tiene_lectura_real'] = Variable<bool>(tieneLecturaReal);
+    map['impreso'] = Variable<bool>(impreso);
+    if (!nullToAbsent || fechaImpresion != null) {
+      map['fecha_impresion'] = Variable<DateTime>(fechaImpresion);
+    }
+    if (!nullToAbsent || tipoFacturacion != null) {
+      map['tipo_facturacion'] = Variable<int>(tipoFacturacion);
+    }
     if (!nullToAbsent || lecturaAnterior != null) {
       map['lectura_anterior'] = Variable<int>(lecturaAnterior);
     }
@@ -740,6 +831,15 @@ class Lectura extends DataClass implements Insertable<Lectura> {
           sector == null && nullToAbsent ? const Value.absent() : Value(sector),
       esAbonado: Value(esAbonado),
       tieneLecturaReal: Value(tieneLecturaReal),
+      impreso: Value(impreso),
+      fechaImpresion:
+          fechaImpresion == null && nullToAbsent
+              ? const Value.absent()
+              : Value(fechaImpresion),
+      tipoFacturacion:
+          tipoFacturacion == null && nullToAbsent
+              ? const Value.absent()
+              : Value(tipoFacturacion),
       lecturaAnterior:
           lecturaAnterior == null && nullToAbsent
               ? const Value.absent()
@@ -783,6 +883,9 @@ class Lectura extends DataClass implements Insertable<Lectura> {
       sector: serializer.fromJson<String?>(json['sector']),
       esAbonado: serializer.fromJson<bool>(json['esAbonado']),
       tieneLecturaReal: serializer.fromJson<bool>(json['tieneLecturaReal']),
+      impreso: serializer.fromJson<bool>(json['impreso']),
+      fechaImpresion: serializer.fromJson<DateTime?>(json['fechaImpresion']),
+      tipoFacturacion: serializer.fromJson<int?>(json['tipoFacturacion']),
       lecturaAnterior: serializer.fromJson<int?>(json['lecturaAnterior']),
       estadoMedidor: serializer.fromJson<String?>(json['estadoMedidor']),
       celular: serializer.fromJson<String?>(json['celular']),
@@ -812,6 +915,9 @@ class Lectura extends DataClass implements Insertable<Lectura> {
       'sector': serializer.toJson<String?>(sector),
       'esAbonado': serializer.toJson<bool>(esAbonado),
       'tieneLecturaReal': serializer.toJson<bool>(tieneLecturaReal),
+      'impreso': serializer.toJson<bool>(impreso),
+      'fechaImpresion': serializer.toJson<DateTime?>(fechaImpresion),
+      'tipoFacturacion': serializer.toJson<int?>(tipoFacturacion),
       'lecturaAnterior': serializer.toJson<int?>(lecturaAnterior),
       'estadoMedidor': serializer.toJson<String?>(estadoMedidor),
       'celular': serializer.toJson<String?>(celular),
@@ -839,6 +945,9 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     Value<String?> sector = const Value.absent(),
     bool? esAbonado,
     bool? tieneLecturaReal,
+    bool? impreso,
+    Value<DateTime?> fechaImpresion = const Value.absent(),
+    Value<int?> tipoFacturacion = const Value.absent(),
     Value<int?> lecturaAnterior = const Value.absent(),
     Value<String?> estadoMedidor = const Value.absent(),
     Value<String?> celular = const Value.absent(),
@@ -868,6 +977,11 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     sector: sector.present ? sector.value : this.sector,
     esAbonado: esAbonado ?? this.esAbonado,
     tieneLecturaReal: tieneLecturaReal ?? this.tieneLecturaReal,
+    impreso: impreso ?? this.impreso,
+    fechaImpresion:
+        fechaImpresion.present ? fechaImpresion.value : this.fechaImpresion,
+    tipoFacturacion:
+        tipoFacturacion.present ? tipoFacturacion.value : this.tipoFacturacion,
     lecturaAnterior:
         lecturaAnterior.present ? lecturaAnterior.value : this.lecturaAnterior,
     estadoMedidor:
@@ -916,6 +1030,15 @@ class Lectura extends DataClass implements Insertable<Lectura> {
           data.tieneLecturaReal.present
               ? data.tieneLecturaReal.value
               : this.tieneLecturaReal,
+      impreso: data.impreso.present ? data.impreso.value : this.impreso,
+      fechaImpresion:
+          data.fechaImpresion.present
+              ? data.fechaImpresion.value
+              : this.fechaImpresion,
+      tipoFacturacion:
+          data.tipoFacturacion.present
+              ? data.tipoFacturacion.value
+              : this.tipoFacturacion,
       lecturaAnterior:
           data.lecturaAnterior.present
               ? data.lecturaAnterior.value
@@ -951,6 +1074,9 @@ class Lectura extends DataClass implements Insertable<Lectura> {
           ..write('sector: $sector, ')
           ..write('esAbonado: $esAbonado, ')
           ..write('tieneLecturaReal: $tieneLecturaReal, ')
+          ..write('impreso: $impreso, ')
+          ..write('fechaImpresion: $fechaImpresion, ')
+          ..write('tipoFacturacion: $tipoFacturacion, ')
           ..write('lecturaAnterior: $lecturaAnterior, ')
           ..write('estadoMedidor: $estadoMedidor, ')
           ..write('celular: $celular, ')
@@ -980,6 +1106,9 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     sector,
     esAbonado,
     tieneLecturaReal,
+    impreso,
+    fechaImpresion,
+    tipoFacturacion,
     lecturaAnterior,
     estadoMedidor,
     celular,
@@ -1008,6 +1137,9 @@ class Lectura extends DataClass implements Insertable<Lectura> {
           other.sector == this.sector &&
           other.esAbonado == this.esAbonado &&
           other.tieneLecturaReal == this.tieneLecturaReal &&
+          other.impreso == this.impreso &&
+          other.fechaImpresion == this.fechaImpresion &&
+          other.tipoFacturacion == this.tipoFacturacion &&
           other.lecturaAnterior == this.lecturaAnterior &&
           other.estadoMedidor == this.estadoMedidor &&
           other.celular == this.celular &&
@@ -1034,6 +1166,9 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
   final Value<String?> sector;
   final Value<bool> esAbonado;
   final Value<bool> tieneLecturaReal;
+  final Value<bool> impreso;
+  final Value<DateTime?> fechaImpresion;
+  final Value<int?> tipoFacturacion;
   final Value<int?> lecturaAnterior;
   final Value<String?> estadoMedidor;
   final Value<String?> celular;
@@ -1059,6 +1194,9 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     this.sector = const Value.absent(),
     this.esAbonado = const Value.absent(),
     this.tieneLecturaReal = const Value.absent(),
+    this.impreso = const Value.absent(),
+    this.fechaImpresion = const Value.absent(),
+    this.tipoFacturacion = const Value.absent(),
     this.lecturaAnterior = const Value.absent(),
     this.estadoMedidor = const Value.absent(),
     this.celular = const Value.absent(),
@@ -1085,6 +1223,9 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     this.sector = const Value.absent(),
     this.esAbonado = const Value.absent(),
     this.tieneLecturaReal = const Value.absent(),
+    this.impreso = const Value.absent(),
+    this.fechaImpresion = const Value.absent(),
+    this.tipoFacturacion = const Value.absent(),
     this.lecturaAnterior = const Value.absent(),
     this.estadoMedidor = const Value.absent(),
     this.celular = const Value.absent(),
@@ -1117,6 +1258,9 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     Expression<String>? sector,
     Expression<bool>? esAbonado,
     Expression<bool>? tieneLecturaReal,
+    Expression<bool>? impreso,
+    Expression<DateTime>? fechaImpresion,
+    Expression<int>? tipoFacturacion,
     Expression<int>? lecturaAnterior,
     Expression<String>? estadoMedidor,
     Expression<String>? celular,
@@ -1144,6 +1288,9 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
       if (sector != null) 'sector': sector,
       if (esAbonado != null) 'es_abonado': esAbonado,
       if (tieneLecturaReal != null) 'tiene_lectura_real': tieneLecturaReal,
+      if (impreso != null) 'impreso': impreso,
+      if (fechaImpresion != null) 'fecha_impresion': fechaImpresion,
+      if (tipoFacturacion != null) 'tipo_facturacion': tipoFacturacion,
       if (lecturaAnterior != null) 'lectura_anterior': lecturaAnterior,
       if (estadoMedidor != null) 'estado_medidor': estadoMedidor,
       if (celular != null) 'celular': celular,
@@ -1172,6 +1319,9 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     Value<String?>? sector,
     Value<bool>? esAbonado,
     Value<bool>? tieneLecturaReal,
+    Value<bool>? impreso,
+    Value<DateTime?>? fechaImpresion,
+    Value<int?>? tipoFacturacion,
     Value<int?>? lecturaAnterior,
     Value<String?>? estadoMedidor,
     Value<String?>? celular,
@@ -1198,6 +1348,9 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
       sector: sector ?? this.sector,
       esAbonado: esAbonado ?? this.esAbonado,
       tieneLecturaReal: tieneLecturaReal ?? this.tieneLecturaReal,
+      impreso: impreso ?? this.impreso,
+      fechaImpresion: fechaImpresion ?? this.fechaImpresion,
+      tipoFacturacion: tipoFacturacion ?? this.tipoFacturacion,
       lecturaAnterior: lecturaAnterior ?? this.lecturaAnterior,
       estadoMedidor: estadoMedidor ?? this.estadoMedidor,
       celular: celular ?? this.celular,
@@ -1266,6 +1419,15 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     if (tieneLecturaReal.present) {
       map['tiene_lectura_real'] = Variable<bool>(tieneLecturaReal.value);
     }
+    if (impreso.present) {
+      map['impreso'] = Variable<bool>(impreso.value);
+    }
+    if (fechaImpresion.present) {
+      map['fecha_impresion'] = Variable<DateTime>(fechaImpresion.value);
+    }
+    if (tipoFacturacion.present) {
+      map['tipo_facturacion'] = Variable<int>(tipoFacturacion.value);
+    }
     if (lecturaAnterior.present) {
       map['lectura_anterior'] = Variable<int>(lecturaAnterior.value);
     }
@@ -1306,6 +1468,9 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
           ..write('sector: $sector, ')
           ..write('esAbonado: $esAbonado, ')
           ..write('tieneLecturaReal: $tieneLecturaReal, ')
+          ..write('impreso: $impreso, ')
+          ..write('fechaImpresion: $fechaImpresion, ')
+          ..write('tipoFacturacion: $tipoFacturacion, ')
           ..write('lecturaAnterior: $lecturaAnterior, ')
           ..write('estadoMedidor: $estadoMedidor, ')
           ..write('celular: $celular, ')
@@ -1829,16 +1994,448 @@ class RegistrosGpsCompanion extends UpdateCompanion<RegistrosGp> {
   }
 }
 
+class $NovedadesLocalesTable extends NovedadesLocales
+    with TableInfo<$NovedadesLocalesTable, NovedadesLocale> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $NovedadesLocalesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _predioIdMeta = const VerificationMeta(
+    'predioId',
+  );
+  @override
+  late final GeneratedColumn<int> predioId = GeneratedColumn<int>(
+    'predio_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _conceptoMeta = const VerificationMeta(
+    'concepto',
+  );
+  @override
+  late final GeneratedColumn<String> concepto = GeneratedColumn<String>(
+    'concepto',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _valorCuotaMeta = const VerificationMeta(
+    'valorCuota',
+  );
+  @override
+  late final GeneratedColumn<int> valorCuota = GeneratedColumn<int>(
+    'valor_cuota',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _cuotasPendientesMeta = const VerificationMeta(
+    'cuotasPendientes',
+  );
+  @override
+  late final GeneratedColumn<int> cuotasPendientes = GeneratedColumn<int>(
+    'cuotas_pendientes',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _totalPendienteMeta = const VerificationMeta(
+    'totalPendiente',
+  );
+  @override
+  late final GeneratedColumn<int> totalPendiente = GeneratedColumn<int>(
+    'total_pendiente',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    predioId,
+    concepto,
+    valorCuota,
+    cuotasPendientes,
+    totalPendiente,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'novedades_locales';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<NovedadesLocale> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('predio_id')) {
+      context.handle(
+        _predioIdMeta,
+        predioId.isAcceptableOrUnknown(data['predio_id']!, _predioIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_predioIdMeta);
+    }
+    if (data.containsKey('concepto')) {
+      context.handle(
+        _conceptoMeta,
+        concepto.isAcceptableOrUnknown(data['concepto']!, _conceptoMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_conceptoMeta);
+    }
+    if (data.containsKey('valor_cuota')) {
+      context.handle(
+        _valorCuotaMeta,
+        valorCuota.isAcceptableOrUnknown(data['valor_cuota']!, _valorCuotaMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_valorCuotaMeta);
+    }
+    if (data.containsKey('cuotas_pendientes')) {
+      context.handle(
+        _cuotasPendientesMeta,
+        cuotasPendientes.isAcceptableOrUnknown(
+          data['cuotas_pendientes']!,
+          _cuotasPendientesMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_cuotasPendientesMeta);
+    }
+    if (data.containsKey('total_pendiente')) {
+      context.handle(
+        _totalPendienteMeta,
+        totalPendiente.isAcceptableOrUnknown(
+          data['total_pendiente']!,
+          _totalPendienteMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_totalPendienteMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  NovedadesLocale map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return NovedadesLocale(
+      id:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}id'],
+          )!,
+      predioId:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}predio_id'],
+          )!,
+      concepto:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}concepto'],
+          )!,
+      valorCuota:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}valor_cuota'],
+          )!,
+      cuotasPendientes:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}cuotas_pendientes'],
+          )!,
+      totalPendiente:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}total_pendiente'],
+          )!,
+    );
+  }
+
+  @override
+  $NovedadesLocalesTable createAlias(String alias) {
+    return $NovedadesLocalesTable(attachedDatabase, alias);
+  }
+}
+
+class NovedadesLocale extends DataClass implements Insertable<NovedadesLocale> {
+  final int id;
+  final int predioId;
+  final String concepto;
+  final int valorCuota;
+  final int cuotasPendientes;
+  final int totalPendiente;
+  const NovedadesLocale({
+    required this.id,
+    required this.predioId,
+    required this.concepto,
+    required this.valorCuota,
+    required this.cuotasPendientes,
+    required this.totalPendiente,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['predio_id'] = Variable<int>(predioId);
+    map['concepto'] = Variable<String>(concepto);
+    map['valor_cuota'] = Variable<int>(valorCuota);
+    map['cuotas_pendientes'] = Variable<int>(cuotasPendientes);
+    map['total_pendiente'] = Variable<int>(totalPendiente);
+    return map;
+  }
+
+  NovedadesLocalesCompanion toCompanion(bool nullToAbsent) {
+    return NovedadesLocalesCompanion(
+      id: Value(id),
+      predioId: Value(predioId),
+      concepto: Value(concepto),
+      valorCuota: Value(valorCuota),
+      cuotasPendientes: Value(cuotasPendientes),
+      totalPendiente: Value(totalPendiente),
+    );
+  }
+
+  factory NovedadesLocale.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return NovedadesLocale(
+      id: serializer.fromJson<int>(json['id']),
+      predioId: serializer.fromJson<int>(json['predioId']),
+      concepto: serializer.fromJson<String>(json['concepto']),
+      valorCuota: serializer.fromJson<int>(json['valorCuota']),
+      cuotasPendientes: serializer.fromJson<int>(json['cuotasPendientes']),
+      totalPendiente: serializer.fromJson<int>(json['totalPendiente']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'predioId': serializer.toJson<int>(predioId),
+      'concepto': serializer.toJson<String>(concepto),
+      'valorCuota': serializer.toJson<int>(valorCuota),
+      'cuotasPendientes': serializer.toJson<int>(cuotasPendientes),
+      'totalPendiente': serializer.toJson<int>(totalPendiente),
+    };
+  }
+
+  NovedadesLocale copyWith({
+    int? id,
+    int? predioId,
+    String? concepto,
+    int? valorCuota,
+    int? cuotasPendientes,
+    int? totalPendiente,
+  }) => NovedadesLocale(
+    id: id ?? this.id,
+    predioId: predioId ?? this.predioId,
+    concepto: concepto ?? this.concepto,
+    valorCuota: valorCuota ?? this.valorCuota,
+    cuotasPendientes: cuotasPendientes ?? this.cuotasPendientes,
+    totalPendiente: totalPendiente ?? this.totalPendiente,
+  );
+  NovedadesLocale copyWithCompanion(NovedadesLocalesCompanion data) {
+    return NovedadesLocale(
+      id: data.id.present ? data.id.value : this.id,
+      predioId: data.predioId.present ? data.predioId.value : this.predioId,
+      concepto: data.concepto.present ? data.concepto.value : this.concepto,
+      valorCuota:
+          data.valorCuota.present ? data.valorCuota.value : this.valorCuota,
+      cuotasPendientes:
+          data.cuotasPendientes.present
+              ? data.cuotasPendientes.value
+              : this.cuotasPendientes,
+      totalPendiente:
+          data.totalPendiente.present
+              ? data.totalPendiente.value
+              : this.totalPendiente,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('NovedadesLocale(')
+          ..write('id: $id, ')
+          ..write('predioId: $predioId, ')
+          ..write('concepto: $concepto, ')
+          ..write('valorCuota: $valorCuota, ')
+          ..write('cuotasPendientes: $cuotasPendientes, ')
+          ..write('totalPendiente: $totalPendiente')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    predioId,
+    concepto,
+    valorCuota,
+    cuotasPendientes,
+    totalPendiente,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is NovedadesLocale &&
+          other.id == this.id &&
+          other.predioId == this.predioId &&
+          other.concepto == this.concepto &&
+          other.valorCuota == this.valorCuota &&
+          other.cuotasPendientes == this.cuotasPendientes &&
+          other.totalPendiente == this.totalPendiente);
+}
+
+class NovedadesLocalesCompanion extends UpdateCompanion<NovedadesLocale> {
+  final Value<int> id;
+  final Value<int> predioId;
+  final Value<String> concepto;
+  final Value<int> valorCuota;
+  final Value<int> cuotasPendientes;
+  final Value<int> totalPendiente;
+  const NovedadesLocalesCompanion({
+    this.id = const Value.absent(),
+    this.predioId = const Value.absent(),
+    this.concepto = const Value.absent(),
+    this.valorCuota = const Value.absent(),
+    this.cuotasPendientes = const Value.absent(),
+    this.totalPendiente = const Value.absent(),
+  });
+  NovedadesLocalesCompanion.insert({
+    this.id = const Value.absent(),
+    required int predioId,
+    required String concepto,
+    required int valorCuota,
+    required int cuotasPendientes,
+    required int totalPendiente,
+  }) : predioId = Value(predioId),
+       concepto = Value(concepto),
+       valorCuota = Value(valorCuota),
+       cuotasPendientes = Value(cuotasPendientes),
+       totalPendiente = Value(totalPendiente);
+  static Insertable<NovedadesLocale> custom({
+    Expression<int>? id,
+    Expression<int>? predioId,
+    Expression<String>? concepto,
+    Expression<int>? valorCuota,
+    Expression<int>? cuotasPendientes,
+    Expression<int>? totalPendiente,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (predioId != null) 'predio_id': predioId,
+      if (concepto != null) 'concepto': concepto,
+      if (valorCuota != null) 'valor_cuota': valorCuota,
+      if (cuotasPendientes != null) 'cuotas_pendientes': cuotasPendientes,
+      if (totalPendiente != null) 'total_pendiente': totalPendiente,
+    });
+  }
+
+  NovedadesLocalesCompanion copyWith({
+    Value<int>? id,
+    Value<int>? predioId,
+    Value<String>? concepto,
+    Value<int>? valorCuota,
+    Value<int>? cuotasPendientes,
+    Value<int>? totalPendiente,
+  }) {
+    return NovedadesLocalesCompanion(
+      id: id ?? this.id,
+      predioId: predioId ?? this.predioId,
+      concepto: concepto ?? this.concepto,
+      valorCuota: valorCuota ?? this.valorCuota,
+      cuotasPendientes: cuotasPendientes ?? this.cuotasPendientes,
+      totalPendiente: totalPendiente ?? this.totalPendiente,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (predioId.present) {
+      map['predio_id'] = Variable<int>(predioId.value);
+    }
+    if (concepto.present) {
+      map['concepto'] = Variable<String>(concepto.value);
+    }
+    if (valorCuota.present) {
+      map['valor_cuota'] = Variable<int>(valorCuota.value);
+    }
+    if (cuotasPendientes.present) {
+      map['cuotas_pendientes'] = Variable<int>(cuotasPendientes.value);
+    }
+    if (totalPendiente.present) {
+      map['total_pendiente'] = Variable<int>(totalPendiente.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('NovedadesLocalesCompanion(')
+          ..write('id: $id, ')
+          ..write('predioId: $predioId, ')
+          ..write('concepto: $concepto, ')
+          ..write('valorCuota: $valorCuota, ')
+          ..write('cuotasPendientes: $cuotasPendientes, ')
+          ..write('totalPendiente: $totalPendiente')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $LecturasTable lecturas = $LecturasTable(this);
   late final $RegistrosGpsTable registrosGps = $RegistrosGpsTable(this);
+  late final $NovedadesLocalesTable novedadesLocales = $NovedadesLocalesTable(
+    this,
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [lecturas, registrosGps];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+    lecturas,
+    registrosGps,
+    novedadesLocales,
+  ];
 }
 
 typedef $$LecturasTableCreateCompanionBuilder =
@@ -1862,6 +2459,9 @@ typedef $$LecturasTableCreateCompanionBuilder =
       Value<String?> sector,
       Value<bool> esAbonado,
       Value<bool> tieneLecturaReal,
+      Value<bool> impreso,
+      Value<DateTime?> fechaImpresion,
+      Value<int?> tipoFacturacion,
       Value<int?> lecturaAnterior,
       Value<String?> estadoMedidor,
       Value<String?> celular,
@@ -1889,6 +2489,9 @@ typedef $$LecturasTableUpdateCompanionBuilder =
       Value<String?> sector,
       Value<bool> esAbonado,
       Value<bool> tieneLecturaReal,
+      Value<bool> impreso,
+      Value<DateTime?> fechaImpresion,
+      Value<int?> tipoFacturacion,
       Value<int?> lecturaAnterior,
       Value<String?> estadoMedidor,
       Value<String?> celular,
@@ -1997,6 +2600,21 @@ class $$LecturasTableFilterComposer
 
   ColumnFilters<bool> get tieneLecturaReal => $composableBuilder(
     column: $table.tieneLecturaReal,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get impreso => $composableBuilder(
+    column: $table.impreso,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get fechaImpresion => $composableBuilder(
+    column: $table.fechaImpresion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get tipoFacturacion => $composableBuilder(
+    column: $table.tipoFacturacion,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -2125,6 +2743,21 @@ class $$LecturasTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<bool> get impreso => $composableBuilder(
+    column: $table.impreso,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get fechaImpresion => $composableBuilder(
+    column: $table.fechaImpresion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get tipoFacturacion => $composableBuilder(
+    column: $table.tipoFacturacion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<int> get lecturaAnterior => $composableBuilder(
     column: $table.lecturaAnterior,
     builder: (column) => ColumnOrderings(column),
@@ -2228,6 +2861,19 @@ class $$LecturasTableAnnotationComposer
     builder: (column) => column,
   );
 
+  GeneratedColumn<bool> get impreso =>
+      $composableBuilder(column: $table.impreso, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaImpresion => $composableBuilder(
+    column: $table.fechaImpresion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get tipoFacturacion => $composableBuilder(
+    column: $table.tipoFacturacion,
+    builder: (column) => column,
+  );
+
   GeneratedColumn<int> get lecturaAnterior => $composableBuilder(
     column: $table.lecturaAnterior,
     builder: (column) => column,
@@ -2292,6 +2938,9 @@ class $$LecturasTableTableManager
                 Value<String?> sector = const Value.absent(),
                 Value<bool> esAbonado = const Value.absent(),
                 Value<bool> tieneLecturaReal = const Value.absent(),
+                Value<bool> impreso = const Value.absent(),
+                Value<DateTime?> fechaImpresion = const Value.absent(),
+                Value<int?> tipoFacturacion = const Value.absent(),
                 Value<int?> lecturaAnterior = const Value.absent(),
                 Value<String?> estadoMedidor = const Value.absent(),
                 Value<String?> celular = const Value.absent(),
@@ -2317,6 +2966,9 @@ class $$LecturasTableTableManager
                 sector: sector,
                 esAbonado: esAbonado,
                 tieneLecturaReal: tieneLecturaReal,
+                impreso: impreso,
+                fechaImpresion: fechaImpresion,
+                tipoFacturacion: tipoFacturacion,
                 lecturaAnterior: lecturaAnterior,
                 estadoMedidor: estadoMedidor,
                 celular: celular,
@@ -2344,6 +2996,9 @@ class $$LecturasTableTableManager
                 Value<String?> sector = const Value.absent(),
                 Value<bool> esAbonado = const Value.absent(),
                 Value<bool> tieneLecturaReal = const Value.absent(),
+                Value<bool> impreso = const Value.absent(),
+                Value<DateTime?> fechaImpresion = const Value.absent(),
+                Value<int?> tipoFacturacion = const Value.absent(),
                 Value<int?> lecturaAnterior = const Value.absent(),
                 Value<String?> estadoMedidor = const Value.absent(),
                 Value<String?> celular = const Value.absent(),
@@ -2369,6 +3024,9 @@ class $$LecturasTableTableManager
                 sector: sector,
                 esAbonado: esAbonado,
                 tieneLecturaReal: tieneLecturaReal,
+                impreso: impreso,
+                fechaImpresion: fechaImpresion,
+                tipoFacturacion: tipoFacturacion,
                 lecturaAnterior: lecturaAnterior,
                 estadoMedidor: estadoMedidor,
                 celular: celular,
@@ -2663,6 +3321,245 @@ typedef $$RegistrosGpsTableProcessedTableManager =
       RegistrosGp,
       PrefetchHooks Function()
     >;
+typedef $$NovedadesLocalesTableCreateCompanionBuilder =
+    NovedadesLocalesCompanion Function({
+      Value<int> id,
+      required int predioId,
+      required String concepto,
+      required int valorCuota,
+      required int cuotasPendientes,
+      required int totalPendiente,
+    });
+typedef $$NovedadesLocalesTableUpdateCompanionBuilder =
+    NovedadesLocalesCompanion Function({
+      Value<int> id,
+      Value<int> predioId,
+      Value<String> concepto,
+      Value<int> valorCuota,
+      Value<int> cuotasPendientes,
+      Value<int> totalPendiente,
+    });
+
+class $$NovedadesLocalesTableFilterComposer
+    extends Composer<_$AppDatabase, $NovedadesLocalesTable> {
+  $$NovedadesLocalesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get predioId => $composableBuilder(
+    column: $table.predioId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get concepto => $composableBuilder(
+    column: $table.concepto,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get valorCuota => $composableBuilder(
+    column: $table.valorCuota,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get cuotasPendientes => $composableBuilder(
+    column: $table.cuotasPendientes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get totalPendiente => $composableBuilder(
+    column: $table.totalPendiente,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$NovedadesLocalesTableOrderingComposer
+    extends Composer<_$AppDatabase, $NovedadesLocalesTable> {
+  $$NovedadesLocalesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get predioId => $composableBuilder(
+    column: $table.predioId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get concepto => $composableBuilder(
+    column: $table.concepto,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get valorCuota => $composableBuilder(
+    column: $table.valorCuota,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get cuotasPendientes => $composableBuilder(
+    column: $table.cuotasPendientes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get totalPendiente => $composableBuilder(
+    column: $table.totalPendiente,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$NovedadesLocalesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $NovedadesLocalesTable> {
+  $$NovedadesLocalesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get predioId =>
+      $composableBuilder(column: $table.predioId, builder: (column) => column);
+
+  GeneratedColumn<String> get concepto =>
+      $composableBuilder(column: $table.concepto, builder: (column) => column);
+
+  GeneratedColumn<int> get valorCuota => $composableBuilder(
+    column: $table.valorCuota,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get cuotasPendientes => $composableBuilder(
+    column: $table.cuotasPendientes,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get totalPendiente => $composableBuilder(
+    column: $table.totalPendiente,
+    builder: (column) => column,
+  );
+}
+
+class $$NovedadesLocalesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $NovedadesLocalesTable,
+          NovedadesLocale,
+          $$NovedadesLocalesTableFilterComposer,
+          $$NovedadesLocalesTableOrderingComposer,
+          $$NovedadesLocalesTableAnnotationComposer,
+          $$NovedadesLocalesTableCreateCompanionBuilder,
+          $$NovedadesLocalesTableUpdateCompanionBuilder,
+          (
+            NovedadesLocale,
+            BaseReferences<
+              _$AppDatabase,
+              $NovedadesLocalesTable,
+              NovedadesLocale
+            >,
+          ),
+          NovedadesLocale,
+          PrefetchHooks Function()
+        > {
+  $$NovedadesLocalesTableTableManager(
+    _$AppDatabase db,
+    $NovedadesLocalesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer:
+              () =>
+                  $$NovedadesLocalesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer:
+              () => $$NovedadesLocalesTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer:
+              () => $$NovedadesLocalesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> predioId = const Value.absent(),
+                Value<String> concepto = const Value.absent(),
+                Value<int> valorCuota = const Value.absent(),
+                Value<int> cuotasPendientes = const Value.absent(),
+                Value<int> totalPendiente = const Value.absent(),
+              }) => NovedadesLocalesCompanion(
+                id: id,
+                predioId: predioId,
+                concepto: concepto,
+                valorCuota: valorCuota,
+                cuotasPendientes: cuotasPendientes,
+                totalPendiente: totalPendiente,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int predioId,
+                required String concepto,
+                required int valorCuota,
+                required int cuotasPendientes,
+                required int totalPendiente,
+              }) => NovedadesLocalesCompanion.insert(
+                id: id,
+                predioId: predioId,
+                concepto: concepto,
+                valorCuota: valorCuota,
+                cuotasPendientes: cuotasPendientes,
+                totalPendiente: totalPendiente,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          BaseReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$NovedadesLocalesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $NovedadesLocalesTable,
+      NovedadesLocale,
+      $$NovedadesLocalesTableFilterComposer,
+      $$NovedadesLocalesTableOrderingComposer,
+      $$NovedadesLocalesTableAnnotationComposer,
+      $$NovedadesLocalesTableCreateCompanionBuilder,
+      $$NovedadesLocalesTableUpdateCompanionBuilder,
+      (
+        NovedadesLocale,
+        BaseReferences<_$AppDatabase, $NovedadesLocalesTable, NovedadesLocale>,
+      ),
+      NovedadesLocale,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -2671,4 +3568,6 @@ class $AppDatabaseManager {
       $$LecturasTableTableManager(_db, _db.lecturas);
   $$RegistrosGpsTableTableManager get registrosGps =>
       $$RegistrosGpsTableTableManager(_db, _db.registrosGps);
+  $$NovedadesLocalesTableTableManager get novedadesLocales =>
+      $$NovedadesLocalesTableTableManager(_db, _db.novedadesLocales);
 }

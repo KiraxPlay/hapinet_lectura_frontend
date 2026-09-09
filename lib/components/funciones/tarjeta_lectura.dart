@@ -15,7 +15,7 @@ class TarjetaLectura extends StatelessWidget {
     super.key,
     required this.lectura,
     required this.db,
-    required this.onActualizado,
+    required this.onActualizado, required bool bloqueada,
   });
 
   @override

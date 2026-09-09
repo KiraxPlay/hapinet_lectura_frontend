@@ -65,7 +65,7 @@ class _MapaScreenState extends State<MapaScreen> {
     super.initState();
     _mapController = MapController();
     _geo = GeolocalizacionService(widget.db);
-    _mapaService = MapaService(widget.db, jsonAsset: widget.acueducto.jsonAsset);
+    _mapaService = MapaService(widget.db);
     _inicializarCache();
     _cargarDatos();
   }
@@ -342,14 +342,16 @@ class _MapaScreenState extends State<MapaScreen> {
       MaterialPageRoute(
         builder: (_) => InfoAbonadoScreen(
           db: widget.db,
+          acueducto: widget.acueducto,
           codigoMedidor: punto.codigo,
           nombreAbonado: punto.nombre,
-          celular: null, // PuntoMapa no tiene celular — se ve en la BD
+          celular: null,
           lecturaAnterior: punto.lecturaActual,
           latitud: punto.latitud,
           longitud: punto.longitud,
           sector: punto.sector,
           estadoMedidorClave: punto.estadoMedidorClave,
+          predioId: null, // se resuelve en InfoAbonadoScreen por código
         ),
       ),
     );

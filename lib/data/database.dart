@@ -1,4 +1,3 @@
-// lib/data/database.dart
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
 
@@ -51,7 +50,7 @@ class Lecturas extends Table {
   // Contador de intentos fallidos de sincronización
   IntColumn get intentosSync => integer().withDefault(const Constant(0))();
 
-  // Código del medidor del abonado (ej: TEN-201-001)
+  // Código del medidor del abonado (ej: TEN-0001)
   // null para lecturas libres (sin abonado del padrón)
   TextColumn get codigoMedidor => text().nullable()();
 
@@ -69,13 +68,19 @@ class Lecturas extends Table {
 
   // true = es un abonado del padrón importado del JSON
   // false = lectura libre tomada sin abonado registrado
-  BoolColumn get esAbonado =>
-      boolean().withDefault(const Constant(false))();
+  BoolColumn get esAbonado => boolean().withDefault(const Constant(false))();
 
   // true = el técnico ya tomó la lectura este período
   // false = aún pendiente de lectura
   BoolColumn get tieneLecturaReal =>
       boolean().withDefault(const Constant(false))();
+
+  // true cuando el técnico ya imprimió el comprobante desde el visor PDF
+  BoolColumn get impreso => boolean().withDefault(const Constant(false))();
+  DateTimeColumn get fechaImpresion => dateTime().nullable()();
+
+  // Tipo de facturación elegido por el técnico: 64=Consumo, 65=Promedio, 66=SoloBasico
+  IntColumn get tipoFacturacion => integer().nullable()();
 
   // Lectura del período anterior — se preserva al tomar nueva lectura
   // Se usa para calcular el consumo (lectura - lecturaAnterior)
@@ -92,8 +97,7 @@ class Lecturas extends Table {
   // Posición del abonado en la ruta del técnico (orden del JSON/xlsx)
   // 1 = primero en la ruta, 2 = segundo, etc.
   // Se usa para ordenar la lista del día según la ruta real
-  IntColumn get ordenRuta =>
-      integer().withDefault(const Constant(0))();
+  IntColumn get ordenRuta => integer().withDefault(const Constant(0))();
 
   // Clave primaria — cada lectura tiene un ID único
   @override
@@ -122,52 +126,78 @@ class RegistrosGps extends Table {
 // ─────────────────────────────────────────────
 // BASE DE DATOS — configuración principal
 // ─────────────────────────────────────────────
-@DriftDatabase(tables: [Lecturas, RegistrosGps])
+class NovedadesLocales extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get predioId => integer()();
+  TextColumn get concepto => text()();
+  IntColumn get valorCuota => integer()();
+  IntColumn get cuotasPendientes => integer()();
+  IntColumn get totalPendiente => integer()();
+}
+
+@DriftDatabase(tables: [Lecturas, RegistrosGps, NovedadesLocales])
 class AppDatabase extends _$AppDatabase {
   // nombreBd permite tener una BD por acueducto
   AppDatabase({String nombreBd = 'medidor_database'})
-      : super(_openConnection(nombreBd));
+    : super(_openConnection(nombreBd));
 
   // Versión del esquema — incrementar cada vez que se añaden columnas
   // Al subir la versión, Drift llama onUpgrade automáticamente
   @override
-  int get schemaVersion => 6;
+  int get schemaVersion => 9;
 
   // Estrategia de migración — se ejecuta al instalar o actualizar la app
   @override
   MigrationStrategy get migration => MigrationStrategy(
-        // onCreate: se llama la primera vez que se instala la app
-        // Crea todas las tablas desde cero
-        onCreate: (m) async => await m.createAll(),
+    // onCreate: se llama la primera vez que se instala la app
+    // Crea todas las tablas desde cero
+    onCreate: (m) async => await m.createAll(),
 
-        // onUpgrade: se llama cuando schemaVersion sube
-        // Agrega las columnas nuevas según la versión anterior (from)
-        onUpgrade: (m, from, to) async {
-          // v1 → v2: se añadieron campos de abonado del padrón
-          if (from < 2) {
-            await m.addColumn(lecturas, lecturas.nombreAbonado);
-            await m.addColumn(lecturas, lecturas.sector);
-            await m.addColumn(lecturas, lecturas.esAbonado);
-            await m.addColumn(lecturas, lecturas.tieneLecturaReal);
-          }
-          // v2 → v3: se añadió lectura anterior para calcular consumo
-          if (from < 3) {
-            await m.addColumn(lecturas, lecturas.lecturaAnterior);
-          }
-          // v3 → v4: se añadió estado físico del medidor
-          if (from < 4) {
-            await m.addColumn(lecturas, lecturas.estadoMedidor);
-          }
-          // v4 → v5: se añadió celular del abonado
-          if (from < 5) {
-            await m.addColumn(lecturas, lecturas.celular);
-          }
-          // v5 → v6: se añadió orden de ruta del técnico
-          if (from < 6) {
-            await m.addColumn(lecturas, lecturas.ordenRuta);
-          }
-        },
-      );
+    // onUpgrade: se llama cuando schemaVersion sube
+    // Agrega las columnas nuevas según la versión anterior (from)
+    onUpgrade: (m, from, to) async {
+      // v1 → v2: se añadieron campos de abonado del padrón
+      if (from < 2) {
+        await m.addColumn(lecturas, lecturas.nombreAbonado);
+        await m.addColumn(lecturas, lecturas.sector);
+        await m.addColumn(lecturas, lecturas.esAbonado);
+        await m.addColumn(lecturas, lecturas.tieneLecturaReal);
+      }
+      // v2 → v3: se añadió lectura anterior para calcular consumo
+      if (from < 3) {
+        await m.addColumn(lecturas, lecturas.lecturaAnterior);
+      }
+      // v3 → v4: se añadió estado físico del medidor
+      if (from < 4) {
+        await m.addColumn(lecturas, lecturas.estadoMedidor);
+      }
+      // v4 → v5: se añadió celular del abonado
+      if (from < 5) {
+        await m.addColumn(lecturas, lecturas.celular);
+      }
+      // v5 → v6: se añadió orden de ruta del técnico
+      if (from < 6) {
+        await m.addColumn(lecturas, lecturas.ordenRuta);
+      }
+      // v6 → v7: campo impreso y fechaImpresion
+      if (from < 7) {
+        await m.addColumn(lecturas, lecturas.impreso);
+        await m.addColumn(lecturas, lecturas.fechaImpresion);
+      }
+      // v7 → v8: tabla novedades locales
+      if (from < 8) {
+        await m.createTable(novedadesLocales);
+      }
+      // v8 → v9: tipo de facturación del técnico
+      if (from < 9) {
+        await m.addColumn(lecturas, lecturas.tipoFacturacion);
+      }
+      // v8 → v9: tipo de facturación
+      if (from < 9) {
+        await m.addColumn(lecturas, lecturas.tipoFacturacion);
+      }
+    },
+  );
 
   // ─────────────────────────────────────────────
   // INSERTAR / ACTUALIZAR / ELIMINAR
@@ -183,6 +213,26 @@ class AppDatabase extends _$AppDatabase {
         .go();
   }
 
+  // Inicia una nueva ronda sin borrar los datos del abonado.
+  // La lectura anterior queda como referencia para calcular consumo.
+  Future<void> prepararNuevoPeriodo() async {
+    await (update(lecturas)
+          ..where((l) => l.esAbonado.equals(true)))
+        .write(
+      const LecturasCompanion(
+        lecturaAnterior: Value.absent(),
+        rutaFoto: Value(''),
+        textoCrudo: Value(''),
+        fechaSync: Value(null),
+        intentosSync: Value(0),
+        estadoSync: Value('pendiente'),
+        tieneLecturaReal: Value(false),
+        estadoMedidor: Value(null),
+        notas: Value(null),
+      ),
+    );
+  }
+
   // Inserta una lectura libre (sin abonado del padrón)
   Future<void> insertarLectura(LecturasCompanion lectura) =>
       into(lecturas).insert(lectura);
@@ -191,15 +241,26 @@ class AppDatabase extends _$AppDatabase {
   // Evita duplicados al reimportar el JSON
   // La verificación es por codigoMedidor (ej: TEN-201-001)
   Future<void> insertarAbonadoSiNoExiste(LecturasCompanion abonado) async {
-    final existe = await (select(lecturas)
-          ..where((l) => l.codigoMedidor.equals(
-              abonado.codigoMedidor.value ?? '')))
-        .getSingleOrNull();
+    final existe =
+        await (select(lecturas)..where(
+          (l) => l.codigoMedidor.equals(abonado.codigoMedidor.value ?? ''),
+        )).getSingleOrNull();
     // Solo inserta si no encontró ningún registro con ese código
     if (existe == null) {
       await into(lecturas).insert(abonado);
     }
   }
+
+  Future<void> actualizarSectorAbonado({
+    required String codigoMedidor,
+    required String sector,
+  }) async {
+    await (update(lecturas)
+          ..where((l) => l.codigoMedidor.equals(codigoMedidor)))
+        .write(LecturasCompanion(sector: Value(sector)));
+  }
+
+
 
   // Actualiza la lectura de un abonado del padrón cuando el técnico
   // la toma con la cámara. Preserva la lectura anterior para calcular consumo
@@ -212,39 +273,43 @@ class AppDatabase extends _$AppDatabase {
     String? textoCrudo,
     String? notas,
     String? estadoMedidor,
+    int? tipoFacturacion,
   }) async {
     // Busca el registro actual para guardar su lectura como "anterior"
-    final registro = await (select(lecturas)
-          ..where((l) => l.codigoMedidor.equals(codigoMedidor)))
-        .getSingleOrNull();
+    final registro =
+        await (select(lecturas)..where(
+          (l) => l.codigoMedidor.equals(codigoMedidor),
+        )).getSingleOrNull();
 
     // La lectura actual pasa a ser la anterior (para calcular consumo)
     final anterior = registro?.lectura;
 
     // Actualiza todos los campos de la lectura
     await (update(lecturas)
-          ..where((l) => l.codigoMedidor.equals(codigoMedidor)))
-        .write(LecturasCompanion(
-      lectura: Value(nuevaLectura),
-      lecturaAnterior: Value(anterior),
-      rutaFoto: Value(rutaFoto),
-      latitud: Value(latitud),
-      longitud: Value(longitud),
-      textoCrudo: Value(textoCrudo ?? ''),
-      notas: Value(notas),
-      fechaLectura: Value(DateTime.now()),
-      // Vuelve a 'pendiente' para que se sincronice con el servidor
-      estadoSync: const Value('pendiente'),
-      tieneLecturaReal: const Value(true),
-      estadoMedidor: Value(estadoMedidor),
-    ));
+      ..where((l) => l.codigoMedidor.equals(codigoMedidor))).write(
+      LecturasCompanion(
+        lectura: Value(nuevaLectura),
+        lecturaAnterior: Value(anterior),
+        rutaFoto: Value(rutaFoto),
+        latitud: Value(latitud),
+        longitud: Value(longitud),
+        textoCrudo: Value(textoCrudo ?? ''),
+        notas: Value(notas),
+        fechaLectura: Value(DateTime.now()),
+        // Vuelve a 'pendiente' para que se sincronice con el servidor
+        estadoSync: const Value('pendiente'),
+        tieneLecturaReal: const Value(true),
+        estadoMedidor: Value(estadoMedidor),
+        tipoFacturacion: Value(tipoFacturacion),
+      ),
+    );
   }
 
   // Elimina o resetea una lectura según si es abonado o lectura libre
   Future<void> eliminarLectura(String id) async {
     final registro =
-        await (select(lecturas)..where((l) => l.id.equals(id)))
-            .getSingleOrNull();
+        await (select(lecturas)
+          ..where((l) => l.id.equals(id))).getSingleOrNull();
 
     if (registro == null) return;
 
@@ -277,25 +342,25 @@ class AppDatabase extends _$AppDatabase {
   // Todas las lecturas ordenadas de más reciente a más antigua
   Future<List<Lectura>> obtenerTodasLecturas() =>
       (select(lecturas)
-            ..orderBy([(l) => OrderingTerm.desc(l.fechaLectura)]))
-          .get();
+        ..orderBy([(l) => OrderingTerm.desc(l.fechaLectura)])).get();
 
   // Abonados del padrón que aún NO tienen lectura del período actual
   // Ordenados por posición en la ruta del técnico (ordenRuta)
   Future<List<Lectura>> obtenerPendientesLectura({String? sector}) async {
-    final query = select(lecturas)
-      ..where((l) => l.esAbonado.equals(true))
-      ..where((l) => l.tieneLecturaReal.equals(false));
+    final query =
+        select(lecturas)
+          ..where((l) => l.esAbonado.equals(true))
+          ..where((l) => l.tieneLecturaReal.equals(false));
     // Filtrar por sector si se especifica (T, R o P)
     if (sector != null) query.where((l) => l.sector.equals(sector));
     query.orderBy([(l) => OrderingTerm.asc(l.ordenRuta)]);
     return query.get();
   }
 
+
   // Todos los abonados del padrón (con y sin lectura)
   Future<List<Lectura>> obtenerAbonados({String? sector}) async {
-    final query = select(lecturas)
-      ..where((l) => l.esAbonado.equals(true));
+    final query = select(lecturas)..where((l) => l.esAbonado.equals(true));
     if (sector != null) query.where((l) => l.sector.equals(sector));
     return query.get();
   }
@@ -331,8 +396,13 @@ class AppDatabase extends _$AppDatabase {
       final clave =
           '${l.fechaLectura.year}-${l.fechaLectura.month}-${l.fechaLectura.day}';
       if (diasSet.add(clave)) {
-        dias.add(DateTime(
-            l.fechaLectura.year, l.fechaLectura.month, l.fechaLectura.day));
+        dias.add(
+          DateTime(
+            l.fechaLectura.year,
+            l.fechaLectura.month,
+            l.fechaLectura.day,
+          ),
+        );
       }
     }
     dias.sort((a, b) => b.compareTo(a));
@@ -354,8 +424,7 @@ class AppDatabase extends _$AppDatabase {
   // Stream de todas las lecturas — para historial en tiempo real
   Stream<List<Lectura>> watchTodasLecturas() =>
       (select(lecturas)
-            ..orderBy([(l) => OrderingTerm.desc(l.fechaLectura)]))
-          .watch();
+        ..orderBy([(l) => OrderingTerm.desc(l.fechaLectura)])).watch();
 
   // Stream de días con lecturas — para la lista del historial
   // Se recalcula automáticamente al tomar o eliminar lecturas
@@ -367,8 +436,13 @@ class AppDatabase extends _$AppDatabase {
         final clave =
             '${l.fechaLectura.year}-${l.fechaLectura.month}-${l.fechaLectura.day}';
         if (diasSet.add(clave)) {
-          dias.add(DateTime(l.fechaLectura.year, l.fechaLectura.month,
-              l.fechaLectura.day));
+          dias.add(
+            DateTime(
+              l.fechaLectura.year,
+              l.fechaLectura.month,
+              l.fechaLectura.day,
+            ),
+          );
         }
       }
       dias.sort((a, b) => b.compareTo(a));
@@ -391,9 +465,10 @@ class AppDatabase extends _$AppDatabase {
   // Stream de pendientes — para la lista del día reactiva
   // Se actualiza automáticamente al tomar una lectura
   Stream<List<Lectura>> watchPendientesLectura({String? sector}) {
-    final query = select(lecturas)
-      ..where((l) => l.esAbonado.equals(true))
-      ..where((l) => l.tieneLecturaReal.equals(false));
+    final query =
+        select(lecturas)
+          ..where((l) => l.esAbonado.equals(true))
+          ..where((l) => l.tieneLecturaReal.equals(false));
     if (sector != null) query.where((l) => l.sector.equals(sector));
     query.orderBy([(l) => OrderingTerm.asc(l.ordenRuta)]);
     return query.watch();
@@ -406,12 +481,12 @@ class AppDatabase extends _$AppDatabase {
   // Actualiza el estado de sync de una lectura
   // Se llama después de sincronizar con el servidor
   Future<void> actualizarEstadoSync(
-      String id, String estado, DateTime? fechaSync) async {
+    String id,
+    String estado,
+    DateTime? fechaSync,
+  ) async {
     await (update(lecturas)..where((l) => l.id.equals(id))).write(
-      LecturasCompanion(
-        estadoSync: Value(estado),
-        fechaSync: Value(fechaSync),
-      ),
+      LecturasCompanion(estadoSync: Value(estado), fechaSync: Value(fechaSync)),
     );
   }
 
@@ -447,9 +522,129 @@ class AppDatabase extends _$AppDatabase {
   Future<void> limpiarGpsAntiguo(int dias) async {
     final limite = DateTime.now().subtract(Duration(days: dias));
     await (delete(registrosGps)
-          ..where((r) => r.timestamp.isSmallerThanValue(limite)))
-        .go();
+      ..where((r) => r.timestamp.isSmallerThanValue(limite))).go();
   }
+
+  // ─────────────────────────────────────────────
+  // NUEVOS MÉTODOS
+  // ─────────────────────────────────────────────
+
+  // Inserta abonados en batch
+  Future<void> insertarAbonadosEnBatch(
+      List<LecturasCompanion> companions) async {
+    await batch((b) {
+      b.insertAll(lecturas, companions, mode: InsertMode.insertOrIgnore);
+    });
+  }
+
+  // Obtiene lecturas pendientes de sincronización
+  Future<List<Lectura>> obtenerLecturasPendientesSync() async {
+    return (select(lecturas)
+          ..where((l) => l.estadoSync.equals('pendiente'))
+          ..where((l) => l.tieneLecturaReal.equals(true)))
+        .get();
+  }
+
+  // Marca una lectura como sincronizada
+  Future<void> marcarLecturaSincronizada({
+    required String id,
+    required DateTime fechaSync,
+  }) async {
+    await (update(lecturas)..where((l) => l.id.equals(id))).write(
+      LecturasCompanion(
+        estadoSync: const Value('sincronizado'),
+        fechaSync: Value(fechaSync),
+      ),
+    );
+  }
+
+  // Alias de incrementarIntentosFallidos para compatibilidad
+  Future<void> incrementarIntentoSync(String id) =>
+      incrementarIntentosFallidos(id);
+
+  // Verifica si existe un abonado con ese código
+  Future<bool> existeAbonado(String codigo) async {
+    final result = await (select(lecturas)
+          ..where((l) => l.codigoMedidor.equals(codigo))
+          ..where((l) => l.esAbonado.equals(true)))
+        .getSingleOrNull();
+    return result != null;
+  }
+
+  // Actualiza datos de un abonado desde el API
+  Future<void> actualizarAbonado({
+    required String codigo,
+    required String nombre,
+    required String sector,
+    double? latitud,
+    double? longitud,
+  }) async {
+    await (update(lecturas)
+          ..where((l) => l.codigoMedidor.equals(codigo)))
+        .write(LecturasCompanion(
+      nombreAbonado: Value(nombre),
+      sector: Value(sector),
+      latitud: Value(latitud ?? 0.0),
+      longitud: Value(longitud ?? 0.0),
+    ));
+  }
+
+  // Obtiene la lectura más reciente por código de medidor
+  Future<Lectura?> obtenerLecturaPorCodigo(String codigo) async {
+    return (select(lecturas)
+          ..where((l) => l.codigoMedidor.equals(codigo))
+          ..orderBy([(l) => OrderingTerm.desc(l.fechaLectura)])
+          ..limit(1))
+        .getSingleOrNull();
+  }
+
+  // Marca una lectura como impresa desde el visor PDF
+  Future<void> marcarImpreso(String id) async {
+    await (update(lecturas)..where((l) => l.id.equals(id))).write(
+      LecturasCompanion(
+        impreso: const Value(true),
+        fechaImpresion: Value(DateTime.now()),
+      ),
+    );
+  }
+
+  // ─────────────────────────────────────────────
+  // NOVEDADES LOCALES (offline)
+  // ─────────────────────────────────────────────
+
+  Future<void> guardarNovedadesPredio(
+      int predioId, List<Map<String, dynamic>> novedades) async {
+    await (delete(novedadesLocales)
+          ..where((n) => n.predioId.equals(predioId)))
+        .go();
+    if (novedades.isEmpty) return;
+    await batch((b) {
+      b.insertAll(
+        novedadesLocales,
+        novedades.map((n) => NovedadesLocalesCompanion.insert(
+              predioId: predioId,
+              concepto: n['concepto'] as String,
+              valorCuota: n['valor_cuota'] as int,
+              cuotasPendientes: n['cuotas_pendientes'] as int,
+              totalPendiente: n['total_pendiente'] as int,
+            )),
+      );
+    });
+  }
+
+  Future<List<Map<String, dynamic>>> obtenerNovedadesPredio(
+      int predioId) async {
+    final rows = await (select(novedadesLocales)
+          ..where((n) => n.predioId.equals(predioId)))
+        .get();
+    return rows.map((r) => {
+      'concepto': r.concepto,
+      'valor_cuota': r.valorCuota,
+      'cuotas_pendientes': r.cuotasPendientes,
+      'total_pendiente': r.totalPendiente,
+    }).toList();
+  }
+
 }
 
 // Abre la conexión a la BD SQLite con el nombre especificado

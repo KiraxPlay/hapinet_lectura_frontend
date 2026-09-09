@@ -1,6 +1,11 @@
 // lib/services/asr_service.dart
-import 'dart:async';
-import 'package:speech_to_text/speech_to_text.dart';
+// Reconocimiento de voz 100% OFFLINE usando Whisper.cpp
+// Grabación con flutter_sound (sin conflictos de versiones)
+import 'dart:io';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:whisper_flutter_new/whisper_flutter_new.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AsrService {
@@ -8,23 +13,20 @@ class AsrService {
   static AsrService get instancia => _instancia ??= AsrService._();
   AsrService._();
 
-  final SpeechToText _speech = SpeechToText();
+  final FlutterSoundRecorder _recorder = FlutterSoundRecorder();
+  Whisper? _whisper;
+
+  bool _recorderAbierto = false;
   bool _inicializado = false;
   bool _escuchando = false;
-
-  // true = tiene idioma español descargado para uso offline
-  // null = aún no verificado
-  bool? _modoOfflineDisponible;
-
-  static const _keyAvisoOffline = 'asr_aviso_offline_mostrado';
+  bool _modeloDescargado = false;
+  String? _rutaWavActual;
 
   bool get inicializado => _inicializado;
   bool get escuchando => _escuchando;
+  bool get listo => _inicializado && _modeloDescargado;
 
-  /// true  → español offline descargado, funciona sin internet
-  /// false → solo funciona con internet
-  /// null  → aún no verificado
-  bool? get modoOfflineDisponible => _modoOfflineDisponible;
+  static const _keyModeloDescargado = 'whisper_modelo_descargado';
 
   // ─────────────────────────────────────────────
   // INICIALIZAR
@@ -33,19 +35,31 @@ class AsrService {
   Future<bool> inicializar() async {
     if (_inicializado) return true;
     try {
-      _inicializado = await _speech.initialize(
-        onError: (_) => _escuchando = false,
-        onStatus: (status) {
-          if (status == 'done' || status == 'notListening') {
-            _escuchando = false;
-          }
-        },
+      // Inicializar recorder
+      await _recorder.openRecorder();
+      _recorderAbierto = true;
+
+      // Inicializar Whisper
+      _whisper = Whisper(
+        model: WhisperModel.tiny,
+        downloadHost:
+            'https://huggingface.co/ggerganov/whisper.cpp/resolve/main',
       );
 
-      if (_inicializado) {
-        await _verificarOffline();
+      final prefs = await SharedPreferences.getInstance();
+      _modeloDescargado = prefs.getBool(_keyModeloDescargado) ?? false;
+
+      if (!_modeloDescargado) {
+        try {
+          await _whisper!.getVersion();
+          _modeloDescargado = true;
+          await prefs.setBool(_keyModeloDescargado, true);
+        } catch (_) {
+          _modeloDescargado = false;
+        }
       }
 
+      _inicializado = _modeloDescargado;
       return _inicializado;
     } catch (_) {
       _inicializado = false;
@@ -53,114 +67,105 @@ class AsrService {
     }
   }
 
-  // Verifica si el idioma español está disponible offline
-  Future<void> _verificarOffline() async {
+  // ─────────────────────────────────────────────
+  // INICIAR GRABACIÓN
+  // ─────────────────────────────────────────────
+
+  Future<bool> iniciarGrabacion() async {
+    if (_escuchando || !listo) return false;
+
+    // Verificar permiso de micrófono
+    final status = await Permission.microphone.request();
+    if (!status.isGranted) return false;
+
+    final dir = await getTemporaryDirectory();
+    _rutaWavActual = '${dir.path}/asr_temp.wav';
+
+    await _recorder.startRecorder(
+      toFile: _rutaWavActual,
+      codec: Codec.pcm16WAV,
+      sampleRate: 16000,
+      numChannels: 1,
+    );
+
+    _escuchando = true;
+    return true;
+  }
+
+  // ─────────────────────────────────────────────
+  // DETENER Y TRANSCRIBIR
+  // ─────────────────────────────────────────────
+
+  Future<String?> detenerYTranscribir() async {
+    if (!_escuchando) return null;
+
+    await _recorder.stopRecorder();
+    _escuchando = false;
+
+    final ruta = _rutaWavActual;
+    _rutaWavActual = null;
+
+    if (ruta == null || !File(ruta).existsSync()) return null;
+
     try {
-      final locales = await _speech.locales();
-      // Buscar cualquier variante de español disponible
-      _modoOfflineDisponible = locales.any((l) =>
-          l.localeId.startsWith('es') &&
-          // speech_to_text marca offline con hasDictation o simplemente
-          // estando en la lista de locales del sistema
-          l.localeId.isNotEmpty);
+      final respuesta = await _whisper!.transcribe(
+        transcribeRequest: TranscribeRequest(
+          audio: ruta,
+          isTranslate: false,
+          isNoTimestamps: true,
+          language: 'es',
+          // Optimización para velocidad en celulares gama media/baja:
+          threads: 4,      // más hilos = más rápido (ajustar según CPU)
+          isSpecialTokens: false, // no incluir tokens especiales
+        ),
+      );
+
+      try { File(ruta).deleteSync(); } catch (_) {}
+      return _limpiarTexto(respuesta.text);
     } catch (_) {
-      _modoOfflineDisponible = false;
+      try { File(ruta).deleteSync(); } catch (_) {}
+      return null;
     }
   }
 
-  /// Retorna true si es la primera vez y debe mostrarse el aviso offline.
-  /// Llama esto antes de mostrar el micrófono por primera vez.
-  Future<bool> debesMostrarAvisoOffline() async {
-    if (_modoOfflineDisponible == true) return false;
-    final prefs = await SharedPreferences.getInstance();
-    final yaVisto = prefs.getBool(_keyAvisoOffline) ?? false;
-    return !yaVisto;
-  }
-
-  /// Marca el aviso como ya mostrado para no repetirlo
-  Future<void> marcarAvisoOfflineVisto() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(_keyAvisoOffline, true);
-  }
-
   // ─────────────────────────────────────────────
-  // ESCUCHAR
+  // CANCELAR
   // ─────────────────────────────────────────────
 
-  Stream<AsrResultado> escuchar() async* {
-    if (!_inicializado || _escuchando) return;
-
-    _escuchando = true;
-    final controller = StreamController<AsrResultado>();
-    String _ultimoTexto = '';
-    double _nivelActual = 0.0;
-
-    await _speech.listen(
-      onResult: (result) {
-        final texto = result.recognizedWords.trim();
-        if (texto.isEmpty) return;
-        _ultimoTexto = texto;
-        if (result.finalResult) {
-          if (!controller.isClosed) {
-            controller.add(AsrResultado(
-                texto: texto, esFinal: true, nivelVolumen: 0.0));
-            controller.close();
-          }
-          _escuchando = false;
-        } else {
-          if (!controller.isClosed) {
-            controller.add(AsrResultado(
-                texto: texto, esFinal: false, nivelVolumen: _nivelActual));
-          }
-        }
-      },
-      onSoundLevelChange: (level) {
-        _nivelActual = level.clamp(0.0, 10.0);
-        if (!controller.isClosed) {
-          controller.add(AsrResultado(
-              texto: _ultimoTexto,
-              esFinal: false,
-              nivelVolumen: _nivelActual));
-        }
-      },
-      localeId: 'es_CO',
-      listenFor: const Duration(minutes: 3),
-      pauseFor: const Duration(seconds: 4),
-      partialResults: true,
-      listenMode: ListenMode.dictation,
-    );
-
-    _speech.statusListener = (status) {
-      if ((status == 'done' || status == 'notListening') &&
-          _ultimoTexto.isNotEmpty &&
-          !controller.isClosed) {
-        controller.add(AsrResultado(texto: _ultimoTexto, esFinal: true));
-        _escuchando = false;
-        controller.close();
-      }
-    };
-
-    yield* controller.stream;
-  }
-
-  // ─────────────────────────────────────────────
-  // DETENER
-  // ─────────────────────────────────────────────
-
-  Future<void> detener() async {
+  Future<void> cancelar() async {
     if (!_escuchando) return;
-    await _speech.stop();
-    _escuchando = false;
+    try {
+      await _recorder.stopRecorder();
+      _escuchando = false;
+      if (_rutaWavActual != null) {
+        try { File(_rutaWavActual!).deleteSync(); } catch (_) {}
+        _rutaWavActual = null;
+      }
+    } catch (_) {
+      _escuchando = false;
+    }
+  }
+
+  String? _limpiarTexto(String? texto) {
+    if (texto == null || texto.trim().isEmpty) return null;
+    return texto
+        .trim()
+        .replaceAll(RegExp(r'\[.*?\]'), '')
+        .replaceAll(RegExp(r'\s+'), ' ')
+        .trim();
   }
 
   Future<void> dispose() async {
-    await detener();
+    await cancelar();
+    if (_recorderAbierto) {
+      await _recorder.closeRecorder();
+      _recorderAbierto = false;
+    }
     _inicializado = false;
     _instancia = null;
   }
 }
 
-// Resultado del ASR
 class AsrResultado {
   final String texto;
   final bool esFinal;
