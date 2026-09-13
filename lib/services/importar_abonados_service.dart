@@ -1,17 +1,17 @@
 // lib/services/importar_abonados_service.dart
 import 'dart:async';
 import 'package:drift/drift.dart' show Value, InsertMode;
-import 'package:medidor_hapinet_app/services/api/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/database.dart';
 import '../models/acueducto.dart';
+import '../services/api/api_service.dart';
 
 class ImportarAbonadosService {
   final AppDatabase _db;
   final Acueducto acueducto;
 
   String get _keyImportado =>
-      'abonados_importados_${acueducto.tipo.name}_v14';
+      'abonados_importados_${acueducto.tipo.name}_v10';
 
   ImportarAbonadosService({
     required AppDatabase db,
@@ -40,7 +40,7 @@ class ImportarAbonadosService {
 
       final predios   = results[0];
       final novedades = results[1];
-      print('✓ Predios: \${predios.length}, Novedades: \${novedades.length} en \${DateTime.now().difference(t).inMilliseconds}ms');
+      print('✓ Predios: ${predios.length}, Novedades: ${novedades.length} en ${DateTime.now().difference(t).inMilliseconds}ms');
 
       if (predios.isNotEmpty) {
         final companions = predios.asMap().entries.map((entry) {
@@ -66,6 +66,7 @@ class ImportarAbonadosService {
             esAbonado: const Value(true),
             tieneLecturaReal: const Value(false),
             ordenRuta: Value(i + 1),
+            lecturaAnterior: Value((p['predio_lectura_anterior'] as num?)?.toInt()),
           );
         }).toList();
 
@@ -107,7 +108,7 @@ class ImportarAbonadosService {
           '56' => 'PUEBLO NUEVO',
           _    => 'Sin sector',
         },
-      TipoAcueducto.aguaviva => switch (id) {
+      TipoAcueducto.temporal => switch (id) {
           '54' => 'Alto Corozal',
           '55' => 'Cachaya',
           '56' => 'La Floresta',

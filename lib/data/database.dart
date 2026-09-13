@@ -216,9 +216,7 @@ class AppDatabase extends _$AppDatabase {
   // Inicia una nueva ronda sin borrar los datos del abonado.
   // La lectura anterior queda como referencia para calcular consumo.
   Future<void> prepararNuevoPeriodo() async {
-    await (update(lecturas)
-          ..where((l) => l.esAbonado.equals(true)))
-        .write(
+    await (update(lecturas)..where((l) => l.esAbonado.equals(true))).write(
       const LecturasCompanion(
         lecturaAnterior: Value.absent(),
         rutaFoto: Value(''),
@@ -227,6 +225,8 @@ class AppDatabase extends _$AppDatabase {
         intentosSync: Value(0),
         estadoSync: Value('pendiente'),
         tieneLecturaReal: Value(false),
+        impreso: Value(false),
+        fechaImpresion: Value(null),
         estadoMedidor: Value(null),
         notas: Value(null),
       ),
@@ -255,12 +255,10 @@ class AppDatabase extends _$AppDatabase {
     required String codigoMedidor,
     required String sector,
   }) async {
-    await (update(lecturas)
-          ..where((l) => l.codigoMedidor.equals(codigoMedidor)))
-        .write(LecturasCompanion(sector: Value(sector)));
+    await (update(lecturas)..where(
+      (l) => l.codigoMedidor.equals(codigoMedidor),
+    )).write(LecturasCompanion(sector: Value(sector)));
   }
-
-
 
   // Actualiza la lectura de un abonado del padrón cuando el técnico
   // la toma con la cámara. Preserva la lectura anterior para calcular consumo
@@ -281,8 +279,13 @@ class AppDatabase extends _$AppDatabase {
           (l) => l.codigoMedidor.equals(codigoMedidor),
         )).getSingleOrNull();
 
-    // La lectura actual pasa a ser la anterior (para calcular consumo)
-    final anterior = registro?.lectura;
+    // La lectura importada puede estar en lecturaAnterior mientras lectura es 0.
+    final anterior =
+        registro == null
+            ? null
+            : (registro.lectura > 0
+                ? registro.lectura
+                : registro.lecturaAnterior);
 
     // Actualiza todos los campos de la lectura
     await (update(lecturas)
@@ -356,7 +359,6 @@ class AppDatabase extends _$AppDatabase {
     query.orderBy([(l) => OrderingTerm.asc(l.ordenRuta)]);
     return query.get();
   }
-
 
   // Todos los abonados del padrón (con y sin lectura)
   Future<List<Lectura>> obtenerAbonados({String? sector}) async {
@@ -531,7 +533,8 @@ class AppDatabase extends _$AppDatabase {
 
   // Inserta abonados en batch
   Future<void> insertarAbonadosEnBatch(
-      List<LecturasCompanion> companions) async {
+    List<LecturasCompanion> companions,
+  ) async {
     await batch((b) {
       b.insertAll(lecturas, companions, mode: InsertMode.insertOrIgnore);
     });
@@ -564,10 +567,11 @@ class AppDatabase extends _$AppDatabase {
 
   // Verifica si existe un abonado con ese código
   Future<bool> existeAbonado(String codigo) async {
-    final result = await (select(lecturas)
-          ..where((l) => l.codigoMedidor.equals(codigo))
-          ..where((l) => l.esAbonado.equals(true)))
-        .getSingleOrNull();
+    final result =
+        await (select(lecturas)
+              ..where((l) => l.codigoMedidor.equals(codigo))
+              ..where((l) => l.esAbonado.equals(true)))
+            .getSingleOrNull();
     return result != null;
   }
 
@@ -580,13 +584,14 @@ class AppDatabase extends _$AppDatabase {
     double? longitud,
   }) async {
     await (update(lecturas)
-          ..where((l) => l.codigoMedidor.equals(codigo)))
-        .write(LecturasCompanion(
-      nombreAbonado: Value(nombre),
-      sector: Value(sector),
-      latitud: Value(latitud ?? 0.0),
-      longitud: Value(longitud ?? 0.0),
-    ));
+      ..where((l) => l.codigoMedidor.equals(codigo))).write(
+      LecturasCompanion(
+        nombreAbonado: Value(nombre),
+        sector: Value(sector),
+        latitud: Value(latitud ?? 0.0),
+        longitud: Value(longitud ?? 0.0),
+      ),
+    );
   }
 
   // Obtiene la lectura más reciente por código de medidor
@@ -613,38 +618,45 @@ class AppDatabase extends _$AppDatabase {
   // ─────────────────────────────────────────────
 
   Future<void> guardarNovedadesPredio(
-      int predioId, List<Map<String, dynamic>> novedades) async {
+    int predioId,
+    List<Map<String, dynamic>> novedades,
+  ) async {
     await (delete(novedadesLocales)
-          ..where((n) => n.predioId.equals(predioId)))
-        .go();
+      ..where((n) => n.predioId.equals(predioId))).go();
     if (novedades.isEmpty) return;
     await batch((b) {
       b.insertAll(
         novedadesLocales,
-        novedades.map((n) => NovedadesLocalesCompanion.insert(
-              predioId: predioId,
-              concepto: n['concepto'] as String,
-              valorCuota: n['valor_cuota'] as int,
-              cuotasPendientes: n['cuotas_pendientes'] as int,
-              totalPendiente: n['total_pendiente'] as int,
-            )),
+        novedades.map(
+          (n) => NovedadesLocalesCompanion.insert(
+            predioId: predioId,
+            concepto: n['concepto'] as String,
+            valorCuota: n['valor_cuota'] as int,
+            cuotasPendientes: n['cuotas_pendientes'] as int,
+            totalPendiente: n['total_pendiente'] as int,
+          ),
+        ),
       );
     });
   }
 
   Future<List<Map<String, dynamic>>> obtenerNovedadesPredio(
-      int predioId) async {
-    final rows = await (select(novedadesLocales)
-          ..where((n) => n.predioId.equals(predioId)))
-        .get();
-    return rows.map((r) => {
-      'concepto': r.concepto,
-      'valor_cuota': r.valorCuota,
-      'cuotas_pendientes': r.cuotasPendientes,
-      'total_pendiente': r.totalPendiente,
-    }).toList();
+    int predioId,
+  ) async {
+    final rows =
+        await (select(novedadesLocales)
+          ..where((n) => n.predioId.equals(predioId))).get();
+    return rows
+        .map(
+          (r) => {
+            'concepto': r.concepto,
+            'valor_cuota': r.valorCuota,
+            'cuotas_pendientes': r.cuotasPendientes,
+            'total_pendiente': r.totalPendiente,
+          },
+        )
+        .toList();
   }
-
 }
 
 // Abre la conexión a la BD SQLite con el nombre especificado

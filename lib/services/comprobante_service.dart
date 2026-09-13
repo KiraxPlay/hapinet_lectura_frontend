@@ -2,6 +2,7 @@ import 'package:medidor_hapinet_app/services/exportar_pdf.dart';
 
 import '../data/database.dart';
 import '../models/acueducto.dart';
+import '../models/factura_sitio_result.dart';
 import 'api/api_service.dart';
 import 'api/factura_api_service.dart';
 

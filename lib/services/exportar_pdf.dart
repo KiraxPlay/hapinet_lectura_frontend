@@ -1,13 +1,13 @@
-// lib/services/exportar_pdf_service.dart
+// lib/services/exportar_pdf.dart
 import 'dart:io';
 import 'package:intl/intl.dart';
-import 'package:medidor_hapinet_app/services/api/api_client.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import '../data/database.dart';
 import '../models/acueducto.dart';
+import '../models/factura_sitio_result.dart';
 import 'api/factura_api_service.dart';
 import 'api/tarifas_service.dart';
 
@@ -23,80 +23,27 @@ class ExportarPdfService {
 
   static const _formatoTermico = PdfPageFormat(
     80 * PdfPageFormat.mm,
-    180 * PdfPageFormat.mm,
-    marginAll: 4 * PdfPageFormat.mm,
+    double.infinity,
+    marginAll: 3 * PdfPageFormat.mm,
   );
 
   // ─────────────────────────────────────────────
   // FACTURAR EN SITIO
-  // Con internet  → servidor calcula (tarifas + novedades) → factura oficial
-  // Sin internet  → cálculo local (tarifas guardadas, sin novedades) → estimado
   // ─────────────────────────────────────────────
 
   Future<FacturaSitioResult> generarFacturaEnSitio({
     required Lectura lectura,
     required int predioId,
   }) async {
-    // Intentar con internet primero
-    final tieneInternet = await ApiClient.instancia.tieneConexion();
-
-    if (tieneInternet) {
-      return await _generarOnline(lectura, predioId);
-    } else {
-      return await _generarOffline(lectura);
-    }
-  }
-
-  // ── ONLINE — servidor calcula todo ──────────
-  Future<FacturaSitioResult> _generarOnline(
-      Lectura lectura, int predioId) async {
-    final resultado = await _facturaApi.generarFactura(predioId: predioId);
-    if (!resultado.exitoso) {
-      // Si falla el servidor, caer a offline
-      return await _generarOffline(lectura,
-          mensajeExtra: 'Servidor: ${resultado.error}');
-    }
-
-    final ruta = await _generarPdf(
-      lectura: lectura,
-      fecha: DateTime.now(),
-      calculo: ComprobanteCalculo(
-        consumo:      resultado.consumo ?? 0,
-        cargoBasico:  resultado.cargoBasico ?? 0,
-        valorConsumo: resultado.valorConsumo ?? 0,
-        total:        resultado.total ?? 0,
-        esEstimado:   false, // valor oficial
-        tarifas:      await _tarifasSvc.obtenerLocal(),
-      ),
-      facturaNumero: resultado.facturaNumero,
-    );
-
-    return FacturaSitioResult.exito(
-      rutaPdf: ruta,
-      esOficial: true,
-      facturaNumero: resultado.facturaNumero,
-      total: resultado.total ?? 0,
-      cargoBasico: resultado.cargoBasico ?? 0,
-      valorConsumo: resultado.valorConsumo ?? 0,
-      novedades: resultado.novedades ?? 0,
-    );
-  }
-
-  // ── OFFLINE — cálculo local ──────────────────
-  Future<FacturaSitioResult> _generarOffline(
-    Lectura lectura, {
-    String? mensajeExtra,
-  }) async {
     final tieneTarifas = await _tarifasSvc.tieneTarifasLocales();
     if (!tieneTarifas) {
       return FacturaSitioResult.error(
-        'Sin conexión y sin tarifas guardadas.\n'
-        'Necesitas conectarte al menos una vez para guardar las tarifas.',
+        'Sin tarifas guardadas. Necesitas conectarte al menos una vez.',
       );
     }
 
     final calculo = await _tarifasSvc.calcularOffline(
-      lecturaActual:   lectura.lectura,
+      lecturaActual: lectura.lectura,
       lecturaAnterior: lectura.lecturaAnterior ?? 0,
     );
 
@@ -104,64 +51,69 @@ class ExportarPdfService {
       lectura: lectura,
       fecha: DateTime.now(),
       calculo: calculo,
-      facturaNumero: null, // sin número oficial offline
+      facturaNumero: null,
+      novedades: const [],
     );
 
     return FacturaSitioResult.exito(
       rutaPdf: ruta,
       esOficial: false,
-      facturaNumero: null,
       total: calculo.total,
       cargoBasico: calculo.cargoBasico,
       valorConsumo: calculo.valorConsumo,
-      novedades: 0,
       consumoEstimado: calculo.consumo,
-      aviso: mensajeExtra ??
-          'Comprobante estimado (sin novedades). '
-          'Se generará la factura oficial cuando haya conexión.',
+      aviso:
+          'Comprobante estimado. La factura oficial se generará al sincronizar.',
     );
   }
 
   // ─────────────────────────────────────────────
-  // GENERAR PDF UNIFICADO
+  // GENERAR PDF
   // ─────────────────────────────────────────────
 
   Future<String> _generarPdf({
     required Lectura lectura,
     required DateTime fecha,
     required ComprobanteCalculo calculo,
+    required List<Map<String, dynamic>> novedades,
     int? facturaNumero,
   }) async {
-    final dir     = await getApplicationDocumentsDirectory();
+    final dir = await getApplicationDocumentsDirectory();
     final fechaStr = DateFormat('yyyy-MM-dd').format(fecha);
-    final sector  = (lectura.sector ?? 'SinSector')
+    final sector = (lectura.sector ?? 'SinSector')
         .replaceAll(' ', '')
         .replaceAll(RegExp(r'[^a-zA-Z0-9_-]'), '_');
 
     final carpeta = Directory(
-        '${dir.path}/facturas/${acueducto.nombre}/$sector/$fechaStr');
+      '${dir.path}/facturas/${acueducto.nombre}/$sector/$fechaStr',
+    );
     if (!await carpeta.exists()) await carpeta.create(recursive: true);
 
-    final codigo = (lectura.codigoMedidor ?? 'SIN_CODIGO')
-        .replaceAll(RegExp(r'[^a-zA-Z0-9_-]'), '_');
+    final codigo = (lectura.codigoMedidor ?? 'SIN_CODIGO').replaceAll(
+      RegExp(r'[^a-zA-Z0-9_-]'),
+      '_',
+    );
     final ruta = '${carpeta.path}/$codigo.pdf';
 
+    final empresa = await _tarifasSvc.obtenerLocal();
     final pdf = pw.Document();
-    pdf.addPage(_buildPagina(
-      lectura:       lectura,
-      calculo:       calculo,
-      fecha:         fecha,
-      facturaNumero: facturaNumero,
-      empresa:       calculo.tarifas,
-    ));
+    pdf.addPage(
+      _buildPagina(
+        lectura: lectura,
+        calculo: calculo,
+        fecha: fecha,
+        facturaNumero: facturaNumero,
+        empresa: empresa,
+        novedades: novedades,
+      ),
+    );
 
     await File(ruta).writeAsBytes(await pdf.save());
     return ruta;
   }
 
   // ─────────────────────────────────────────────
-  // COMPROBANTE SOLO LECTURA (sin cálculo)
-  // Para historial cuando no se necesita factura
+  // COMPROBANTE ABONADO (con novedades)
   // ─────────────────────────────────────────────
 
   Future<String> exportarFacturaAbonado(
@@ -169,23 +121,53 @@ class ExportarPdfService {
     List<Map<String, dynamic>> novedades = const [],
     FacturaSitioResult? resultado,
   }) async {
-    print('GENERANDO PDF DE FACTURA PARA ABONADO: ${lectura.codigoMedidor} Y NOVEDADES: ${novedades.length}');
-    final dir     = await getApplicationDocumentsDirectory();
+    final dir = await getApplicationDocumentsDirectory();
     final fechaStr = DateFormat('yyyy-MM-dd').format(lectura.fechaLectura);
-    final sector  = (lectura.sector ?? 'SinSector')
+    final sector = (lectura.sector ?? 'SinSector')
         .replaceAll(' ', '')
         .replaceAll(RegExp(r'[^a-zA-Z0-9_-]'), '_');
 
     final carpeta = Directory(
-        '${dir.path}/facturas/${acueducto.nombre}/$sector/$fechaStr');
+      '${dir.path}/facturas/${acueducto.nombre}/$sector/$fechaStr',
+    );
     if (!await carpeta.exists()) await carpeta.create(recursive: true);
 
-    final codigo = (lectura.codigoMedidor ?? 'SIN_CODIGO')
-        .replaceAll(RegExp(r'[^a-zA-Z0-9_-]'), '_');
+    final codigo = (lectura.codigoMedidor ?? 'SIN_CODIGO').replaceAll(
+      RegExp(r'[^a-zA-Z0-9_-]'),
+      '_',
+    );
     final ruta = '${carpeta.path}/$codigo.pdf';
 
+    // Calcular valores para el PDF
+    ComprobanteCalculo? calculo;
+    if (resultado != null) {
+      final tarifas = await _tarifasSvc.obtenerLocal();
+      calculo = ComprobanteCalculo(
+        consumo:
+            resultado.consumo ??
+            resultado.consumoEstimado ??
+            (lectura.lectura - (lectura.lecturaAnterior ?? 0)).clamp(0, 999999),
+        cargoBasico: resultado.cargoBasico,
+        valorConsumo: resultado.valorConsumo,
+        total: resultado.total,
+        esEstimado: !resultado.esOficial,
+        tarifas: tarifas,
+      );
+    }
+
+    final empresa = await _tarifasSvc.obtenerLocal();
     final pdf = pw.Document();
-    pdf.addPage(_buildPaginaSoloLectura(lectura, novedades: novedades, resultado: resultado));
+    pdf.addPage(
+      _buildPaginaCompleta(
+        lectura: lectura,
+        empresa: empresa,
+        calculo: calculo,
+        novedades: novedades,
+        esOficial: resultado?.esOficial ?? false,
+        facturaNumero: resultado?.facturaNumero,
+      ),
+    );
+
     await File(ruta).writeAsBytes(await pdf.save());
     return ruta;
   }
@@ -195,267 +177,289 @@ class ExportarPdfService {
     final lecturas = await _db.obtenerLecturasRealesDia(dia);
     if (lecturas.isEmpty) throw Exception('No hay lecturas este día');
 
+    final empresa = await _tarifasSvc.obtenerLocal();
     final pdf = pw.Document();
     for (final l in lecturas) {
-      pdf.addPage(_buildPaginaSoloLectura(l));
+      pdf.addPage(_buildPaginaCompleta(lectura: l, empresa: empresa));
     }
 
-    final dir     = await getApplicationDocumentsDirectory();
+    final dir = await getApplicationDocumentsDirectory();
     final fechaStr = DateFormat('yyyy-MM-dd').format(dia);
     final carpeta = Directory(
-        '${dir.path}/facturas/${acueducto.nombre}/$fechaStr');
+      '${dir.path}/facturas/${acueducto.nombre}/$fechaStr',
+    );
     if (!await carpeta.exists()) await carpeta.create(recursive: true);
 
-    final ruta =
-        '${carpeta.path}/Lecturas_${acueducto.nombre}_$fechaStr.pdf';
+    final ruta = '${carpeta.path}/Lecturas_${acueducto.nombre}_$fechaStr.pdf';
     await File(ruta).writeAsBytes(await pdf.save());
     return ruta;
   }
 
   // ─────────────────────────────────────────────
-  // BUILDERS DE PÁGINA
+  // PÁGINA PRINCIPAL — diseño tipo factura térmica
   // ─────────────────────────────────────────────
+
+  pw.Page _buildPaginaCompleta({
+    required Lectura lectura,
+    required TarifasLocal empresa,
+    ComprobanteCalculo? calculo,
+    List<Map<String, dynamic>> novedades = const [],
+    bool esOficial = false,
+    int? facturaNumero,
+  }) {
+    final fmtFecha = DateFormat('yyyy-MM-dd');
+    final fmtNum = NumberFormat('#,###', 'es_CO');
+    final consumo =
+        calculo?.consumo ??
+        (lectura.lectura - (lectura.lecturaAnterior ?? 0)).clamp(0, 999999);
+
+    // Calcular total de novedades
+    int totalNovedades = 0;
+    for (final n in novedades) {
+      totalNovedades += (n['total_pendiente'] as int? ?? 0);
+    }
+
+    final totalAPagar = (calculo?.total ?? 0) + totalNovedades;
+
+    return pw.Page(
+      pageFormat: _formatoTermico,
+      build:
+          (_) => pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.center,
+            children: [
+              // ── ENCABEZADO ─────────────────────────
+              pw.Text(
+                empresa.empresaNombre.isNotEmpty
+                    ? empresa.empresaNombre.toUpperCase()
+                    : acueducto.nombre.toUpperCase(),
+                style: pw.TextStyle(
+                  fontSize: 13,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.center,
+              ),
+              if (empresa.empresaNit.isNotEmpty)
+                pw.Text(
+                  'NIT: ${empresa.empresaNit}',
+                  style: const pw.TextStyle(fontSize: 8),
+                  textAlign: pw.TextAlign.center,
+                ),
+              pw.Text(
+                _veredasAcueducto(),
+                style: const pw.TextStyle(fontSize: 7),
+                textAlign: pw.TextAlign.center,
+              ),
+              if (empresa.empresaTelefono.isNotEmpty)
+                pw.Text(
+                  'Cel: ${empresa.empresaTelefono}',
+                  style: const pw.TextStyle(fontSize: 7),
+                  textAlign: pw.TextAlign.center,
+                ),
+              if (empresa.empresaEmail.isNotEmpty)
+                pw.Text(
+                  empresa.empresaEmail,
+                  style: const pw.TextStyle(fontSize: 7),
+                  textAlign: pw.TextAlign.center,
+                ),
+
+              pw.SizedBox(height: 6),
+              _separador(),
+              pw.SizedBox(height: 4),
+
+              // ── TIPO DOCUMENTO ──────────────────────
+              pw.Text(
+                esOficial ? 'FACTURA DE VENTA' : 'COMPROBANTE DE LECTURA',
+                style: pw.TextStyle(
+                  fontSize: 11,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.center,
+              ),
+              pw.SizedBox(height: 6),
+              _separador(),
+              pw.SizedBox(height: 4),
+
+              // ── DATOS ABONADO ───────────────────────
+              pw.Align(
+                alignment: pw.Alignment.centerLeft,
+                child: pw.Text(
+                  'ABONADO:',
+                  style: const pw.TextStyle(fontSize: 8),
+                ),
+              ),
+              pw.Align(
+                alignment: pw.Alignment.centerLeft,
+                child: pw.Text(
+                  (lectura.nombreAbonado ?? 'Sin nombre').toUpperCase(),
+                  style: pw.TextStyle(
+                    fontSize: 9,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
+                ),
+              ),
+              pw.SizedBox(height: 3),
+              _filaDatos('CÓDIGO:', lectura.codigoMedidor ?? '-'),
+              _filaDatos('SECTOR:', lectura.sector ?? '-'),
+              if (lectura.celular != null) _filaDatos('CEL:', lectura.celular!),
+              _filaDatos(
+                'FECHA EMISIÓN:',
+                fmtFecha.format(lectura.fechaLectura),
+              ),
+
+              pw.SizedBox(height: 6),
+              _separador(),
+              pw.SizedBox(height: 4),
+
+              // ── LECTURAS ────────────────────────────
+              _filaDatos(
+                'LEC. ANTERIOR:',
+                lectura.lecturaAnterior?.toString() ?? '-',
+              ),
+              _filaDatos('LEC. ACTUAL:', lectura.lectura.toString()),
+              _filaDatos('CONSUMO:', '$consumo m³'),
+
+              pw.SizedBox(height: 6),
+              _separador(),
+              pw.SizedBox(height: 4),
+
+              // ── TABLA DE CONCEPTOS ──────────────────
+              _encabezadoTabla(),
+              pw.SizedBox(height: 2),
+
+              // Cargo básico
+              if (calculo != null)
+                _filaTabla(
+                  'Cargo básico',
+                  '$consumo (v.u ${fmtNum.format(calculo.tarifas.tarifaM3.round())})',
+                  '\$${fmtNum.format(calculo.cargoBasico)}',
+                ),
+
+              // Consumo
+              if (calculo != null && calculo.valorConsumo > 0)
+                _filaTabla(
+                  'Consumo',
+                  '$consumo m³',
+                  '\$${fmtNum.format(calculo.valorConsumo)}',
+                ),
+
+              // Novedades
+              ...novedades.map(
+                (n) => _filaTabla(
+                  n['concepto'] as String,
+                  '${n['cuotas_pendientes']}c',
+                  '\$${fmtNum.format(n['total_pendiente'])}',
+                ),
+              ),
+
+              pw.SizedBox(height: 4),
+              _separador(),
+              pw.SizedBox(height: 4),
+
+              // ── TOTAL ───────────────────────────────
+              pw.Container(
+                width: double.infinity,
+                padding: const pw.EdgeInsets.symmetric(
+                  horizontal: 6,
+                  vertical: 5,
+                ),
+                decoration: pw.BoxDecoration(border: pw.Border.all(width: 1.5)),
+                child: pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Text(
+                      esOficial ? 'TOTAL A PAGAR' : 'TOTAL ESTIMADO',
+                      style: pw.TextStyle(
+                        fontSize: 11,
+                        fontWeight: pw.FontWeight.bold,
+                      ),
+                    ),
+                    pw.Text(
+                      '\$${fmtNum.format(calculo != null ? totalAPagar : 0)}',
+                      style: pw.TextStyle(
+                        fontSize: 14,
+                        fontWeight: pw.FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              if (!esOficial) ...[
+                pw.SizedBox(height: 4),
+                pw.Text(
+                  '⚠ Estimado. La factura oficial se genera al sincronizar.',
+                  style: pw.TextStyle(fontSize: 7, color: PdfColors.orange800),
+                  textAlign: pw.TextAlign.center,
+                ),
+              ],
+
+              // ── LUGAR DE PAGO ───────────────────────
+              if (esOficial) ...[
+                pw.SizedBox(height: 6),
+                _separador(),
+                pw.SizedBox(height: 4),
+                pw.Container(
+                  width: double.infinity,
+                  color: PdfColors.black,
+                  padding: const pw.EdgeInsets.symmetric(vertical: 3),
+                  child: pw.Text(
+                    'PAGUE EN:',
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                      color: PdfColors.white,
+                      fontSize: 8,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                ),
+                ..._lugaresPago().map(
+                  (l) => pw.Align(
+                    alignment: pw.Alignment.centerLeft,
+                    child: pw.Text(
+                      '• $l',
+                      style: const pw.TextStyle(fontSize: 7),
+                    ),
+                  ),
+                ),
+              ],
+
+              pw.SizedBox(height: 6),
+              _separador(),
+              pw.SizedBox(height: 4),
+
+              pw.Text(
+                '¡Gracias por su pago oportuno!',
+                style: pw.TextStyle(
+                  fontSize: 8,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.center,
+              ),
+              pw.Text(
+                'Conserve este recibo.',
+                style: const pw.TextStyle(fontSize: 7),
+                textAlign: pw.TextAlign.center,
+              ),
+            ],
+          ),
+    );
+  }
 
   pw.Page _buildPagina({
     required Lectura lectura,
     required ComprobanteCalculo calculo,
     required DateTime fecha,
     required TarifasLocal empresa,
+    required List<Map<String, dynamic>> novedades,
     int? facturaNumero,
   }) {
-    final fmt     = DateFormat('dd/MM/yyyy');
-    final fmtHora = DateFormat('HH:mm');
-    final fmtNum  = NumberFormat('#,###', 'es_CO');
-    final esOficial = facturaNumero != null;
-
-    return pw.Page(
-      pageFormat: _formatoTermico,
-      build: (_) => pw.Column(
-        crossAxisAlignment: pw.CrossAxisAlignment.start,
-        children: [
-          // Encabezado dinámico desde empresa local
-          ..._encabezado(empresa),
-          _linea(),
-          pw.Center(
-            child: pw.Text(
-              esOficial ? 'FACTURA DE COBRO' : 'COMPROBANTE DE LECTURA',
-              style: pw.TextStyle(
-                  fontSize: 11, fontWeight: pw.FontWeight.bold),
-            ),
-          ),
-          if (esOficial)
-            pw.Center(
-              child: pw.Text('N° $facturaNumero',
-                  style: pw.TextStyle(
-                      fontSize: 10, fontWeight: pw.FontWeight.bold)),
-            ),
-          if (!esOficial)
-            pw.Center(
-              child: pw.Text('VALOR ESTIMADO',
-                  style: pw.TextStyle(
-                      fontSize: 9,
-                      color: PdfColors.orange700)),
-            ),
-          _linea(),
-          pw.SizedBox(height: 4),
-
-          // Datos abonado
-          pw.Text(lectura.nombreAbonado ?? 'Sin nombre',
-              style: pw.TextStyle(
-                  fontSize: 12, fontWeight: pw.FontWeight.bold)),
-          pw.SizedBox(height: 2),
-          _fila('Código:', lectura.codigoMedidor ?? '-'),
-          _fila('Sector:', lectura.sector ?? '-'),
-          if (lectura.celular != null) _fila('Celular:', lectura.celular!),
-          _fila('Fecha:', fmt.format(fecha)),
-          _fila('Hora:', fmtHora.format(lectura.fechaLectura)),
-          pw.SizedBox(height: 6),
-          _linea(),
-          pw.SizedBox(height: 4),
-
-          // Lecturas
-          _fila('Lectura anterior:', lectura.lecturaAnterior?.toString() ?? '-'),
-          _fila('Lectura actual:', lectura.lectura.toString()),
-          _fila('Consumo:', '${calculo.consumo} m³'),
-          pw.SizedBox(height: 6),
-          _linea(),
-          pw.SizedBox(height: 4),
-
-          // Desglose
-          pw.Text('DESGLOSE',
-              style: pw.TextStyle(
-                  fontSize: 9, fontWeight: pw.FontWeight.bold)),
-          pw.SizedBox(height: 3),
-          _fila('Cargo básico:',
-              '\$${fmtNum.format(calculo.cargoBasico)}'),
-          _fila('Consumo (${calculo.consumo} m³):',
-              '\$${fmtNum.format(calculo.valorConsumo)}'),
-          if (!esOficial)
-            pw.Text('* Novedades no incluidas (sin conexión)',
-                style: pw.TextStyle(
-                    fontSize: 7, color: PdfColors.orange700)),
-          pw.SizedBox(height: 4),
-          _linea(),
-          pw.SizedBox(height: 4),
-
-          // Total
-          pw.Row(
-            mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-            children: [
-              pw.Text(
-                esOficial ? 'TOTAL A PAGAR' : 'TOTAL ESTIMADO',
-                style: pw.TextStyle(
-                    fontSize: 12, fontWeight: pw.FontWeight.bold),
-              ),
-              pw.Text('\$${fmtNum.format(calculo.total)}',
-                  style: pw.TextStyle(
-                      fontSize: 16, fontWeight: pw.FontWeight.bold)),
-            ],
-          ),
-
-          if (!esOficial) ...[
-            pw.SizedBox(height: 4),
-            pw.Text(
-              '⚠ Este valor es una estimación. La factura oficial\n'
-              'se generará cuando el técnico tenga conexión.',
-              style: pw.TextStyle(
-                  fontSize: 7, color: PdfColors.orange700),
-            ),
-          ],
-
-          pw.SizedBox(height: 8),
-          _linea(),
-          pw.SizedBox(height: 4),
-          pw.Center(
-            child: pw.Text('Gracias por su pago puntual',
-                style: const pw.TextStyle(fontSize: 8)),
-          ),
-          pw.Center(
-            child: pw.Text(
-              empresa.empresaNombre.isNotEmpty
-                  ? empresa.empresaNombre
-                  : acueducto.nombre,
-              style: const pw.TextStyle(fontSize: 7),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  pw.Page _buildPaginaSoloLectura(
-    Lectura l, {
-    List<Map<String, dynamic>> novedades = const [],
-    FacturaSitioResult? resultado,
-  }) {
-    final fmt     = DateFormat('dd/MM/yyyy');
-    final fmtHora = DateFormat('HH:mm');
-    final estado = switch (l.estadoMedidor) {
-      'danado'          => 'Dañado',
-      'empanado'        => 'Empañado',
-      'con_fuga'        => 'Con fuga',
-      'sin_contador'    => 'Sin contador',
-      'acceso_denegado' => 'Acceso denegado',
-      _                 => 'Sin novedad',
-    };
-
-    return pw.Page(
-      pageFormat: _formatoTermico,
-      build: (_) => pw.Column(
-        crossAxisAlignment: pw.CrossAxisAlignment.start,
-        children: [
-          _lineaSimple(acueducto.nombre, bold: true, size: 14),
-          _lineaSimple('Acueducto Comunitario — Gigante, Huila', size: 8),
-          _lineaSimple(_nitAcueducto(), size: 8),
-          pw.SizedBox(height: 4),
-          _linea(),
-          _lineaSimple('COMPROBANTE DE LECTURA', bold: true, size: 10),
-          _linea(),
-          pw.SizedBox(height: 4),
-          pw.Text(l.nombreAbonado ?? 'Sin nombre',
-              style: pw.TextStyle(
-                  fontSize: 12, fontWeight: pw.FontWeight.bold)),
-          pw.SizedBox(height: 2),
-          _fila('Código:', l.codigoMedidor ?? '-'),
-          _fila('Sector:', l.sector ?? '-'),
-          if (l.celular != null) _fila('Celular:', l.celular!),
-          _fila('Fecha:', fmt.format(l.fechaLectura)),
-          _fila('Hora:', fmtHora.format(l.fechaLectura)),
-          pw.SizedBox(height: 6),
-          _linea(),
-          pw.SizedBox(height: 4),
-          _fila('Lectura anterior:', l.lecturaAnterior?.toString() ?? '-'),
-          pw.Row(
-            mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-            children: [
-              pw.Text('LECTURA ACTUAL',
-                  style: pw.TextStyle(
-                      fontSize: 11, fontWeight: pw.FontWeight.bold)),
-              pw.Text(l.lectura.toString(),
-                  style: pw.TextStyle(
-                      fontSize: 18, fontWeight: pw.FontWeight.bold)),
-            ],
-          ),
-          pw.SizedBox(height: 6),
-          _linea(),
-          pw.SizedBox(height: 4),
-          _fila('Estado medidor:', estado),
-          if (l.notas != null && l.notas!.isNotEmpty) ...[
-            pw.SizedBox(height: 4),
-            pw.Text('Observaciones:',
-                style: pw.TextStyle(
-                    fontSize: 8, fontWeight: pw.FontWeight.bold)),
-            pw.Text(l.notas!, style: const pw.TextStyle(fontSize: 8)),
-          ],
-          // ── NOVEDADES ────────────────────────────
-          if (novedades.isNotEmpty) ...[
-            pw.SizedBox(height: 6),
-            _linea(),
-            pw.SizedBox(height: 4),
-            pw.Text('NOVEDADES PENDIENTES',
-                style: pw.TextStyle(
-                    fontSize: 9, fontWeight: pw.FontWeight.bold)),
-            pw.SizedBox(height: 3),
-            ...novedades.map((n) {
-              final fmtN = NumberFormat('#,###', 'es_CO');
-              return _fila(
-                '${n['concepto']}:',
-                '\$${fmtN.format(n['valor_cuota'])} x'
-                '${n['cuotas_pendientes']}c ='
-                ' \$${fmtN.format(n['total_pendiente'])}',
-              );
-            }),
-          ],
-
-          // ── TOTAL (si viene del comprobante) ─────
-          if (resultado != null) ...[
-            pw.SizedBox(height: 6),
-            _linea(),
-            pw.SizedBox(height: 4),
-            pw.Row(
-              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-              children: [
-                pw.Text(
-                  resultado.esOficial ? 'TOTAL A PAGAR' : 'TOTAL ESTIMADO',
-                  style: pw.TextStyle(
-                      fontSize: 12, fontWeight: pw.FontWeight.bold),
-                ),
-                pw.Text(resultado.totalFormateado,
-                    style: pw.TextStyle(
-                        fontSize: 16, fontWeight: pw.FontWeight.bold)),
-              ],
-            ),
-          ],
-
-          pw.SizedBox(height: 8),
-          _linea(),
-          pw.SizedBox(height: 4),
-          pw.Center(
-            child: pw.Text('Gracias por su colaboracion',
-                style: const pw.TextStyle(fontSize: 8)),
-          ),
-        ],
-      ),
+    return _buildPaginaCompleta(
+      lectura: lectura,
+      empresa: empresa,
+      calculo: calculo,
+      novedades: novedades,
+      esOficial: facturaNumero != null,
+      facturaNumero: facturaNumero,
     );
   }
 
@@ -463,147 +467,144 @@ class ExportarPdfService {
   // HELPERS
   // ─────────────────────────────────────────────
 
-  List<pw.Widget> _encabezado(TarifasLocal empresa) => [
-    pw.Center(
-      child: pw.Text(
-        empresa.empresaNombre.isNotEmpty
-            ? empresa.empresaNombre
-            : acueducto.nombre,
-        style: pw.TextStyle(
-            fontSize: 14, fontWeight: pw.FontWeight.bold),
+  String _veredasAcueducto() => switch (acueducto.tipo) {
+    TipoAcueducto.asoaguapo => 'Veredas El Recreo - Pueblo Nuevo - El Tendido',
+    TipoAcueducto.temporal => 'Veredas Alto Corozal - Cachaya - La Floresta',
+  };
+
+  List<String> _lugaresPago() => switch (acueducto.tipo) {
+    TipoAcueducto.asoaguapo => [
+      'COONFIE Cooperativa de Ahorro y Crédito',
+      'BANCOLOMBIA Cta. Ahorros N° 285-000-032-12',
+    ],
+    TipoAcueducto.temporal => ['Consignación a la cuenta del acueducto'],
+  };
+
+  pw.Widget _separador() => pw.Divider(thickness: 0.5, color: PdfColors.black);
+
+  pw.Widget _filaDatos(String etiqueta, String valor) => pw.Padding(
+    padding: const pw.EdgeInsets.only(bottom: 1),
+    child: pw.Row(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.SizedBox(
+          width: 90,
+          child: pw.Text(etiqueta, style: const pw.TextStyle(fontSize: 8)),
+        ),
+        pw.Expanded(
+          child: pw.Text(
+            valor,
+            style: pw.TextStyle(fontSize: 8, fontWeight: pw.FontWeight.bold),
+          ),
+        ),
+      ],
+    ),
+  );
+
+  pw.Widget _encabezadoTabla() => pw.Container(
+    decoration: const pw.BoxDecoration(
+      border: pw.Border(
+        bottom: pw.BorderSide(width: 0.5),
+        top: pw.BorderSide(width: 0.5),
       ),
     ),
-    pw.Center(
-      child: pw.Text('Acueducto Comunitario — Gigante, Huila',
-          style: const pw.TextStyle(fontSize: 8)),
+    padding: const pw.EdgeInsets.symmetric(vertical: 2),
+    child: pw.Row(
+      children: [
+        pw.Expanded(
+          flex: 4,
+          child: pw.Text(
+            'CONCEPTO',
+            style: pw.TextStyle(fontSize: 7, fontWeight: pw.FontWeight.bold),
+          ),
+        ),
+        pw.Expanded(
+          flex: 3,
+          child: pw.Text(
+            'CANT/BASE',
+            style: pw.TextStyle(fontSize: 7, fontWeight: pw.FontWeight.bold),
+            textAlign: pw.TextAlign.center,
+          ),
+        ),
+        pw.Expanded(
+          flex: 3,
+          child: pw.Text(
+            'VALOR',
+            style: pw.TextStyle(fontSize: 7, fontWeight: pw.FontWeight.bold),
+            textAlign: pw.TextAlign.right,
+          ),
+        ),
+      ],
     ),
-    if (empresa.empresaNit.isNotEmpty)
-      pw.Center(
-        child: pw.Text('NIT: ${empresa.empresaNit}',
-            style: const pw.TextStyle(fontSize: 8)),
-      ),
-    if (empresa.empresaTelefono.isNotEmpty)
-      pw.Center(
-        child: pw.Text('Tel: ${empresa.empresaTelefono}',
-            style: const pw.TextStyle(fontSize: 8)),
-      ),
-    if (empresa.empresaEmail.isNotEmpty)
-      pw.Center(
-        child: pw.Text(empresa.empresaEmail,
-            style: const pw.TextStyle(fontSize: 8)),
-      ),
-    pw.SizedBox(height: 4),
-  ];
+  );
 
-  String _nitAcueducto() => switch (acueducto.tipo) {
-        TipoAcueducto.asoaguapo => 'NIT: 900358329-1',
-        TipoAcueducto.aguaviva  => 'NIT: 900191061-2',
-      };
-
-  pw.Widget _fila(String etiqueta, String valor) => pw.Padding(
+  pw.Widget _filaTabla(String concepto, String cantBase, String valor) =>
+      pw.Padding(
         padding: const pw.EdgeInsets.only(bottom: 1),
         child: pw.Row(
-          crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
-            pw.Text('$etiqueta ',
-                style: const pw.TextStyle(fontSize: 9)),
             pw.Expanded(
-              child: pw.Text(valor,
-                  style: pw.TextStyle(
-                      fontSize: 9, fontWeight: pw.FontWeight.bold)),
+              flex: 4,
+              child: pw.Text(concepto, style: const pw.TextStyle(fontSize: 8)),
+            ),
+            pw.Expanded(
+              flex: 3,
+              child: pw.Text(
+                cantBase,
+                style: const pw.TextStyle(fontSize: 8),
+                textAlign: pw.TextAlign.center,
+              ),
+            ),
+            pw.Expanded(
+              flex: 3,
+              child: pw.Text(
+                valor,
+                style: pw.TextStyle(
+                  fontSize: 8,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.right,
+              ),
             ),
           ],
         ),
       );
 
-  pw.Widget _linea() => pw.Text(
-        '- - - - - - - - - - - - - - - - - - - - -',
-        style: const pw.TextStyle(fontSize: 8),
-      );
+  pw.Widget _fila(String etiqueta, String valor) => pw.Padding(
+    padding: const pw.EdgeInsets.only(bottom: 1),
+    child: pw.Row(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Text('$etiqueta ', style: const pw.TextStyle(fontSize: 9)),
+        pw.Expanded(
+          child: pw.Text(
+            valor,
+            style: pw.TextStyle(fontSize: 9, fontWeight: pw.FontWeight.bold),
+          ),
+        ),
+      ],
+    ),
+  );
 
-  pw.Widget _lineaSimple(String texto,
-          {bool bold = false, double size = 9}) =>
+  pw.Widget _linea() => pw.Text(
+    '- - - - - - - - - - - - - - - - - - - - -',
+    style: const pw.TextStyle(fontSize: 8),
+  );
+
+  pw.Widget _lineaSimple(String texto, {bool bold = false, double size = 9}) =>
       pw.Center(
-        child: pw.Text(texto,
-            style: pw.TextStyle(
-                fontSize: size,
-                fontWeight:
-                    bold ? pw.FontWeight.bold : pw.FontWeight.normal)),
+        child: pw.Text(
+          texto,
+          style: pw.TextStyle(
+            fontSize: size,
+            fontWeight: bold ? pw.FontWeight.bold : pw.FontWeight.normal,
+          ),
+        ),
       );
 
   Future<void> compartirPdf(String ruta) async {
-    await Share.shareXFiles(
-      [XFile(ruta)],
-      subject: 'Factura ${acueducto.nombre}',
-    );
+    await Share.shareXFiles([
+      XFile(ruta),
+    ], subject: 'Factura ${acueducto.nombre}');
   }
-}
-
-// ─────────────────────────────────────────────
-// RESULTADO DE FACTURACIÓN EN SITIO
-// ─────────────────────────────────────────────
-
-class FacturaSitioResult {
-  final bool exitoso;
-  final String? error;
-  final String? rutaPdf;
-  final bool esOficial;
-  final int? facturaNumero;
-  final int total;
-  final String? aviso;
-  // Desglose para mostrar en ComprobanteScreen
-  final int cargoBasico;
-  final int valorConsumo;
-  final int novedades;
-  final int? consumoEstimado;
-
-  const FacturaSitioResult._({
-    required this.exitoso,
-    this.error,
-    this.rutaPdf,
-    this.esOficial = false,
-    this.facturaNumero,
-    this.total = 0,
-    this.aviso,
-    this.cargoBasico = 0,
-    this.valorConsumo = 0,
-    this.novedades = 0,
-    this.consumoEstimado,
-  });
-
-  factory FacturaSitioResult.exito({
-    required String rutaPdf,
-    required bool esOficial,
-    required int total,
-    int? facturaNumero,
-    String? aviso,
-    int cargoBasico = 0,
-    int valorConsumo = 0,
-    int novedades = 0,
-    int? consumoEstimado,
-  }) =>
-      FacturaSitioResult._(
-        exitoso: true,
-        rutaPdf: rutaPdf,
-        esOficial: esOficial,
-        facturaNumero: facturaNumero,
-        total: total,
-        aviso: aviso,
-        cargoBasico: cargoBasico,
-        valorConsumo: valorConsumo,
-        novedades: novedades,
-        consumoEstimado: consumoEstimado,
-      );
-
-  factory FacturaSitioResult.error(String msg) =>
-      FacturaSitioResult._(exitoso: false, error: msg);
-
-  // Getters para ComprobanteScreen
-  int get cargoBasicoMostrar => cargoBasico;
-  int get valorConsumoMostrar => valorConsumo;
-  int get novedadesMostrar => novedades;
-
-  String get totalFormateado => '\$${total.toString()
-      .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-          (m) => '${m[1]}.')}';
 }

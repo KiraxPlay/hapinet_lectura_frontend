@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../data/database.dart';
+import '../../models/acueducto.dart';
 import 'color_sector.dart';
 import 'detalle_lectura_sheet.dart';
 
@@ -10,12 +11,17 @@ class TarjetaLectura extends StatelessWidget {
   final Lectura lectura;
   final AppDatabase db;
   final VoidCallback onActualizado;
+  final Acueducto acueducto;
+  final VoidCallback? onFacturar;
 
   const TarjetaLectura({
     super.key,
     required this.lectura,
     required this.db,
-    required this.onActualizado, required bool bloqueada,
+    required this.onActualizado,
+    required bool bloqueada,
+    required this.acueducto,
+    this.onFacturar,
   });
 
   @override
@@ -43,7 +49,9 @@ class TarjetaLectura extends StatelessWidget {
                     Text(
                       lectura.nombreAbonado ?? lectura.codigoMedidor ?? '—',
                       style: const TextStyle(
-                          fontSize: 13, fontWeight: FontWeight.w600),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -61,12 +69,17 @@ class TarjetaLectura extends StatelessWidget {
                           Text(
                             '${lectura.lecturaAnterior}',
                             style: const TextStyle(
-                                fontSize: 12, color: Colors.grey),
+                              fontSize: 12,
+                              color: Colors.grey,
+                            ),
                           ),
                           const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 4),
-                            child: Icon(Icons.arrow_forward,
-                                size: 12, color: Colors.grey),
+                            child: Icon(
+                              Icons.arrow_forward,
+                              size: 12,
+                              color: Colors.grey,
+                            ),
                           ),
                         ],
                         Text(
@@ -82,33 +95,60 @@ class TarjetaLectura extends StatelessWidget {
                         ),
                         if (!sinLectura && lectura.lecturaAnterior != null) ...[
                           const SizedBox(width: 8),
-                          _badgeConsumo(lectura.lectura -
-                              lectura.lecturaAnterior!),
+                          _badgeConsumo(
+                            lectura.lectura - lectura.lecturaAnterior!,
+                          ),
                         ],
                       ],
                     ),
 
                     const SizedBox(height: 3),
 
-                    // Hora + alerta sin lectura
+                    // Estado de impresión o hora + alerta sin lectura
                     Row(
                       children: [
-                        Icon(Icons.access_time,
-                            size: 11, color: Colors.grey.shade400),
+                        Icon(
+                          lectura.impreso ? Icons.print : Icons.access_time,
+                          size: 11,
+                          color:
+                              lectura.impreso
+                                  ? Colors.green
+                                  : Colors.grey.shade400,
+                        ),
                         const SizedBox(width: 3),
                         Text(
-                          DateFormat('HH:mm').format(lectura.fechaLectura),
+                          lectura.impreso
+                              ? 'IMPRESO'
+                              : DateFormat(
+                                'HH:mm',
+                              ).format(lectura.fechaLectura),
                           style: TextStyle(
-                              fontSize: 11, color: Colors.grey.shade500),
+                            fontSize: 11,
+                            color:
+                                lectura.impreso
+                                    ? Colors.green
+                                    : Colors.grey.shade500,
+                            fontWeight:
+                                lectura.impreso
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                          ),
                         ),
                         if (sinLectura) ...[
                           const SizedBox(width: 8),
-                          const Icon(Icons.warning,
-                              size: 11, color: Colors.orange),
+                          const Icon(
+                            Icons.warning,
+                            size: 11,
+                            color: Colors.orange,
+                          ),
                           const SizedBox(width: 2),
-                          const Text('Sin lectura',
-                              style: TextStyle(
-                                  fontSize: 10, color: Colors.orange)),
+                          const Text(
+                            'Sin lectura',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.orange,
+                            ),
+                          ),
                         ],
                       ],
                     ),
@@ -161,27 +201,34 @@ class TarjetaLectura extends StatelessWidget {
       width: 56,
       height: 56,
       decoration: BoxDecoration(
-        color: sinLectura
-            ? Colors.orange.withOpacity(0.1)
-            : color.withOpacity(0.1),
+        color:
+            sinLectura
+                ? Colors.orange.withOpacity(0.1)
+                : color.withOpacity(0.1),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: sinLectura
-              ? Colors.orange.withOpacity(0.3)
-              : color.withOpacity(0.3),
+          color:
+              sinLectura
+                  ? Colors.orange.withOpacity(0.3)
+                  : color.withOpacity(0.3),
         ),
       ),
       child: Center(
-        child: sinLectura
-            ? const Icon(Icons.not_interested, color: Colors.orange, size: 26)
-            : Text(
-                inicialDeSector(lectura.sector),
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: color,
+        child:
+            sinLectura
+                ? const Icon(
+                  Icons.not_interested,
+                  color: Colors.orange,
+                  size: 26,
+                )
+                : Text(
+                  inicialDeSector(lectura.sector),
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
                 ),
-              ),
       ),
     );
   }
@@ -196,7 +243,10 @@ class TarjetaLectura extends StatelessWidget {
       child: Text(
         '+$consumo m³',
         style: const TextStyle(
-            fontSize: 10, color: Colors.blue, fontWeight: FontWeight.w600),
+          fontSize: 10,
+          color: Colors.blue,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }
@@ -206,12 +256,16 @@ class TarjetaLectura extends StatelessWidget {
       context: context,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-      builder: (_) => DetalleLecturaSheet(
-        lectura: lectura,
-        db: db,
-        onActualizado: onActualizado,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
+      builder:
+          (_) => DetalleLecturaSheet(
+            lectura: lectura,
+            db: db,
+            onActualizado: onActualizado,
+            acueducto: acueducto,
+            onFacturar: onFacturar,
+          ),
     );
   }
 }

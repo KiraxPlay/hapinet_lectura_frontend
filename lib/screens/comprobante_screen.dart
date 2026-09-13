@@ -2,12 +2,13 @@
 // Pantalla de comprobante estimado con deuda anterior + consumo + total
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:medidor_hapinet_app/services/exportar_pdf.dart';
 import '../data/database.dart';
 import '../models/acueducto.dart';
+import '../models/factura_sitio_result.dart';
 import '../components/comprobante/comprobante_section.dart';
 import '../services/api/factura_api_service.dart';
 import '../services/comprobante_service.dart';
+import '../services/impresora_service.dart';
 import 'visor_pdf_screen.dart';
 
 class ComprobanteScreen extends StatefulWidget {
@@ -36,6 +37,7 @@ class _ComprobanteScreenState extends State<ComprobanteScreen> {
   List<Map<String, dynamic>> _novedades = [];
   bool _cargandoNovedades = false;
   bool _generandoPdf = false;
+  bool _imprimiendo = false;
 
   final _fmt = NumberFormat('#,###', 'es_CO');
   final _comprobanteService = ComprobanteService();
@@ -96,6 +98,10 @@ class _ComprobanteScreenState extends State<ComprobanteScreen> {
                         : 'Comprobante estimado — ${widget.lectura.codigoMedidor}',
                 db: widget.db,
                 lecturaId: widget.lectura.id,
+                acueducto: widget.acueducto,
+                lectura: widget.lectura,
+                novedades: _novedades,
+                totalAPagar: widget.resultado.total,
               ),
         ),
       );
@@ -107,6 +113,44 @@ class _ComprobanteScreenState extends State<ComprobanteScreen> {
       }
     } finally {
       if (mounted) setState(() => _generandoPdf = false);
+    }
+  }
+
+  Future<void> _imprimirDirecto() async {
+    setState(() => _imprimiendo = true);
+    try {
+      final resultado = await ImpresoraService(
+        acueducto: widget.acueducto,
+      ).imprimir(
+        lectura: widget.lectura,
+        novedades: _novedades,
+        total: widget.resultado.total,
+        esOficial: widget.resultado.esOficial,
+        facturaNumero: widget.resultado.facturaNumero,
+      );
+
+      if (!mounted) return;
+      if (resultado.exitoso) {
+        await widget.db.marcarImpreso(widget.lectura.id);
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Impreso correctamente'),
+            backgroundColor: Colors.green,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(resultado.error ?? 'Error al imprimir'),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _imprimiendo = false);
     }
   }
 
@@ -374,6 +418,37 @@ class _ComprobanteScreenState extends State<ComprobanteScreen> {
             ),
 
             const SizedBox(height: 24),
+
+            // ── Imprimir directamente ───────────────
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: _imprimiendo ? null : _imprimirDirecto,
+                icon:
+                    _imprimiendo
+                        ? const SizedBox(
+                          width: 18,
+                          height: 18,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        )
+                        : const Icon(Icons.print),
+                label: Text(_imprimiendo ? 'Imprimiendo...' : 'Imprimir'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      resultado.esOficial ? Colors.green : Colors.orange,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 12),
 
             // ── Botón ver PDF ───────────────────────
             SizedBox(

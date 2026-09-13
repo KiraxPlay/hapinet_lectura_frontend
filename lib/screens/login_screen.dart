@@ -189,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           const SizedBox(width: 10),
                           _botonAcueducto(
-                            TipoAcueducto.aguaviva,
+                            TipoAcueducto.temporal,
                             'AGUAVIVA',
                             const Color(0xFF2E7D32),
                             Icons.water_drop,
@@ -319,7 +319,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
                                 _acueductoSeleccionado?.tipo ==
-                                        TipoAcueducto.aguaviva
+                                        TipoAcueducto.temporal
                                     ? const Color(0xFF2E7D32)
                                     : const Color(0xFF0D47A1),
                             foregroundColor: Colors.white,

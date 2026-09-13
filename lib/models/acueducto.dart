@@ -1,4 +1,4 @@
-enum TipoAcueducto { asoaguapo, aguaviva }
+enum TipoAcueducto { asoaguapo, temporal }
 
 class Acueducto {
   final TipoAcueducto tipo;
@@ -21,14 +21,14 @@ class Acueducto {
       nombre: 'ASOAGUAPO',
       nombreBd: 'bd_asoaguapo',
       colorHex: '#1565C0',
-      apiUrl: 'http://192.168.18.8:8000/api',
+      apiUrl: 'https://hapinet.com.co/api',
     ),
     Acueducto(
-      tipo: TipoAcueducto.aguaviva,
-      nombre: 'AGUAVIVA',
-      nombreBd: 'bd_aguaviva',
+      tipo: TipoAcueducto.temporal,
+      nombre: 'TEMPORAL',
+      nombreBd: 'bd_TEMPORAL',
       colorHex: '#2E7D32',
-      apiUrl: 'http://192.168.18.8:8000/api/aguaviva/',
+      apiUrl: 'https://hapinet.com.co/api/temporal',
     ),
   ];
 

@@ -1,7 +1,8 @@
 import 'package:http/http.dart' as http;
-import 'package:medidor_hapinet_app/services/exportar_pdf.dart';
 import '../data/database.dart';
 import '../models/acueducto.dart';
+import '../models/factura_sitio_result.dart';
+import 'api/api_service.dart';
 import 'api/factura_api_service.dart';
 import 'api/tarifas_service.dart';
 
@@ -32,6 +33,7 @@ class CapturaFacturacionService {
 
     if (await _tieneInternet(acueducto.apiUrl)) {
       try {
+        await ApiService(acueducto).sincronizarLecturasPendientes(db);
         final factura = await _facturaApi.generarFactura(predioId: predioId);
         if (factura.exitoso) {
           return ResultadoFacturacionCaptura(
@@ -44,6 +46,7 @@ class CapturaFacturacionService {
               cargoBasico: factura.cargoBasico ?? 0,
               valorConsumo: factura.valorConsumo ?? 0,
               novedades: factura.novedades ?? 0,
+              consumo: factura.consumo,
             ),
           );
         }

@@ -10,6 +10,7 @@ import 'tutorial_screen.dart';
 import 'descarga_mapa_screen.dart';
 import '../services/api/api_service.dart';
 import '../services/api/tarifas_service.dart';
+import 'seleccionar_impresora_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final AppDatabase db;
@@ -50,61 +51,103 @@ class _HomeScreenState extends State<HomeScreen> {
     if (mounted) setState(() => _pendientes = lista.length);
   }
 
+  Future<void> _sincronizarPredios() async {
+    final confirmar = await showDialog<bool>(
+      context: context,
+      builder:
+          (ctx) => AlertDialog(
+            title: const Text('Actualizar predios'),
+            content: const Text(
+              'Se descargarán los predios pendientes del servidor. '
+              'Las lecturas ya tomadas no se perderán.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx, false),
+                child: const Text('Cancelar'),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(ctx, true),
+                child: const Text('Actualizar'),
+              ),
+            ],
+          ),
+    );
+
+    if (confirmar != true) return;
+
+    // Limpiar clave para forzar reimportación
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('abonados_importados_${widget.acueducto.tipo.name}_v14');
+
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Reinicia la app para cargar los predios actualizados'),
+        backgroundColor: Colors.blue,
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
   Future<void> _sincronizar() async {
     if (_sincronizando) return;
-
     // Diálogo de confirmación
     final confirmar = await showDialog<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        icon: const Icon(Icons.sync, color: Colors.blue, size: 36),
-        title: const Text('¿Sincronizar lecturas?'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Se enviarán $_pendientes lectura(s) al servidor.'),
-            const SizedBox(height: 12),
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.orange.shade50,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.orange.shade200),
-              ),
-              child: const Row(
-                children: [
-                  Icon(Icons.warning_amber_rounded,
-                      color: Colors.orange, size: 18),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      'Una vez sincronizadas, las lecturas '
-                      'no se podrán editar desde la app.',
-                      style: TextStyle(fontSize: 12, color: Colors.orange),
-                    ),
+      builder:
+          (ctx) => AlertDialog(
+            icon: const Icon(Icons.sync, color: Colors.blue, size: 36),
+            title: const Text('¿Sincronizar lecturas?'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Se enviarán $_pendientes lectura(s) al servidor.'),
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.orange.shade200),
                   ),
-                ],
+                  child: const Row(
+                    children: [
+                      Icon(
+                        Icons.warning_amber_rounded,
+                        color: Colors.orange,
+                        size: 18,
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'Una vez sincronizadas, las lecturas '
+                          'no se podrán editar desde la app.',
+                          style: TextStyle(fontSize: 12, color: Colors.orange),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx, false),
+                child: const Text('Cancelar'),
               ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancelar'),
+              ElevatedButton.icon(
+                onPressed: () => Navigator.pop(ctx, true),
+                icon: const Icon(Icons.sync, size: 16),
+                label: const Text('Confirmar'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ],
           ),
-          ElevatedButton.icon(
-            onPressed: () => Navigator.pop(ctx, true),
-            icon: const Icon(Icons.sync, size: 16),
-            label: const Text('Confirmar'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
-              foregroundColor: Colors.white,
-            ),
-          ),
-        ],
-      ),
     );
 
     if (confirmar != true) return;
@@ -124,18 +167,20 @@ class _HomeScreenState extends State<HomeScreen> {
       // reimporte solo los predios sin lectura en el período activo
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove(
-          'abonados_importados_${widget.acueducto.tipo.name}_v12');
+        'abonados_importados_${widget.acueducto.tipo.name}_v12',
+      );
 
       await _contarPendientes();
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(_pendientes == 0
-                ? '✓ Todo sincronizado'
-                : '⚠ $_pendientes lecturas pendientes'),
-            backgroundColor:
-                _pendientes == 0 ? Colors.green : Colors.orange,
+            content: Text(
+              _pendientes == 0
+                  ? '✓ Todo sincronizado'
+                  : '⚠ $_pendientes lecturas pendientes',
+            ),
+            backgroundColor: _pendientes == 0 ? Colors.green : Colors.orange,
             behavior: SnackBarBehavior.floating,
           ),
         );
@@ -192,17 +237,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // Llamar al API para invalidar el token
     try {
-      print('🔄 Cerrando sesión en servidor...');
-      await ApiService(widget.acueducto)
-          .logout()
-          .timeout(const Duration(seconds: 5));
+      print(' Cerrando sesión en servidor...');
+      await ApiService(
+        widget.acueducto,
+      ).logout().timeout(const Duration(seconds: 5));
       print('✓ Logout servidor OK');
     } catch (e) {
       print('✗ Error logout servidor: $e — cerrando sesión local igual');
     }
 
     if (mounted) {
-      print('🔄 Llamando onCerrarSesion...');
+      print(' Llamando onCerrarSesion...');
       widget.onCerrarSesion();
     }
   }
@@ -218,7 +263,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 title: Text(widget.acueducto.nombre),
                 actions: [
                   IconButton(
-                    icon: const Icon(Icons.download_for_offline_outlined),
+                    icon: const Icon(Icons.map_outlined),
                     tooltip: 'Recursos offline',
                     onPressed: () {
                       Navigator.of(context).push(
@@ -232,14 +277,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   Stack(
                     children: [
                       IconButton(
-                        icon: _sincronizando
-                            ? const SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(
-                                    strokeWidth: 2, color: Colors.white),
-                              )
-                            : const Icon(Icons.sync),
+                        icon:
+                            _sincronizando
+                                ? const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: Colors.white,
+                                  ),
+                                )
+                                : const Icon(Icons.sync),
                         onPressed: _sincronizando ? null : _sincronizar,
                         tooltip: 'Sincronizar lecturas',
                       ),
@@ -256,18 +304,31 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Text(
                               '$_pendientes',
                               style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.bold),
+                                color: Colors.white,
+                                fontSize: 9,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
                     ],
                   ),
                   IconButton(
+                    icon: const Icon(Icons.settings_outlined),
+                    tooltip: 'Ajustes impresora',
+                    onPressed: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (_) =>
+                        SeleccionarImpresoraScreen(acueducto: widget.acueducto))),
+                  ),
+                  IconButton(
                     icon: const Icon(Icons.logout),
                     onPressed: _confirmarCerrarSesion,
                     tooltip: 'Cerrar sesión',
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.download_for_offline_outlined),
+                    tooltip: 'Actualizar predios',
+                    onPressed: _sincronizarPredios,
                   ),
                 ],
               )

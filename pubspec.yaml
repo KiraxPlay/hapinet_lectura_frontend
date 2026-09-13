@@ -51,7 +51,7 @@ dependencies:
   #Para generar en excel
   excel: ^4.0.6
   #para generar un zip(este caso con el excel e imagenes)
-  archive: ^3.6.1
+  # archive: ^3.6.1
   #guardar archivos en celular
   share_plus: ^10.0.0
   #Para generar PDF
@@ -68,6 +68,9 @@ dependencies:
   video_player: ^2.9.2
   chewie: ^1.8.5
   flutter_pdfview: ^1.4.4
+
+  #Para manejar el blueetho de la impresora
+  flutter_bluetooth_printer: ^2.24.0
  
 dev_dependencies:
   flutter_test:
@@ -75,7 +78,7 @@ dev_dependencies:
   drift_dev: ^2.18.0
   build_runner: ^2.4.11
   flutter_lints: ^4.0.0
-  flutter_launcher_icons: ^0.13.1
+  flutter_launcher_icons: ^0.14.1
 
 flutter_launcher_icons:
   android: true

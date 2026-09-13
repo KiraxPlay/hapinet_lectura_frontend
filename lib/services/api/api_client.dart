@@ -11,8 +11,12 @@ class ApiClient {
 
   // Lee API_URL del archivo .env
   // Si no existe la variable, usa localhost como fallback
+  // para local
+  // static String get baseUrl =>
+  //     dotenv.env['API_URL'] ?? 'http://192.168.18.8:8000/api';
+  // para remoto
   static String get baseUrl =>
-      dotenv.env['API_URL'] ?? 'http://192.168.18.8:8000/api';
+      dotenv.env['API_URL'] ?? 'https://hapinet.com.co/api';
 
   static const _keyToken = 'api_token';
   static const _timeout  = Duration(seconds: 30);

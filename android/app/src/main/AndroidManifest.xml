@@ -22,7 +22,15 @@
      
      <!-- Audio (para grabar audio) -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-     
+
+    <!-- para blueetho e impresora SAT AF330-->
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+        
     <application
         android:label="medidor_hapinet_app"
         android:name="${applicationName}"
