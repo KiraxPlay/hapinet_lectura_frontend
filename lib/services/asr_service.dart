@@ -7,6 +7,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:whisper_flutter_new/whisper_flutter_new.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/asrResultado.dart';
+import '../models/asrResultado.dart';
 
 class AsrService {
   static AsrService? _instancia;
@@ -96,7 +98,7 @@ class AsrService {
   // DETENER Y TRANSCRIBIR
   // ─────────────────────────────────────────────
 
-  Future<String?> detenerYTranscribir() async {
+  Future<AsrResultado?> detenerYTranscribir() async {
     if (!_escuchando) return null;
 
     await _recorder.stopRecorder();
@@ -114,20 +116,19 @@ class AsrService {
           isTranslate: false,
           isNoTimestamps: true,
           language: 'es',
-          // Optimización para velocidad en celulares gama media/baja:
-          threads: 4,      // más hilos = más rápido (ajustar según CPU)
-          isSpecialTokens: false, // no incluir tokens especiales
+          threads: 4,
+          isSpecialTokens: false,
         ),
       );
 
-      try { File(ruta).deleteSync(); } catch (_) {}
-      return _limpiarTexto(respuesta.text);
+      final texto = _limpiarTexto(respuesta.text);
+      if (texto == null) return null;
+
+      return AsrResultado(texto: texto, esFinal: true, nivelVolumen: 0.0);
     } catch (_) {
-      try { File(ruta).deleteSync(); } catch (_) {}
       return null;
     }
   }
-
   // ─────────────────────────────────────────────
   // CANCELAR
   // ─────────────────────────────────────────────
@@ -138,7 +139,9 @@ class AsrService {
       await _recorder.stopRecorder();
       _escuchando = false;
       if (_rutaWavActual != null) {
-        try { File(_rutaWavActual!).deleteSync(); } catch (_) {}
+        try {
+          File(_rutaWavActual!).deleteSync();
+        } catch (_) {}
         _rutaWavActual = null;
       }
     } catch (_) {
@@ -164,16 +167,4 @@ class AsrService {
     _inicializado = false;
     _instancia = null;
   }
-}
-
-class AsrResultado {
-  final String texto;
-  final bool esFinal;
-  final double nivelVolumen;
-
-  const AsrResultado({
-    required this.texto,
-    required this.esFinal,
-    this.nivelVolumen = 0.0,
-  });
 }

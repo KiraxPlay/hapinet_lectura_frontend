@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../data/database.dart';
 import '../models/acueducto.dart';
 import '../services/api/api_service.dart';
+import '../models/importacionResult.dart';
 
 class ImportarAbonadosService {
   final AppDatabase _db;
@@ -29,7 +30,7 @@ class ImportarAbonadosService {
     // Intentar API con timeout de 10 segundos
     try {
       final api = ApiService(acueducto);
-      print('🔄 Intentando descargar predios desde ${acueducto.apiUrl}');
+      print('Intentando descargar predios desde ${acueducto.apiUrl}');
       final t = DateTime.now();
 
       // Descargar predios y novedades en paralelo
@@ -40,7 +41,7 @@ class ImportarAbonadosService {
 
       final predios   = results[0];
       final novedades = results[1];
-      print('✓ Predios: ${predios.length}, Novedades: ${novedades.length} en ${DateTime.now().difference(t).inMilliseconds}ms');
+      print('Predios: ${predios.length}, Novedades: ${novedades.length} en ${DateTime.now().difference(t).inMilliseconds}ms');
 
       if (predios.isNotEmpty) {
         final companions = predios.asMap().entries.map((entry) {
@@ -90,7 +91,7 @@ class ImportarAbonadosService {
             total: companions.length, nuevos: companions.length);
       }
     } catch (e) {
-      print('✗ Error importando predios: $e');
+      print('Error importando predios: $e');
       // Sin internet, timeout o error — no bloquear el splash
     }
 
@@ -125,16 +126,5 @@ class ImportarAbonadosService {
     if (val is String) return double.tryParse(val);
     return null;
   }
-}
 
-class ImportacionResult {
-  final int total;
-  final int nuevos;
-  final bool yaExistia;
-
-  const ImportacionResult({
-    required this.total,
-    required this.nuevos,
-    this.yaExistia = false,
-  });
 }

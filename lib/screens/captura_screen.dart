@@ -197,69 +197,80 @@ class _CapturaScreenState extends State<CapturaScreen>
   // ─────────────────────────────────────────────
 
   Future<void> _toggleAsr(String campo) async {
-    // Si está transcribiendo → ignorar
     if (_campoTranscribiendo != null) return;
 
-    // Si está grabando → detener y transcribir
     if (_campoEscuchando == campo) {
-      _timerVolumen?.cancel();
-      final campoQueTranscribe = campo;
-      if (mounted)
-        setState(() {
-          _campoEscuchando = null;
-          _campoTranscribiendo = campoQueTranscribe;
-          _nivelVolumen = 0.0;
-        });
-
-      final texto = await _asr.detenerYTranscribir();
-
-      if (mounted && texto != null && texto.isNotEmpty) {
-        if (campo == 'lectura') {
-          final numero = _palabrasANumero(texto);
-          _lecturaController.text = numero;
-          _lecturaController.selection = TextSelection.fromPosition(
-            TextPosition(offset: numero.length),
-          );
-        } else {
-          _notasController.text = texto;
-          _notasController.selection = TextSelection.fromPosition(
-            TextPosition(offset: texto.length),
-          );
-        }
-      }
-
-      if (mounted) setState(() => _campoTranscribiendo = null);
+      await _finalizarGrabacionAsr(campo);
       return;
     }
 
-    // Si está grabando otro campo → cancelar primero
     if (_campoEscuchando != null) {
       _timerVolumen?.cancel();
       await _asr.cancelar();
     }
 
-    // Limpiar campo antes de grabar
+    _limpiarCampoAntesDeGrabar(campo);
+
+    final iniciado = await _asr.iniciarGrabacion();
+    if (!iniciado) return;
+
+    if (mounted) {
+      setState(() {
+        _campoEscuchando = campo;
+        _nivelVolumen = 0.0;
+      });
+    }
+
+    _timerVolumen = Timer.periodic(const Duration(milliseconds: 200), (_) {
+      if (!mounted || _campoEscuchando == null) return;
+      setState(() => _nivelVolumen = (_nivelVolumen + 2.5) % 10.0);
+    });
+  }
+
+  Future<void> _finalizarGrabacionAsr(String campo) async {
+    _timerVolumen?.cancel();
+    final campoQueTranscribe = campo;
+
+    if (mounted) {
+      setState(() {
+        _campoEscuchando = null;
+        _campoTranscribiendo = campoQueTranscribe;
+        _nivelVolumen = 0.0;
+      });
+    }
+
+    final resultado = await _asr.detenerYTranscribir();
+    final texto = resultado?.texto;
+
+    if (mounted && texto != null && texto.isNotEmpty) {
+      _aplicarTextoAsr(campo: campo, texto: texto);
+    }
+
+    if (mounted) setState(() => _campoTranscribiendo = null);
+  }
+
+  void _limpiarCampoAntesDeGrabar(String campo) {
     if (campo == 'lectura') {
       _lecturaController.clear();
     } else {
       _notasController.clear();
     }
+  }
 
-    final iniciado = await _asr.iniciarGrabacion();
-    if (!iniciado) return;
+  void _aplicarTextoAsr({required String campo, required String texto}) {
+    if (campo == 'lectura') {
+      final numero = _palabrasANumero(texto);
+      _lecturaController.text = numero;
+      _lecturaController.selection = TextSelection.fromPosition(
+        TextPosition(offset: numero.length),
+      );
+      return;
+    }
 
-    if (mounted)
-      setState(() {
-        _campoEscuchando = campo;
-        _nivelVolumen = 0.0;
-      });
-
-    // Animar barra de volumen con timer (Whisper no da nivel en tiempo real)
-    _timerVolumen = Timer.periodic(const Duration(milliseconds: 200), (_) {
-      if (!mounted || _campoEscuchando == null) return;
-      // Simular nivel aleatorio para que se vea animado
-      setState(() => _nivelVolumen = (_nivelVolumen + 2.5) % 10.0);
-    });
+    _notasController.text = texto;
+    _notasController.selection = TextSelection.fromPosition(
+      TextPosition(offset: texto.length),
+    );
   }
 
   // Convierte palabras numéricas a dígitos
@@ -502,16 +513,7 @@ class _CapturaScreenState extends State<CapturaScreen>
         title: Text(widget.nombreAbonado ?? 'Capturar medidor'),
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
-        actions: [
-          if (_estado == EstadoCaptura.listo)
-            IconButton(
-              icon: Icon(_flashActivo ? Icons.flash_on : Icons.flash_off),
-              onPressed: () async {
-                await _camara.toggleFlash();
-                setState(() => _flashActivo = !_flashActivo);
-              },
-            ),
-        ],
+        actions: _buildAppBarActions(),
       ),
       body: switch (_estado) {
         EstadoCaptura.iniciando => _buildCargando('Iniciando cámara...'),
@@ -526,6 +528,20 @@ class _CapturaScreenState extends State<CapturaScreen>
     );
   }
 
+  List<Widget> _buildAppBarActions() {
+    if (_estado != EstadoCaptura.listo) return const [];
+
+    return [
+      IconButton(
+        icon: Icon(_flashActivo ? Icons.flash_on : Icons.flash_off),
+        onPressed: () async {
+          await _camara.toggleFlash();
+          setState(() => _flashActivo = !_flashActivo);
+        },
+      ),
+    ];
+  }
+
   // ─────────────────────────────────────────────
   // VISTA PREVIA
   // ─────────────────────────────────────────────
@@ -534,6 +550,7 @@ class _CapturaScreenState extends State<CapturaScreen>
     if (!_camara.estaInicializado || _camara.controller == null) {
       return _buildCargando('Preparando cámara...');
     }
+
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -558,27 +575,27 @@ class _CapturaScreenState extends State<CapturaScreen>
           bottom: 40,
           left: 0,
           right: 0,
-          child: Center(
-            child: GestureDetector(
-              onTap: _tomarFotoYProcesar,
-              child: Container(
-                width: 72,
-                height: 72,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 3),
-                  color: Colors.white24,
-                ),
-                child: const Icon(
-                  Icons.camera_alt,
-                  color: Colors.white,
-                  size: 36,
-                ),
-              ),
-            ),
-          ),
+          child: _buildBotonCaptura(),
         ),
       ],
+    );
+  }
+
+  Widget _buildBotonCaptura() {
+    return Center(
+      child: GestureDetector(
+        onTap: _tomarFotoYProcesar,
+        child: Container(
+          width: 72,
+          height: 72,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.white, width: 3),
+            color: Colors.white24,
+          ),
+          child: const Icon(Icons.camera_alt, color: Colors.white, size: 36),
+        ),
+      ),
     );
   }
 
@@ -612,56 +629,62 @@ class _CapturaScreenState extends State<CapturaScreen>
               ),
             ),
             const SizedBox(height: 32),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: _facturandoEnSitio ? null : _facturarEnSitio,
-                icon:
-                    _facturandoEnSitio
-                        ? const SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: Colors.white,
-                          ),
-                        )
-                        : const Icon(Icons.receipt_long),
-                label: Text(
-                  _facturandoEnSitio
-                      ? 'Generando factura...'
-                      : 'Liquidar y facturar',
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-            ),
+            _buildBotonFacturar(),
             const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                onPressed: () => Navigator.of(context).pop(true),
-                icon: const Icon(Icons.arrow_back, color: Colors.white70),
-                label: const Text(
-                  'Sin facturar por ahora',
-                  style: TextStyle(color: Colors.white70),
-                ),
-                style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: Colors.white30),
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-            ),
+            _buildBotonVolverSinFacturar(),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBotonFacturar() {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton.icon(
+        onPressed: _facturandoEnSitio ? null : _facturarEnSitio,
+        icon:
+            _facturandoEnSitio
+                ? const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: Colors.white,
+                  ),
+                )
+                : const Icon(Icons.receipt_long),
+        label: Text(
+          _facturandoEnSitio ? 'Generando factura...' : 'Liquidar y facturar',
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.green,
+          foregroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBotonVolverSinFacturar() {
+    return SizedBox(
+      width: double.infinity,
+      child: OutlinedButton.icon(
+        onPressed: () => Navigator.of(context).pop(true),
+        icon: const Icon(Icons.arrow_back, color: Colors.white70),
+        label: const Text(
+          'Sin facturar por ahora',
+          style: TextStyle(color: Colors.white70),
+        ),
+        style: OutlinedButton.styleFrom(
+          side: const BorderSide(color: Colors.white30),
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
       ),
     );

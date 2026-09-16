@@ -1,4 +1,5 @@
 // lib/services/exportar_service.dart
+// es para la exportacion de lecturas a excel y fotos a zip
 import 'dart:io';
 import 'package:archive/archive_io.dart';
 import 'package:excel/excel.dart';
