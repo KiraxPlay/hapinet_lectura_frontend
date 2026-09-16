@@ -367,7 +367,7 @@ class ExportarPdfService {
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [
                     pw.Text(
-                      esOficial ? 'TOTAL A PAGAR' : 'TOTAL ESTIMADO',
+                      esOficial ? 'TOTAL A PAGAR' : 'TOTAL A PAGAR',
                       style: pw.TextStyle(
                         fontSize: 11,
                         fontWeight: pw.FontWeight.bold,
@@ -383,15 +383,6 @@ class ExportarPdfService {
                   ],
                 ),
               ),
-
-              if (!esOficial) ...[
-                pw.SizedBox(height: 4),
-                pw.Text(
-                  '⚠ Estimado. La factura oficial se genera al sincronizar.',
-                  style: pw.TextStyle(fontSize: 7, color: PdfColors.orange800),
-                  textAlign: pw.TextAlign.center,
-                ),
-              ],
 
               // ── LUGAR DE PAGO ───────────────────────
               if (esOficial) ...[

@@ -1,6 +1,6 @@
 // lib/services/impresora_service.dart
-import 'dart:typed_data';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter_bluetooth_printer/flutter_bluetooth_printer.dart';
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
@@ -8,6 +8,7 @@ import 'package:printing/printing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/database.dart';
 import '../models/acueducto.dart';
+import '../models/resultado_impresion.dart';
 import 'api/tarifas_service.dart';
 
 class ImpresoraService {
@@ -170,8 +171,9 @@ class ImpresoraService {
     addText('ASOCIACION DE AGUA POTABLE');
     if (empresa.empresaNit.isNotEmpty) addText('NIT: ${empresa.empresaNit}');
     addText(_veredas());
-    if (empresa.empresaTelefono.isNotEmpty)
+    if (empresa.empresaTelefono.isNotEmpty) {
       addText('Cel: ${empresa.empresaTelefono}');
+    }
 
     hr();
 
@@ -230,7 +232,7 @@ class ImpresoraService {
     // ── TOTAL ────────────────────────────────────
     bold(true);
     doubleSize(true);
-    addText(esOficial ? 'TOTAL A PAGAR' : 'TOTAL ESTIMADO');
+    addText(esOficial ? 'TOTAL A PAGAR' : 'TOTAL');
     alignRight();
     addText('\$${fmtNum.format(total)}');
     doubleSize(false);
@@ -254,23 +256,36 @@ class ImpresoraService {
     addText('Conserve este tiquete.');
 
     feed(3);
+
+    buf.add(0x0A);
+    buf.add(0x0A);
+
+    buf.addAll([0x1D, 0x56, 0x41, 0x00]); // Cortar papel
     cut();
 
     return Uint8List.fromList(buf);
   }
 
+
+  //para la prueba de impresion pero dentro de la app 
+  //no el de la app oficial de la impresora
   Uint8List _prueba() {
     final buf = <int>[];
-    buf.addAll([0x1B, 0x40]);
-    buf.addAll([0x1B, 0x61, 1]);
-    buf.addAll([0x1B, 0x45, 1]);
+    buf.addAll([0x1B, 0x40]); // Inicializar impresora
+    buf.addAll([0x1B, 0x61, 1]); // Centrar texto
+    buf.addAll([0x1B, 0x45, 1]); // Activar negrita
     buf.addAll('PRUEBA DE IMPRESION'.codeUnits);
     buf.add(0x0A);
-    buf.addAll([0x1B, 0x45, 0]);
-    buf.addAll('SAT AF330 OK'.codeUnits);
+    buf.addAll([0x1B, 0x45, 0]); // Desactivar negrita
+    buf.addAll('CONEXION EXITOSA CON SAT AF330'.codeUnits);
+    buf.add(0x0A); // Salto de línea
+    buf.addAll([0x1B, 0x64, 3]); // Avanzar 3 líneas
+    buf.addAll([0x1B, 0x61, 0]); // Alinear a la izquierda
+    buf.addAll([0x1B, 0x45, 1]);
+    buf.addAll('HAPINET S.A.S'.codeUnits);
     buf.add(0x0A);
-    buf.addAll([0x1B, 0x64, 3]);
-    buf.addAll([0x1D, 0x56, 0x41, 0x00]);
+    buf.addAll([0x1B, 0x64, 3]); // Avanzar antes de cortar
+    buf.addAll([0x1D, 0x56, 0x41, 0x00]); // Cortar papel
     return Uint8List.fromList(buf);
   }
 
@@ -284,16 +299,8 @@ class ImpresoraService {
 
   String _veredas() => switch (acueducto.tipo) {
     TipoAcueducto.asoaguapo => 'Veredas El Recreo - Pueblo Nuevo - El Tendido',
-    TipoAcueducto.temporal => 'Veredas Alto Corozal - Cachaya - La Floresta',
+    TipoAcueducto.temporal => 'Veredas Alto Corozal - Cachaya - La Floresta',//esto seria temporal todo lo de tipo de 
+    // TipoAcueducto.temporal es temporal 
   };
 }
 
-class ResultadoImpresion {
-  final bool exitoso;
-  final String? error;
-  const ResultadoImpresion._({required this.exitoso, this.error});
-  factory ResultadoImpresion.exito() =>
-      const ResultadoImpresion._(exitoso: true);
-  factory ResultadoImpresion.error(String msg) =>
-      ResultadoImpresion._(exitoso: false, error: msg);
-}
