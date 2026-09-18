@@ -1,11 +1,13 @@
 // lib/services/importar_abonados_service.dart
 import 'dart:async';
-import 'package:drift/drift.dart' show Value, InsertMode;
+import 'dart:developer' as developer;
+
+import 'package:drift/drift.dart' show Value;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/database.dart';
 import '../models/acueducto.dart';
-import '../services/api/api_service.dart';
 import '../models/importacionResult.dart';
+import '../services/api/api_service.dart';
 
 class ImportarAbonadosService {
   final AppDatabase _db;
@@ -19,29 +21,43 @@ class ImportarAbonadosService {
     required this.acueducto,
   }) : _db = db;
 
-  Future<ImportacionResult> importar() async {
+  Future<ImportacionResult> importar({bool forzar = false}) async {
     final prefs = await SharedPreferences.getInstance();
 
     // Ya importado → retorno instantáneo
-    if (prefs.getBool(_keyImportado) == true) {
+    if (!forzar && prefs.getBool(_keyImportado) == true) {
       return const ImportacionResult(total: 0, nuevos: 0, yaExistia: true);
     }
 
     // Intentar API con timeout de 10 segundos
     try {
       final api = ApiService(acueducto);
-      print('Intentando descargar predios desde ${acueducto.apiUrl}');
+      developer.log(
+        'Intentando descargar predios desde ${acueducto.apiUrl}',
+        name: 'ImportarAbonadosService',
+      );
       final t = DateTime.now();
 
-      // Descargar predios y novedades en paralelo
-      final results = await Future.wait([
-        api.listPredios(),
-        api.novedadesMasivas(),
-      ]).timeout(const Duration(seconds: 30));
-
-      final predios   = results[0];
-      final novedades = results[1];
-      print('Predios: ${predios.length}, Novedades: ${novedades.length} en ${DateTime.now().difference(t).inMilliseconds}ms');
+      final predios = await api.listPredios().timeout(
+        const Duration(seconds: 30),
+      );
+      List<dynamic> novedades = [];
+      try {
+        novedades = await api.novedadesMasivas().timeout(
+          const Duration(seconds: 30),
+        );
+      } catch (e) {
+        developer.log(
+          'No se pudieron descargar novedades; se continuará con predios',
+          name: 'ImportarAbonadosService',
+          error: e,
+        );
+      }
+      developer.log(
+        'Predios: ${predios.length}, Novedades: ${novedades.length} '
+        'en ${DateTime.now().difference(t).inMilliseconds}ms',
+        name: 'ImportarAbonadosService',
+      );
 
       if (predios.isNotEmpty) {
         final companions = predios.asMap().entries.map((entry) {
@@ -60,7 +76,8 @@ class ImportarAbonadosService {
             longitud: _parseDouble(p['predio_longitud']) ?? 0.0,
             fechaLectura: DateTime.now(),
             estadoSync: const Value('pendiente'),
-            codigoMedidor: Value(p['predio_codigo'] as String? ?? id),
+            codigoMedidor: Value(p['predio_contador']?.toString()),
+            predioCodigo: Value(p['predio_codigo']?.toString()),
             nombreAbonado: Value(nombre),
             celular: Value(p['abonado_telefono'] as String?),
             sector: Value(_sectorDesdeVereda(p['vereda_id'])),
@@ -91,8 +108,18 @@ class ImportarAbonadosService {
             total: companions.length, nuevos: companions.length);
       }
     } catch (e) {
-      print('Error importando predios: $e');
+      developer.log(
+        'Error importando predios',
+        name: 'ImportarAbonadosService',
+        error: e,
+      );
       // Sin internet, timeout o error — no bloquear el splash
+      return ImportacionResult(
+        total: 0,
+        nuevos: 0,
+        yaExistia: false,
+        error: 'No se pudo descargar el período: $e',
+      );
     }
 
     // Sin datos del API — NO marcar como importado

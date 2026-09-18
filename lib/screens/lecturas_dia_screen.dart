@@ -40,7 +40,9 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
   // Reconstruye el TabController cuando cambian los sectores
   void _actualizarTabs(List<String> nuevosSectores) {
     if (_sectores.length == nuevosSectores.length &&
-        _sectores.every((s) => nuevosSectores.contains(s))) return;
+        _sectores.every((s) => nuevosSectores.contains(s))) {
+      return;
+    }
     _tabController?.dispose();
     _sectores = nuevosSectores;
     _tabController = TabController(length: _sectores.length, vsync: this);
@@ -305,6 +307,7 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
           db: widget.db,
           acueducto: widget.acueducto,
           codigoMedidor: lectura.codigoMedidor,
+          predioCodigo: lectura.predioCodigo,
           nombreAbonado: lectura.nombreAbonado,
           celular: lectura.celular,
           lecturaAnterior: lectura.lecturaAnterior,
@@ -349,7 +352,7 @@ class _TarjetaAbonado extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: () {
-          final match = RegExp(r'predio_(\d+)').firstMatch(lectura.id ?? '');
+          final match = RegExp(r'predio_(\d+)').firstMatch(lectura.id);
           final predioId = match != null ? int.tryParse(match.group(1)!) : null;
           Navigator.of(context).push(
             MaterialPageRoute(
@@ -357,6 +360,7 @@ class _TarjetaAbonado extends StatelessWidget {
                 db: db,
                 acueducto: acueducto,
                 codigoMedidor: lectura.codigoMedidor,
+                predioCodigo: lectura.predioCodigo,
                 nombreAbonado: lectura.nombreAbonado,
                 celular: lectura.celular,
                 lecturaAnterior: lectura.lecturaAnterior,
@@ -378,10 +382,10 @@ class _TarjetaAbonado extends StatelessWidget {
                 width: 44,
                 height: 44,
                 decoration: BoxDecoration(
-                  color: colorSector.withOpacity(0.12),
+                  color: colorSector.withValues(alpha: 0.12),
                   shape: BoxShape.circle,
                   border:
-                      Border.all(color: colorSector.withOpacity(0.3)),
+                      Border.all(color: colorSector.withValues(alpha: 0.3)),
                 ),
                 child: Center(
                   child: Text(
@@ -411,7 +415,12 @@ class _TarjetaAbonado extends StatelessWidget {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      lectura.codigoMedidor ?? '',
+                      'Medidor: ${lectura.codigoMedidor ?? 'Sin registrar'}',
+                      style: const TextStyle(
+                          fontSize: 11, color: Colors.grey),
+                    ),
+                    Text(
+                      'Predio: ${lectura.predioCodigo ?? 'Sin registrar'}',
                       style: const TextStyle(
                           fontSize: 11, color: Colors.grey),
                     ),
@@ -429,8 +438,8 @@ class _TarjetaAbonado extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              Icon(Icons.chevron_right,
-                  color: colorSector.withOpacity(0.5)),
+                Icon(Icons.chevron_right,
+                  color: colorSector.withValues(alpha: 0.5)),
             ],
           ),
         ),

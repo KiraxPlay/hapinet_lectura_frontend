@@ -17,6 +17,7 @@ import 'captura_screen.dart';
 class InfoAbonadoScreen extends StatefulWidget {
   final AppDatabase db;
   final String? codigoMedidor;
+  final String? predioCodigo;
   final String? nombreAbonado;
   final String? celular;
   final int? lecturaAnterior;
@@ -33,6 +34,7 @@ class InfoAbonadoScreen extends StatefulWidget {
     required this.db,
     required this.acueducto,
     this.codigoMedidor,
+    this.predioCodigo,
     this.nombreAbonado,
     this.celular,
     this.lecturaAnterior,
@@ -58,6 +60,7 @@ class _InfoAbonadoScreenState extends State<InfoAbonadoScreen> {
   AppDatabase get db => widget.db;
   Acueducto get acueducto => widget.acueducto;
   String? get codigoMedidor => widget.codigoMedidor;
+  String? get predioCodigo => widget.predioCodigo;
   String? get nombreAbonado => widget.nombreAbonado;
   String? get celular => widget.celular;
   int? get lecturaAnterior => widget.lecturaAnterior;
@@ -225,11 +228,18 @@ class _InfoAbonadoScreenState extends State<InfoAbonadoScreen> {
                 ),
                 child: Column(
                   children: [
-                    // Código
+                    // Identificadores
                     _fila(
                       icono: Icons.qr_code,
-                      label: 'Código medidor',
+                      label: 'Número de medidor',
                       valor: codigoMedidor ?? 'Sin código',
+                      color: _colorSector,
+                    ),
+                    _divisor(),
+                    _fila(
+                      icono: Icons.home_work_outlined,
+                      label: 'Código del predio',
+                      valor: predioCodigo ?? 'Sin código',
                       color: _colorSector,
                     ),
                     _divisor(),

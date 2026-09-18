@@ -108,7 +108,21 @@ class ApiService {
     if (resp.statusCode == 200) {
       return jsonDecode(resp.body) as List<dynamic>;
     }
-    throw Exception('Error al descargar predios: ${resp.statusCode}');
+    var detalle = resp.body.trim();
+    try {
+      final body = jsonDecode(resp.body);
+      if (body is Map<String, dynamic>) {
+        detalle = (body['message'] ?? body['error'] ?? detalle).toString();
+      }
+    } catch (_) {
+      // La respuesta puede ser HTML cuando Laravel lanza un 500.
+    }
+    final detalleCorto = detalle.length > 180
+        ? '${detalle.substring(0, 180)}...'
+        : detalle;
+    throw Exception(
+      'Error al descargar predios: ${resp.statusCode} $detalleCorto',
+    );
   }
 
   // Busca predio_id por predio_codigo en la lista de predios

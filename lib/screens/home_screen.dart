@@ -10,6 +10,7 @@ import 'tutorial_screen.dart';
 import 'descarga_mapa_screen.dart';
 import '../services/api/api_service.dart';
 import '../services/api/tarifas_service.dart';
+import '../services/importar_abonados_service.dart';
 import 'seleccionar_impresora_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -76,18 +77,48 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (confirmar != true) return;
 
-    // Limpiar clave para forzar reimportación
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('abonados_importados_${widget.acueducto.tipo.name}_v14');
+    if (_sincronizando) return;
+    setState(() => _sincronizando = true);
 
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Reinicia la app para cargar los predios actualizados'),
-        backgroundColor: Colors.blue,
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
+    try {
+      final resultado = await ImportarAbonadosService(
+        db: widget.db,
+        acueducto: widget.acueducto,
+      ).importar(forzar: true);
+
+      if (resultado.total > 0) {
+        // Solo cierra el período anterior después de descargar el nuevo.
+        await widget.db.prepararNuevoPeriodo();
+        await widget.db.borrarHistorialLecturasLibres();
+      }
+
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            resultado.total == 0
+                ? resultado.error ?? 'El servidor no devolvió predios'
+                : 'Período actualizado: ${resultado.total} predios cargados',
+              
+          ),
+          
+          backgroundColor: resultado.total == 0 ? Colors.orange : Colors.green,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('No se pudo actualizar el período'),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _sincronizando = false);
+    }
   }
 
   Future<void> _sincronizar() async {

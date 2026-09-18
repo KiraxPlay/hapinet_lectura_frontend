@@ -116,7 +116,7 @@ class _SplashScreenState extends State<SplashScreen>
       Future.delayed(const Duration(milliseconds: 400)),
     ]);
     ocr.dispose();
-    _setProgreso('Motor OCR listo ✓', 0.72, 2);
+    _setProgreso('Motor OCR listo ', 0.72, 2);
 
     // Paso 3 — tiles
     _setProgreso('Cargando mapa offline...', 0.75, 3);
@@ -125,7 +125,7 @@ class _SplashScreenState extends State<SplashScreen>
       tiles.descargarSiNecesario(),
       Future.delayed(const Duration(milliseconds: 400)),
     ]);
-    _setProgreso('Mapa listo ✓', 0.92, 3);
+    _setProgreso('Mapa listo ', 0.92, 3);
 
     // Paso 4 — listo
     _setProgreso('¡Todo listo!', 1.0, 4);
@@ -178,7 +178,7 @@ class _SplashScreenState extends State<SplashScreen>
                   const SizedBox(height: 16),
 
                   const Text(
-                    'Medidores de Agua',
+                    'Medidor de Agua',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -227,14 +227,14 @@ class _SplashScreenState extends State<SplashScreen>
           ),
 
           // Versión
-          Positioned(
+          const Positioned(
             bottom: 24,
             left: 0,
             right: 0,
             child: Text(
               'v$kVersion — $kNombreApp',
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                   fontSize: 11, color: Color(0xFF90CAF9)),
             ),
           ),
@@ -406,7 +406,7 @@ class _GotaPainter extends CustomPainter {
     canvas.clipPath(gotaPath);
 
     // Nivel del agua según progreso — sube desde abajo
-    final nivelY = h * 0.72 * (1.0 - progreso) + (h * 0.1);
+    final nivelY = h * 0.84 * (1.0 - progreso) + (h * 0.08);
 
     // Ola trasera
     final olaPath1 = _buildOlaPath(w, h, nivelY,
@@ -456,6 +456,7 @@ class _GotaPainter extends CustomPainter {
   // Forma de gota: punta arriba, redonda abajo
   Path _buildGotaPath(double w, double h) {
     final cx = w / 2;
+    final base = h * 0.92;
     final path = Path();
 
     // Punta superior centrada
@@ -464,20 +465,25 @@ class _GotaPainter extends CustomPainter {
     // Lado derecho bajando con curva
     path.cubicTo(
       cx + w * 0.6, h * 0.35,  // control 1
-      cx + w * 0.5, h * 0.6,   // control 2
-      cx + w * 0.5, h * 0.72,  // punto
+      cx + w * 0.5, h * 0.72,   // control 2
+      cx + w * 0.5, h * 0.72,   // punto
     );
 
-    // Arco inferior (parte redonda)
-    path.arcToPoint(
-      Offset(cx - w * 0.5, h * 0.72),
-      radius: Radius.circular(w * 0.5),
-      clockwise: false,
+    // Base redondeada y convexa, como una gota completa.
+    path.cubicTo(
+      cx + w * 0.5, h * 0.84,
+      cx + w * 0.32, base,
+      cx, base,
+    );
+    path.cubicTo(
+      cx - w * 0.32, base,
+      cx - w * 0.5, h * 0.84,
+      cx - w * 0.5, h * 0.72,
     );
 
     // Lado izquierdo subiendo
     path.cubicTo(
-      cx - w * 0.5, h * 0.6,   // control 1
+      cx - w * 0.5, h * 0.72,  // control 1
       cx - w * 0.6, h * 0.35,  // control 2
       cx, 0,                    // punta arriba
     );

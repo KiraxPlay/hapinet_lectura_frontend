@@ -162,6 +162,17 @@ class $LecturasTable extends Lecturas with TableInfo<$LecturasTable, Lectura> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _predioCodigoMeta = const VerificationMeta(
+    'predioCodigo',
+  );
+  @override
+  late final GeneratedColumn<String> predioCodigo = GeneratedColumn<String>(
+    'predio_codigo',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _notasMeta = const VerificationMeta('notas');
   @override
   late final GeneratedColumn<String> notas = GeneratedColumn<String>(
@@ -320,6 +331,7 @@ class $LecturasTable extends Lecturas with TableInfo<$LecturasTable, Lectura> {
     fechaSync,
     intentosSync,
     codigoMedidor,
+    predioCodigo,
     notas,
     nombreAbonado,
     sector,
@@ -449,6 +461,15 @@ class $LecturasTable extends Lecturas with TableInfo<$LecturasTable, Lectura> {
         codigoMedidor.isAcceptableOrUnknown(
           data['codigo_medidor']!,
           _codigoMedidorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('predio_codigo')) {
+      context.handle(
+        _predioCodigoMeta,
+        predioCodigo.isAcceptableOrUnknown(
+          data['predio_codigo']!,
+          _predioCodigoMeta,
         ),
       );
     }
@@ -616,6 +637,10 @@ class $LecturasTable extends Lecturas with TableInfo<$LecturasTable, Lectura> {
         DriftSqlType.string,
         data['${effectivePrefix}codigo_medidor'],
       ),
+      predioCodigo: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}predio_codigo'],
+      ),
       notas: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}notas'],
@@ -692,6 +717,7 @@ class Lectura extends DataClass implements Insertable<Lectura> {
   final DateTime? fechaSync;
   final int intentosSync;
   final String? codigoMedidor;
+  final String? predioCodigo;
   final String? notas;
   final String? nombreAbonado;
   final String? sector;
@@ -719,6 +745,7 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     this.fechaSync,
     required this.intentosSync,
     this.codigoMedidor,
+    this.predioCodigo,
     this.notas,
     this.nombreAbonado,
     this.sector,
@@ -758,6 +785,9 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     map['intentos_sync'] = Variable<int>(intentosSync);
     if (!nullToAbsent || codigoMedidor != null) {
       map['codigo_medidor'] = Variable<String>(codigoMedidor);
+    }
+    if (!nullToAbsent || predioCodigo != null) {
+      map['predio_codigo'] = Variable<String>(predioCodigo);
     }
     if (!nullToAbsent || notas != null) {
       map['notas'] = Variable<String>(notas);
@@ -821,6 +851,10 @@ class Lectura extends DataClass implements Insertable<Lectura> {
           codigoMedidor == null && nullToAbsent
               ? const Value.absent()
               : Value(codigoMedidor),
+      predioCodigo:
+          predioCodigo == null && nullToAbsent
+              ? const Value.absent()
+              : Value(predioCodigo),
       notas:
           notas == null && nullToAbsent ? const Value.absent() : Value(notas),
       nombreAbonado:
@@ -878,6 +912,7 @@ class Lectura extends DataClass implements Insertable<Lectura> {
       fechaSync: serializer.fromJson<DateTime?>(json['fechaSync']),
       intentosSync: serializer.fromJson<int>(json['intentosSync']),
       codigoMedidor: serializer.fromJson<String?>(json['codigoMedidor']),
+      predioCodigo: serializer.fromJson<String?>(json['predioCodigo']),
       notas: serializer.fromJson<String?>(json['notas']),
       nombreAbonado: serializer.fromJson<String?>(json['nombreAbonado']),
       sector: serializer.fromJson<String?>(json['sector']),
@@ -910,6 +945,7 @@ class Lectura extends DataClass implements Insertable<Lectura> {
       'fechaSync': serializer.toJson<DateTime?>(fechaSync),
       'intentosSync': serializer.toJson<int>(intentosSync),
       'codigoMedidor': serializer.toJson<String?>(codigoMedidor),
+      'predioCodigo': serializer.toJson<String?>(predioCodigo),
       'notas': serializer.toJson<String?>(notas),
       'nombreAbonado': serializer.toJson<String?>(nombreAbonado),
       'sector': serializer.toJson<String?>(sector),
@@ -940,6 +976,7 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     Value<DateTime?> fechaSync = const Value.absent(),
     int? intentosSync,
     Value<String?> codigoMedidor = const Value.absent(),
+    Value<String?> predioCodigo = const Value.absent(),
     Value<String?> notas = const Value.absent(),
     Value<String?> nombreAbonado = const Value.absent(),
     Value<String?> sector = const Value.absent(),
@@ -971,6 +1008,7 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     intentosSync: intentosSync ?? this.intentosSync,
     codigoMedidor:
         codigoMedidor.present ? codigoMedidor.value : this.codigoMedidor,
+    predioCodigo: predioCodigo.present ? predioCodigo.value : this.predioCodigo,
     notas: notas.present ? notas.value : this.notas,
     nombreAbonado:
         nombreAbonado.present ? nombreAbonado.value : this.nombreAbonado,
@@ -1019,6 +1057,10 @@ class Lectura extends DataClass implements Insertable<Lectura> {
           data.codigoMedidor.present
               ? data.codigoMedidor.value
               : this.codigoMedidor,
+      predioCodigo:
+          data.predioCodigo.present
+              ? data.predioCodigo.value
+              : this.predioCodigo,
       notas: data.notas.present ? data.notas.value : this.notas,
       nombreAbonado:
           data.nombreAbonado.present
@@ -1069,6 +1111,7 @@ class Lectura extends DataClass implements Insertable<Lectura> {
           ..write('fechaSync: $fechaSync, ')
           ..write('intentosSync: $intentosSync, ')
           ..write('codigoMedidor: $codigoMedidor, ')
+          ..write('predioCodigo: $predioCodigo, ')
           ..write('notas: $notas, ')
           ..write('nombreAbonado: $nombreAbonado, ')
           ..write('sector: $sector, ')
@@ -1101,6 +1144,7 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     fechaSync,
     intentosSync,
     codigoMedidor,
+    predioCodigo,
     notas,
     nombreAbonado,
     sector,
@@ -1132,6 +1176,7 @@ class Lectura extends DataClass implements Insertable<Lectura> {
           other.fechaSync == this.fechaSync &&
           other.intentosSync == this.intentosSync &&
           other.codigoMedidor == this.codigoMedidor &&
+          other.predioCodigo == this.predioCodigo &&
           other.notas == this.notas &&
           other.nombreAbonado == this.nombreAbonado &&
           other.sector == this.sector &&
@@ -1161,6 +1206,7 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
   final Value<DateTime?> fechaSync;
   final Value<int> intentosSync;
   final Value<String?> codigoMedidor;
+  final Value<String?> predioCodigo;
   final Value<String?> notas;
   final Value<String?> nombreAbonado;
   final Value<String?> sector;
@@ -1189,6 +1235,7 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     this.fechaSync = const Value.absent(),
     this.intentosSync = const Value.absent(),
     this.codigoMedidor = const Value.absent(),
+    this.predioCodigo = const Value.absent(),
     this.notas = const Value.absent(),
     this.nombreAbonado = const Value.absent(),
     this.sector = const Value.absent(),
@@ -1218,6 +1265,7 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     this.fechaSync = const Value.absent(),
     this.intentosSync = const Value.absent(),
     this.codigoMedidor = const Value.absent(),
+    this.predioCodigo = const Value.absent(),
     this.notas = const Value.absent(),
     this.nombreAbonado = const Value.absent(),
     this.sector = const Value.absent(),
@@ -1253,6 +1301,7 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     Expression<DateTime>? fechaSync,
     Expression<int>? intentosSync,
     Expression<String>? codigoMedidor,
+    Expression<String>? predioCodigo,
     Expression<String>? notas,
     Expression<String>? nombreAbonado,
     Expression<String>? sector,
@@ -1283,6 +1332,7 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
       if (fechaSync != null) 'fecha_sync': fechaSync,
       if (intentosSync != null) 'intentos_sync': intentosSync,
       if (codigoMedidor != null) 'codigo_medidor': codigoMedidor,
+      if (predioCodigo != null) 'predio_codigo': predioCodigo,
       if (notas != null) 'notas': notas,
       if (nombreAbonado != null) 'nombre_abonado': nombreAbonado,
       if (sector != null) 'sector': sector,
@@ -1314,6 +1364,7 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     Value<DateTime?>? fechaSync,
     Value<int>? intentosSync,
     Value<String?>? codigoMedidor,
+    Value<String?>? predioCodigo,
     Value<String?>? notas,
     Value<String?>? nombreAbonado,
     Value<String?>? sector,
@@ -1343,6 +1394,7 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
       fechaSync: fechaSync ?? this.fechaSync,
       intentosSync: intentosSync ?? this.intentosSync,
       codigoMedidor: codigoMedidor ?? this.codigoMedidor,
+      predioCodigo: predioCodigo ?? this.predioCodigo,
       notas: notas ?? this.notas,
       nombreAbonado: nombreAbonado ?? this.nombreAbonado,
       sector: sector ?? this.sector,
@@ -1404,6 +1456,9 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     if (codigoMedidor.present) {
       map['codigo_medidor'] = Variable<String>(codigoMedidor.value);
     }
+    if (predioCodigo.present) {
+      map['predio_codigo'] = Variable<String>(predioCodigo.value);
+    }
     if (notas.present) {
       map['notas'] = Variable<String>(notas.value);
     }
@@ -1463,6 +1518,7 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
           ..write('fechaSync: $fechaSync, ')
           ..write('intentosSync: $intentosSync, ')
           ..write('codigoMedidor: $codigoMedidor, ')
+          ..write('predioCodigo: $predioCodigo, ')
           ..write('notas: $notas, ')
           ..write('nombreAbonado: $nombreAbonado, ')
           ..write('sector: $sector, ')
@@ -2454,6 +2510,7 @@ typedef $$LecturasTableCreateCompanionBuilder =
       Value<DateTime?> fechaSync,
       Value<int> intentosSync,
       Value<String?> codigoMedidor,
+      Value<String?> predioCodigo,
       Value<String?> notas,
       Value<String?> nombreAbonado,
       Value<String?> sector,
@@ -2484,6 +2541,7 @@ typedef $$LecturasTableUpdateCompanionBuilder =
       Value<DateTime?> fechaSync,
       Value<int> intentosSync,
       Value<String?> codigoMedidor,
+      Value<String?> predioCodigo,
       Value<String?> notas,
       Value<String?> nombreAbonado,
       Value<String?> sector,
@@ -2575,6 +2633,11 @@ class $$LecturasTableFilterComposer
 
   ColumnFilters<String> get codigoMedidor => $composableBuilder(
     column: $table.codigoMedidor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get predioCodigo => $composableBuilder(
+    column: $table.predioCodigo,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -2718,6 +2781,11 @@ class $$LecturasTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get predioCodigo => $composableBuilder(
+    column: $table.predioCodigo,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get notas => $composableBuilder(
     column: $table.notas,
     builder: (column) => ColumnOrderings(column),
@@ -2842,6 +2910,11 @@ class $$LecturasTableAnnotationComposer
     builder: (column) => column,
   );
 
+  GeneratedColumn<String> get predioCodigo => $composableBuilder(
+    column: $table.predioCodigo,
+    builder: (column) => column,
+  );
+
   GeneratedColumn<String> get notas =>
       $composableBuilder(column: $table.notas, builder: (column) => column);
 
@@ -2933,6 +3006,7 @@ class $$LecturasTableTableManager
                 Value<DateTime?> fechaSync = const Value.absent(),
                 Value<int> intentosSync = const Value.absent(),
                 Value<String?> codigoMedidor = const Value.absent(),
+                Value<String?> predioCodigo = const Value.absent(),
                 Value<String?> notas = const Value.absent(),
                 Value<String?> nombreAbonado = const Value.absent(),
                 Value<String?> sector = const Value.absent(),
@@ -2961,6 +3035,7 @@ class $$LecturasTableTableManager
                 fechaSync: fechaSync,
                 intentosSync: intentosSync,
                 codigoMedidor: codigoMedidor,
+                predioCodigo: predioCodigo,
                 notas: notas,
                 nombreAbonado: nombreAbonado,
                 sector: sector,
@@ -2991,6 +3066,7 @@ class $$LecturasTableTableManager
                 Value<DateTime?> fechaSync = const Value.absent(),
                 Value<int> intentosSync = const Value.absent(),
                 Value<String?> codigoMedidor = const Value.absent(),
+                Value<String?> predioCodigo = const Value.absent(),
                 Value<String?> notas = const Value.absent(),
                 Value<String?> nombreAbonado = const Value.absent(),
                 Value<String?> sector = const Value.absent(),
@@ -3019,6 +3095,7 @@ class $$LecturasTableTableManager
                 fechaSync: fechaSync,
                 intentosSync: intentosSync,
                 codigoMedidor: codigoMedidor,
+                predioCodigo: predioCodigo,
                 notas: notas,
                 nombreAbonado: nombreAbonado,
                 sector: sector,

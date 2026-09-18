@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:medidor_hapinet_app/services/exportar_pdf.dart';
 import '../data/database.dart';
 import '../models/acueducto.dart';
 import '../models/punto_mapa.dart';
@@ -12,7 +11,6 @@ import '../services/exportar_service.dart';
 import '../services/exportar_pdf.dart';
 import '../services/historial_service.dart';
 import '../services/captura_facturacion_service.dart';
-import '../services/comprobante_service.dart';
 import 'visor_pdf_screen.dart';
 
 class HistorialScreen extends StatefulWidget {
@@ -236,16 +234,12 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
       );
       if (facturacion == null || !mounted) return;
 
-      final comprobante = ComprobanteService();
-      final novedades = await comprobante.cargarNovedades(
-        predioId: predioId,
+      final novedades = await widget.db.obtenerNovedadesPredio(predioId);
+      final rutaPdf = await ExportarPdfService(
+        widget.db,
         acueducto: widget.exportar.acueducto,
-        db: widget.db,
-      );
-      final rutaPdf = await comprobante.generarPdf(
-        db: widget.db,
-        acueducto: widget.exportar.acueducto,
-        lectura: facturacion.lectura,
+      ).exportarFacturaAbonado(
+        facturacion.lectura,
         novedades: novedades,
         resultado: facturacion.resultado,
       );

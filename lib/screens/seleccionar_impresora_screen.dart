@@ -33,10 +33,12 @@ class _SeleccionarImpresoraScreenState
   Future<void> _cargarGuardada() async {
     final mac    = await _service.obtenerMacGuardada();
     final nombre = await _service.obtenerNombreGuardado();
-    if (mounted) setState(() {
+    if (mounted) {
+      setState(() {
       _macGuardada    = mac;
       _nombreGuardado = nombre;
     });
+    }
   }
 
   void _buscar() {

@@ -18,7 +18,7 @@ import '../components/captura/banner_gps.dart';
 import '../components/captura/confirmacion_captura.dart';
 import '../models/acueducto.dart';
 import '../services/captura_facturacion_service.dart';
-import '../services/comprobante_service.dart';
+import '../services/exportar_pdf.dart';
 import '../models/alerta_lectura.dart';
 import '../components/captura/dialogo_alerta_lectura.dart';
 import 'visor_pdf_screen.dart';
@@ -444,16 +444,14 @@ class _CapturaScreenState extends State<CapturaScreen>
         return;
       }
 
-      final comprobanteService = ComprobanteService();
-      final novedades = await comprobanteService.cargarNovedades(
-        predioId: widget.predioId!,
-        acueducto: widget.acueducto,
-        db: widget.db,
+      final novedades = await widget.db.obtenerNovedadesPredio(
+        widget.predioId!,
       );
-      final rutaPdf = await comprobanteService.generarPdf(
-        db: widget.db,
+      final rutaPdf = await ExportarPdfService(
+        widget.db,
         acueducto: widget.acueducto,
-        lectura: facturacion.lectura,
+      ).exportarFacturaAbonado(
+        facturacion.lectura,
         novedades: novedades,
         resultado: facturacion.resultado,
       );

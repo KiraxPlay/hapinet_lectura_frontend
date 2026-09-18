@@ -1,6 +1,5 @@
 // lib/services/historial_service.dart
 import '../data/database.dart';
-import '../models/punto_mapa.dart';
 
 class HistorialDia {
   // Mapa dinámico sector → lecturas

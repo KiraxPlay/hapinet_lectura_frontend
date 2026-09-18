@@ -8,13 +8,11 @@ import 'package:pdf/widgets.dart' as pw;
 import '../data/database.dart';
 import '../models/acueducto.dart';
 import '../models/factura_sitio_result.dart';
-import 'api/factura_api_service.dart';
 import 'api/tarifas_service.dart';
 
 class ExportarPdfService {
   final AppDatabase _db;
   final Acueducto acueducto;
-  final _facturaApi = FacturaApiService();
   late final TarifasService _tarifasSvc;
 
   ExportarPdfService(this._db, {required this.acueducto}) {
@@ -560,39 +558,6 @@ class ExportarPdfService {
           ],
         ),
       );
-
-  pw.Widget _fila(String etiqueta, String valor) => pw.Padding(
-    padding: const pw.EdgeInsets.only(bottom: 1),
-    child: pw.Row(
-      crossAxisAlignment: pw.CrossAxisAlignment.start,
-      children: [
-        pw.Text('$etiqueta ', style: const pw.TextStyle(fontSize: 9)),
-        pw.Expanded(
-          child: pw.Text(
-            valor,
-            style: pw.TextStyle(fontSize: 9, fontWeight: pw.FontWeight.bold),
-          ),
-        ),
-      ],
-    ),
-  );
-
-  pw.Widget _linea() => pw.Text(
-    '- - - - - - - - - - - - - - - - - - - - -',
-    style: const pw.TextStyle(fontSize: 8),
-  );
-
-  pw.Widget _lineaSimple(String texto, {bool bold = false, double size = 9}) =>
-      pw.Center(
-        child: pw.Text(
-          texto,
-          style: pw.TextStyle(
-            fontSize: size,
-            fontWeight: bold ? pw.FontWeight.bold : pw.FontWeight.normal,
-          ),
-        ),
-      );
-
   Future<void> compartirPdf(String ruta) async {
     await Share.shareXFiles([
       XFile(ruta),

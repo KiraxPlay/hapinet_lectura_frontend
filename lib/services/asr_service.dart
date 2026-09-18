@@ -8,7 +8,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:whisper_flutter_new/whisper_flutter_new.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/asrResultado.dart';
-import '../models/asrResultado.dart';
 
 class AsrService {
   static AsrService? _instancia;
