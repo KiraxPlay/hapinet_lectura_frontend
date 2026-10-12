@@ -281,6 +281,38 @@ class $LecturasTable extends Lecturas with TableInfo<$LecturasTable, Lectura> {
     type: DriftSqlType.int,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _consumoAnteriorServidorMeta =
+      const VerificationMeta('consumoAnteriorServidor');
+  @override
+  late final GeneratedColumn<int> consumoAnteriorServidor =
+      GeneratedColumn<int>(
+        'consumo_anterior_servidor',
+        aliasedName,
+        true,
+        type: DriftSqlType.int,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _lecturaActualServidorMeta =
+      const VerificationMeta('lecturaActualServidor');
+  @override
+  late final GeneratedColumn<int> lecturaActualServidor = GeneratedColumn<int>(
+    'lectura_actual_servidor',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _estadoMedidorServidorMeta =
+      const VerificationMeta('estadoMedidorServidor');
+  @override
+  late final GeneratedColumn<String> estadoMedidorServidor =
+      GeneratedColumn<String>(
+        'estado_medidor_servidor',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
   static const VerificationMeta _estadoMedidorMeta = const VerificationMeta(
     'estadoMedidor',
   );
@@ -341,6 +373,9 @@ class $LecturasTable extends Lecturas with TableInfo<$LecturasTable, Lectura> {
     fechaImpresion,
     tipoFacturacion,
     lecturaAnterior,
+    consumoAnteriorServidor,
+    lecturaActualServidor,
+    estadoMedidorServidor,
     estadoMedidor,
     celular,
     ordenRuta,
@@ -542,6 +577,33 @@ class $LecturasTable extends Lecturas with TableInfo<$LecturasTable, Lectura> {
         ),
       );
     }
+    if (data.containsKey('consumo_anterior_servidor')) {
+      context.handle(
+        _consumoAnteriorServidorMeta,
+        consumoAnteriorServidor.isAcceptableOrUnknown(
+          data['consumo_anterior_servidor']!,
+          _consumoAnteriorServidorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('lectura_actual_servidor')) {
+      context.handle(
+        _lecturaActualServidorMeta,
+        lecturaActualServidor.isAcceptableOrUnknown(
+          data['lectura_actual_servidor']!,
+          _lecturaActualServidorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('estado_medidor_servidor')) {
+      context.handle(
+        _estadoMedidorServidorMeta,
+        estadoMedidorServidor.isAcceptableOrUnknown(
+          data['estado_medidor_servidor']!,
+          _estadoMedidorServidorMeta,
+        ),
+      );
+    }
     if (data.containsKey('estado_medidor')) {
       context.handle(
         _estadoMedidorMeta,
@@ -680,6 +742,18 @@ class $LecturasTable extends Lecturas with TableInfo<$LecturasTable, Lectura> {
         DriftSqlType.int,
         data['${effectivePrefix}lectura_anterior'],
       ),
+      consumoAnteriorServidor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}consumo_anterior_servidor'],
+      ),
+      lecturaActualServidor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}lectura_actual_servidor'],
+      ),
+      estadoMedidorServidor: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}estado_medidor_servidor'],
+      ),
       estadoMedidor: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}estado_medidor'],
@@ -727,6 +801,9 @@ class Lectura extends DataClass implements Insertable<Lectura> {
   final DateTime? fechaImpresion;
   final int? tipoFacturacion;
   final int? lecturaAnterior;
+  final int? consumoAnteriorServidor;
+  final int? lecturaActualServidor;
+  final String? estadoMedidorServidor;
   final String? estadoMedidor;
   final String? celular;
   final int ordenRuta;
@@ -755,6 +832,9 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     this.fechaImpresion,
     this.tipoFacturacion,
     this.lecturaAnterior,
+    this.consumoAnteriorServidor,
+    this.lecturaActualServidor,
+    this.estadoMedidorServidor,
     this.estadoMedidor,
     this.celular,
     required this.ordenRuta,
@@ -809,6 +889,15 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     }
     if (!nullToAbsent || lecturaAnterior != null) {
       map['lectura_anterior'] = Variable<int>(lecturaAnterior);
+    }
+    if (!nullToAbsent || consumoAnteriorServidor != null) {
+      map['consumo_anterior_servidor'] = Variable<int>(consumoAnteriorServidor);
+    }
+    if (!nullToAbsent || lecturaActualServidor != null) {
+      map['lectura_actual_servidor'] = Variable<int>(lecturaActualServidor);
+    }
+    if (!nullToAbsent || estadoMedidorServidor != null) {
+      map['estado_medidor_servidor'] = Variable<String>(estadoMedidorServidor);
     }
     if (!nullToAbsent || estadoMedidor != null) {
       map['estado_medidor'] = Variable<String>(estadoMedidor);
@@ -878,6 +967,18 @@ class Lectura extends DataClass implements Insertable<Lectura> {
           lecturaAnterior == null && nullToAbsent
               ? const Value.absent()
               : Value(lecturaAnterior),
+      consumoAnteriorServidor:
+          consumoAnteriorServidor == null && nullToAbsent
+              ? const Value.absent()
+              : Value(consumoAnteriorServidor),
+      lecturaActualServidor:
+          lecturaActualServidor == null && nullToAbsent
+              ? const Value.absent()
+              : Value(lecturaActualServidor),
+      estadoMedidorServidor:
+          estadoMedidorServidor == null && nullToAbsent
+              ? const Value.absent()
+              : Value(estadoMedidorServidor),
       estadoMedidor:
           estadoMedidor == null && nullToAbsent
               ? const Value.absent()
@@ -922,6 +1023,15 @@ class Lectura extends DataClass implements Insertable<Lectura> {
       fechaImpresion: serializer.fromJson<DateTime?>(json['fechaImpresion']),
       tipoFacturacion: serializer.fromJson<int?>(json['tipoFacturacion']),
       lecturaAnterior: serializer.fromJson<int?>(json['lecturaAnterior']),
+      consumoAnteriorServidor: serializer.fromJson<int?>(
+        json['consumoAnteriorServidor'],
+      ),
+      lecturaActualServidor: serializer.fromJson<int?>(
+        json['lecturaActualServidor'],
+      ),
+      estadoMedidorServidor: serializer.fromJson<String?>(
+        json['estadoMedidorServidor'],
+      ),
       estadoMedidor: serializer.fromJson<String?>(json['estadoMedidor']),
       celular: serializer.fromJson<String?>(json['celular']),
       ordenRuta: serializer.fromJson<int>(json['ordenRuta']),
@@ -955,6 +1065,13 @@ class Lectura extends DataClass implements Insertable<Lectura> {
       'fechaImpresion': serializer.toJson<DateTime?>(fechaImpresion),
       'tipoFacturacion': serializer.toJson<int?>(tipoFacturacion),
       'lecturaAnterior': serializer.toJson<int?>(lecturaAnterior),
+      'consumoAnteriorServidor': serializer.toJson<int?>(
+        consumoAnteriorServidor,
+      ),
+      'lecturaActualServidor': serializer.toJson<int?>(lecturaActualServidor),
+      'estadoMedidorServidor': serializer.toJson<String?>(
+        estadoMedidorServidor,
+      ),
       'estadoMedidor': serializer.toJson<String?>(estadoMedidor),
       'celular': serializer.toJson<String?>(celular),
       'ordenRuta': serializer.toJson<int>(ordenRuta),
@@ -986,6 +1103,9 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     Value<DateTime?> fechaImpresion = const Value.absent(),
     Value<int?> tipoFacturacion = const Value.absent(),
     Value<int?> lecturaAnterior = const Value.absent(),
+    Value<int?> consumoAnteriorServidor = const Value.absent(),
+    Value<int?> lecturaActualServidor = const Value.absent(),
+    Value<String?> estadoMedidorServidor = const Value.absent(),
     Value<String?> estadoMedidor = const Value.absent(),
     Value<String?> celular = const Value.absent(),
     int? ordenRuta,
@@ -1022,6 +1142,18 @@ class Lectura extends DataClass implements Insertable<Lectura> {
         tipoFacturacion.present ? tipoFacturacion.value : this.tipoFacturacion,
     lecturaAnterior:
         lecturaAnterior.present ? lecturaAnterior.value : this.lecturaAnterior,
+    consumoAnteriorServidor:
+        consumoAnteriorServidor.present
+            ? consumoAnteriorServidor.value
+            : this.consumoAnteriorServidor,
+    lecturaActualServidor:
+        lecturaActualServidor.present
+            ? lecturaActualServidor.value
+            : this.lecturaActualServidor,
+    estadoMedidorServidor:
+        estadoMedidorServidor.present
+            ? estadoMedidorServidor.value
+            : this.estadoMedidorServidor,
     estadoMedidor:
         estadoMedidor.present ? estadoMedidor.value : this.estadoMedidor,
     celular: celular.present ? celular.value : this.celular,
@@ -1085,6 +1217,18 @@ class Lectura extends DataClass implements Insertable<Lectura> {
           data.lecturaAnterior.present
               ? data.lecturaAnterior.value
               : this.lecturaAnterior,
+      consumoAnteriorServidor:
+          data.consumoAnteriorServidor.present
+              ? data.consumoAnteriorServidor.value
+              : this.consumoAnteriorServidor,
+      lecturaActualServidor:
+          data.lecturaActualServidor.present
+              ? data.lecturaActualServidor.value
+              : this.lecturaActualServidor,
+      estadoMedidorServidor:
+          data.estadoMedidorServidor.present
+              ? data.estadoMedidorServidor.value
+              : this.estadoMedidorServidor,
       estadoMedidor:
           data.estadoMedidor.present
               ? data.estadoMedidor.value
@@ -1121,6 +1265,9 @@ class Lectura extends DataClass implements Insertable<Lectura> {
           ..write('fechaImpresion: $fechaImpresion, ')
           ..write('tipoFacturacion: $tipoFacturacion, ')
           ..write('lecturaAnterior: $lecturaAnterior, ')
+          ..write('consumoAnteriorServidor: $consumoAnteriorServidor, ')
+          ..write('lecturaActualServidor: $lecturaActualServidor, ')
+          ..write('estadoMedidorServidor: $estadoMedidorServidor, ')
           ..write('estadoMedidor: $estadoMedidor, ')
           ..write('celular: $celular, ')
           ..write('ordenRuta: $ordenRuta')
@@ -1154,6 +1301,9 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     fechaImpresion,
     tipoFacturacion,
     lecturaAnterior,
+    consumoAnteriorServidor,
+    lecturaActualServidor,
+    estadoMedidorServidor,
     estadoMedidor,
     celular,
     ordenRuta,
@@ -1186,6 +1336,9 @@ class Lectura extends DataClass implements Insertable<Lectura> {
           other.fechaImpresion == this.fechaImpresion &&
           other.tipoFacturacion == this.tipoFacturacion &&
           other.lecturaAnterior == this.lecturaAnterior &&
+          other.consumoAnteriorServidor == this.consumoAnteriorServidor &&
+          other.lecturaActualServidor == this.lecturaActualServidor &&
+          other.estadoMedidorServidor == this.estadoMedidorServidor &&
           other.estadoMedidor == this.estadoMedidor &&
           other.celular == this.celular &&
           other.ordenRuta == this.ordenRuta);
@@ -1216,6 +1369,9 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
   final Value<DateTime?> fechaImpresion;
   final Value<int?> tipoFacturacion;
   final Value<int?> lecturaAnterior;
+  final Value<int?> consumoAnteriorServidor;
+  final Value<int?> lecturaActualServidor;
+  final Value<String?> estadoMedidorServidor;
   final Value<String?> estadoMedidor;
   final Value<String?> celular;
   final Value<int> ordenRuta;
@@ -1245,6 +1401,9 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     this.fechaImpresion = const Value.absent(),
     this.tipoFacturacion = const Value.absent(),
     this.lecturaAnterior = const Value.absent(),
+    this.consumoAnteriorServidor = const Value.absent(),
+    this.lecturaActualServidor = const Value.absent(),
+    this.estadoMedidorServidor = const Value.absent(),
     this.estadoMedidor = const Value.absent(),
     this.celular = const Value.absent(),
     this.ordenRuta = const Value.absent(),
@@ -1275,6 +1434,9 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     this.fechaImpresion = const Value.absent(),
     this.tipoFacturacion = const Value.absent(),
     this.lecturaAnterior = const Value.absent(),
+    this.consumoAnteriorServidor = const Value.absent(),
+    this.lecturaActualServidor = const Value.absent(),
+    this.estadoMedidorServidor = const Value.absent(),
     this.estadoMedidor = const Value.absent(),
     this.celular = const Value.absent(),
     this.ordenRuta = const Value.absent(),
@@ -1311,6 +1473,9 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     Expression<DateTime>? fechaImpresion,
     Expression<int>? tipoFacturacion,
     Expression<int>? lecturaAnterior,
+    Expression<int>? consumoAnteriorServidor,
+    Expression<int>? lecturaActualServidor,
+    Expression<String>? estadoMedidorServidor,
     Expression<String>? estadoMedidor,
     Expression<String>? celular,
     Expression<int>? ordenRuta,
@@ -1342,6 +1507,12 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
       if (fechaImpresion != null) 'fecha_impresion': fechaImpresion,
       if (tipoFacturacion != null) 'tipo_facturacion': tipoFacturacion,
       if (lecturaAnterior != null) 'lectura_anterior': lecturaAnterior,
+      if (consumoAnteriorServidor != null)
+        'consumo_anterior_servidor': consumoAnteriorServidor,
+      if (lecturaActualServidor != null)
+        'lectura_actual_servidor': lecturaActualServidor,
+      if (estadoMedidorServidor != null)
+        'estado_medidor_servidor': estadoMedidorServidor,
       if (estadoMedidor != null) 'estado_medidor': estadoMedidor,
       if (celular != null) 'celular': celular,
       if (ordenRuta != null) 'orden_ruta': ordenRuta,
@@ -1374,6 +1545,9 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     Value<DateTime?>? fechaImpresion,
     Value<int?>? tipoFacturacion,
     Value<int?>? lecturaAnterior,
+    Value<int?>? consumoAnteriorServidor,
+    Value<int?>? lecturaActualServidor,
+    Value<String?>? estadoMedidorServidor,
     Value<String?>? estadoMedidor,
     Value<String?>? celular,
     Value<int>? ordenRuta,
@@ -1404,6 +1578,12 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
       fechaImpresion: fechaImpresion ?? this.fechaImpresion,
       tipoFacturacion: tipoFacturacion ?? this.tipoFacturacion,
       lecturaAnterior: lecturaAnterior ?? this.lecturaAnterior,
+      consumoAnteriorServidor:
+          consumoAnteriorServidor ?? this.consumoAnteriorServidor,
+      lecturaActualServidor:
+          lecturaActualServidor ?? this.lecturaActualServidor,
+      estadoMedidorServidor:
+          estadoMedidorServidor ?? this.estadoMedidorServidor,
       estadoMedidor: estadoMedidor ?? this.estadoMedidor,
       celular: celular ?? this.celular,
       ordenRuta: ordenRuta ?? this.ordenRuta,
@@ -1486,6 +1666,21 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     if (lecturaAnterior.present) {
       map['lectura_anterior'] = Variable<int>(lecturaAnterior.value);
     }
+    if (consumoAnteriorServidor.present) {
+      map['consumo_anterior_servidor'] = Variable<int>(
+        consumoAnteriorServidor.value,
+      );
+    }
+    if (lecturaActualServidor.present) {
+      map['lectura_actual_servidor'] = Variable<int>(
+        lecturaActualServidor.value,
+      );
+    }
+    if (estadoMedidorServidor.present) {
+      map['estado_medidor_servidor'] = Variable<String>(
+        estadoMedidorServidor.value,
+      );
+    }
     if (estadoMedidor.present) {
       map['estado_medidor'] = Variable<String>(estadoMedidor.value);
     }
@@ -1528,6 +1723,9 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
           ..write('fechaImpresion: $fechaImpresion, ')
           ..write('tipoFacturacion: $tipoFacturacion, ')
           ..write('lecturaAnterior: $lecturaAnterior, ')
+          ..write('consumoAnteriorServidor: $consumoAnteriorServidor, ')
+          ..write('lecturaActualServidor: $lecturaActualServidor, ')
+          ..write('estadoMedidorServidor: $estadoMedidorServidor, ')
           ..write('estadoMedidor: $estadoMedidor, ')
           ..write('celular: $celular, ')
           ..write('ordenRuta: $ordenRuta, ')
@@ -2520,6 +2718,9 @@ typedef $$LecturasTableCreateCompanionBuilder =
       Value<DateTime?> fechaImpresion,
       Value<int?> tipoFacturacion,
       Value<int?> lecturaAnterior,
+      Value<int?> consumoAnteriorServidor,
+      Value<int?> lecturaActualServidor,
+      Value<String?> estadoMedidorServidor,
       Value<String?> estadoMedidor,
       Value<String?> celular,
       Value<int> ordenRuta,
@@ -2551,6 +2752,9 @@ typedef $$LecturasTableUpdateCompanionBuilder =
       Value<DateTime?> fechaImpresion,
       Value<int?> tipoFacturacion,
       Value<int?> lecturaAnterior,
+      Value<int?> consumoAnteriorServidor,
+      Value<int?> lecturaActualServidor,
+      Value<String?> estadoMedidorServidor,
       Value<String?> estadoMedidor,
       Value<String?> celular,
       Value<int> ordenRuta,
@@ -2683,6 +2887,21 @@ class $$LecturasTableFilterComposer
 
   ColumnFilters<int> get lecturaAnterior => $composableBuilder(
     column: $table.lecturaAnterior,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get consumoAnteriorServidor => $composableBuilder(
+    column: $table.consumoAnteriorServidor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get lecturaActualServidor => $composableBuilder(
+    column: $table.lecturaActualServidor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get estadoMedidorServidor => $composableBuilder(
+    column: $table.estadoMedidorServidor,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -2831,6 +3050,21 @@ class $$LecturasTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get consumoAnteriorServidor => $composableBuilder(
+    column: $table.consumoAnteriorServidor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get lecturaActualServidor => $composableBuilder(
+    column: $table.lecturaActualServidor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get estadoMedidorServidor => $composableBuilder(
+    column: $table.estadoMedidorServidor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get estadoMedidor => $composableBuilder(
     column: $table.estadoMedidor,
     builder: (column) => ColumnOrderings(column),
@@ -2952,6 +3186,21 @@ class $$LecturasTableAnnotationComposer
     builder: (column) => column,
   );
 
+  GeneratedColumn<int> get consumoAnteriorServidor => $composableBuilder(
+    column: $table.consumoAnteriorServidor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get lecturaActualServidor => $composableBuilder(
+    column: $table.lecturaActualServidor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get estadoMedidorServidor => $composableBuilder(
+    column: $table.estadoMedidorServidor,
+    builder: (column) => column,
+  );
+
   GeneratedColumn<String> get estadoMedidor => $composableBuilder(
     column: $table.estadoMedidor,
     builder: (column) => column,
@@ -3016,6 +3265,9 @@ class $$LecturasTableTableManager
                 Value<DateTime?> fechaImpresion = const Value.absent(),
                 Value<int?> tipoFacturacion = const Value.absent(),
                 Value<int?> lecturaAnterior = const Value.absent(),
+                Value<int?> consumoAnteriorServidor = const Value.absent(),
+                Value<int?> lecturaActualServidor = const Value.absent(),
+                Value<String?> estadoMedidorServidor = const Value.absent(),
                 Value<String?> estadoMedidor = const Value.absent(),
                 Value<String?> celular = const Value.absent(),
                 Value<int> ordenRuta = const Value.absent(),
@@ -3045,6 +3297,9 @@ class $$LecturasTableTableManager
                 fechaImpresion: fechaImpresion,
                 tipoFacturacion: tipoFacturacion,
                 lecturaAnterior: lecturaAnterior,
+                consumoAnteriorServidor: consumoAnteriorServidor,
+                lecturaActualServidor: lecturaActualServidor,
+                estadoMedidorServidor: estadoMedidorServidor,
                 estadoMedidor: estadoMedidor,
                 celular: celular,
                 ordenRuta: ordenRuta,
@@ -3076,6 +3331,9 @@ class $$LecturasTableTableManager
                 Value<DateTime?> fechaImpresion = const Value.absent(),
                 Value<int?> tipoFacturacion = const Value.absent(),
                 Value<int?> lecturaAnterior = const Value.absent(),
+                Value<int?> consumoAnteriorServidor = const Value.absent(),
+                Value<int?> lecturaActualServidor = const Value.absent(),
+                Value<String?> estadoMedidorServidor = const Value.absent(),
                 Value<String?> estadoMedidor = const Value.absent(),
                 Value<String?> celular = const Value.absent(),
                 Value<int> ordenRuta = const Value.absent(),
@@ -3105,6 +3363,9 @@ class $$LecturasTableTableManager
                 fechaImpresion: fechaImpresion,
                 tipoFacturacion: tipoFacturacion,
                 lecturaAnterior: lecturaAnterior,
+                consumoAnteriorServidor: consumoAnteriorServidor,
+                lecturaActualServidor: lecturaActualServidor,
+                estadoMedidorServidor: estadoMedidorServidor,
                 estadoMedidor: estadoMedidor,
                 celular: celular,
                 ordenRuta: ordenRuta,

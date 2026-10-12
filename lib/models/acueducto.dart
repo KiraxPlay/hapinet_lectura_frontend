@@ -1,3 +1,5 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 enum TipoAcueducto { asoaguapo, temporal }
 
 class Acueducto {
@@ -15,28 +17,33 @@ class Acueducto {
     required this.apiUrl,
   });
 
-  static const List<Acueducto> _cuentas = [
-    Acueducto(
+  static String get _apiUrlDesdeEnv {
+    try {
+      return dotenv.env['API_URL'] ?? 'https://hapinet.com.co/api';
+    } catch (_) {
+      return 'https://hapinet.com.co/api';
+    }
+  }
+
+  static Acueducto get activo {
+    return Acueducto(
       tipo: TipoAcueducto.asoaguapo,
       nombre: 'ASOAGUAPO',
       nombreBd: 'bd_asoaguapo',
       colorHex: '#1565C0',
-      apiUrl: 'https://hapinet.com.co/api',
-    ),
-    Acueducto(
-      tipo: TipoAcueducto.temporal,
-      nombre: 'TEMPORAL',
-      nombreBd: 'bd_TEMPORAL',
-      colorHex: '#2E7D32',
-      apiUrl: 'https://hapinet.com.co/api/temporal',
-    ),
-  ];
+      apiUrl: _apiUrlDesdeEnv,
+    );
+  }
+
+  static List<Acueducto> get _cuentas => [activo];
+
+  static Acueducto get predeterminado => activo;
 
   static Acueducto? porTipo(String tipo) {
     try {
       return _cuentas.firstWhere((c) => c.tipo.name == tipo);
     } catch (_) {
-      return null;
+      return _cuentas.isNotEmpty ? _cuentas.first : null;
     }
   }
 

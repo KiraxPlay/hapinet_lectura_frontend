@@ -1,14 +1,18 @@
 // lib/screens/captura_screen.dart
 // Pantalla principal de captura — orquesta cámara, OCR, GPS y guardado
 import 'dart:async';
+import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:uuid/uuid.dart';
 import 'package:drift/drift.dart' show Value;
 import '../data/database.dart';
+import '../services/api/api_service.dart';
 import '../models/foto_result.dart';
 import '../models/ocr_result.dart';
 import '../models/posicion_result.dart';
+import '../models/estado_medidor.dart';
+import '../models/calculo_consumo.dart';
 import '../services/camara_service.dart';
 import '../services/ocr_service.dart';
 import '../services/geolocalizacion_service.dart';
@@ -38,6 +42,8 @@ class CapturaScreen extends StatefulWidget {
   final String? codigoMedidor;
   final String? nombreAbonado;
   final int? lecturaAnterior;
+  final int? consumoAnterior;
+  final String? estadoMedidorAnterior;
   final double? latitudReferencia;
   final double? longitudReferencia;
   final int? predioId; // ID del predio en Laravel para facturación en sitio
@@ -49,6 +55,8 @@ class CapturaScreen extends StatefulWidget {
     this.codigoMedidor,
     this.nombreAbonado,
     this.lecturaAnterior,
+    this.consumoAnterior,
+    this.estadoMedidorAnterior,
     this.latitudReferencia,
     this.longitudReferencia,
     this.predioId,
@@ -83,7 +91,8 @@ class _CapturaScreenState extends State<CapturaScreen>
   // ── Estado del formulario ──
   bool _flashActivo = false;
   bool _procesando = false;
-  String? _estadoMedidor;
+  String _estadoMedidor = EstadoMedidor.lecturaRealizada.clave;
+  String? _lecturaAntesDeEstado;
   bool _lecturaGuardada = false;
   bool _facturandoEnSitio = false;
   OpcionFacturacion? _opcionFacturacion;
@@ -264,6 +273,9 @@ class _CapturaScreenState extends State<CapturaScreen>
       _lecturaController.selection = TextSelection.fromPosition(
         TextPosition(offset: numero.length),
       );
+      if (_estadoMedidor != EstadoMedidor.lecturaRealizada.clave) {
+        _lecturaAntesDeEstado = numero;
+      }
       return;
     }
 
@@ -326,6 +338,10 @@ class _CapturaScreenState extends State<CapturaScreen>
   }
 
   Future<void> _guardarLectura() async {
+    if (EstadoMedidor.desdeClave(_estadoMedidor) == null) {
+      _snack('Selecciona un estado para la lectura', color: Colors.orange);
+      return;
+    }
     final texto = _lecturaController.text.trim();
     if (texto.isEmpty) {
       _snack('Ingresa el número del medidor');
@@ -346,10 +362,28 @@ class _CapturaScreenState extends State<CapturaScreen>
       return;
     }
 
+    double? promedioHistorico;
+    if (widget.predioId != null) {
+      try {
+        final historial = await ApiService(widget.acueducto)
+            .consumosAnteriores(widget.predioId!)
+            .timeout(const Duration(seconds: 5));
+        promedioHistorico = (historial?['promedio'] as num?)?.toDouble();
+      } catch (error, stackTrace) {
+        developer.log(
+          'No se pudo consultar el promedio histórico; se continuará sin él.',
+          name: 'captura',
+          error: error,
+          stackTrace: stackTrace,
+        );
+      }
+    }
+
     // ── Detectar alertas ───────────────────────
     final alerta = DetectorAlertas.detectar(
       lecturaActual: numero,
       lecturaAnterior: widget.lecturaAnterior,
+      promedioHistorico: promedioHistorico,
     );
     if (alerta != null && mounted) {
       final opcion = await mostrarDialogoAlerta(
@@ -392,6 +426,7 @@ class _CapturaScreenState extends State<CapturaScreen>
             codigoMedidor: const Value(null),
             notas: Value(notas.isEmpty ? null : notas),
             tieneLecturaReal: const Value(true),
+            estadoMedidor: Value(_estadoMedidor),
           ),
         );
         if (_posicion != null)
@@ -423,11 +458,63 @@ class _CapturaScreenState extends State<CapturaScreen>
     _ocrResult = null;
     _lecturaController.clear();
     _notasController.clear();
+    _lecturaAntesDeEstado = null;
     setState(() {
       _estado = EstadoCaptura.listo;
-      _estadoMedidor = null;
+      _estadoMedidor = EstadoMedidor.lecturaRealizada.clave;
     });
   }
+
+  void _cambiarEstadoMedidor(String clave) {
+    final estado = EstadoMedidor.desdeClave(clave);
+    if (estado == null) {
+      _snack('El estado seleccionado no es válido', color: Colors.orange);
+      return;
+    }
+
+    final estadoActual = EstadoMedidor.desdeClave(_estadoMedidor);
+    if (estado == EstadoMedidor.lecturaRealizada) {
+      setState(() {
+        _estadoMedidor = clave;
+        if (_lecturaAntesDeEstado != null) {
+          _lecturaController.text = _lecturaAntesDeEstado!;
+        }
+        _lecturaAntesDeEstado = null;
+      });
+      return;
+    }
+
+    if (estadoActual == EstadoMedidor.lecturaRealizada) {
+      _lecturaAntesDeEstado = _lecturaController.text;
+    }
+    final lecturaAutomatica = CalculoConsumo.lecturaParaEstado(
+      estado: estado,
+      lecturaAnterior: widget.lecturaAnterior,
+      consumoAnterior: widget.consumoAnterior,
+    );
+    setState(() {
+      _estadoMedidor = clave;
+      if (lecturaAutomatica != null) {
+        _lecturaController.text = lecturaAutomatica.toString();
+      }
+    });
+  }
+
+  void _onLecturaChanged() {
+    if (_estadoMedidor != EstadoMedidor.lecturaRealizada.clave) {
+      _lecturaAntesDeEstado = _lecturaController.text;
+    }
+    setState(() {});
+  }
+
+  int? get _consumoCalculado => CalculoConsumo.calcular(
+    estado:
+        EstadoMedidor.desdeClave(_estadoMedidor) ??
+        EstadoMedidor.lecturaRealizada,
+    lecturaAnterior: widget.lecturaAnterior,
+    lecturaActual: int.tryParse(_lecturaController.text.trim()),
+    consumoAnterior: widget.consumoAnterior,
+  );
 
   Future<void> _facturarEnSitio() async {
     if (widget.predioId == null) return;
@@ -690,8 +777,10 @@ class _CapturaScreenState extends State<CapturaScreen>
 
   Widget _buildFormularioCaptura() => ConfirmacionCaptura(
     foto: _foto,
-    ocrResult: _ocrResult,
     posicion: _posicion,
+    consumo: _consumoCalculado,
+    tieneLecturaAnterior: widget.lecturaAnterior != null,
+    estadoMedidorAnterior: widget.estadoMedidorAnterior,
     geo: _geo,
     lecturaController: _lecturaController,
     notasController: _notasController,
@@ -703,16 +792,12 @@ class _CapturaScreenState extends State<CapturaScreen>
     campoTranscribiendo: _campoTranscribiendo,
     nivelVolumen: _nivelVolumen,
     onToggleAsr: _toggleAsr,
+    onLecturaChanged: _onLecturaChanged,
     onReiniciar: _reiniciar,
     onGuardar: _guardarLectura,
     onReintentar: _reintentarGps,
     onChanged: () => setState(() {}),
-    onCambioEstado: (clave, poneLecturaEnCero) {
-      setState(() {
-        _estadoMedidor = clave;
-        if (poneLecturaEnCero) _lecturaController.text = '0';
-      });
-    },
+    onCambioEstado: _cambiarEstadoMedidor,
   );
 
   Widget _buildCargando(String mensaje) => Center(

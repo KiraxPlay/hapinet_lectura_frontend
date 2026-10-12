@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
+import 'dart:developer' as developer;
 
 // Drift genera database.g.dart automáticamente con:
 // dart run build_runner build --delete-conflicting-outputs
@@ -89,6 +90,13 @@ class Lecturas extends Table {
   // Se usa para calcular el consumo (lectura - lecturaAnterior)
   IntColumn get lecturaAnterior => integer().nullable()();
 
+  // Consumo del último período histórico recibido del servidor
+  IntColumn get consumoAnteriorServidor => integer().nullable()();
+
+  // Datos actuales recibidos del servidor, separados de capturas locales
+  IntColumn get lecturaActualServidor => integer().nullable()();
+  TextColumn get estadoMedidorServidor => text().nullable()();
+
   // Estado físico del medidor reportado por el técnico
   // Valores: 'bueno' | 'danado' | 'empanado' | 'con_fuga' |
   //          'sin_contador' | 'acceso_denegado' | null (no reportado)
@@ -147,7 +155,7 @@ class AppDatabase extends _$AppDatabase {
   // Versión del esquema — incrementar cada vez que se añaden columnas
   // Al subir la versión, Drift llama onUpgrade automáticamente
   @override
-  int get schemaVersion => 10;
+  int get schemaVersion => 12;
 
   // Estrategia de migración — se ejecuta al instalar o actualizar la app
   @override
@@ -199,6 +207,13 @@ class AppDatabase extends _$AppDatabase {
       if (from < 10) {
         await m.addColumn(lecturas, lecturas.predioCodigo);
       }
+      if (from < 11) {
+        await m.addColumn(lecturas, lecturas.consumoAnteriorServidor);
+      }
+      if (from < 12) {
+        await m.addColumn(lecturas, lecturas.lecturaActualServidor);
+        await m.addColumn(lecturas, lecturas.estadoMedidorServidor);
+      }
       // v8 → v9: tipo de facturación
       if (from < 9) {
         await m.addColumn(lecturas, lecturas.tipoFacturacion);
@@ -223,9 +238,7 @@ class AppDatabase extends _$AppDatabase {
   // Inicia una nueva ronda sin borrar los datos del abonado.
   // La lectura anterior queda como referencia para calcular consumo.
   Future<void> prepararNuevoPeriodo() async {
-    await (update(lecturas)
-          ..where((l) => l.esAbonado.equals(true)))
-        .write(
+    await (update(lecturas)..where((l) => l.esAbonado.equals(true))).write(
       const LecturasCompanion(
         lecturaAnterior: Value.absent(),
         rutaFoto: Value(''),
@@ -270,9 +283,9 @@ class AppDatabase extends _$AppDatabase {
     required String codigoMedidor,
     required String sector,
   }) async {
-    await (update(lecturas)
-          ..where((l) => l.codigoMedidor.equals(codigoMedidor)))
-        .write(LecturasCompanion(sector: Value(sector)));
+    await (update(lecturas)..where(
+      (l) => l.codigoMedidor.equals(codigoMedidor),
+    )).write(LecturasCompanion(sector: Value(sector)));
   }
 
   // Actualiza la lectura de un abonado del padrón cuando el técnico
@@ -294,8 +307,13 @@ class AppDatabase extends _$AppDatabase {
           (l) => l.codigoMedidor.equals(codigoMedidor),
         )).getSingleOrNull();
 
-    // La lectura actual pasa a ser la anterior (para calcular consumo)
-    final anterior = registro?.lectura;
+    // Si ya había una lectura real, pasa a ser la anterior. En un abonado
+    // recién importado, `lectura` es 0 y la referencia válida está en
+    // `lecturaAnterior`.
+    final anterior =
+        registro?.tieneLecturaReal == true
+            ? registro!.lectura
+            : registro?.lecturaAnterior;
 
     // Actualiza todos los campos de la lectura
     await (update(lecturas)
@@ -369,7 +387,6 @@ class AppDatabase extends _$AppDatabase {
     query.orderBy([(l) => OrderingTerm.asc(l.ordenRuta)]);
     return query.get();
   }
-
 
   // Todos los abonados del padrón (con y sin lectura)
   Future<List<Lectura>> obtenerAbonados({String? sector}) async {
@@ -544,13 +561,14 @@ class AppDatabase extends _$AppDatabase {
 
   // Inserta abonados en batch
   Future<void> insertarAbonadosEnBatch(
-      List<LecturasCompanion> companions) async {
+    List<LecturasCompanion> companions,
+  ) async {
     await transaction(() async {
       for (final abonado in companions) {
         final id = abonado.id.value;
-        final existente = await (select(lecturas)
-              ..where((l) => l.id.equals(id)))
-            .getSingleOrNull();
+        final existente =
+            await (select(lecturas)
+              ..where((l) => l.id.equals(id))).getSingleOrNull();
 
         if (existente == null) {
           await into(lecturas).insert(abonado);
@@ -599,10 +617,11 @@ class AppDatabase extends _$AppDatabase {
 
   // Verifica si existe un abonado con ese código
   Future<bool> existeAbonado(String codigo) async {
-    final result = await (select(lecturas)
-          ..where((l) => l.codigoMedidor.equals(codigo))
-          ..where((l) => l.esAbonado.equals(true)))
-        .getSingleOrNull();
+    final result =
+        await (select(lecturas)
+              ..where((l) => l.codigoMedidor.equals(codigo))
+              ..where((l) => l.esAbonado.equals(true)))
+            .getSingleOrNull();
     return result != null;
   }
 
@@ -615,13 +634,14 @@ class AppDatabase extends _$AppDatabase {
     double? longitud,
   }) async {
     await (update(lecturas)
-          ..where((l) => l.codigoMedidor.equals(codigo)))
-        .write(LecturasCompanion(
-      nombreAbonado: Value(nombre),
-      sector: Value(sector),
-      latitud: Value(latitud ?? 0.0),
-      longitud: Value(longitud ?? 0.0),
-    ));
+      ..where((l) => l.codigoMedidor.equals(codigo))).write(
+      LecturasCompanion(
+        nombreAbonado: Value(nombre),
+        sector: Value(sector),
+        latitud: Value(latitud ?? 0.0),
+        longitud: Value(longitud ?? 0.0),
+      ),
+    );
   }
 
   // Obtiene la lectura más reciente por código de medidor
@@ -631,6 +651,99 @@ class AppDatabase extends _$AppDatabase {
           ..orderBy([(l) => OrderingTerm.desc(l.fechaLectura)])
           ..limit(1))
         .getSingleOrNull();
+  }
+
+  Future<bool> guardarEstadoMedidorRemoto({
+    required int predioId,
+    required int lecturaActual,
+    required String estadoMedidor,
+  }) async {
+    final id = 'predio_$predioId';
+    final registro =
+        await (select(lecturas)
+          ..where((l) => l.id.equals(id))).getSingleOrNull();
+    if (registro == null) {
+      developer.log(
+        'No se guardó estado remoto: no existe la fila local id=$id.',
+        name: 'estados_medidor.db',
+      );
+      return false;
+    }
+
+    final cambioNecesario =
+        registro.lecturaActualServidor != lecturaActual ||
+        registro.estadoMedidorServidor != estadoMedidor;
+    if (!cambioNecesario) {
+      developer.log(
+        'Estado sin cambios para id=$id: lectura=$lecturaActual, '
+        'estado=$estadoMedidor.',
+        name: 'estados_medidor.db',
+      );
+      return true;
+    }
+
+    await (update(lecturas)..where((l) => l.id.equals(id))).write(
+      LecturasCompanion(
+        lecturaActualServidor: Value(lecturaActual),
+        estadoMedidorServidor: Value(estadoMedidor),
+      ),
+    );
+    final guardado =
+        await (select(lecturas)
+          ..where((l) => l.id.equals(id))).getSingleOrNull();
+    developer.log(
+      'Estado guardado para id=$id: '
+      'lecturaActualServidor=${guardado?.lecturaActualServidor}, '
+      'estadoMedidorServidor=${guardado?.estadoMedidorServidor}.',
+      name: 'estados_medidor.db',
+    );
+    return true;
+  }
+
+  Future<String?> estadoMedidorActualPredio(int predioId) async {
+    final registro =
+        await (select(lecturas)
+          ..where((l) => l.id.equals('predio_$predioId'))).getSingleOrNull();
+    if (registro == null) return null;
+
+    final capturaLocalPendiente =
+        registro.tieneLecturaReal && registro.estadoSync != 'sincronizado';
+    if (capturaLocalPendiente && registro.estadoMedidor != null) {
+      developer.log(
+        'Estado seleccionado para predio=$predioId: captura local '
+        '${registro.estadoMedidor}.',
+        name: 'estados_medidor.db',
+      );
+      return registro.estadoMedidor;
+    }
+    final estado =
+        registro.estadoMedidorServidor ?? registro.estadoMedidor;
+    developer.log(
+      'Estado seleccionado para predio=$predioId: servidor/local=$estado '
+      '(servidor=${registro.estadoMedidorServidor}, '
+      'captura=${registro.estadoMedidor}).',
+      name: 'estados_medidor.db',
+    );
+    return estado;
+  }
+
+  Future<int?> obtenerConsumoAnteriorServidor(int predioId) async {
+    final registro =
+        await (select(lecturas)
+          ..where((l) => l.id.equals('predio_$predioId'))).getSingleOrNull();
+    return registro?.consumoAnteriorServidor;
+  }
+
+  Future<bool> guardarConsumoAnteriorServidor({
+    required int predioId,
+    required int consumo,
+  }) async {
+    final actualizados =
+        await (update(lecturas)
+          ..where((l) => l.id.equals('predio_$predioId'))).write(
+          LecturasCompanion(consumoAnteriorServidor: Value(consumo)),
+        );
+    return actualizados > 0;
   }
 
   // Marca una lectura como impresa desde el visor PDF
@@ -648,42 +761,49 @@ class AppDatabase extends _$AppDatabase {
   // ─────────────────────────────────────────────
 
   Future<void> guardarNovedadesPredio(
-      int predioId, List<Map<String, dynamic>> novedades) async {
+    int predioId,
+    List<Map<String, dynamic>> novedades,
+  ) async {
     await (delete(novedadesLocales)
-          ..where((n) => n.predioId.equals(predioId)))
-        .go();
+      ..where((n) => n.predioId.equals(predioId))).go();
     if (novedades.isEmpty) return;
     await batch((b) {
       b.insertAll(
         novedadesLocales,
-        novedades.map((n) => NovedadesLocalesCompanion.insert(
-              predioId: predioId,
-              concepto: n['concepto'] as String,
-              valorCuota: n['valor_cuota'] as int,
-              cuotasPendientes: n['cuotas_pendientes'] as int,
-              totalPendiente: n['total_pendiente'] as int,
-            )),
+        novedades.map(
+          (n) => NovedadesLocalesCompanion.insert(
+            predioId: predioId,
+            concepto: n['concepto'] as String,
+            valorCuota: n['valor_cuota'] as int,
+            cuotasPendientes: n['cuotas_pendientes'] as int,
+            totalPendiente: n['total_pendiente'] as int,
+          ),
+        ),
       );
     });
   }
 
   Future<List<Map<String, dynamic>>> obtenerNovedadesPredio(
-      int predioId) async {
-    final rows = await (select(novedadesLocales)
-          ..where((n) => n.predioId.equals(predioId)))
-        .get();
-    return rows.map((r) => {
-      'concepto': r.concepto,
-      'valor_cuota': r.valorCuota,
-      'cuotas_pendientes': r.cuotasPendientes,
-      'total_pendiente': r.totalPendiente,
-    }).toList();
+    int predioId,
+  ) async {
+    final rows =
+        await (select(novedadesLocales)
+          ..where((n) => n.predioId.equals(predioId))).get();
+    return rows
+        .map(
+          (r) => {
+            'concepto': r.concepto,
+            'valor_cuota': r.valorCuota,
+            'cuotas_pendientes': r.cuotasPendientes,
+            'total_pendiente': r.totalPendiente,
+          },
+        )
+        .toList();
   }
 
-// Abre la conexión a la BD SQLite con el nombre especificado
-// Cada acueducto usa su propio archivo de BD
-static QueryExecutor _openConnection(String nombreBd) {
-  return driftDatabase(name: nombreBd);
-}
-
+  // Abre la conexión a la BD SQLite con el nombre especificado
+  // Cada acueducto usa su propio archivo de BD
+  static QueryExecutor _openConnection(String nombreBd) {
+    return driftDatabase(name: nombreBd);
+  }
 }

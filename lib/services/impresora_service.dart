@@ -156,6 +156,12 @@ class ImpresoraService {
       addText('--------------------------------');
     }
 
+    String centered(String text, int width) {
+      final value = text.length > width ? text.substring(0, width) : text;
+      final leftPadding = (width - value.length) ~/ 2;
+      return value.padLeft(leftPadding + value.length).padRight(width);
+    }
+
     // ── ENCABEZADO ──────────────────────────────
     alignCenter();
     bold(true);
@@ -199,10 +205,20 @@ class ImpresoraService {
     hr();
 
     // ── LECTURAS ─────────────────────────────────
-    addText('LEC. ANTERIOR: ${lectura.lecturaAnterior ?? '-'}');
+    const anchoAnterior = 14;
+    const anchoActual = 13;
+    const anchoConsumo = 15;
+    addText(
+      centered('LEC. ANTERIOR', anchoAnterior) +
+          centered('LEC. ACTUAL', anchoActual) +
+          centered('CONSUMO', anchoConsumo),
+    );
     bold(true);
-    addText('LEC. ACTUAL:   ${lectura.lectura}');
-    addText('CONSUMO:       $consumo m3');
+    addText(
+      centered('${lectura.lecturaAnterior ?? '-'}', anchoAnterior) +
+          centered('${lectura.lectura}', anchoActual) +
+          centered('$consumo m3', anchoConsumo),
+    );
     bold(false);
 
     hr();
@@ -267,7 +283,7 @@ class ImpresoraService {
   }
 
 
-  //para la prueba de impresion pero dentro de la app 
+  //para la prueba de impresion pero dentro de la app
   //no el de la app oficial de la impresora
   Uint8List _prueba() {
     final buf = <int>[];
@@ -303,4 +319,3 @@ class ImpresoraService {
     // TipoAcueducto.temporal es temporal 
   };
 }
-

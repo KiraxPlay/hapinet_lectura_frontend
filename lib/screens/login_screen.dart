@@ -18,11 +18,19 @@ class _LoginScreenState extends State<LoginScreen> {
   final _contrasenaCtrl = TextEditingController();
   final _focusContrasena = FocusNode();
 
-  Acueducto? _acueductoSeleccionado;
+  final Acueducto _acueductoSeleccionado = Acueducto.predeterminado;
   bool _verContrasena = false;
   bool _cargando = false;
   String? _error;
   String? _mensajeExito;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _focusContrasena.requestFocus();
+    });
+  }
 
   @override
   void dispose() {
@@ -32,24 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void _seleccionarAcueducto(Acueducto acueducto) {
-    setState(() {
-      _acueductoSeleccionado = acueducto;
-      _error = null;
-      _mensajeExito = null;
-      _usuarioCtrl.clear();
-      _contrasenaCtrl.clear();
-    });
-    Future.delayed(const Duration(milliseconds: 200), () {
-      _focusContrasena.requestFocus();
-    });
-  }
-
   Future<void> _login() async {
-    if (_acueductoSeleccionado == null) {
-      setState(() => _error = 'Selecciona un acueducto');
-      return;
-    }
     final usuario = _usuarioCtrl.text.trim();
     if (usuario.isEmpty) {
       setState(() => _error = 'Ingresa tu usuario');
@@ -68,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
-      final acueducto = _acueductoSeleccionado!;
+      final acueducto = _acueductoSeleccionado;
       final api = ApiService(acueducto);
 
       final resultado = await api.login(usuario, contrasena);
@@ -168,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
 
                       const Text(
-                        'Selecciona tu acueducto',
+                        'Acueducto activo',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -178,23 +169,30 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       const SizedBox(height: 12),
 
-                      // ── Botones acueducto ──────────────
-                      Row(
-                        children: [
-                          _botonAcueducto(
-                            TipoAcueducto.asoaguapo,
-                            'ASOAGUAPO',
-                            const Color(0xFF1565C0),
-                            Icons.water,
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1565C0).withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: const Color(0xFF1565C0).withOpacity(0.4),
                           ),
-                          const SizedBox(width: 10),
-                          _botonAcueducto(
-                            TipoAcueducto.temporal,
-                            'AGUAVIVA',
-                            const Color(0xFF2E7D32),
-                            Icons.water_drop,
-                          ),
-                        ],
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.water, color: Color(0xFF1565C0)),
+                            SizedBox(width: 8),
+                            Text(
+                              'ASOAGUAPO',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF1565C0),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
 
                       const SizedBox(height: 16),
@@ -202,14 +200,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       // ── Usuario ────────────────────────
                       TextField(
                         controller: _usuarioCtrl,
-                        enabled: _acueductoSeleccionado != null,
+                        enabled: true,
                         textInputAction: TextInputAction.next,
                         onSubmitted: (_) => _focusContrasena.requestFocus(),
                         decoration: InputDecoration(
                           labelText: 'Usuario',
-                          hintText: _acueductoSeleccionado == null
-                              ? 'Selecciona un acueducto primero'
-                              : 'Ingresa tu usuario',
+                          hintText: 'Ingresa tu usuario',
                           prefixIcon: const Icon(Icons.person_outline),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -228,12 +224,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         obscureText: !_verContrasena,
                         textInputAction: TextInputAction.done,
                         onSubmitted: (_) => _login(),
-                        enabled: _acueductoSeleccionado != null,
+                        enabled: true,
                         decoration: InputDecoration(
                           labelText: 'Contraseña',
-                          hintText: _acueductoSeleccionado == null
-                              ? 'Selecciona un acueducto primero'
-                              : null,
+                          hintText: null,
                           prefixIcon: const Icon(Icons.lock_outline),
                           suffixIcon: IconButton(
                             icon: Icon(_verContrasena
@@ -312,16 +306,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: (_cargando ||
-                                  _acueductoSeleccionado == null)
-                              ? null
-                              : _login,
+                          onPressed: _cargando ? null : _login,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                _acueductoSeleccionado?.tipo ==
-                                        TipoAcueducto.temporal
-                                    ? const Color(0xFF2E7D32)
-                                    : const Color(0xFF0D47A1),
+                            backgroundColor: const Color(0xFF0D47A1),
                             foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(
                                 vertical: 14),
@@ -366,58 +353,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _botonAcueducto(
-    TipoAcueducto tipo,
-    String nombre,
-    Color color,
-    IconData icono,
-  ) {
-    final acueducto = Acueducto.porTipo(tipo.name);
-    if (acueducto == null) return const SizedBox.shrink();
-    final seleccionado = _acueductoSeleccionado?.tipo == tipo;
-
-    return Expanded(
-      child: GestureDetector(
-        onTap: () => _seleccionarAcueducto(acueducto),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          padding: const EdgeInsets.symmetric(vertical: 14),
-          decoration: BoxDecoration(
-            color: seleccionado ? color : color.withOpacity(0.08),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: seleccionado ? color : color.withOpacity(0.3),
-              width: seleccionado ? 2 : 1,
-            ),
-            boxShadow: seleccionado
-                ? [
-                    BoxShadow(
-                      color: color.withOpacity(0.3),
-                      blurRadius: 8,
-                      offset: const Offset(0, 3),
-                    )
-                  ]
-                : null,
-          ),
-          child: Column(
-            children: [
-              Icon(icono,
-                  color: seleccionado ? Colors.white : color,
-                  size: 28),
-              const SizedBox(height: 6),
-              Text(
-                nombre,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: seleccionado ? Colors.white : color,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }

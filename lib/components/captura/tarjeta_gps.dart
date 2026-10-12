@@ -47,11 +47,6 @@ class TarjetaGps extends StatelessWidget {
                         style: const TextStyle(
                             color: Colors.white, fontSize: 13),
                       ),
-                      Text(
-                        posicion!.descripcionPrecision,
-                        style: const TextStyle(
-                            color: Colors.white54, fontSize: 11),
-                      ),
                     ],
                   )
                 : const Text(

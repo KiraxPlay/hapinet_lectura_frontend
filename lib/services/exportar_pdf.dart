@@ -306,17 +306,16 @@ class ExportarPdfService {
 
               pw.SizedBox(height: 6),
               _separador(),
-              pw.SizedBox(height: 4),
+              pw.SizedBox(height: 2),
 
               // ── LECTURAS ────────────────────────────
-              _filaDatos(
-                'LEC. ANTERIOR:',
-                lectura.lecturaAnterior?.toString() ?? '-',
+              _filaLecturas(
+                lecturaAnterior: lectura.lecturaAnterior?.toString() ?? '-',
+                lecturaActual: lectura.lectura.toString(),
+                consumo: '$consumo m³',
               ),
-              _filaDatos('LEC. ACTUAL:', lectura.lectura.toString()),
-              _filaDatos('CONSUMO:', '$consumo m³'),
 
-              pw.SizedBox(height: 6),
+              pw.SizedBox(height: 3),
               _separador(),
               pw.SizedBox(height: 4),
 
@@ -349,7 +348,7 @@ class ExportarPdfService {
                 ),
               ),
 
-              pw.SizedBox(height: 4),
+              pw.SizedBox(height: 2),
               _separador(),
               pw.SizedBox(height: 4),
 
@@ -485,6 +484,36 @@ class ExportarPdfService {
             valor,
             style: pw.TextStyle(fontSize: 8, fontWeight: pw.FontWeight.bold),
           ),
+        ),
+      ],
+    ),
+  );
+
+  pw.Widget _filaLecturas({
+    required String lecturaAnterior,
+    required String lecturaActual,
+    required String consumo,
+  }) => pw.Row(
+    children: [
+      _columnaLectura('LEC. ANTERIOR:', lecturaAnterior),
+      _columnaLectura('LEC. ACTUAL:', lecturaActual),
+      _columnaLectura('CONSUMO:', consumo),
+    ],
+  );
+
+  pw.Widget _columnaLectura(String etiqueta, String valor) => pw.Expanded(
+    child: pw.Column(
+      children: [
+        pw.Text(
+          etiqueta,
+          style: pw.TextStyle(fontSize: 7, fontWeight: pw.FontWeight.bold),
+          textAlign: pw.TextAlign.center,
+        ),
+        pw.SizedBox(height: 2),
+        pw.Text(
+          valor,
+          style: pw.TextStyle(fontSize: 9, fontWeight: pw.FontWeight.bold),
+          textAlign: pw.TextAlign.center,
         ),
       ],
     ),

@@ -26,7 +26,7 @@ class BannerGps extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             posicion != null
-                ? 'GPS: ${posicion!.descripcionPrecision}'
+                ? 'GPS disponible'
                 : 'Obteniendo GPS...',
             style: const TextStyle(color: Colors.white, fontSize: 12),
           ),

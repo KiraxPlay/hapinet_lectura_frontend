@@ -512,9 +512,12 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
             child: TarjetaLectura(
               lectura: l,
               db: widget.db,
+              // Tras editar/eliminar, vuelve a consultar el día para reflejar
+              // los cambios en las tarjetas del historial.
               onActualizado: _cargar,
               bloqueada: false,
               acueducto: widget.exportar.acueducto,
+              // La factura se procesa aquí; el detalle solo dispara esta acción.
               onFacturar: _facturando ? null : () => _hacerFactura(l),
             ),
           ),

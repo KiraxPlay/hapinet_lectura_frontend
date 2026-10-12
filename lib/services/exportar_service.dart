@@ -8,6 +8,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../data/database.dart';
 import '../models/acueducto.dart';
+import '../models/calculo_consumo.dart';
+import '../models/estado_medidor.dart';
 
 class ExportarService {
   final AppDatabase _db;
@@ -34,13 +36,21 @@ class ExportarService {
       porSector.putIfAbsent(sector, () => []).add(l);
     }
 
+    final abonados = await _db.obtenerAbonados();
+    final padronPorSector = <String, int>{};
+    for (final abonado in abonados) {
+      final sector = abonado.sector ?? 'Sin sector';
+      padronPorSector[sector] = (padronPorSector[sector] ?? 0) + 1;
+    }
+
     final excel = Excel.createExcel();
 
     // Crear primero todas las hojas de datos
     for (final entry in porSector.entries) {
       _crearHoja(excel, entry.key, entry.value);
     }
-    _crearHojaResumen(excel, porSector, dia);
+    _crearHojaResumen(excel, porSector, padronPorSector, dia);
+    _crearHojaEstadisticas(excel, lecturasHoy, porSector, padronPorSector, dia);
 
     // Eliminar Sheet1 AL FINAL — después de crear todas las hojas
     // Si se elimina antes, Excel puede recrearlo al acceder a la primera hoja
@@ -109,8 +119,7 @@ class ExportarService {
     _escribirEncabezado(hoja, [
       'Código', 'Nombre Abonado', 'Lectura Anterior', 'Lectura Actual',
       'Consumo', 'Fecha Lectura', 'Hora Lectura', 'Estado Medidor',
-      'Latitud', 'Longitud', 'Precisión GPS (m)', 'Observaciones',
-      'Nombre Foto',
+      'Latitud', 'Longitud', 'Observaciones', 'Nombre Foto',
     ]);
 
     int contadorFoto = 1;
@@ -148,9 +157,8 @@ class ExportarService {
           hoja, fila, 8, l.latitud != 0 ? l.latitud : null);
       _escribirCeldaNumero(
           hoja, fila, 9, l.longitud != 0 ? l.longitud : null);
-      _escribirCeldaNumero(hoja, fila, 10, l.precision);
-      _escribirCelda(hoja, fila, 11, l.notas ?? '');
-      _escribirCelda(hoja, fila, 12, nombreFoto ?? 'Sin foto');
+      _escribirCelda(hoja, fila, 10, l.notas ?? '');
+      _escribirCelda(hoja, fila, 11, nombreFoto ?? 'Sin foto');
     }
 
     if (lecturas.isNotEmpty) {
@@ -165,6 +173,7 @@ class ExportarService {
   void _crearHojaResumen(
     Excel excel,
     Map<String, List<Lectura>> porSector,
+    Map<String, int> padronPorSector,
     DateTime fecha,
   ) {
     final hoja = excel['Resumen'];
@@ -176,59 +185,241 @@ class ExportarService {
     );
 
     _escribirEncabezadoDesde(hoja, 2, [
-      'Sector', 'Total Leídos', 'Sin Lectura (0)',
-      'Con Observación', 'Con Foto',
+      'Sector', 'Padrón Total', 'Leídos', 'Pendientes', 'Cobertura %',
+      'Consumo Total', 'Consumo Promedio', 'Sin Lectura (0)',
+      'Con Observación', 'Con Foto', 'Con GPS', 'Alertas',
     ]);
 
     int fila = 3;
     final todos = <Lectura>[];
-    for (final entry in porSector.entries) {
-      _escribirFilaResumen(hoja, fila, entry.key, entry.value);
-      todos.addAll(entry.value);
+    final sectores = {...padronPorSector.keys, ...porSector.keys}.toList()..sort();
+    for (final sector in sectores) {
+      final lecturas = porSector[sector] ?? <Lectura>[];
+      _escribirFilaResumen(
+        hoja,
+        fila,
+        sector,
+        lecturas,
+        padronPorSector[sector] ?? 0,
+      );
+      todos.addAll(lecturas);
       fila++;
     }
 
     final filaTotales = fila + 1;
     _escribirCeldaNegrita(hoja, filaTotales, 0, 'TOTAL GENERAL');
-    _escribirCeldaNumero(hoja, filaTotales, 1, todos.length);
-    _escribirCeldaNumero(hoja, filaTotales, 2,
+    final padronTotal = padronPorSector.values.fold(0, (total, cantidad) => total + cantidad);
+    final consumoValido = todos.map(_obtenerConsumoValido).whereType<int>().toList();
+    final consumoTotal = consumoValido.fold(0, (total, consumo) => total + consumo);
+    _escribirCeldaNumero(hoja, filaTotales, 1, padronTotal);
+    _escribirCeldaNumero(hoja, filaTotales, 2, todos.length);
+    _escribirCeldaNumero(
+      hoja,
+      filaTotales,
+      3,
+      (padronTotal - todos.length).clamp(0, padronTotal),
+    );
+    _escribirCeldaNumero(
+      hoja,
+      filaTotales,
+      4,
+      padronTotal == 0 ? 0 : todos.length * 100 / padronTotal,
+    );
+    _escribirCeldaNumero(hoja, filaTotales, 5, consumoTotal);
+    _escribirCeldaNumero(
+      hoja,
+      filaTotales,
+      6,
+      consumoValido.isEmpty ? 0 : consumoTotal / consumoValido.length,
+    );
+    _escribirCeldaNumero(hoja, filaTotales, 7,
         todos.where((l) => l.lectura == 0).length);
-    _escribirCeldaNumero(hoja, filaTotales, 3,
+    _escribirCeldaNumero(hoja, filaTotales, 8,
         todos.where((l) => l.notas != null && l.notas!.isNotEmpty).length);
     _escribirCeldaNumero(
         hoja,
         filaTotales,
-        4,
+        9,
         todos
             .where((l) =>
                 l.rutaFoto.isNotEmpty && File(l.rutaFoto).existsSync())
             .length);
+    _escribirCeldaNumero(hoja, filaTotales, 10, todos.where(_tieneGps).length);
+    _escribirCeldaNumero(hoja, filaTotales, 11, todos.where(_tieneAlerta).length);
 
     _ajustarAnchoColumnas(hoja);
   }
 
   void _escribirFilaResumen(
-      Sheet hoja, int fila, String sector, List<Lectura> lecturas) {
+      Sheet hoja,
+      int fila,
+      String sector,
+      List<Lectura> lecturas,
+      int totalPadron) {
+    final consumoValido = lecturas.map(_obtenerConsumoValido).whereType<int>().toList();
+    final consumoTotal = consumoValido.fold(0, (total, consumo) => total + consumo);
     _escribirCelda(hoja, fila, 0, sector);
-    _escribirCeldaNumero(hoja, fila, 1, lecturas.length);
+    _escribirCeldaNumero(hoja, fila, 1, totalPadron);
+    _escribirCeldaNumero(hoja, fila, 2, lecturas.length);
     _escribirCeldaNumero(
-        hoja, fila, 2, lecturas.where((l) => l.lectura == 0).length);
+      hoja,
+      fila,
+      3,
+      (totalPadron - lecturas.length).clamp(0, totalPadron),
+    );
+    _escribirCeldaNumero(
+      hoja,
+      fila,
+      4,
+      totalPadron == 0 ? 0 : lecturas.length * 100 / totalPadron,
+    );
+    _escribirCeldaNumero(hoja, fila, 5, consumoTotal);
+    _escribirCeldaNumero(
+      hoja,
+      fila,
+      6,
+      consumoValido.isEmpty ? 0 : consumoTotal / consumoValido.length,
+    );
+    _escribirCeldaNumero(
+        hoja, fila, 7, lecturas.where((l) => l.lectura == 0).length);
     _escribirCeldaNumero(
         hoja,
         fila,
-        3,
+        8,
         lecturas
             .where((l) => l.notas != null && l.notas!.isNotEmpty)
             .length);
     _escribirCeldaNumero(
         hoja,
         fila,
-        4,
+        9,
         lecturas
             .where(
                 (l) => l.rutaFoto.isNotEmpty && File(l.rutaFoto).existsSync())
             .length);
+    _escribirCeldaNumero(hoja, fila, 10, lecturas.where(_tieneGps).length);
+    _escribirCeldaNumero(hoja, fila, 11, lecturas.where(_tieneAlerta).length);
   }
+
+  void _crearHojaEstadisticas(
+    Excel excel,
+    List<Lectura> lecturas,
+    Map<String, List<Lectura>> porSector,
+    Map<String, int> padronPorSector,
+    DateTime fecha,
+  ) {
+    final hoja = excel['Estadisticas'];
+    final consumos = lecturas.map(_obtenerConsumoValido).whereType<int>().toList();
+    final consumoTotal = consumos.fold(0, (total, consumo) => total + consumo);
+    final padronTotal = padronPorSector.values.fold(0, (total, cantidad) => total + cantidad);
+    final estados = <String, int>{};
+    final lecturasPorHora = <int, int>{};
+
+    for (final lectura in lecturas) {
+      final estado = lectura.estadoMedidor ?? 'No reportado';
+      estados[estado] = (estados[estado] ?? 0) + 1;
+      final hora = lectura.fechaLectura.hour;
+      lecturasPorHora[hora] = (lecturasPorHora[hora] ?? 0) + 1;
+    }
+
+    _escribirCeldaNegrita(
+      hoja,
+      0,
+      0,
+      'ESTADÍSTICAS ${acueducto.nombre} - ${DateFormat('dd/MM/yyyy').format(fecha)}',
+    );
+    _escribirEncabezadoDesde(hoja, 2, ['Indicador', 'Valor']);
+
+    final indicadores = <String, num>{
+      'Padrón total': padronTotal,
+      'Lecturas realizadas': lecturas.length,
+      'Lecturas pendientes': (padronTotal - lecturas.length).clamp(0, padronTotal),
+      'Cobertura (%)': padronTotal == 0 ? 0 : lecturas.length * 100 / padronTotal,
+      'Consumo total válido': consumoTotal,
+      'Consumo promedio': consumos.isEmpty ? 0 : consumoTotal / consumos.length,
+      'Consumo máximo': consumos.isEmpty ? 0 : consumos.reduce((a, b) => a > b ? a : b),
+      'Lecturas en cero': lecturas.where((l) => l.lectura == 0).length,
+      'Consumos negativos': lecturas.where((l) => _tieneConsumoNegativo(l)).length,
+      'Con fotografía': lecturas.where(_tieneFoto).length,
+      'Con GPS': lecturas.where(_tieneGps).length,
+      'Con observación': lecturas.where(_tieneObservacion).length,
+      'Con alerta': lecturas.where(_tieneAlerta).length,
+    };
+
+    var fila = 3;
+    for (final entry in indicadores.entries) {
+      _escribirCelda(hoja, fila, 0, entry.key);
+      _escribirCeldaNumero(hoja, fila, 1, entry.value);
+      fila++;
+    }
+
+    _escribirEncabezadoDesde(hoja, 2, ['Indicador', 'Valor', 'Estados del medidor', 'Cantidad']);
+    var filaEstado = 3;
+    for (final entry in estados.entries) {
+      _escribirCelda(hoja, filaEstado, 2, entry.key);
+      _escribirCeldaNumero(hoja, filaEstado, 3, entry.value);
+      filaEstado++;
+    }
+
+    const filaHora = 18;
+    final primeraHora = lecturasPorHora.keys.isEmpty
+        ? 0
+        : lecturasPorHora.keys.reduce((a, b) => a < b ? a : b);
+    _escribirEncabezadoDesde(hoja, filaHora, ['Hora', 'Lecturas']);
+    for (final entry in lecturasPorHora.entries.toList()..sort((a, b) => a.key.compareTo(b.key))) {
+      final filaDatos = filaHora + 1 + entry.key - primeraHora;
+      _escribirCelda(hoja, filaDatos, 0, '${entry.key}:00');
+      _escribirCeldaNumero(hoja, filaDatos, 1, entry.value);
+    }
+
+    const filaSector = filaHora + 1 + 24;
+    _escribirEncabezadoDesde(hoja, filaSector, ['Sector', 'Lecturas', 'Consumo total', 'Alertas']);
+    var filaSectorDatos = filaSector + 1;
+    for (final entry in porSector.entries) {
+      final consumosSector = entry.value.map(_obtenerConsumoValido).whereType<int>();
+      _escribirCelda(hoja, filaSectorDatos, 0, entry.key);
+      _escribirCeldaNumero(hoja, filaSectorDatos, 1, entry.value.length);
+      _escribirCeldaNumero(
+        hoja,
+        filaSectorDatos,
+        2,
+        consumosSector.fold<int>(0, (total, consumo) => total + consumo),
+      );
+      _escribirCeldaNumero(hoja, filaSectorDatos, 3, entry.value.where(_tieneAlerta).length);
+      filaSectorDatos++;
+    }
+
+    for (var columna = 0; columna < 4; columna++) {
+      hoja.setColumnWidth(columna, columna == 0 ? 32 : 18);
+    }
+  }
+
+  int? _obtenerConsumoValido(Lectura lectura) {
+    return CalculoConsumo.calcular(
+      estado:
+          EstadoMedidor.desdeClave(lectura.estadoMedidor) ??
+          EstadoMedidor.lecturaRealizada,
+      lecturaAnterior: lectura.lecturaAnterior,
+      lecturaActual: lectura.lectura,
+      consumoAnterior: lectura.consumoAnteriorServidor,
+    );
+  }
+
+  bool _tieneConsumoNegativo(Lectura lectura) =>
+      lectura.lecturaAnterior != null && lectura.lectura < lectura.lecturaAnterior!;
+
+  bool _tieneFoto(Lectura lectura) =>
+      lectura.rutaFoto.isNotEmpty && File(lectura.rutaFoto).existsSync();
+
+  bool _tieneGps(Lectura lectura) => lectura.latitud != 0 && lectura.longitud != 0;
+
+  bool _tieneObservacion(Lectura lectura) =>
+      lectura.notas != null && lectura.notas!.trim().isNotEmpty;
+
+  bool _tieneAlerta(Lectura lectura) =>
+      _tieneConsumoNegativo(lectura) ||
+      lectura.lectura == 0 ||
+      (lectura.estadoMedidor != null && lectura.estadoMedidor != 'bueno');
 
   void _escribirEncabezado(Sheet hoja, List<String> columnas) =>
       _escribirEncabezadoDesde(hoja, 0, columnas);

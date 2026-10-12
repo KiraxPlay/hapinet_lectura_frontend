@@ -1,8 +1,11 @@
 // lib/services/api/api_service.dart
 import 'dart:convert';
+import 'dart:developer' as developer;
 import 'package:http/http.dart' as http;
 import '../../data/database.dart';
 import '../../models/acueducto.dart';
+import '../../models/estado_medidor.dart';
+import '../../models/punto_mapa.dart';
 import '../sesion_service.dart';
 
 class ApiService {
@@ -29,7 +32,10 @@ class ApiService {
   Future<Map<String, dynamic>> login(String usuario, String clave) async {
     final resp = await http.post(
       Uri.parse('$_baseUrl/login'),
-      headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
       body: jsonEncode({'usuario_usuario': usuario, 'usuario_clave': clave}),
     );
     final body = jsonDecode(resp.body) as Map<String, dynamic>;
@@ -39,10 +45,9 @@ class ApiService {
   // POST /api/logout
   Future<void> logout() async {
     try {
-      await http.post(
-        Uri.parse('$_baseUrl/logout'),
-        headers: await _headers,
-      ).timeout(const Duration(seconds: 5));
+      await http
+          .post(Uri.parse('$_baseUrl/logout'), headers: await _headers)
+          .timeout(const Duration(seconds: 5));
     } catch (_) {}
   }
 
@@ -67,20 +72,18 @@ class ApiService {
   // GET /api/novedadesMasivas — todas las novedades de predios sin lectura
   // Para importación offline al iniciar la app
   Future<List<dynamic>> novedadesMasivas() async {
-    final resp = await _getConRefresh(
-        Uri.parse('$_baseUrl/novedadesMasivas'));
+    final resp = await _getConRefresh(Uri.parse('$_baseUrl/novedadesMasivas'));
     if (resp.statusCode == 200) {
       return jsonDecode(resp.body) as List<dynamic>;
     }
     return []; // sin novedades no es error crítico
   }
 
-
-
   // GET /api/novedadesPredio/{predio_id}
   Future<List<dynamic>> novedadesPredio(int predioId) async {
     final resp = await _getConRefresh(
-        Uri.parse('$_baseUrl/novedadesPredio/$predioId'));
+      Uri.parse('$_baseUrl/novedadesPredio/$predioId'),
+    );
     if (resp.statusCode == 200) {
       return jsonDecode(resp.body) as List<dynamic>;
     }
@@ -89,10 +92,12 @@ class ApiService {
 
   // GET /api/tutoriales — ruta pública, no requiere token
   Future<List<dynamic>> tutoriales() async {
-    final resp = await http.get(
-      Uri.parse('$_baseUrl/tutoriales'),
-      headers: {'Accept': 'application/json'},
-    ).timeout(const Duration(seconds: 10));
+    final resp = await http
+        .get(
+          Uri.parse('$_baseUrl/tutoriales'),
+          headers: {'Accept': 'application/json'},
+        )
+        .timeout(const Duration(seconds: 10));
     if (resp.statusCode == 200) {
       return jsonDecode(resp.body) as List<dynamic>;
     }
@@ -117,9 +122,8 @@ class ApiService {
     } catch (_) {
       // La respuesta puede ser HTML cuando Laravel lanza un 500.
     }
-    final detalleCorto = detalle.length > 180
-        ? '${detalle.substring(0, 180)}...'
-        : detalle;
+    final detalleCorto =
+        detalle.length > 180 ? '${detalle.substring(0, 180)}...' : detalle;
     throw Exception(
       'Error al descargar predios: ${resp.statusCode} $detalleCorto',
     );
@@ -170,14 +174,12 @@ class ApiService {
 
   // POST con refresh automático
   Future<http.Response> _postConRefresh(Uri uri, {String? body}) async {
-    var resp = await http.post(uri,
-        headers: await _headers, body: body);
+    var resp = await http.post(uri, headers: await _headers, body: body);
     if (resp.statusCode == 401) {
       final nuevoToken = await refresh();
       if (nuevoToken != null) {
         await SesionService.guardarToken(nuevoToken);
-        resp = await http.post(uri,
-            headers: await _headers, body: body);
+        resp = await http.post(uri, headers: await _headers, body: body);
       } else {
         await _manejarSesionExpirada();
         throw Exception('Sesión expirada — inicia sesión de nuevo');
@@ -188,13 +190,31 @@ class ApiService {
 
   // GET /api/periodoActivo
   Future<Map<String, dynamic>> periodoActivo() async {
-    final resp = await _getConRefresh(
-        Uri.parse('$_baseUrl/periodoActivo'));
+    final resp = await _getConRefresh(Uri.parse('$_baseUrl/periodoActivo'));
     if (resp.statusCode == 200) {
       return jsonDecode(resp.body) as Map<String, dynamic>;
     }
+    throw Exception('No se pudo obtener el período activo: ${resp.statusCode}');
+  }
+
+  // GET /api/historicoConsumo?predio_id={id}&periodos={n}
+  // Cada lectura incluye lectura_uuid; las estimadas _ESPROMEDIO se excluyen
+  // del historial que devuelve el servidor.
+  Future<Map<String, dynamic>?> consumosAnteriores(
+    int predioId, {
+    int periodos = 6,
+  }) async {
+    final uri = Uri.parse('$_baseUrl/historicoConsumo').replace(
+      queryParameters: {'predio_id': '$predioId', 'periodos': '$periodos'},
+    );
+    final resp = await _getConRefresh(uri);
+    if (resp.statusCode == 200) {
+      return jsonDecode(resp.body) as Map<String, dynamic>;
+    }
+    if (resp.statusCode == 404) return null;
     throw Exception(
-        'No se pudo obtener el período activo: ${resp.statusCode}');
+      'Error al obtener consumos anteriores: ${resp.statusCode} - ${resp.body}',
+    );
   }
 
   // ─────────────────────────────────────────────
@@ -247,7 +267,9 @@ class ApiService {
       return jsonDecode(resp.body) as Map<String, dynamic>;
     }
     final body = jsonDecode(resp.body) as Map<String, dynamic>;
-    throw Exception(body['message'] ?? 'Error al generar factura: ${resp.statusCode}');
+    throw Exception(
+      body['message'] ?? 'Error al generar factura: ${resp.statusCode}',
+    );
   }
 
   // GET /api/detalleFactura/{factura_id}
@@ -283,69 +305,207 @@ class ApiService {
   Future<Map<String, dynamic>> sincronizarLecturas(
     List<Map<String, dynamic>> lecturas,
   ) async {
-    final headers = await _headers;
     final url = '$_baseUrl/sincronizacionLecturas';
-    print('📡 POST $url');
-    print('📡 Headers: $headers');
     final resp = await _postConRefresh(
       Uri.parse(url),
       body: jsonEncode({'lecturas': lecturas}),
     );
-    print('📡 Sync response ${resp.statusCode}: ${resp.body}');
     if (resp.statusCode == 200 || resp.statusCode == 201) {
       return jsonDecode(resp.body) as Map<String, dynamic>;
     }
     throw Exception('Error al sincronizar: ${resp.statusCode} - ${resp.body}');
   }
 
-  // Convierte estado del medidor → error_id de Laravel
-  int _errorIdDesdeEstado(String? estado) => switch (estado) {
-        'danado'          => 21,
-        'empanado'        => 22,
-        'sin_contador'    => 23,
-        'con_fuga'        => 24,
-        'acceso_denegado' => 0,
-        _                 => 0,
-      };
+  Future<Map<String, int>> _obtenerIdsEstadosMedidor() async {
+    final resp = await _getConRefresh(Uri.parse('$_baseUrl/estadosMedidor'));
+    if (resp.statusCode != 200) {
+      throw Exception(
+        'Error al obtener estados del medidor: ${resp.statusCode} - ${resp.body}',
+      );
+    }
+
+    final body = jsonDecode(resp.body) as Map<String, dynamic>;
+    final estados = body['estados_medidor'];
+    if (estados is! List) {
+      throw const FormatException(
+        'La respuesta de estadosMedidor no contiene estados_medidor',
+      );
+    }
+
+    final idsPorNombre = <String, int>{};
+    for (final item in estados) {
+      if (item is! Map<String, dynamic> ||
+          item['parametro_nombre'] is! String ||
+          item['parametro_id'] is! num) {
+        throw const FormatException(
+          'La respuesta de estadosMedidor contiene un parámetro inválido',
+        );
+      }
+      idsPorNombre[_normalizarNombreParametro(
+            item['parametro_nombre'] as String,
+          )] =
+          (item['parametro_id'] as num).toInt();
+    }
+    return idsPorNombre;
+  }
+
+  Future<Map<int, EstadoServidorPredio>> estadosMedidorPredios() async {
+    final resp = await _getConRefresh(
+      Uri.parse('$_baseUrl/estadosMedidorPredios'),
+    );
+    developer.log(
+      'GET estadosMedidorPredios status=${resp.statusCode}',
+      name: 'estados_medidor.api',
+    );
+    if (resp.statusCode != 200) {
+      throw Exception(
+        'Error al obtener estados actuales: ${resp.statusCode} - ${resp.body}',
+      );
+    }
+
+    final body = jsonDecode(resp.body) as Map<String, dynamic>;
+    final estados = body['estados'];
+    if (estados is! List) {
+      throw const FormatException(
+        'La respuesta no contiene la lista de estados actuales',
+      );
+    }
+    developer.log(
+      'El API devolvió ${estados.length} registros de estado.',
+      name: 'estados_medidor.api',
+    );
+
+    final porPredio = <int, EstadoServidorPredio>{};
+    for (final item in estados) {
+      if (item is! Map<String, dynamic> ||
+          item['predio_id'] is! num ||
+          item['lectura_actual'] is! num ||
+          (item['error_id'] is! num && item['parametro_nombre'] is! String)) {
+        throw const FormatException(
+          'La respuesta de estados actuales contiene un registro inválido',
+        );
+      }
+      final estado =
+          EstadoMedidor.desdeParametroId(
+            (item['error_id'] as num?)?.toInt(),
+          ) ??
+          EstadoMedidor.desdeNombreParametro(
+            item['parametro_nombre'] is String
+                ? item['parametro_nombre'] as String
+                : null,
+          );
+      if (estado == null) {
+        throw FormatException(
+          'Estado de medidor desconocido: '
+          '${item['error_id'] ?? item['parametro_nombre']}',
+        );
+      }
+      porPredio[(item['predio_id'] as num).toInt()] = (
+        estado: estado,
+        lecturaActual: (item['lectura_actual'] as num).toInt(),
+      );
+      developer.log(
+        'predio_id=${item['predio_id']}, error_id=${item['error_id']}, '
+        'parametro_nombre=${item['parametro_nombre']}, estado=${estado.clave}',
+        name: 'estados_medidor.api',
+      );
+    }
+    return porPredio;
+  }
+
+  Future<void> guardarEstadosMedidorLocales(AppDatabase db) async {
+    final estados = await estadosMedidorPredios();
+    var guardados = 0;
+    var noEncontrados = 0;
+    for (final entry in estados.entries) {
+      final guardado = await db.guardarEstadoMedidorRemoto(
+        predioId: entry.key,
+        lecturaActual: entry.value.lecturaActual,
+        estadoMedidor: entry.value.estado.clave,
+      );
+      if (guardado) {
+        guardados++;
+      } else {
+        noEncontrados++;
+      }
+    }
+    developer.log(
+      'Persistencia de estados finalizada: recibidos=${estados.length}, '
+      'guardados=$guardados, sinFilaLocal=$noEncontrados.',
+      name: 'estados_medidor.api',
+    );
+  }
+
+  String _normalizarNombreParametro(String value) => value
+      .trim()
+      .toLowerCase()
+      .replaceAll('á', 'a')
+      .replaceAll('é', 'e')
+      .replaceAll('í', 'i')
+      .replaceAll('ó', 'o')
+      .replaceAll('ú', 'u')
+      .replaceAll('ñ', 'n')
+      .replaceAll(RegExp(r'[^a-z0-9]'), '');
+
+  int _errorIdDesdeEstado(String? estado, Map<String, int> idsPorNombre) {
+    final estadoMedidor = EstadoMedidor.desdeClave(estado);
+    if (estado != null && estadoMedidor == null) {
+      throw FormatException('Estado de medidor no reconocido: $estado');
+    }
+    final nombreParametro =
+        (estadoMedidor ?? EstadoMedidor.lecturaRealizada).nombreParametro;
+    final nombreNormalizado = _normalizarNombreParametro(nombreParametro);
+    final errorId = idsPorNombre[nombreNormalizado];
+    if (errorId == null) {
+      throw FormatException(
+        'El estado "$nombreParametro" no está configurado en el servidor',
+      );
+    }
+    return errorId;
+  }
 
   // Sincroniza todas las lecturas pendientes de la BD local
   Future<void> sincronizarLecturasPendientes(AppDatabase db) async {
     final pendientes = await db.obtenerPendientesSync();
     if (pendientes.isEmpty) return;
 
-    // Obtener período activo del servidor
-    int? periodoId;
-    try {
-      print('🔄 Obteniendo período activo...');
-      final periodo = await periodoActivo();
-      periodoId = periodo['periodo_id'] as int?;
-      print('✓ Período activo: $periodoId');
-    } catch (e) {
-      print('✗ Error obteniendo período: $e');
+    final periodo = await periodoActivo();
+    final periodoNombre = periodo['periodo_nombre']?.toString().trim();
+    if (periodoNombre == null || periodoNombre.isEmpty) {
+      throw const FormatException(
+        'El período activo no contiene periodo_nombre',
+      );
     }
-
-    if (periodoId == null) {
-      print('✗ periodoId es null — abortando sync');
-      throw Exception('No se pudo obtener el período activo');
-    }
+    final periodoCodigo =
+        periodoNombre.replaceAll(RegExp(r'\s+'), '').toUpperCase();
+    final idsEstadosMedidor = await _obtenerIdsEstadosMedidor();
 
     final payload = <Map<String, dynamic>>[];
+    final uuidsPorLectura = <String, String>{};
     for (final l in pendientes) {
-      if (l.codigoMedidor == null || l.codigoMedidor!.isEmpty) continue;
+      final codigoPredio = l.predioCodigo?.trim();
+      if (codigoPredio == null || codigoPredio.isEmpty) continue;
 
       // Extraer predio_id del id local — 'predio_123' → 123
       final match = RegExp(r'predio_(\d+)').firstMatch(l.id);
       final predioId = match != null ? int.tryParse(match.group(1)!) : null;
       if (predioId == null) continue;
 
-      // UUID legible y único: TEN-0001_PERIODO9
-      final uuid = '${l.codigoMedidor}_PERIODO$periodoId';
+      final uuidBase = '${codigoPredio}_$periodoCodigo';
+      final uuid =
+          l.tipoFacturacion == 65 ? '${uuidBase}_ESPROMEDIO' : uuidBase;
+      final consumo =
+          l.lecturaAnterior == null
+              ? 0
+              : (l.lectura - l.lecturaAnterior!).clamp(0, 999999);
 
+      uuidsPorLectura[l.id] = uuid;
       payload.add({
-        'uuid':           uuid,
-        'predio_id':      predioId,
+        'uuid': uuid,
+        'predio_id': predioId,
         'lectura_actual': l.lectura,
-        'error_id':       _errorIdDesdeEstado(l.estadoMedidor),
+        'lectura_consumo': consumo,
+        'error_id': _errorIdDesdeEstado(l.estadoMedidor, idsEstadosMedidor),
       });
     }
 
@@ -353,16 +513,12 @@ class ApiService {
 
     print('📤 Enviando ${payload.length} lecturas: ${jsonEncode(payload)}');
     final respuesta = await sincronizarLecturas(payload);
-    final uuidsOk = (respuesta['uuids_ok'] as List<dynamic>? ?? [])
-        .cast<String>();
+    final uuidsOk =
+        (respuesta['uuids_ok'] as List<dynamic>? ?? []).cast<String>();
 
     for (final l in pendientes) {
-      if (l.codigoMedidor == null) continue;
-      final match = RegExp(r'predio_(\d+)').firstMatch(l.id);
-      final predioId = match != null ? int.tryParse(match.group(1)!) : null;
-      if (predioId == null) continue;
-
-      final uuid = '${l.codigoMedidor}_PERIODO$periodoId';
+      final uuid = uuidsPorLectura[l.id];
+      if (uuid == null) continue;
       if (uuidsOk.contains(uuid)) {
         await db.actualizarEstadoSync(l.id, 'sincronizado', DateTime.now());
       } else {

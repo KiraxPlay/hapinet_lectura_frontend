@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -13,6 +14,7 @@ import '../models/punto_mapa.dart';
 import '../models/posicion_result.dart';
 import '../services/geolocalizacion_service.dart';
 import '../services/mapa_service.dart';
+import '../services/api/api_service.dart';
 import '../components/fondo_gotas.dart';
 import '../components/mapa/chips_sector.dart';
 import '../components/mapa/contador_mapa.dart';
@@ -28,11 +30,7 @@ class MapaScreen extends StatefulWidget {
   final AppDatabase db;
   final Acueducto acueducto;
 
-  const MapaScreen({
-    super.key,
-    required this.db,
-    required this.acueducto,
-  });
+  const MapaScreen({super.key, required this.db, required this.acueducto});
 
   @override
   State<MapaScreen> createState() => _MapaScreenState();
@@ -79,7 +77,7 @@ class _MapaScreenState extends State<MapaScreen> {
 
   Future<void> _cargarDatos() async {
     setState(() => _cargando = true);
-    final puntos = await _mapaService.cargarPuntos();
+    final puntos = await _cargarPuntosConEstadosServidor();
 
     PosicionResult? posicion;
     try {
@@ -95,8 +93,7 @@ class _MapaScreenState extends State<MapaScreen> {
       });
 
       if (posicion != null) {
-        _mapController.move(
-            LatLng(posicion.latitud, posicion.longitud), 14.0);
+        _mapController.move(LatLng(posicion.latitud, posicion.longitud), 14.0);
       } else if (puntos.isNotEmpty) {
         final centro = MapaService.centroDePoints(puntos);
         _mapController.move(LatLng(centro.lat, centro.lon), 14.0);
@@ -109,9 +106,25 @@ class _MapaScreenState extends State<MapaScreen> {
 
     // Cada vez que cambia cualquier lectura en la BD → recargar puntos
     _bdSub = widget.db.watchTodasLecturas().listen((_) async {
-      final puntos = await _mapaService.cargarPuntos();
+      final puntos = await _cargarPuntosConEstadosServidor();
       if (mounted) setState(() => _puntos = puntos);
     });
+  }
+
+  Future<List<PuntoMapa>> _cargarPuntosConEstadosServidor() async {
+    try {
+      await ApiService(
+        widget.acueducto,
+      ).guardarEstadosMedidorLocales(widget.db);
+    } catch (error, stackTrace) {
+      developer.log(
+        'No se pudieron actualizar los estados remotos del mapa; se mostrarán los datos locales.',
+        name: 'mapa',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+    return _mapaService.cargarPuntos();
   }
 
   // Ya no necesitamos _recargarPuntos separado — la lógica está en _bdSub
@@ -135,10 +148,12 @@ class _MapaScreenState extends State<MapaScreen> {
       if (!p.tieneLecturaReal && !_mostrarSinLectura) return false;
       if (p.tieneLecturaReal &&
           p.estadoSync == 'pendiente' &&
-          !_mostrarPendientes) return false;
+          !_mostrarPendientes)
+        return false;
       if (p.tieneLecturaReal &&
           p.estadoSync == 'sincronizado' &&
-          !_mostrarSincronizados) return false;
+          !_mostrarSincronizados)
+        return false;
       return true;
     }).toList();
   }
@@ -155,7 +170,8 @@ class _MapaScreenState extends State<MapaScreen> {
         actions: [
           IconButton(
             icon: Badge(
-              isLabelVisible: _estadosMedidorActivos.isNotEmpty ||
+              isLabelVisible:
+                  _estadosMedidorActivos.isNotEmpty ||
                   !_mostrarSinLectura ||
                   !_mostrarPendientes ||
                   !_mostrarSincronizados,
@@ -169,18 +185,21 @@ class _MapaScreenState extends State<MapaScreen> {
           ),
           IconButton(
             icon: const Icon(Icons.download_outlined),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const DescargaMapaScreen()),
-            ),
+            onPressed:
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const DescargaMapaScreen()),
+                ),
             tooltip: 'Descargar mapa offline',
           ),
         ],
       ),
-      body: _cargando
-          ? FondoConGotas(
-              child: const Center(child: CircularProgressIndicator()))
-          : _buildMapa(),
+      body:
+          _cargando
+              ? FondoConGotas(
+                child: const Center(child: CircularProgressIndicator()),
+              )
+              : _buildMapa(),
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -214,9 +233,13 @@ class _MapaScreenState extends State<MapaScreen> {
         FlutterMap(
           mapController: _mapController,
           options: MapOptions(
-            initialCenter: _posicionActual != null
-                ? LatLng(_posicionActual!.latitud, _posicionActual!.longitud)
-                : _posInicial,
+            initialCenter:
+                _posicionActual != null
+                    ? LatLng(
+                      _posicionActual!.latitud,
+                      _posicionActual!.longitud,
+                    )
+                    : _posInicial,
             initialZoom: 13.0,
             minZoom: 5.0,
             maxZoom: 18.0,
@@ -226,12 +249,13 @@ class _MapaScreenState extends State<MapaScreen> {
             TileLayer(
               urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
               userAgentPackageName: 'com.hapinet.medidor_app',
-              tileProvider: _cacheStore != null
-                  ? CachedTileProvider(
-                      store: _cacheStore!,
-                      maxStale: const Duration(days: 30),
-                    )
-                  : NetworkTileProvider(),
+              tileProvider:
+                  _cacheStore != null
+                      ? CachedTileProvider(
+                        store: _cacheStore!,
+                        maxStale: const Duration(days: 30),
+                      )
+                      : NetworkTileProvider(),
               errorTileCallback: (tile, error, stackTrace) {},
               errorImage: const AssetImage('assets/images/tile_offline.png'),
             ),
@@ -287,15 +311,19 @@ class _MapaScreenState extends State<MapaScreen> {
             child: TarjetaPuntoMapa(
               punto: _puntoSeleccionado!,
               onCerrar: () => setState(() => _puntoSeleccionado = null),
-              onCentrar: () => _mapController.move(
-                LatLng(_puntoSeleccionado!.latitud,
-                    _puntoSeleccionado!.longitud),
-                17.0,
-              ),
+              onCentrar:
+                  () => _mapController.move(
+                    LatLng(
+                      _puntoSeleccionado!.latitud,
+                      _puntoSeleccionado!.longitud,
+                    ),
+                    17.0,
+                  ),
               // Botón "Leer" solo si NO tiene lectura real aún
-              onTomarLectura: !_puntoSeleccionado!.tieneLecturaReal
-                  ? () => _irACaptura(_puntoSeleccionado!)
-                  : null,
+              onTomarLectura:
+                  !_puntoSeleccionado!.tieneLecturaReal
+                      ? () => _irACaptura(_puntoSeleccionado!)
+                      : null,
             ),
           ),
       ],
@@ -309,25 +337,28 @@ class _MapaScreenState extends State<MapaScreen> {
   void _centrarEnMiPosicion() {
     if (_posicionActual != null) {
       _mapController.move(
-          LatLng(_posicionActual!.latitud, _posicionActual!.longitud), 15.0);
+        LatLng(_posicionActual!.latitud, _posicionActual!.longitud),
+        15.0,
+      );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('GPS no disponible aún')));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('GPS no disponible aún')));
     }
   }
 
   void _centrarEnSector(String sector) {
     const centros = {
       // ASOAGUAPO
-      'TENDIDO':      LatLng(2.388617768340964, -75.52680856025003),
-      'RECREO':       LatLng(2.408369890088791, -75.52671515510596),
+      'TENDIDO': LatLng(2.388617768340964, -75.52680856025003),
+      'RECREO': LatLng(2.408369890088791, -75.52671515510596),
       'PUEBLO NUEVO': LatLng(2.397169384059909, -75.53760326671711),
       // AGUAVIVA
-      'La Palma':     LatLng(2.3437722979360793, -75.49544744024611),
-      'Cachaya':      LatLng(2.3654759404617893, -75.48377746072306),
+      'La Palma': LatLng(2.3437722979360793, -75.49544744024611),
+      'Cachaya': LatLng(2.3654759404617893, -75.48377746072306),
       'Alto Corozal': LatLng(2.3995017497813422, -75.49809752174309),
-      'Los Cafetos':  LatLng(2.344884841899866,  -75.50901258445414),
-      'La Floresta':  LatLng(2.400111666918066,  -75.48309612718388),
+      'Los Cafetos': LatLng(2.344884841899866, -75.50901258445414),
+      'La Floresta': LatLng(2.400111666918066, -75.48309612718388),
     };
     final centro = centros[sector];
     if (centro == null) return;
@@ -340,19 +371,20 @@ class _MapaScreenState extends State<MapaScreen> {
     if (!mounted) return;
     await Navigator.of(context).push<bool>(
       MaterialPageRoute(
-        builder: (_) => InfoAbonadoScreen(
-          db: widget.db,
-          acueducto: widget.acueducto,
-          codigoMedidor: punto.codigo,
-          nombreAbonado: punto.nombre,
-          celular: null,
-          lecturaAnterior: punto.lecturaActual,
-          latitud: punto.latitud,
-          longitud: punto.longitud,
-          sector: punto.sector,
-          estadoMedidorClave: punto.estadoMedidorClave,
-          predioId: null, // se resuelve en InfoAbonadoScreen por código
-        ),
+        builder:
+            (_) => InfoAbonadoScreen(
+              db: widget.db,
+              acueducto: widget.acueducto,
+              codigoMedidor: punto.codigo,
+              nombreAbonado: punto.nombre,
+              celular: null,
+              lecturaAnterior: punto.lecturaActual,
+              latitud: punto.latitud,
+              longitud: punto.longitud,
+              sector: punto.sector,
+              estadoMedidorClave: punto.estadoMedidorClave,
+              predioId: punto.predioId,
+            ),
       ),
     );
   }
@@ -362,26 +394,28 @@ class _MapaScreenState extends State<MapaScreen> {
       context: context,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-      builder: (_) => FiltrosMapaSheet(
-        mostrarSinLectura: _mostrarSinLectura,
-        mostrarPendientes: _mostrarPendientes,
-        mostrarSincronizados: _mostrarSincronizados,
-        estadosMedidorActivos: _estadosMedidorActivos,
-        onCambio: ({
-          required sinLectura,
-          required pendientes,
-          required sincronizados,
-          required estadosMedidor,
-        }) {
-          setState(() {
-            _mostrarSinLectura = sinLectura;
-            _mostrarPendientes = pendientes;
-            _mostrarSincronizados = sincronizados;
-            _estadosMedidorActivos = estadosMedidor;
-          });
-        },
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
+      builder:
+          (_) => FiltrosMapaSheet(
+            mostrarSinLectura: _mostrarSinLectura,
+            mostrarPendientes: _mostrarPendientes,
+            mostrarSincronizados: _mostrarSincronizados,
+            estadosMedidorActivos: _estadosMedidorActivos,
+            onCambio: ({
+              required sinLectura,
+              required pendientes,
+              required sincronizados,
+              required estadosMedidor,
+            }) {
+              setState(() {
+                _mostrarSinLectura = sinLectura;
+                _mostrarPendientes = pendientes;
+                _mostrarSincronizados = sincronizados;
+                _estadosMedidorActivos = estadosMedidor;
+              });
+            },
+          ),
     );
   }
 
@@ -390,15 +424,17 @@ class _MapaScreenState extends State<MapaScreen> {
       context: context,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-      builder: (_) => ResumenMapaSheet(
-        puntos: _puntosFiltrados,
-        onTap: (p) {
-          Navigator.pop(context);
-          setState(() => _puntoSeleccionado = p);
-          _mapController.move(LatLng(p.latitud, p.longitud), 17.0);
-        },
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
+      builder:
+          (_) => ResumenMapaSheet(
+            puntos: _puntosFiltrados,
+            onTap: (p) {
+              Navigator.pop(context);
+              setState(() => _puntoSeleccionado = p);
+              _mapController.move(LatLng(p.latitud, p.longitud), 17.0);
+            },
+          ),
     );
   }
 

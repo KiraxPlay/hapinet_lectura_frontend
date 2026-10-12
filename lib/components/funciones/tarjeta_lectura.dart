@@ -252,6 +252,8 @@ class TarjetaLectura extends StatelessWidget {
   }
 
   void _verDetalle(BuildContext context) {
+    // Punto de entrada al panel: al tocar la tarjeta se abre el detalle y se
+    // transfieren la lectura, la base local y los callbacks del padre.
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,

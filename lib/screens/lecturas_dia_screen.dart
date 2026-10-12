@@ -112,7 +112,8 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
                           const SizedBox(height: 8),
                           Text(
                             'No se pudieron cargar los abonados.\n'
-                            'Verifica tu conexión y reinicia la app.',
+                            'Verifica tu conexión y reinicia la app.'
+                            'O puede que no haya periodo activo en estos momentos.',
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.grey.shade600),
                           ),

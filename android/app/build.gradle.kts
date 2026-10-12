@@ -1,3 +1,6 @@
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -47,7 +50,8 @@ android {
     applicationVariants.all {
         outputs.all {
             val output = this as? com.android.build.gradle.internal.api.BaseVariantOutputImpl
-            output?.outputFileName = "MedidorHapinet_v${versionName}.apk"
+            val buildTimestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmm"))
+            output?.outputFileName = "HapiRead_v${versionName}_$buildTimestamp.apk"
         }
     }
 }

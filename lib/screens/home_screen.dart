@@ -219,8 +219,8 @@ class _HomeScreenState extends State<HomeScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Sin conexión — se sincronizará luego'),
+          SnackBar(
+            content: Text('Error al sincronizar: $e'),
             backgroundColor: Colors.red,
             behavior: SnackBarBehavior.floating,
           ),
@@ -268,17 +268,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // Llamar al API para invalidar el token
     try {
-      print(' Cerrando sesión en servidor...');
       await ApiService(
         widget.acueducto,
       ).logout().timeout(const Duration(seconds: 5));
-      print('✓ Logout servidor OK');
     } catch (e) {
-      print('✗ Error logout servidor: $e — cerrando sesión local igual');
     }
 
     if (mounted) {
-      print(' Llamando onCerrarSesion...');
       widget.onCerrarSesion();
     }
   }

@@ -2,10 +2,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import '../../models/foto_result.dart';
-import '../../models/ocr_result.dart';
 import '../../models/posicion_result.dart';
 import '../../services/geolocalizacion_service.dart';
-import '../captura/tarjeta_ocr.dart';
+import '../captura/tarjeta_consumo.dart';
 import '../captura/tarjeta_gps.dart';
 import '../captura/selector_estado_medidor.dart';
 import '../captura/campo_notas_asr.dart';
@@ -13,8 +12,10 @@ import '../captura/botones_confirmacion.dart';
 
 class ConfirmacionCaptura extends StatelessWidget {
   final FotoResult? foto;
-  final OcrResult? ocrResult;
   final PosicionResult? posicion;
+  final int? consumo;
+  final bool tieneLecturaAnterior;
+  final String? estadoMedidorAnterior;
   final GeolocalizacionService geo;
   final TextEditingController lecturaController;
   final TextEditingController notasController;
@@ -30,17 +31,20 @@ class ConfirmacionCaptura extends StatelessWidget {
   final String? campoEscuchando;
 
   final void Function(String campo) onToggleAsr;
+  final VoidCallback onLecturaChanged;
   final VoidCallback onReiniciar;
   final VoidCallback onGuardar;
   final VoidCallback onReintentar;
   final VoidCallback onChanged;
-  final void Function(String? clave, bool poneLecturaEnCero) onCambioEstado;
+  final ValueChanged<String> onCambioEstado;
 
   const ConfirmacionCaptura({
     super.key,
     required this.foto,
-    required this.ocrResult,
     required this.posicion,
+    required this.consumo,
+    required this.tieneLecturaAnterior,
+    required this.estadoMedidorAnterior,
     required this.geo,
     required this.lecturaController,
     required this.notasController,
@@ -52,6 +56,7 @@ class ConfirmacionCaptura extends StatelessWidget {
     required this.nivelVolumen,
     required this.campoEscuchando,
     required this.onToggleAsr,
+    required this.onLecturaChanged,
     required this.onReiniciar,
     required this.onGuardar,
     required this.onReintentar,
@@ -78,7 +83,11 @@ class ConfirmacionCaptura extends StatelessWidget {
                   ),
 
                 const SizedBox(height: 16),
-                TarjetaOcr(ocrResult: ocrResult),
+                TarjetaConsumo(
+                  consumo: consumo,
+                  tieneLecturaAnterior: tieneLecturaAnterior,
+                  estadoMedidorAnterior: estadoMedidorAnterior,
+                ),
                 const SizedBox(height: 16),
 
                 // ── Campo lectura con ASR ──
@@ -93,7 +102,7 @@ class ConfirmacionCaptura extends StatelessWidget {
                   transcribiendo: campoTranscribiendo == 'lectura',
                   nivelVolumen: campoEscuchando == 'lectura' ? nivelVolumen : 0.0,
                   onToggleAsr: () => onToggleAsr('lectura'),
-                  onChanged: onChanged,
+                  onChanged: onLecturaChanged,
                 ),
 
                 const SizedBox(height: 16),

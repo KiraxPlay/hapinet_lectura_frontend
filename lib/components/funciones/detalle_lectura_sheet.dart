@@ -4,13 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../data/database.dart';
 import '../../models/acueducto.dart';
+import '../../models/calculo_consumo.dart';
+import '../../models/estado_medidor.dart';
 import 'color_sector.dart';
 import 'fila.dart';
 
+// Panel inferior que muestra una lectura y permite editarla, eliminarla o
+// solicitar la facturación. Se abre al tocar una TarjetaLectura.
 class DetalleLecturaSheet extends StatefulWidget {
+  // Datos que se muestran y base local donde se guardan los cambios.
   final Lectura lectura;
   final AppDatabase db;
+
+  // Callback del padre para volver a cargar la lista después de modificarla.
   final VoidCallback onActualizado;
+
+  // Contexto del acueducto y acción opcional de facturación, definidos por
+  // la pantalla que abre el panel.
   final Acueducto acueducto;
   final VoidCallback? onFacturar;
 
@@ -35,6 +45,7 @@ class _DetalleLecturaSheetState extends State<DetalleLecturaSheet> {
   @override
   void initState() {
     super.initState();
+    // Los campos de edición comienzan con los valores que ya tiene la lectura.
     _lecturaCtrl = TextEditingController(
       text: widget.lectura.lectura.toString(),
     );
@@ -44,6 +55,16 @@ class _DetalleLecturaSheetState extends State<DetalleLecturaSheet> {
   @override
   Widget build(BuildContext context) {
     final color = colorDeSector(widget.lectura.sector);
+    // El modelo centraliza las reglas para calcular consumo según el estado
+    // del medidor y los valores local/servidor disponibles.
+    final consumo = CalculoConsumo.calcular(
+      estado:
+          EstadoMedidor.desdeClave(widget.lectura.estadoMedidor) ??
+          EstadoMedidor.lecturaRealizada,
+      lecturaAnterior: widget.lectura.lecturaAnterior,
+      lecturaActual: widget.lectura.lectura,
+      consumoAnterior: widget.lectura.consumoAnteriorServidor,
+    );
 
     return DraggableScrollableSheet(
       initialChildSize: 0.7,
@@ -108,7 +129,7 @@ class _DetalleLecturaSheetState extends State<DetalleLecturaSheet> {
               ),
               const SizedBox(height: 12),
 
-              // Foto
+              // Muestra la foto guardada en el dispositivo, si existe una ruta.
               if (widget.lectura.rutaFoto.isNotEmpty)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
@@ -122,6 +143,8 @@ class _DetalleLecturaSheetState extends State<DetalleLecturaSheet> {
 
               const SizedBox(height: 16),
 
+              // La pantalla padre decide qué hacer al facturar; este panel solo
+              // invoca el callback recibido.
               if (!widget.lectura.impreso &&
                   !_editando &&
                   widget.onFacturar != null)
@@ -179,13 +202,7 @@ class _DetalleLecturaSheetState extends State<DetalleLecturaSheet> {
               ),
 
               // Consumo calculado
-              if (widget.lectura.lecturaAnterior != null &&
-                  widget.lectura.lectura > 0)
-                Fila(
-                  'Consumo',
-                  valor:
-                      '${widget.lectura.lectura - widget.lectura.lecturaAnterior!} m³',
-                ),
+              if (consumo != null) Fila('Consumo', valor: '$consumo m³'),
 
               Fila(
                 'Fecha y hora',
@@ -199,12 +216,6 @@ class _DetalleLecturaSheetState extends State<DetalleLecturaSheet> {
                   'Coordenadas GPS',
                   valor:
                       '${widget.lectura.latitud.toStringAsFixed(6)}, ${widget.lectura.longitud.toStringAsFixed(6)}',
-                ),
-
-              if (widget.lectura.precision != null)
-                Fila(
-                  'Precisión GPS',
-                  valor: '${widget.lectura.precision!.toStringAsFixed(1)} m',
                 ),
 
               // Observaciones (editables)
@@ -266,6 +277,8 @@ class _DetalleLecturaSheetState extends State<DetalleLecturaSheet> {
                 const SizedBox(height: 8),
                 OutlinedButton.icon(
                   onPressed: () async {
+                    // La base decide si el abonado se reinicia o si la lectura
+                    // libre se elimina; luego se refresca la lista y se cierra.
                     await widget.db.eliminarLectura(widget.lectura.id);
                     widget.onActualizado();
                     if (context.mounted) Navigator.pop(context);
@@ -288,6 +301,7 @@ class _DetalleLecturaSheetState extends State<DetalleLecturaSheet> {
   // ── Lógica de guardado ────────────────────────
 
   Future<void> _guardarEdicion() async {
+    // Valida la lectura antes de escribirla. Una lectura de cero requiere nota.
     final nuevaLectura = int.tryParse(_lecturaCtrl.text.trim());
     if (nuevaLectura == null) {
       _snack('Número inválido');
@@ -299,6 +313,8 @@ class _DetalleLecturaSheetState extends State<DetalleLecturaSheet> {
       return;
     }
 
+    // Persiste el cambio en SQLite a través de Drift. La base actualiza también
+    // datos asociados, como lectura anterior, fecha y estado de sincronización.
     await widget.db.actualizarLecturaAbonado(
       codigoMedidor: widget.lectura.codigoMedidor ?? '',
       nuevaLectura: nuevaLectura,
@@ -308,6 +324,7 @@ class _DetalleLecturaSheetState extends State<DetalleLecturaSheet> {
       notas: notas.isEmpty ? null : notas,
     );
 
+    // Avisa al padre (por ejemplo, HistorialScreen) para refrescar sus datos.
     widget.onActualizado();
     if (mounted) {
       setState(() => _editando = false);
@@ -315,6 +332,7 @@ class _DetalleLecturaSheetState extends State<DetalleLecturaSheet> {
     }
   }
 
+  // Presenta validaciones y confirmaciones breves dentro de esta pantalla.
   void _snack(String mensaje, {Color? color}) {
     ScaffoldMessenger.of(
       context,
@@ -323,6 +341,7 @@ class _DetalleLecturaSheetState extends State<DetalleLecturaSheet> {
 
   @override
   void dispose() {
+    // Libera los controladores de los campos al cerrar el panel.
     _lecturaCtrl.dispose();
     _notasCtrl.dispose();
     super.dispose();
