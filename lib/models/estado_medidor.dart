@@ -117,6 +117,14 @@ enum EstadoMedidor {
     EstadoMedidor.predioInactivo => true,
   };
 
+  bool get requiereConfirmacionCambio => switch (this) {
+    EstadoMedidor.danado ||
+    EstadoMedidor.noLegible ||
+    EstadoMedidor.reversa ||
+    EstadoMedidor.predioInactivo => true,
+    _ => false,
+  };
+
   static EstadoMedidor? desdeClave(String? clave) {
     if (clave == null) return null;
     final claveActual = switch (clave) {

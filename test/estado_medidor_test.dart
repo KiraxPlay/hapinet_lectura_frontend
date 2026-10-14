@@ -55,5 +55,17 @@ void main() {
 
       expect(punto.color, EstadoMedidor.danado.colorMapa);
     });
+
+    test('solicita confirmacion solo para estados adversos', () {
+      expect(EstadoMedidor.danado.requiereConfirmacionCambio, isTrue);
+      expect(EstadoMedidor.noLegible.requiereConfirmacionCambio, isTrue);
+      expect(EstadoMedidor.reversa.requiereConfirmacionCambio, isTrue);
+      expect(EstadoMedidor.predioInactivo.requiereConfirmacionCambio, isTrue);
+      expect(EstadoMedidor.noSeTomoLectura.requiereConfirmacionCambio, isFalse);
+      expect(
+        EstadoMedidor.lecturaRealizada.requiereConfirmacionCambio,
+        isFalse,
+      );
+    });
   });
 }

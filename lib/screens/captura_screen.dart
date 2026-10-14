@@ -465,7 +465,7 @@ class _CapturaScreenState extends State<CapturaScreen>
     });
   }
 
-  void _cambiarEstadoMedidor(String clave) {
+  Future<void> _cambiarEstadoMedidor(String clave) async {
     final estado = EstadoMedidor.desdeClave(clave);
     if (estado == null) {
       _snack('El estado seleccionado no es válido', color: Colors.orange);
@@ -473,6 +473,33 @@ class _CapturaScreenState extends State<CapturaScreen>
     }
 
     final estadoActual = EstadoMedidor.desdeClave(_estadoMedidor);
+    final estadoAnterior =
+        EstadoMedidor.desdeClave(widget.estadoMedidorAnterior) ?? estadoActual;
+    if (estado.requiereConfirmacionCambio && estado != estadoAnterior) {
+      final confirmar = await showDialog<bool>(
+        context: context,
+        builder:
+            (context) => AlertDialog(
+              title: const Text('¿Confirmar cambio de estado?'),
+              content: Text(
+                '¿Está seguro de cambiar el estado del medidor a '
+                '"${estado.etiqueta}"?',
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: const Text('Cancelar'),
+                ),
+                FilledButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: const Text('Confirmar'),
+                ),
+              ],
+            ),
+      );
+      if (confirmar != true || !mounted) return;
+    }
+
     if (estado == EstadoMedidor.lecturaRealizada) {
       setState(() {
         _estadoMedidor = clave;
