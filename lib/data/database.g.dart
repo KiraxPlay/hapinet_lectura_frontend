@@ -335,6 +335,28 @@ class $LecturasTable extends Lecturas with TableInfo<$LecturasTable, Lectura> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _datosPredioApiJsonMeta =
+      const VerificationMeta('datosPredioApiJson');
+  @override
+  late final GeneratedColumn<String> datosPredioApiJson =
+      GeneratedColumn<String>(
+        'datos_predio_api_json',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _predioDireccionMeta = const VerificationMeta(
+    'predioDireccion',
+  );
+  @override
+  late final GeneratedColumn<String> predioDireccion = GeneratedColumn<String>(
+    'predio_direccion',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _ordenRutaMeta = const VerificationMeta(
     'ordenRuta',
   );
@@ -378,6 +400,8 @@ class $LecturasTable extends Lecturas with TableInfo<$LecturasTable, Lectura> {
     estadoMedidorServidor,
     estadoMedidor,
     celular,
+    datosPredioApiJson,
+    predioDireccion,
     ordenRuta,
   ];
   @override
@@ -619,6 +643,24 @@ class $LecturasTable extends Lecturas with TableInfo<$LecturasTable, Lectura> {
         celular.isAcceptableOrUnknown(data['celular']!, _celularMeta),
       );
     }
+    if (data.containsKey('datos_predio_api_json')) {
+      context.handle(
+        _datosPredioApiJsonMeta,
+        datosPredioApiJson.isAcceptableOrUnknown(
+          data['datos_predio_api_json']!,
+          _datosPredioApiJsonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('predio_direccion')) {
+      context.handle(
+        _predioDireccionMeta,
+        predioDireccion.isAcceptableOrUnknown(
+          data['predio_direccion']!,
+          _predioDireccionMeta,
+        ),
+      );
+    }
     if (data.containsKey('orden_ruta')) {
       context.handle(
         _ordenRutaMeta,
@@ -762,6 +804,14 @@ class $LecturasTable extends Lecturas with TableInfo<$LecturasTable, Lectura> {
         DriftSqlType.string,
         data['${effectivePrefix}celular'],
       ),
+      datosPredioApiJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}datos_predio_api_json'],
+      ),
+      predioDireccion: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}predio_direccion'],
+      ),
       ordenRuta:
           attachedDatabase.typeMapping.read(
             DriftSqlType.int,
@@ -806,6 +856,8 @@ class Lectura extends DataClass implements Insertable<Lectura> {
   final String? estadoMedidorServidor;
   final String? estadoMedidor;
   final String? celular;
+  final String? datosPredioApiJson;
+  final String? predioDireccion;
   final int ordenRuta;
   const Lectura({
     required this.id,
@@ -837,6 +889,8 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     this.estadoMedidorServidor,
     this.estadoMedidor,
     this.celular,
+    this.datosPredioApiJson,
+    this.predioDireccion,
     required this.ordenRuta,
   });
   @override
@@ -904,6 +958,12 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     }
     if (!nullToAbsent || celular != null) {
       map['celular'] = Variable<String>(celular);
+    }
+    if (!nullToAbsent || datosPredioApiJson != null) {
+      map['datos_predio_api_json'] = Variable<String>(datosPredioApiJson);
+    }
+    if (!nullToAbsent || predioDireccion != null) {
+      map['predio_direccion'] = Variable<String>(predioDireccion);
     }
     map['orden_ruta'] = Variable<int>(ordenRuta);
     return map;
@@ -987,6 +1047,14 @@ class Lectura extends DataClass implements Insertable<Lectura> {
           celular == null && nullToAbsent
               ? const Value.absent()
               : Value(celular),
+      datosPredioApiJson:
+          datosPredioApiJson == null && nullToAbsent
+              ? const Value.absent()
+              : Value(datosPredioApiJson),
+      predioDireccion:
+          predioDireccion == null && nullToAbsent
+              ? const Value.absent()
+              : Value(predioDireccion),
       ordenRuta: Value(ordenRuta),
     );
   }
@@ -1034,6 +1102,10 @@ class Lectura extends DataClass implements Insertable<Lectura> {
       ),
       estadoMedidor: serializer.fromJson<String?>(json['estadoMedidor']),
       celular: serializer.fromJson<String?>(json['celular']),
+      datosPredioApiJson: serializer.fromJson<String?>(
+        json['datosPredioApiJson'],
+      ),
+      predioDireccion: serializer.fromJson<String?>(json['predioDireccion']),
       ordenRuta: serializer.fromJson<int>(json['ordenRuta']),
     );
   }
@@ -1074,6 +1146,8 @@ class Lectura extends DataClass implements Insertable<Lectura> {
       ),
       'estadoMedidor': serializer.toJson<String?>(estadoMedidor),
       'celular': serializer.toJson<String?>(celular),
+      'datosPredioApiJson': serializer.toJson<String?>(datosPredioApiJson),
+      'predioDireccion': serializer.toJson<String?>(predioDireccion),
       'ordenRuta': serializer.toJson<int>(ordenRuta),
     };
   }
@@ -1108,6 +1182,8 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     Value<String?> estadoMedidorServidor = const Value.absent(),
     Value<String?> estadoMedidor = const Value.absent(),
     Value<String?> celular = const Value.absent(),
+    Value<String?> datosPredioApiJson = const Value.absent(),
+    Value<String?> predioDireccion = const Value.absent(),
     int? ordenRuta,
   }) => Lectura(
     id: id ?? this.id,
@@ -1157,6 +1233,12 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     estadoMedidor:
         estadoMedidor.present ? estadoMedidor.value : this.estadoMedidor,
     celular: celular.present ? celular.value : this.celular,
+    datosPredioApiJson:
+        datosPredioApiJson.present
+            ? datosPredioApiJson.value
+            : this.datosPredioApiJson,
+    predioDireccion:
+        predioDireccion.present ? predioDireccion.value : this.predioDireccion,
     ordenRuta: ordenRuta ?? this.ordenRuta,
   );
   Lectura copyWithCompanion(LecturasCompanion data) {
@@ -1234,6 +1316,14 @@ class Lectura extends DataClass implements Insertable<Lectura> {
               ? data.estadoMedidor.value
               : this.estadoMedidor,
       celular: data.celular.present ? data.celular.value : this.celular,
+      datosPredioApiJson:
+          data.datosPredioApiJson.present
+              ? data.datosPredioApiJson.value
+              : this.datosPredioApiJson,
+      predioDireccion:
+          data.predioDireccion.present
+              ? data.predioDireccion.value
+              : this.predioDireccion,
       ordenRuta: data.ordenRuta.present ? data.ordenRuta.value : this.ordenRuta,
     );
   }
@@ -1270,6 +1360,8 @@ class Lectura extends DataClass implements Insertable<Lectura> {
           ..write('estadoMedidorServidor: $estadoMedidorServidor, ')
           ..write('estadoMedidor: $estadoMedidor, ')
           ..write('celular: $celular, ')
+          ..write('datosPredioApiJson: $datosPredioApiJson, ')
+          ..write('predioDireccion: $predioDireccion, ')
           ..write('ordenRuta: $ordenRuta')
           ..write(')'))
         .toString();
@@ -1306,6 +1398,8 @@ class Lectura extends DataClass implements Insertable<Lectura> {
     estadoMedidorServidor,
     estadoMedidor,
     celular,
+    datosPredioApiJson,
+    predioDireccion,
     ordenRuta,
   ]);
   @override
@@ -1341,6 +1435,8 @@ class Lectura extends DataClass implements Insertable<Lectura> {
           other.estadoMedidorServidor == this.estadoMedidorServidor &&
           other.estadoMedidor == this.estadoMedidor &&
           other.celular == this.celular &&
+          other.datosPredioApiJson == this.datosPredioApiJson &&
+          other.predioDireccion == this.predioDireccion &&
           other.ordenRuta == this.ordenRuta);
 }
 
@@ -1374,6 +1470,8 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
   final Value<String?> estadoMedidorServidor;
   final Value<String?> estadoMedidor;
   final Value<String?> celular;
+  final Value<String?> datosPredioApiJson;
+  final Value<String?> predioDireccion;
   final Value<int> ordenRuta;
   final Value<int> rowid;
   const LecturasCompanion({
@@ -1406,6 +1504,8 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     this.estadoMedidorServidor = const Value.absent(),
     this.estadoMedidor = const Value.absent(),
     this.celular = const Value.absent(),
+    this.datosPredioApiJson = const Value.absent(),
+    this.predioDireccion = const Value.absent(),
     this.ordenRuta = const Value.absent(),
     this.rowid = const Value.absent(),
   });
@@ -1439,6 +1539,8 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     this.estadoMedidorServidor = const Value.absent(),
     this.estadoMedidor = const Value.absent(),
     this.celular = const Value.absent(),
+    this.datosPredioApiJson = const Value.absent(),
+    this.predioDireccion = const Value.absent(),
     this.ordenRuta = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
@@ -1478,6 +1580,8 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     Expression<String>? estadoMedidorServidor,
     Expression<String>? estadoMedidor,
     Expression<String>? celular,
+    Expression<String>? datosPredioApiJson,
+    Expression<String>? predioDireccion,
     Expression<int>? ordenRuta,
     Expression<int>? rowid,
   }) {
@@ -1515,6 +1619,9 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
         'estado_medidor_servidor': estadoMedidorServidor,
       if (estadoMedidor != null) 'estado_medidor': estadoMedidor,
       if (celular != null) 'celular': celular,
+      if (datosPredioApiJson != null)
+        'datos_predio_api_json': datosPredioApiJson,
+      if (predioDireccion != null) 'predio_direccion': predioDireccion,
       if (ordenRuta != null) 'orden_ruta': ordenRuta,
       if (rowid != null) 'rowid': rowid,
     });
@@ -1550,6 +1657,8 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     Value<String?>? estadoMedidorServidor,
     Value<String?>? estadoMedidor,
     Value<String?>? celular,
+    Value<String?>? datosPredioApiJson,
+    Value<String?>? predioDireccion,
     Value<int>? ordenRuta,
     Value<int>? rowid,
   }) {
@@ -1586,6 +1695,8 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
           estadoMedidorServidor ?? this.estadoMedidorServidor,
       estadoMedidor: estadoMedidor ?? this.estadoMedidor,
       celular: celular ?? this.celular,
+      datosPredioApiJson: datosPredioApiJson ?? this.datosPredioApiJson,
+      predioDireccion: predioDireccion ?? this.predioDireccion,
       ordenRuta: ordenRuta ?? this.ordenRuta,
       rowid: rowid ?? this.rowid,
     );
@@ -1687,6 +1798,12 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
     if (celular.present) {
       map['celular'] = Variable<String>(celular.value);
     }
+    if (datosPredioApiJson.present) {
+      map['datos_predio_api_json'] = Variable<String>(datosPredioApiJson.value);
+    }
+    if (predioDireccion.present) {
+      map['predio_direccion'] = Variable<String>(predioDireccion.value);
+    }
     if (ordenRuta.present) {
       map['orden_ruta'] = Variable<int>(ordenRuta.value);
     }
@@ -1728,6 +1845,8 @@ class LecturasCompanion extends UpdateCompanion<Lectura> {
           ..write('estadoMedidorServidor: $estadoMedidorServidor, ')
           ..write('estadoMedidor: $estadoMedidor, ')
           ..write('celular: $celular, ')
+          ..write('datosPredioApiJson: $datosPredioApiJson, ')
+          ..write('predioDireccion: $predioDireccion, ')
           ..write('ordenRuta: $ordenRuta, ')
           ..write('rowid: $rowid')
           ..write(')'))
@@ -2673,6 +2792,520 @@ class NovedadesLocalesCompanion extends UpdateCompanion<NovedadesLocale> {
   }
 }
 
+class $FechasPeriodoActivoLocalTable extends FechasPeriodoActivoLocal
+    with
+        TableInfo<
+          $FechasPeriodoActivoLocalTable,
+          FechasPeriodoActivoLocalData
+        > {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FechasPeriodoActivoLocalTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _periodoNombreMeta = const VerificationMeta(
+    'periodoNombre',
+  );
+  @override
+  late final GeneratedColumn<String> periodoNombre = GeneratedColumn<String>(
+    'periodo_nombre',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _periodoInicioMeta = const VerificationMeta(
+    'periodoInicio',
+  );
+  @override
+  late final GeneratedColumn<String> periodoInicio = GeneratedColumn<String>(
+    'periodo_inicio',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _periodoFinMeta = const VerificationMeta(
+    'periodoFin',
+  );
+  @override
+  late final GeneratedColumn<String> periodoFin = GeneratedColumn<String>(
+    'periodo_fin',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _periodoLimiteMeta = const VerificationMeta(
+    'periodoLimite',
+  );
+  @override
+  late final GeneratedColumn<String> periodoLimite = GeneratedColumn<String>(
+    'periodo_limite',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _periodoSuspencionMeta = const VerificationMeta(
+    'periodoSuspencion',
+  );
+  @override
+  late final GeneratedColumn<String> periodoSuspencion =
+      GeneratedColumn<String>(
+        'periodo_suspencion',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _actualizadoEnMeta = const VerificationMeta(
+    'actualizadoEn',
+  );
+  @override
+  late final GeneratedColumn<DateTime> actualizadoEn =
+      GeneratedColumn<DateTime>(
+        'actualizado_en',
+        aliasedName,
+        false,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: true,
+      );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    periodoNombre,
+    periodoInicio,
+    periodoFin,
+    periodoLimite,
+    periodoSuspencion,
+    actualizadoEn,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'fechas_periodo_activo_local';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<FechasPeriodoActivoLocalData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('periodo_nombre')) {
+      context.handle(
+        _periodoNombreMeta,
+        periodoNombre.isAcceptableOrUnknown(
+          data['periodo_nombre']!,
+          _periodoNombreMeta,
+        ),
+      );
+    }
+    if (data.containsKey('periodo_inicio')) {
+      context.handle(
+        _periodoInicioMeta,
+        periodoInicio.isAcceptableOrUnknown(
+          data['periodo_inicio']!,
+          _periodoInicioMeta,
+        ),
+      );
+    }
+    if (data.containsKey('periodo_fin')) {
+      context.handle(
+        _periodoFinMeta,
+        periodoFin.isAcceptableOrUnknown(data['periodo_fin']!, _periodoFinMeta),
+      );
+    }
+    if (data.containsKey('periodo_limite')) {
+      context.handle(
+        _periodoLimiteMeta,
+        periodoLimite.isAcceptableOrUnknown(
+          data['periodo_limite']!,
+          _periodoLimiteMeta,
+        ),
+      );
+    }
+    if (data.containsKey('periodo_suspencion')) {
+      context.handle(
+        _periodoSuspencionMeta,
+        periodoSuspencion.isAcceptableOrUnknown(
+          data['periodo_suspencion']!,
+          _periodoSuspencionMeta,
+        ),
+      );
+    }
+    if (data.containsKey('actualizado_en')) {
+      context.handle(
+        _actualizadoEnMeta,
+        actualizadoEn.isAcceptableOrUnknown(
+          data['actualizado_en']!,
+          _actualizadoEnMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_actualizadoEnMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  FechasPeriodoActivoLocalData map(
+    Map<String, dynamic> data, {
+    String? tablePrefix,
+  }) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return FechasPeriodoActivoLocalData(
+      id:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}id'],
+          )!,
+      periodoNombre: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}periodo_nombre'],
+      ),
+      periodoInicio: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}periodo_inicio'],
+      ),
+      periodoFin: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}periodo_fin'],
+      ),
+      periodoLimite: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}periodo_limite'],
+      ),
+      periodoSuspencion: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}periodo_suspencion'],
+      ),
+      actualizadoEn:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}actualizado_en'],
+          )!,
+    );
+  }
+
+  @override
+  $FechasPeriodoActivoLocalTable createAlias(String alias) {
+    return $FechasPeriodoActivoLocalTable(attachedDatabase, alias);
+  }
+}
+
+class FechasPeriodoActivoLocalData extends DataClass
+    implements Insertable<FechasPeriodoActivoLocalData> {
+  final int id;
+  final String? periodoNombre;
+  final String? periodoInicio;
+  final String? periodoFin;
+  final String? periodoLimite;
+  final String? periodoSuspencion;
+  final DateTime actualizadoEn;
+  const FechasPeriodoActivoLocalData({
+    required this.id,
+    this.periodoNombre,
+    this.periodoInicio,
+    this.periodoFin,
+    this.periodoLimite,
+    this.periodoSuspencion,
+    required this.actualizadoEn,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    if (!nullToAbsent || periodoNombre != null) {
+      map['periodo_nombre'] = Variable<String>(periodoNombre);
+    }
+    if (!nullToAbsent || periodoInicio != null) {
+      map['periodo_inicio'] = Variable<String>(periodoInicio);
+    }
+    if (!nullToAbsent || periodoFin != null) {
+      map['periodo_fin'] = Variable<String>(periodoFin);
+    }
+    if (!nullToAbsent || periodoLimite != null) {
+      map['periodo_limite'] = Variable<String>(periodoLimite);
+    }
+    if (!nullToAbsent || periodoSuspencion != null) {
+      map['periodo_suspencion'] = Variable<String>(periodoSuspencion);
+    }
+    map['actualizado_en'] = Variable<DateTime>(actualizadoEn);
+    return map;
+  }
+
+  FechasPeriodoActivoLocalCompanion toCompanion(bool nullToAbsent) {
+    return FechasPeriodoActivoLocalCompanion(
+      id: Value(id),
+      periodoNombre:
+          periodoNombre == null && nullToAbsent
+              ? const Value.absent()
+              : Value(periodoNombre),
+      periodoInicio:
+          periodoInicio == null && nullToAbsent
+              ? const Value.absent()
+              : Value(periodoInicio),
+      periodoFin:
+          periodoFin == null && nullToAbsent
+              ? const Value.absent()
+              : Value(periodoFin),
+      periodoLimite:
+          periodoLimite == null && nullToAbsent
+              ? const Value.absent()
+              : Value(periodoLimite),
+      periodoSuspencion:
+          periodoSuspencion == null && nullToAbsent
+              ? const Value.absent()
+              : Value(periodoSuspencion),
+      actualizadoEn: Value(actualizadoEn),
+    );
+  }
+
+  factory FechasPeriodoActivoLocalData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return FechasPeriodoActivoLocalData(
+      id: serializer.fromJson<int>(json['id']),
+      periodoNombre: serializer.fromJson<String?>(json['periodoNombre']),
+      periodoInicio: serializer.fromJson<String?>(json['periodoInicio']),
+      periodoFin: serializer.fromJson<String?>(json['periodoFin']),
+      periodoLimite: serializer.fromJson<String?>(json['periodoLimite']),
+      periodoSuspencion: serializer.fromJson<String?>(
+        json['periodoSuspencion'],
+      ),
+      actualizadoEn: serializer.fromJson<DateTime>(json['actualizadoEn']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'periodoNombre': serializer.toJson<String?>(periodoNombre),
+      'periodoInicio': serializer.toJson<String?>(periodoInicio),
+      'periodoFin': serializer.toJson<String?>(periodoFin),
+      'periodoLimite': serializer.toJson<String?>(periodoLimite),
+      'periodoSuspencion': serializer.toJson<String?>(periodoSuspencion),
+      'actualizadoEn': serializer.toJson<DateTime>(actualizadoEn),
+    };
+  }
+
+  FechasPeriodoActivoLocalData copyWith({
+    int? id,
+    Value<String?> periodoNombre = const Value.absent(),
+    Value<String?> periodoInicio = const Value.absent(),
+    Value<String?> periodoFin = const Value.absent(),
+    Value<String?> periodoLimite = const Value.absent(),
+    Value<String?> periodoSuspencion = const Value.absent(),
+    DateTime? actualizadoEn,
+  }) => FechasPeriodoActivoLocalData(
+    id: id ?? this.id,
+    periodoNombre:
+        periodoNombre.present ? periodoNombre.value : this.periodoNombre,
+    periodoInicio:
+        periodoInicio.present ? periodoInicio.value : this.periodoInicio,
+    periodoFin: periodoFin.present ? periodoFin.value : this.periodoFin,
+    periodoLimite:
+        periodoLimite.present ? periodoLimite.value : this.periodoLimite,
+    periodoSuspencion:
+        periodoSuspencion.present
+            ? periodoSuspencion.value
+            : this.periodoSuspencion,
+    actualizadoEn: actualizadoEn ?? this.actualizadoEn,
+  );
+  FechasPeriodoActivoLocalData copyWithCompanion(
+    FechasPeriodoActivoLocalCompanion data,
+  ) {
+    return FechasPeriodoActivoLocalData(
+      id: data.id.present ? data.id.value : this.id,
+      periodoNombre:
+          data.periodoNombre.present
+              ? data.periodoNombre.value
+              : this.periodoNombre,
+      periodoInicio:
+          data.periodoInicio.present
+              ? data.periodoInicio.value
+              : this.periodoInicio,
+      periodoFin:
+          data.periodoFin.present ? data.periodoFin.value : this.periodoFin,
+      periodoLimite:
+          data.periodoLimite.present
+              ? data.periodoLimite.value
+              : this.periodoLimite,
+      periodoSuspencion:
+          data.periodoSuspencion.present
+              ? data.periodoSuspencion.value
+              : this.periodoSuspencion,
+      actualizadoEn:
+          data.actualizadoEn.present
+              ? data.actualizadoEn.value
+              : this.actualizadoEn,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FechasPeriodoActivoLocalData(')
+          ..write('id: $id, ')
+          ..write('periodoNombre: $periodoNombre, ')
+          ..write('periodoInicio: $periodoInicio, ')
+          ..write('periodoFin: $periodoFin, ')
+          ..write('periodoLimite: $periodoLimite, ')
+          ..write('periodoSuspencion: $periodoSuspencion, ')
+          ..write('actualizadoEn: $actualizadoEn')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    periodoNombre,
+    periodoInicio,
+    periodoFin,
+    periodoLimite,
+    periodoSuspencion,
+    actualizadoEn,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is FechasPeriodoActivoLocalData &&
+          other.id == this.id &&
+          other.periodoNombre == this.periodoNombre &&
+          other.periodoInicio == this.periodoInicio &&
+          other.periodoFin == this.periodoFin &&
+          other.periodoLimite == this.periodoLimite &&
+          other.periodoSuspencion == this.periodoSuspencion &&
+          other.actualizadoEn == this.actualizadoEn);
+}
+
+class FechasPeriodoActivoLocalCompanion
+    extends UpdateCompanion<FechasPeriodoActivoLocalData> {
+  final Value<int> id;
+  final Value<String?> periodoNombre;
+  final Value<String?> periodoInicio;
+  final Value<String?> periodoFin;
+  final Value<String?> periodoLimite;
+  final Value<String?> periodoSuspencion;
+  final Value<DateTime> actualizadoEn;
+  const FechasPeriodoActivoLocalCompanion({
+    this.id = const Value.absent(),
+    this.periodoNombre = const Value.absent(),
+    this.periodoInicio = const Value.absent(),
+    this.periodoFin = const Value.absent(),
+    this.periodoLimite = const Value.absent(),
+    this.periodoSuspencion = const Value.absent(),
+    this.actualizadoEn = const Value.absent(),
+  });
+  FechasPeriodoActivoLocalCompanion.insert({
+    this.id = const Value.absent(),
+    this.periodoNombre = const Value.absent(),
+    this.periodoInicio = const Value.absent(),
+    this.periodoFin = const Value.absent(),
+    this.periodoLimite = const Value.absent(),
+    this.periodoSuspencion = const Value.absent(),
+    required DateTime actualizadoEn,
+  }) : actualizadoEn = Value(actualizadoEn);
+  static Insertable<FechasPeriodoActivoLocalData> custom({
+    Expression<int>? id,
+    Expression<String>? periodoNombre,
+    Expression<String>? periodoInicio,
+    Expression<String>? periodoFin,
+    Expression<String>? periodoLimite,
+    Expression<String>? periodoSuspencion,
+    Expression<DateTime>? actualizadoEn,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (periodoNombre != null) 'periodo_nombre': periodoNombre,
+      if (periodoInicio != null) 'periodo_inicio': periodoInicio,
+      if (periodoFin != null) 'periodo_fin': periodoFin,
+      if (periodoLimite != null) 'periodo_limite': periodoLimite,
+      if (periodoSuspencion != null) 'periodo_suspencion': periodoSuspencion,
+      if (actualizadoEn != null) 'actualizado_en': actualizadoEn,
+    });
+  }
+
+  FechasPeriodoActivoLocalCompanion copyWith({
+    Value<int>? id,
+    Value<String?>? periodoNombre,
+    Value<String?>? periodoInicio,
+    Value<String?>? periodoFin,
+    Value<String?>? periodoLimite,
+    Value<String?>? periodoSuspencion,
+    Value<DateTime>? actualizadoEn,
+  }) {
+    return FechasPeriodoActivoLocalCompanion(
+      id: id ?? this.id,
+      periodoNombre: periodoNombre ?? this.periodoNombre,
+      periodoInicio: periodoInicio ?? this.periodoInicio,
+      periodoFin: periodoFin ?? this.periodoFin,
+      periodoLimite: periodoLimite ?? this.periodoLimite,
+      periodoSuspencion: periodoSuspencion ?? this.periodoSuspencion,
+      actualizadoEn: actualizadoEn ?? this.actualizadoEn,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (periodoNombre.present) {
+      map['periodo_nombre'] = Variable<String>(periodoNombre.value);
+    }
+    if (periodoInicio.present) {
+      map['periodo_inicio'] = Variable<String>(periodoInicio.value);
+    }
+    if (periodoFin.present) {
+      map['periodo_fin'] = Variable<String>(periodoFin.value);
+    }
+    if (periodoLimite.present) {
+      map['periodo_limite'] = Variable<String>(periodoLimite.value);
+    }
+    if (periodoSuspencion.present) {
+      map['periodo_suspencion'] = Variable<String>(periodoSuspencion.value);
+    }
+    if (actualizadoEn.present) {
+      map['actualizado_en'] = Variable<DateTime>(actualizadoEn.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FechasPeriodoActivoLocalCompanion(')
+          ..write('id: $id, ')
+          ..write('periodoNombre: $periodoNombre, ')
+          ..write('periodoInicio: $periodoInicio, ')
+          ..write('periodoFin: $periodoFin, ')
+          ..write('periodoLimite: $periodoLimite, ')
+          ..write('periodoSuspencion: $periodoSuspencion, ')
+          ..write('actualizadoEn: $actualizadoEn')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -2681,6 +3314,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $NovedadesLocalesTable novedadesLocales = $NovedadesLocalesTable(
     this,
   );
+  late final $FechasPeriodoActivoLocalTable fechasPeriodoActivoLocal =
+      $FechasPeriodoActivoLocalTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -2689,6 +3324,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     lecturas,
     registrosGps,
     novedadesLocales,
+    fechasPeriodoActivoLocal,
   ];
 }
 
@@ -2723,6 +3359,8 @@ typedef $$LecturasTableCreateCompanionBuilder =
       Value<String?> estadoMedidorServidor,
       Value<String?> estadoMedidor,
       Value<String?> celular,
+      Value<String?> datosPredioApiJson,
+      Value<String?> predioDireccion,
       Value<int> ordenRuta,
       Value<int> rowid,
     });
@@ -2757,6 +3395,8 @@ typedef $$LecturasTableUpdateCompanionBuilder =
       Value<String?> estadoMedidorServidor,
       Value<String?> estadoMedidor,
       Value<String?> celular,
+      Value<String?> datosPredioApiJson,
+      Value<String?> predioDireccion,
       Value<int> ordenRuta,
       Value<int> rowid,
     });
@@ -2912,6 +3552,16 @@ class $$LecturasTableFilterComposer
 
   ColumnFilters<String> get celular => $composableBuilder(
     column: $table.celular,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get datosPredioApiJson => $composableBuilder(
+    column: $table.datosPredioApiJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get predioDireccion => $composableBuilder(
+    column: $table.predioDireccion,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -3075,6 +3725,16 @@ class $$LecturasTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get datosPredioApiJson => $composableBuilder(
+    column: $table.datosPredioApiJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get predioDireccion => $composableBuilder(
+    column: $table.predioDireccion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<int> get ordenRuta => $composableBuilder(
     column: $table.ordenRuta,
     builder: (column) => ColumnOrderings(column),
@@ -3209,6 +3869,16 @@ class $$LecturasTableAnnotationComposer
   GeneratedColumn<String> get celular =>
       $composableBuilder(column: $table.celular, builder: (column) => column);
 
+  GeneratedColumn<String> get datosPredioApiJson => $composableBuilder(
+    column: $table.datosPredioApiJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get predioDireccion => $composableBuilder(
+    column: $table.predioDireccion,
+    builder: (column) => column,
+  );
+
   GeneratedColumn<int> get ordenRuta =>
       $composableBuilder(column: $table.ordenRuta, builder: (column) => column);
 }
@@ -3270,6 +3940,8 @@ class $$LecturasTableTableManager
                 Value<String?> estadoMedidorServidor = const Value.absent(),
                 Value<String?> estadoMedidor = const Value.absent(),
                 Value<String?> celular = const Value.absent(),
+                Value<String?> datosPredioApiJson = const Value.absent(),
+                Value<String?> predioDireccion = const Value.absent(),
                 Value<int> ordenRuta = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => LecturasCompanion(
@@ -3302,6 +3974,8 @@ class $$LecturasTableTableManager
                 estadoMedidorServidor: estadoMedidorServidor,
                 estadoMedidor: estadoMedidor,
                 celular: celular,
+                datosPredioApiJson: datosPredioApiJson,
+                predioDireccion: predioDireccion,
                 ordenRuta: ordenRuta,
                 rowid: rowid,
               ),
@@ -3336,6 +4010,8 @@ class $$LecturasTableTableManager
                 Value<String?> estadoMedidorServidor = const Value.absent(),
                 Value<String?> estadoMedidor = const Value.absent(),
                 Value<String?> celular = const Value.absent(),
+                Value<String?> datosPredioApiJson = const Value.absent(),
+                Value<String?> predioDireccion = const Value.absent(),
                 Value<int> ordenRuta = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => LecturasCompanion.insert(
@@ -3368,6 +4044,8 @@ class $$LecturasTableTableManager
                 estadoMedidorServidor: estadoMedidorServidor,
                 estadoMedidor: estadoMedidor,
                 celular: celular,
+                datosPredioApiJson: datosPredioApiJson,
+                predioDireccion: predioDireccion,
                 ordenRuta: ordenRuta,
                 rowid: rowid,
               ),
@@ -3898,6 +4576,276 @@ typedef $$NovedadesLocalesTableProcessedTableManager =
       NovedadesLocale,
       PrefetchHooks Function()
     >;
+typedef $$FechasPeriodoActivoLocalTableCreateCompanionBuilder =
+    FechasPeriodoActivoLocalCompanion Function({
+      Value<int> id,
+      Value<String?> periodoNombre,
+      Value<String?> periodoInicio,
+      Value<String?> periodoFin,
+      Value<String?> periodoLimite,
+      Value<String?> periodoSuspencion,
+      required DateTime actualizadoEn,
+    });
+typedef $$FechasPeriodoActivoLocalTableUpdateCompanionBuilder =
+    FechasPeriodoActivoLocalCompanion Function({
+      Value<int> id,
+      Value<String?> periodoNombre,
+      Value<String?> periodoInicio,
+      Value<String?> periodoFin,
+      Value<String?> periodoLimite,
+      Value<String?> periodoSuspencion,
+      Value<DateTime> actualizadoEn,
+    });
+
+class $$FechasPeriodoActivoLocalTableFilterComposer
+    extends Composer<_$AppDatabase, $FechasPeriodoActivoLocalTable> {
+  $$FechasPeriodoActivoLocalTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get periodoNombre => $composableBuilder(
+    column: $table.periodoNombre,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get periodoInicio => $composableBuilder(
+    column: $table.periodoInicio,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get periodoFin => $composableBuilder(
+    column: $table.periodoFin,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get periodoLimite => $composableBuilder(
+    column: $table.periodoLimite,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get periodoSuspencion => $composableBuilder(
+    column: $table.periodoSuspencion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get actualizadoEn => $composableBuilder(
+    column: $table.actualizadoEn,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$FechasPeriodoActivoLocalTableOrderingComposer
+    extends Composer<_$AppDatabase, $FechasPeriodoActivoLocalTable> {
+  $$FechasPeriodoActivoLocalTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get periodoNombre => $composableBuilder(
+    column: $table.periodoNombre,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get periodoInicio => $composableBuilder(
+    column: $table.periodoInicio,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get periodoFin => $composableBuilder(
+    column: $table.periodoFin,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get periodoLimite => $composableBuilder(
+    column: $table.periodoLimite,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get periodoSuspencion => $composableBuilder(
+    column: $table.periodoSuspencion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get actualizadoEn => $composableBuilder(
+    column: $table.actualizadoEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$FechasPeriodoActivoLocalTableAnnotationComposer
+    extends Composer<_$AppDatabase, $FechasPeriodoActivoLocalTable> {
+  $$FechasPeriodoActivoLocalTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get periodoNombre => $composableBuilder(
+    column: $table.periodoNombre,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get periodoInicio => $composableBuilder(
+    column: $table.periodoInicio,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get periodoFin => $composableBuilder(
+    column: $table.periodoFin,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get periodoLimite => $composableBuilder(
+    column: $table.periodoLimite,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get periodoSuspencion => $composableBuilder(
+    column: $table.periodoSuspencion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get actualizadoEn => $composableBuilder(
+    column: $table.actualizadoEn,
+    builder: (column) => column,
+  );
+}
+
+class $$FechasPeriodoActivoLocalTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $FechasPeriodoActivoLocalTable,
+          FechasPeriodoActivoLocalData,
+          $$FechasPeriodoActivoLocalTableFilterComposer,
+          $$FechasPeriodoActivoLocalTableOrderingComposer,
+          $$FechasPeriodoActivoLocalTableAnnotationComposer,
+          $$FechasPeriodoActivoLocalTableCreateCompanionBuilder,
+          $$FechasPeriodoActivoLocalTableUpdateCompanionBuilder,
+          (
+            FechasPeriodoActivoLocalData,
+            BaseReferences<
+              _$AppDatabase,
+              $FechasPeriodoActivoLocalTable,
+              FechasPeriodoActivoLocalData
+            >,
+          ),
+          FechasPeriodoActivoLocalData,
+          PrefetchHooks Function()
+        > {
+  $$FechasPeriodoActivoLocalTableTableManager(
+    _$AppDatabase db,
+    $FechasPeriodoActivoLocalTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer:
+              () => $$FechasPeriodoActivoLocalTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer:
+              () => $$FechasPeriodoActivoLocalTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer:
+              () => $$FechasPeriodoActivoLocalTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String?> periodoNombre = const Value.absent(),
+                Value<String?> periodoInicio = const Value.absent(),
+                Value<String?> periodoFin = const Value.absent(),
+                Value<String?> periodoLimite = const Value.absent(),
+                Value<String?> periodoSuspencion = const Value.absent(),
+                Value<DateTime> actualizadoEn = const Value.absent(),
+              }) => FechasPeriodoActivoLocalCompanion(
+                id: id,
+                periodoNombre: periodoNombre,
+                periodoInicio: periodoInicio,
+                periodoFin: periodoFin,
+                periodoLimite: periodoLimite,
+                periodoSuspencion: periodoSuspencion,
+                actualizadoEn: actualizadoEn,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String?> periodoNombre = const Value.absent(),
+                Value<String?> periodoInicio = const Value.absent(),
+                Value<String?> periodoFin = const Value.absent(),
+                Value<String?> periodoLimite = const Value.absent(),
+                Value<String?> periodoSuspencion = const Value.absent(),
+                required DateTime actualizadoEn,
+              }) => FechasPeriodoActivoLocalCompanion.insert(
+                id: id,
+                periodoNombre: periodoNombre,
+                periodoInicio: periodoInicio,
+                periodoFin: periodoFin,
+                periodoLimite: periodoLimite,
+                periodoSuspencion: periodoSuspencion,
+                actualizadoEn: actualizadoEn,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          BaseReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$FechasPeriodoActivoLocalTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $FechasPeriodoActivoLocalTable,
+      FechasPeriodoActivoLocalData,
+      $$FechasPeriodoActivoLocalTableFilterComposer,
+      $$FechasPeriodoActivoLocalTableOrderingComposer,
+      $$FechasPeriodoActivoLocalTableAnnotationComposer,
+      $$FechasPeriodoActivoLocalTableCreateCompanionBuilder,
+      $$FechasPeriodoActivoLocalTableUpdateCompanionBuilder,
+      (
+        FechasPeriodoActivoLocalData,
+        BaseReferences<
+          _$AppDatabase,
+          $FechasPeriodoActivoLocalTable,
+          FechasPeriodoActivoLocalData
+        >,
+      ),
+      FechasPeriodoActivoLocalData,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -3908,4 +4856,9 @@ class $AppDatabaseManager {
       $$RegistrosGpsTableTableManager(_db, _db.registrosGps);
   $$NovedadesLocalesTableTableManager get novedadesLocales =>
       $$NovedadesLocalesTableTableManager(_db, _db.novedadesLocales);
+  $$FechasPeriodoActivoLocalTableTableManager get fechasPeriodoActivoLocal =>
+      $$FechasPeriodoActivoLocalTableTableManager(
+        _db,
+        _db.fechasPeriodoActivoLocal,
+      );
 }

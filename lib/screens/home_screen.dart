@@ -1,4 +1,6 @@
 // lib/screens/home_screen.dart
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/database.dart';
@@ -33,23 +35,22 @@ class _HomeScreenState extends State<HomeScreen> {
   int _tabIndex = 0;
   bool _sincronizando = false;
   int _pendientes = 0;
+  StreamSubscription<int>? _pendientesSubscription;
 
   @override
   void initState() {
     super.initState();
-    _contarPendientes();
+    _pendientesSubscription = widget.db.watchCantidadPendientesSync().listen((
+      cantidad,
+    ) {
+      if (mounted) setState(() => _pendientes = cantidad);
+    });
   }
 
-  // Reconteo cada vez que el usuario vuelve al home
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _contarPendientes();
-  }
-
-  Future<void> _contarPendientes() async {
-    final lista = await widget.db.obtenerPendientesSync();
-    if (mounted) setState(() => _pendientes = lista.length);
+  void dispose() {
+    _pendientesSubscription?.cancel();
+    super.dispose();
   }
 
   Future<void> _sincronizarPredios() async {
@@ -57,10 +58,10 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder:
           (ctx) => AlertDialog(
-            title: const Text('Actualizar predios'),
+            title: const Text('Actualizar predios/abonados'),
             content: const Text(
-              'Se descargarán los predios pendientes del servidor. '
-              'Las lecturas ya tomadas no se perderán.',
+              'Se descargarán los predios/abonados pendientes del servidor. '
+              'Las lecturas que ya fueron sincronizadas no se perderán.',
             ),
             actions: [
               TextButton(
@@ -99,9 +100,9 @@ class _HomeScreenState extends State<HomeScreen> {
             resultado.total == 0
                 ? resultado.error ?? 'El servidor no devolvió predios'
                 : 'Período actualizado: ${resultado.total} predios cargados',
-              
-          ),
           
+          ),
+
           backgroundColor: resultado.total == 0 ? Colors.orange : Colors.green,
           behavior: SnackBarBehavior.floating,
         ),
@@ -201,17 +202,19 @@ class _HomeScreenState extends State<HomeScreen> {
         'abonados_importados_${widget.acueducto.tipo.name}_v12',
       );
 
-      await _contarPendientes();
+      final pendientesRestantes =
+          await widget.db.watchCantidadPendientesSync().first;
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              _pendientes == 0
+              pendientesRestantes == 0
                   ? '✓ Todo sincronizado'
-                  : '⚠ $_pendientes lecturas pendientes',
+                  : '⚠ $pendientesRestantes lecturas pendientes',
             ),
-            backgroundColor: _pendientes == 0 ? Colors.green : Colors.orange,
+            backgroundColor:
+                pendientesRestantes == 0 ? Colors.green : Colors.orange,
             behavior: SnackBarBehavior.floating,
           ),
         );

@@ -53,9 +53,11 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
     if (_busqueda.isEmpty) return lista;
     final q = _busqueda.toLowerCase();
     return lista
-        .where((l) =>
-            (l.nombreAbonado ?? '').toLowerCase().contains(q) ||
-            (l.codigoMedidor ?? '').toLowerCase().contains(q))
+        .where(
+          (l) =>
+              (l.nombreAbonado ?? '').toLowerCase().contains(q) ||
+              (l.codigoMedidor ?? '').toLowerCase().contains(q),
+        )
         .toList();
   }
 
@@ -77,8 +79,7 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
           }
         }
         // Si no hay pendientes, usar sectores del JSON previo
-        final sectores =
-            sectoresSet.isEmpty ? _sectores : sectoresSet;
+        final sectores = sectoresSet.isEmpty ? _sectores : sectoresSet;
 
         if (sectores.isNotEmpty) {
           _actualizarTabs(sectores);
@@ -87,40 +88,56 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
         // Si aún no hay tabs — puede ser BD vacía o cargando
         if (_tabController == null || _sectores.isEmpty) {
           // Si el stream ya respondió y no hay datos → BD vacía
-          final bdVacia = snapshot.connectionState != ConnectionState.waiting
-              && todos.isEmpty;
+          final bdVacia =
+              snapshot.connectionState != ConnectionState.waiting &&
+              todos.isEmpty;
 
           return Scaffold(
             appBar: AppBar(
               title: Text('Lecturas del día — ${widget.acueducto.nombre}'),
             ),
-            body: Center(
-              child: bdVacia
-                  ? Padding(
-                      padding: const EdgeInsets.all(32),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.cloud_off,
-                              size: 64, color: Colors.grey.shade400),
-                          const SizedBox(height: 16),
-                          const Text(
-                            'Sin datos disponibles',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'No se pudieron cargar los abonados.\n'
-                            'Verifica tu conexión y reinicia la app.'
-                            'O puede que no haya periodo activo en estos momentos.',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.grey.shade600),
-                          ),
-                        ],
-                      ),
-                    )
-                  : const CircularProgressIndicator(),
+            body: Column(
+              children: [
+                _buildPeriodoActivo(),
+                Expanded(
+                  child: Center(
+                    child:
+                        bdVacia
+                            ? Padding(
+                              padding: const EdgeInsets.all(32),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.cloud_off,
+                                    size: 64,
+                                    color: Colors.grey.shade400,
+                                  ),
+                                  const SizedBox(height: 16),
+                                  const Text(
+                                    'Sin datos disponibles',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    'No se pudieron cargar los abonados.\n'
+                                    'Verifica tu conexión y reinicia la app.'
+                                    'O puede que no haya periodo activo en estos momentos.',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.grey.shade600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                            : const CircularProgressIndicator(),
+                  ),
+                ),
+              ],
             ),
           );
         }
@@ -133,18 +150,21 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
               child: TabBar(
                 controller: _tabController,
                 isScrollable: _sectores.length > 3,
-                tabs: _sectores.map((sector) {
-                  final count =
-                      todos.where((l) => l.sector == sector).length;
-                  return _buildTab(
-                    sector.length > 8
-                        ? sector.split(' ').map((w) => w[0]).join()
-                        : sector,
-                    count,
-                  );
-                }).toList(),
+                tabs:
+                    _sectores.map((sector) {
+                      final count =
+                          todos.where((l) => l.sector == sector).length;
+                      return _buildTab(
+                        sector.length > 8
+                            ? sector.split(' ').map((w) => w[0]).join()
+                            : sector,
+                        count,
+                      );
+                    }).toList(),
                 labelStyle: const TextStyle(
-                    fontSize: 12, fontWeight: FontWeight.w600),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
                 indicatorColor: Colors.blue,
               ),
             ),
@@ -152,6 +172,7 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
           body: FondoConGotas(
             child: Column(
               children: [
+                _buildPeriodoActivo(),
                 _buildBusqueda(),
                 Expanded(
                   child: Column(
@@ -160,12 +181,14 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
                       Expanded(
                         child: TabBarView(
                           controller: _tabController,
-                          children: _sectores.map((sector) {
-                            final lista = todos
-                                .where((l) => l.sector == sector)
-                                .toList();
-                            return _buildLista(_filtrar(lista), sector);
-                          }).toList(),
+                          children:
+                              _sectores.map((sector) {
+                                final lista =
+                                    todos
+                                        .where((l) => l.sector == sector)
+                                        .toList();
+                                return _buildLista(_filtrar(lista), sector);
+                              }).toList(),
                         ),
                       ),
                     ],
@@ -173,6 +196,45 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
                 ),
               ],
             ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildPeriodoActivo() {
+    return StreamBuilder<FechasPeriodoActivoLocalData?>(
+      stream: widget.db.watchFechasPeriodoActivo(),
+      builder: (context, snapshot) {
+        final nombre = snapshot.data?.periodoNombre;
+        return Container(
+          width: double.infinity,
+          margin: const EdgeInsets.fromLTRB(12, 10, 12, 4),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          decoration: BoxDecoration(
+            color: Colors.blue.shade50,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.blue.shade100),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.calendar_month, color: Colors.blue.shade700, size: 20),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  nombre == null || nombre.isEmpty
+                      ? 'Período activo: no disponible'
+                      : 'Período activo: $nombre',
+                  style: TextStyle(
+                    color: Colors.blue.shade900,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
         );
       },
@@ -207,19 +269,22 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
         decoration: InputDecoration(
           hintText: 'Buscar por nombre o código...',
           prefixIcon: const Icon(Icons.search, size: 20),
-          suffixIcon: _busqueda.isNotEmpty
-              ? IconButton(
-                  icon: const Icon(Icons.clear, size: 18),
-                  onPressed: () {
-                    _busquedaCtrl.clear();
-                    setState(() => _busqueda = '');
-                  },
-                )
-              : null,
+          suffixIcon:
+              _busqueda.isNotEmpty
+                  ? IconButton(
+                    icon: const Icon(Icons.clear, size: 18),
+                    onPressed: () {
+                      _busquedaCtrl.clear();
+                      setState(() => _busqueda = '');
+                    },
+                  )
+                  : null,
           filled: true,
           fillColor: Colors.white,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 8,
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none,
@@ -237,8 +302,7 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
         boxShadow: const [
-          BoxShadow(
-              color: Colors.black12, blurRadius: 4, offset: Offset(0, 1)),
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 1)),
         ],
       ),
       child: Row(
@@ -268,15 +332,21 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.check_circle_outline,
-                size: 56, color: Colors.green),
+            const Icon(
+              Icons.check_circle_outline,
+              size: 56,
+              color: Colors.green,
+            ),
             const SizedBox(height: 12),
-            const Text('¡Todo listo en este sector!',
-                style: TextStyle(
-                    fontSize: 16, fontWeight: FontWeight.w600)),
+            const Text(
+              '¡Todo listo en este sector!',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
             const SizedBox(height: 6),
-            Text('No hay medidores pendientes',
-                style: TextStyle(color: Colors.grey.shade500)),
+            Text(
+              'No hay medidores pendientes',
+              style: TextStyle(color: Colors.grey.shade500),
+            ),
           ],
         ),
       );
@@ -285,13 +355,14 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       itemCount: lista.length,
-      itemBuilder: (_, i) => _TarjetaAbonado(
-        lectura: lista[i],
-        db: widget.db,
-        colorSector: _colorSector(lista[i].sector),
-        acueducto: widget.acueducto,
-        onCapturar: () => _irACaptura(lista[i]),
-      ),
+      itemBuilder:
+          (_, i) => _TarjetaAbonado(
+            lectura: lista[i],
+            db: widget.db,
+            colorSector: _colorSector(lista[i].sector),
+            acueducto: widget.acueducto,
+            onCapturar: () => _irACaptura(lista[i]),
+          ),
     );
   }
 
@@ -304,20 +375,21 @@ class _LecturasDiaScreenState extends State<LecturasDiaScreen>
   Future<void> _irACaptura(Lectura lectura) async {
     await Navigator.of(context).push<bool>(
       MaterialPageRoute(
-        builder: (_) => InfoAbonadoScreen(
-          db: widget.db,
-          acueducto: widget.acueducto,
-          codigoMedidor: lectura.codigoMedidor,
-          predioCodigo: lectura.predioCodigo,
-          nombreAbonado: lectura.nombreAbonado,
-          celular: lectura.celular,
-          lecturaAnterior: lectura.lecturaAnterior,
-          latitud: lectura.latitud,
-          longitud: lectura.longitud,
-          sector: lectura.sector,
-          estadoMedidorClave: lectura.estadoMedidor,
-          predioId: _extraerPredioId(lectura.id),
-        ),
+        builder:
+            (_) => InfoAbonadoScreen(
+              db: widget.db,
+              acueducto: widget.acueducto,
+              codigoMedidor: lectura.codigoMedidor,
+              predioCodigo: lectura.predioCodigo,
+              nombreAbonado: lectura.nombreAbonado,
+              celular: lectura.celular,
+              lecturaAnterior: lectura.lecturaAnterior,
+              latitud: lectura.latitud,
+              longitud: lectura.longitud,
+              sector: lectura.sector,
+              estadoMedidorClave: lectura.estadoMedidor,
+              predioId: _extraerPredioId(lectura.id),
+            ),
       ),
     );
   }
@@ -348,8 +420,7 @@ class _TarjetaAbonado extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
-      shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: () {
@@ -357,20 +428,21 @@ class _TarjetaAbonado extends StatelessWidget {
           final predioId = match != null ? int.tryParse(match.group(1)!) : null;
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (_) => InfoAbonadoScreen(
-                db: db,
-                acueducto: acueducto,
-                codigoMedidor: lectura.codigoMedidor,
-                predioCodigo: lectura.predioCodigo,
-                nombreAbonado: lectura.nombreAbonado,
-                celular: lectura.celular,
-                lecturaAnterior: lectura.lecturaAnterior,
-                latitud: lectura.latitud,
-                longitud: lectura.longitud,
-                sector: lectura.sector,
-                estadoMedidorClave: lectura.estadoMedidor,
-                predioId: predioId,
-              ),
+              builder:
+                  (_) => InfoAbonadoScreen(
+                    db: db,
+                    acueducto: acueducto,
+                    codigoMedidor: lectura.codigoMedidor,
+                    predioCodigo: lectura.predioCodigo,
+                    nombreAbonado: lectura.nombreAbonado,
+                    celular: lectura.celular,
+                    lecturaAnterior: lectura.lecturaAnterior,
+                    latitud: lectura.latitud,
+                    longitud: lectura.longitud,
+                    sector: lectura.sector,
+                    estadoMedidorClave: lectura.estadoMedidor,
+                    predioId: predioId,
+                  ),
             ),
           );
         },
@@ -385,16 +457,16 @@ class _TarjetaAbonado extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: colorSector.withValues(alpha: 0.12),
                   shape: BoxShape.circle,
-                  border:
-                      Border.all(color: colorSector.withValues(alpha: 0.3)),
+                  border: Border.all(color: colorSector.withValues(alpha: 0.3)),
                 ),
                 child: Center(
                   child: Text(
                     inicial,
                     style: TextStyle(
-                        color: colorSector,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18),
+                      color: colorSector,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
                   ),
                 ),
               ),
@@ -406,41 +478,42 @@ class _TarjetaAbonado extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      lectura.nombreAbonado ??
-                          lectura.codigoMedidor ??
-                          '—',
+                      lectura.nombreAbonado ?? lectura.codigoMedidor ?? '—',
                       style: const TextStyle(
-                          fontSize: 13, fontWeight: FontWeight.w600),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 2),
                     Text(
                       'Medidor: ${lectura.codigoMedidor ?? 'Sin registrar'}',
-                      style: const TextStyle(
-                          fontSize: 11, color: Colors.grey),
+                      style: const TextStyle(fontSize: 11, color: Colors.grey),
                     ),
                     Text(
                       'Predio: ${lectura.predioCodigo ?? 'Sin registrar'}',
-                      style: const TextStyle(
-                          fontSize: 11, color: Colors.grey),
+                      style: const TextStyle(fontSize: 11, color: Colors.grey),
                     ),
                     if (lectura.lectura > 0) ...[
                       const SizedBox(height: 2),
                       Text(
                         'Lectura anterior: ${lectura.lectura}',
                         style: TextStyle(
-                            fontSize: 11,
-                            color: colorSector,
-                            fontWeight: FontWeight.w500),
+                          fontSize: 11,
+                          color: colorSector,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ],
                   ],
                 ),
               ),
               const SizedBox(width: 8),
-                Icon(Icons.chevron_right,
-                  color: colorSector.withValues(alpha: 0.5)),
+              Icon(
+                Icons.chevron_right,
+                color: colorSector.withValues(alpha: 0.5),
+              ),
             ],
           ),
         ),

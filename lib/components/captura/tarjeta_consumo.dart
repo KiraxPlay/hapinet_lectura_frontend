@@ -3,19 +3,23 @@ import '../../models/estado_medidor.dart';
 
 class TarjetaConsumo extends StatelessWidget {
   final int? consumo;
+  final int? consumoAnterior;
+  final int? lecturaAnterior;
   final bool tieneLecturaAnterior;
   final String? estadoMedidorAnterior;
 
   const TarjetaConsumo({
     super.key,
     required this.consumo,
+    required this.consumoAnterior,
+    required this.lecturaAnterior,
     required this.tieneLecturaAnterior,
     required this.estadoMedidorAnterior,
   });
 
   @override
   Widget build(BuildContext context) {
-    final detalle = switch (consumo) {
+    final detalleConsumo = switch (consumo) {
       final valor? => '$valor m³',
       _ when !tieneLecturaAnterior => 'No disponible: falta lectura anterior',
       _ => '0 m³',
@@ -23,22 +27,52 @@ class TarjetaConsumo extends StatelessWidget {
     final estado = EstadoMedidor.desdeClave(estadoMedidorAnterior);
     final colorEstado = estado?.colorBadge ?? Colors.grey;
 
-    return Row(
+    return Column(
       children: [
-        Expanded(
-          child: _PanelDato(
-            titulo: 'CONSUMO',
-            valor: detalle,
-            color: Colors.lightBlueAccent,
-          ),
+        Row(
+          children: [
+            Expanded(
+              child: _PanelDato(
+                titulo: 'CONSUMO ACTUAL',
+                valor: detalleConsumo,
+                color: Colors.lightBlueAccent,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: _PanelDato(
+                titulo: 'ESTADO ANTERIOR',
+                valor: estado?.etiqueta ?? 'No reportado',
+                color: colorEstado,
+              ),
+            ),
+          ],
         ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: _PanelDato(
-            titulo: 'ESTADO ANTERIOR',
-            valor: estado?.etiqueta ?? 'No reportado',
-            color: colorEstado,
-          ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            Expanded(
+              child: _PanelDato(
+                titulo: 'CONSUMO ANTERIOR',
+                valor:
+                    consumoAnterior == null
+                        ? 'No disponible'
+                        : '$consumoAnterior m³',
+                color: Colors.orangeAccent,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: _PanelDato(
+                titulo: 'LECTURA ANTERIOR',
+                valor:
+                    lecturaAnterior == null
+                        ? 'No disponible'
+                        : '$lecturaAnterior m³',
+                color: Colors.tealAccent,
+              ),
+            ),
+          ],
         ),
       ],
     );

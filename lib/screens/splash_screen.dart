@@ -1,9 +1,11 @@
 // lib/screens/splash_screen.dart
 import 'dart:math';
+import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import '../data/database.dart';
 import '../utils/constantes.dart';
 import '../models/acueducto.dart';
+import '../services/api/api_service.dart';
 import '../services/importar_abonados_service.dart';
 import '../services/asr_service.dart';
 import '../services/api/tarifas_service.dart';
@@ -45,11 +47,11 @@ class _SplashScreenState extends State<SplashScreen>
 
   // Pasos y sus umbrales de progreso
   static const _pasos = [
-    (label: 'Base de datos',   umbral: 0.1),
-    (label: 'Abonados',        umbral: 0.5),
-    (label: 'Motor OCR',       umbral: 0.72),
-    (label: 'Mapa offline',    umbral: 0.92),
-    (label: 'Motor de voz',    umbral: 1.0),
+    (label: 'Base de datos', umbral: 0.1),
+    (label: 'Abonados', umbral: 0.5),
+    (label: 'Motor OCR', umbral: 0.72),
+    (label: 'Mapa offline', umbral: 0.92),
+    (label: 'Motor de voz', umbral: 1.0),
   ];
 
   @override
@@ -96,6 +98,32 @@ class _SplashScreenState extends State<SplashScreen>
     // ASR y tarifas en background — no bloquean
     AsrService.instancia.inicializar();
     TarifasService(acueducto: widget.acueducto).sincronizar();
+    ApiService(widget.acueducto)
+        .sincronizarFechasPeriodoActivo(widget.db)
+        .then<void>(
+          (_) {},
+          onError: (Object error, StackTrace stackTrace) {
+            developer.log(
+              'No se pudieron actualizar localmente las fechas del período.',
+              name: 'periodo.sync',
+              error: error,
+              stackTrace: stackTrace,
+            );
+          },
+        );
+    ApiService(widget.acueducto)
+        .sincronizarNombrePeriodoActivo(widget.db)
+        .then<void>(
+          (_) {},
+          onError: (Object error, StackTrace stackTrace) {
+            developer.log(
+              'No se pudo actualizar localmente el nombre del período activo.',
+              name: 'periodo.sync',
+              error: error,
+              stackTrace: stackTrace,
+            );
+          },
+        );
 
     // Paso 1 — abonados
     _setProgreso('Cargando abonados...', 0.1, 1);
@@ -137,14 +165,15 @@ class _SplashScreenState extends State<SplashScreen>
   void _irAHome() {
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
-        pageBuilder: (_, animation, __) => FadeTransition(
-          opacity: animation,
-          child: HomeScreen(
-            db: widget.db,
-            acueducto: widget.acueducto,
-            onCerrarSesion: widget.onCerrarSesion,
-          ),
-        ),
+        pageBuilder:
+            (_, animation, __) => FadeTransition(
+              opacity: animation,
+              child: HomeScreen(
+                db: widget.db,
+                acueducto: widget.acueducto,
+                onCerrarSesion: widget.onCerrarSesion,
+              ),
+            ),
         transitionDuration: const Duration(milliseconds: 600),
       ),
     );
@@ -234,8 +263,7 @@ class _SplashScreenState extends State<SplashScreen>
             child: Text(
               'v$kVersion — $kNombreApp',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 11, color: Color(0xFF90CAF9)),
+              style: TextStyle(fontSize: 11, color: Color(0xFF90CAF9)),
             ),
           ),
         ],
@@ -267,9 +295,10 @@ class _SplashScreenState extends State<SplashScreen>
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
-                      color: _progresoAnimado > 0.5
-                          ? Colors.white
-                          : const Color(0xFF1565C0),
+                      color:
+                          _progresoAnimado > 0.5
+                              ? Colors.white
+                              : const Color(0xFF1565C0),
                       shadows: [
                         Shadow(
                           color: Colors.black.withOpacity(0.1),
@@ -293,63 +322,76 @@ class _SplashScreenState extends State<SplashScreen>
       padding: const EdgeInsets.symmetric(horizontal: 52),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: _pasos.asMap().entries.map((entry) {
-          final i = entry.key;
-          final paso = entry.value;
-          final completo = _progresoReal >= paso.umbral;
-          final activo = _pasoActual == i && !completo;
+        children:
+            _pasos.asMap().entries.map((entry) {
+              final i = entry.key;
+              final paso = entry.value;
+              final completo = _progresoReal >= paso.umbral;
+              final activo = _pasoActual == i && !completo;
 
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 250),
-                    child: completo
-                        ? const Icon(Icons.check_circle,
-                            color: Color(0xFF1976D2),
-                            size: 16,
-                            key: ValueKey('check'))
-                        : activo
-                            ? const CircularProgressIndicator(
-                                strokeWidth: 1.5,
-                                color: Color(0xFF64B5F6),
-                                key: ValueKey('loading'))
-                            : const Icon(Icons.radio_button_unchecked,
-                                color: Color(0xFFBBDEFB),
-                                size: 16,
-                                key: ValueKey('pending')),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    paso.label,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: completo
-                          ? const Color(0xFF1976D2)
-                          : activo
-                              ? const Color(0xFF42A5F5)
-                              : const Color(0xFFBBDEFB),
-                      fontWeight:
-                          completo || activo ? FontWeight.w600 : FontWeight.normal,
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 3),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 250),
+                        child:
+                            completo
+                                ? const Icon(
+                                  Icons.check_circle,
+                                  color: Color(0xFF1976D2),
+                                  size: 16,
+                                  key: ValueKey('check'),
+                                )
+                                : activo
+                                ? const CircularProgressIndicator(
+                                  strokeWidth: 1.5,
+                                  color: Color(0xFF64B5F6),
+                                  key: ValueKey('loading'),
+                                )
+                                : const Icon(
+                                  Icons.radio_button_unchecked,
+                                  color: Color(0xFFBBDEFB),
+                                  size: 16,
+                                  key: ValueKey('pending'),
+                                ),
+                      ),
                     ),
-                  ),
-                ),
-                if (completo)
-                  const Text('✓',
-                      style: TextStyle(
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        paso.label,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color:
+                              completo
+                                  ? const Color(0xFF1976D2)
+                                  : activo
+                                  ? const Color(0xFF42A5F5)
+                                  : const Color(0xFFBBDEFB),
+                          fontWeight:
+                              completo || activo
+                                  ? FontWeight.w600
+                                  : FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                    if (completo)
+                      const Text(
+                        '✓',
+                        style: TextStyle(
                           color: Color(0xFF1976D2),
                           fontSize: 11,
-                          fontWeight: FontWeight.bold)),
-              ],
-            ),
-          );
-        }).toList(),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                  ],
+                ),
+              );
+            }).toList(),
       ),
     );
   }
@@ -371,10 +413,7 @@ class _SplashScreenState extends State<SplashScreen>
         ],
       ),
       child: ClipOval(
-        child: Image.asset(
-          'assets/images/hapinet_icon.png',
-          fit: BoxFit.cover,
-        ),
+        child: Image.asset('assets/images/hapinet_icon.png', fit: BoxFit.cover),
       ),
     );
   }
@@ -396,10 +435,7 @@ class _GotaPainter extends CustomPainter {
     final gotaPath = _buildGotaPath(w, h);
 
     // Fondo vacío (azul muy claro)
-    canvas.drawPath(
-      gotaPath,
-      Paint()..color = const Color(0xFFBBDEFB),
-    );
+    canvas.drawPath(gotaPath, Paint()..color = const Color(0xFFBBDEFB));
 
     // Clip a la forma de la gota para el agua
     canvas.save();
@@ -409,24 +445,29 @@ class _GotaPainter extends CustomPainter {
     final nivelY = h * 0.84 * (1.0 - progreso) + (h * 0.08);
 
     // Ola trasera
-    final olaPath1 = _buildOlaPath(w, h, nivelY,
-        amplitud: h * 0.03,
-        frecuencia: 1.5,
-        faseOffset: fase);
+    final olaPath1 = _buildOlaPath(
+      w,
+      h,
+      nivelY,
+      amplitud: h * 0.03,
+      frecuencia: 1.5,
+      faseOffset: fase,
+    );
     canvas.drawPath(
       olaPath1,
       Paint()..color = const Color(0xFF42A5F5).withOpacity(0.7),
     );
 
     // Ola delantera
-    final olaPath2 = _buildOlaPath(w, h, nivelY + h * 0.02,
-        amplitud: h * 0.025,
-        frecuencia: 2.0,
-        faseOffset: fase + 0.3);
-    canvas.drawPath(
-      olaPath2,
-      Paint()..color = const Color(0xFF1976D2),
+    final olaPath2 = _buildOlaPath(
+      w,
+      h,
+      nivelY + h * 0.02,
+      amplitud: h * 0.025,
+      frecuencia: 2.0,
+      faseOffset: fase + 0.3,
     );
+    canvas.drawPath(olaPath2, Paint()..color = const Color(0xFF1976D2));
 
     // Burbujas dentro del agua
     _dibujarBurbujas(canvas, w, h, nivelY);
@@ -464,47 +505,55 @@ class _GotaPainter extends CustomPainter {
 
     // Lado derecho bajando con curva
     path.cubicTo(
-      cx + w * 0.6, h * 0.35,  // control 1
-      cx + w * 0.5, h * 0.72,   // control 2
-      cx + w * 0.5, h * 0.72,   // punto
+      cx + w * 0.6,
+      h * 0.35, // control 1
+      cx + w * 0.5,
+      h * 0.72, // control 2
+      cx + w * 0.5,
+      h * 0.72, // punto
     );
 
     // Base redondeada y convexa, como una gota completa.
+    path.cubicTo(cx + w * 0.5, h * 0.84, cx + w * 0.32, base, cx, base);
     path.cubicTo(
-      cx + w * 0.5, h * 0.84,
-      cx + w * 0.32, base,
-      cx, base,
-    );
-    path.cubicTo(
-      cx - w * 0.32, base,
-      cx - w * 0.5, h * 0.84,
-      cx - w * 0.5, h * 0.72,
+      cx - w * 0.32,
+      base,
+      cx - w * 0.5,
+      h * 0.84,
+      cx - w * 0.5,
+      h * 0.72,
     );
 
     // Lado izquierdo subiendo
     path.cubicTo(
-      cx - w * 0.5, h * 0.72,  // control 1
-      cx - w * 0.6, h * 0.35,  // control 2
-      cx, 0,                    // punta arriba
+      cx - w * 0.5,
+      h * 0.72, // control 1
+      cx - w * 0.6,
+      h * 0.35, // control 2
+      cx,
+      0, // punta arriba
     );
 
     path.close();
     return path;
   }
 
-  Path _buildOlaPath(double w, double h, double nivelY,
-      {required double amplitud,
-      required double frecuencia,
-      required double faseOffset}) {
+  Path _buildOlaPath(
+    double w,
+    double h,
+    double nivelY, {
+    required double amplitud,
+    required double frecuencia,
+    required double faseOffset,
+  }) {
     final path = Path();
     path.moveTo(0, h);
     path.lineTo(0, nivelY);
 
     for (double x = 0; x <= w; x += 2) {
-      final y = nivelY +
-          amplitud *
-              sin((x / w * frecuencia * 2 * pi) +
-                  (faseOffset * 2 * pi));
+      final y =
+          nivelY +
+          amplitud * sin((x / w * frecuencia * 2 * pi) + (faseOffset * 2 * pi));
       path.lineTo(x, y);
     }
 
@@ -513,11 +562,11 @@ class _GotaPainter extends CustomPainter {
     return path;
   }
 
-  void _dibujarBurbujas(
-      Canvas canvas, double w, double h, double nivelY) {
-    final paint = Paint()
-      ..color = Colors.white.withOpacity(0.35)
-      ..style = PaintingStyle.fill;
+  void _dibujarBurbujas(Canvas canvas, double w, double h, double nivelY) {
+    final paint =
+        Paint()
+          ..color = Colors.white.withOpacity(0.35)
+          ..style = PaintingStyle.fill;
 
     for (final b in [
       (rx: 0.25, ry: 0.8, r: 4.0, v: 0.8),
@@ -526,7 +575,9 @@ class _GotaPainter extends CustomPainter {
       (rx: 0.7, ry: 0.85, r: 2.5, v: 1.3),
     ]) {
       final bx = w * b.rx;
-      final by = nivelY + (h - nivelY) * b.ry -
+      final by =
+          nivelY +
+          (h - nivelY) * b.ry -
           ((h - nivelY) * 0.5 * ((fase * b.v) % 1.0));
       if (by < nivelY) continue;
       canvas.drawCircle(Offset(bx, by), b.r, paint);
@@ -552,7 +603,10 @@ class _FondoSplashPainter extends CustomPainter {
     ]) {
       paint.color = const Color(0xFF1976D2).withOpacity(c.o);
       canvas.drawCircle(
-          Offset(size.width * c.x, size.height * c.y), c.r, paint);
+        Offset(size.width * c.x, size.height * c.y),
+        c.r,
+        paint,
+      );
     }
   }
 

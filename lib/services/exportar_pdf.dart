@@ -1,13 +1,18 @@
 // lib/services/exportar_pdf.dart
+import 'dart:developer' as developer;
 import 'dart:io';
+
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+
 import '../data/database.dart';
 import '../models/acueducto.dart';
+import '../models/factura_pendiente.dart';
 import '../models/factura_sitio_result.dart';
+import 'api/api_service.dart';
 import 'api/tarifas_service.dart';
 
 class ExportarPdfService {
@@ -94,6 +99,7 @@ class ExportarPdfService {
     final ruta = '${carpeta.path}/$codigo.pdf';
 
     final empresa = await _tarifasSvc.obtenerLocal();
+    final fechasPeriodo = await _obtenerFechasPeriodoActivo();
     final pdf = pw.Document();
     pdf.addPage(
       _buildPagina(
@@ -103,6 +109,7 @@ class ExportarPdfService {
         facturaNumero: facturaNumero,
         empresa: empresa,
         novedades: novedades,
+        fechasPeriodo: fechasPeriodo,
       ),
     );
 
@@ -154,6 +161,7 @@ class ExportarPdfService {
     }
 
     final empresa = await _tarifasSvc.obtenerLocal();
+    final fechasPeriodo = await _obtenerFechasPeriodoActivo();
     final pdf = pw.Document();
     pdf.addPage(
       _buildPaginaCompleta(
@@ -163,6 +171,7 @@ class ExportarPdfService {
         novedades: novedades,
         esOficial: resultado?.esOficial ?? false,
         facturaNumero: resultado?.facturaNumero,
+        fechasPeriodo: fechasPeriodo,
       ),
     );
 
@@ -176,9 +185,16 @@ class ExportarPdfService {
     if (lecturas.isEmpty) throw Exception('No hay lecturas este día');
 
     final empresa = await _tarifasSvc.obtenerLocal();
+    final fechasPeriodo = await _obtenerFechasPeriodoActivo();
     final pdf = pw.Document();
     for (final l in lecturas) {
-      pdf.addPage(_buildPaginaCompleta(lectura: l, empresa: empresa));
+      pdf.addPage(
+        _buildPaginaCompleta(
+          lectura: l,
+          empresa: empresa,
+          fechasPeriodo: fechasPeriodo,
+        ),
+      );
     }
 
     final dir = await getApplicationDocumentsDirectory();
@@ -204,9 +220,40 @@ class ExportarPdfService {
     List<Map<String, dynamic>> novedades = const [],
     bool esOficial = false,
     int? facturaNumero,
+    Map<String, dynamic>? fechasPeriodo,
   }) {
     final fmtFecha = DateFormat('yyyy-MM-dd');
     final fmtNum = NumberFormat('#,###', 'es_CO');
+    final fechaInicio = _formatearFechaPeriodo(
+      fechasPeriodo?['periodo_inicio'],
+    );
+    final fechaFin = _formatearFechaPeriodo(fechasPeriodo?['periodo_fin']);
+    final fechaLimite = _formatearFechaPeriodo(
+      fechasPeriodo?['periodo_limite'],
+    );
+    final fechaSuspension = _formatearFechaPeriodo(
+      fechasPeriodo?['periodo_suspencion'],
+    );
+    final fechas = <MapEntry<String, String>>[
+      MapEntry('EMISIÓN', fmtFecha.format(lectura.fechaLectura)),
+      if (fechaInicio != null) MapEntry('INICIO PERÍODO', fechaInicio),
+      if (fechaFin != null) MapEntry('FIN PERÍODO', fechaFin),
+      if (fechaLimite != null) MapEntry('FECHA LÍMITE', fechaLimite),
+      if (fechaSuspension != null) MapEntry('SUSPENSIÓN', fechaSuspension),
+    ];
+    final filasFechas = <pw.Widget>[];
+    for (var i = 0; i < fechas.length; i += 3) {
+      final fin = (i + 3).clamp(0, fechas.length);
+      final columnas = <pw.Widget>[
+        for (final fecha in fechas.sublist(i, fin))
+          _columnaLectura(fecha.key, fecha.value),
+      ];
+      while (columnas.length < 3) {
+        columnas.add(pw.Expanded(child: pw.SizedBox()));
+      }
+      filasFechas.add(pw.Row(children: columnas));
+      if (fin < fechas.length) filasFechas.add(pw.SizedBox(height: 4));
+    }
     final consumo =
         calculo?.consumo ??
         (lectura.lectura - (lectura.lecturaAnterior ?? 0)).clamp(0, 999999);
@@ -218,6 +265,13 @@ class ExportarPdfService {
     }
 
     final totalAPagar = (calculo?.total ?? 0) + totalNovedades;
+    final facturasPendientes = FacturaPendiente.desdeDatosPredioJson(
+      lectura.datosPredioApiJson,
+    );
+    final totalDeudaAnterior = facturasPendientes.fold<int>(
+      0,
+      (total, factura) => total + factura.total,
+    );
 
     return pw.Page(
       pageFormat: _formatoTermico,
@@ -266,7 +320,7 @@ class ExportarPdfService {
 
               // ── TIPO DOCUMENTO ──────────────────────
               pw.Text(
-                esOficial ? 'FACTURA DE VENTA' : 'COMPROBANTE DE LECTURA',
+                esOficial ? 'FACTURA' : 'FACTURA',
                 style: pw.TextStyle(
                   fontSize: 11,
                   fontWeight: pw.FontWeight.bold,
@@ -298,13 +352,27 @@ class ExportarPdfService {
               pw.SizedBox(height: 3),
               _filaDatos('CÓDIGO:', lectura.codigoMedidor ?? '-'),
               _filaDatos('SECTOR:', lectura.sector ?? '-'),
-              if (lectura.celular != null) _filaDatos('CEL:', lectura.celular!),
-              _filaDatos(
-                'FECHA EMISIÓN:',
-                fmtFecha.format(lectura.fechaLectura),
-              ),
+              if (lectura.celular != null)
+                _filaDatos('CELULAR:', lectura.celular!),
+              if (lectura.predioDireccion?.trim().isNotEmpty == true)
+                _filaDatos('DIRECCIÓN:', lectura.predioDireccion!.trim()),
 
               pw.SizedBox(height: 6),
+              _separador(),
+              pw.SizedBox(height: 4),
+
+              // ── FECHAS DE LECTURA ───────────────────
+              pw.Text(
+                'FECHAS DE LECTURA',
+                style: pw.TextStyle(
+                  fontSize: 8,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.center,
+              ),
+              pw.SizedBox(height: 4),
+              ...filasFechas,
+              pw.SizedBox(height: 4),
               _separador(),
               pw.SizedBox(height: 2),
 
@@ -347,6 +415,38 @@ class ExportarPdfService {
                   '\$${fmtNum.format(n['total_pendiente'])}',
                 ),
               ),
+              if (facturasPendientes.isNotEmpty) ...[
+                pw.SizedBox(height: 4),
+                _separador(),
+                pw.Text(
+                  'FACTURAS PENDIENTES ANTERIORES',
+                  style: pw.TextStyle(
+                    fontSize: 8,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
+                ),
+                ...facturasPendientes.expand(
+                  (factura) => [
+                    _filaTabla(
+                      'Factura #${factura.numero ?? '-'}',
+                      'Saldo',
+                      '\$${fmtNum.format(factura.total)}',
+                    ),
+                    ...factura.detalles.map(
+                      (detalle) => _filaTabla(
+                        '  ${detalle.concepto}',
+                        detalle.cantidad,
+                        '\$${fmtNum.format(detalle.valor)}',
+                      ),
+                    ),
+                  ],
+                ),
+                _filaTabla(
+                  'SALDO ANTERIOR',
+                  '',
+                  '\$${fmtNum.format(totalDeudaAnterior)}',
+                ),
+              ],
 
               pw.SizedBox(height: 2),
               _separador(),
@@ -380,6 +480,14 @@ class ExportarPdfService {
                   ],
                 ),
               ),
+              if (totalDeudaAnterior > 0) ...[
+                pw.SizedBox(height: 4),
+                _filaTabla(
+                  'TOTAL CON SALDO ANTERIOR',
+                  '',
+                  '\$${fmtNum.format(totalAPagar + totalDeudaAnterior)}',
+                ),
+              ],
 
               // ── LUGAR DE PAGO ───────────────────────
               if (esOficial) ...[
@@ -428,6 +536,21 @@ class ExportarPdfService {
                 style: const pw.TextStyle(fontSize: 7),
                 textAlign: pw.TextAlign.center,
               ),
+              pw.Text(
+                'COONFIE. COOPERATIVA DE AHORRO Y CRÉDITO',
+                style: const pw.TextStyle(fontSize: 7),
+                textAlign: pw.TextAlign.center,
+              ),
+              pw.Text(
+                'BANCOLOMBIA. CTA. DE AHORROS NÚMERO 285-000-032-12,',
+                style: const pw.TextStyle(fontSize: 7),
+                textAlign: pw.TextAlign.center,
+              ),
+              pw.Text(
+                'HAPINET S.A.S ',
+                style: const pw.TextStyle(fontSize: 7),
+                textAlign: pw.TextAlign.center,
+              ),
             ],
           ),
     );
@@ -440,6 +563,7 @@ class ExportarPdfService {
     required TarifasLocal empresa,
     required List<Map<String, dynamic>> novedades,
     int? facturaNumero,
+    Map<String, dynamic>? fechasPeriodo,
   }) {
     return _buildPaginaCompleta(
       lectura: lectura,
@@ -448,12 +572,57 @@ class ExportarPdfService {
       novedades: novedades,
       esOficial: facturaNumero != null,
       facturaNumero: facturaNumero,
+      fechasPeriodo: fechasPeriodo,
     );
   }
 
   // ─────────────────────────────────────────────
   // HELPERS
   // ─────────────────────────────────────────────
+
+  Future<Map<String, dynamic>?> _obtenerFechasPeriodoActivo() async {
+    try {
+      return await ApiService(acueducto).sincronizarFechasPeriodoActivo(_db);
+    } catch (error, stackTrace) {
+      developer.log(
+        'No se pudieron actualizar las fechas del período; se usará la copia local.',
+        name: 'factura.periodo',
+        error: error,
+        stackTrace: stackTrace,
+      );
+      try {
+        final fechas = await _db.obtenerFechasPeriodoActivo();
+        if (fechas == null) {
+          developer.log(
+            'No hay fechas del período guardadas localmente.',
+            name: 'factura.periodo',
+          );
+          return null;
+        }
+        return {
+          'periodo_inicio': fechas.periodoInicio,
+          'periodo_fin': fechas.periodoFin,
+          'periodo_limite': fechas.periodoLimite,
+          'periodo_suspencion': fechas.periodoSuspencion,
+        };
+      } catch (error, stackTrace) {
+        developer.log(
+          'No se pudieron leer las fechas guardadas localmente.',
+          name: 'factura.periodo',
+          error: error,
+          stackTrace: stackTrace,
+        );
+        return null;
+      }
+    }
+  }
+
+  String? _formatearFechaPeriodo(dynamic valor) {
+    final texto = valor?.toString().trim();
+    if (texto == null || texto.isEmpty) return null;
+    final fecha = DateTime.tryParse(texto);
+    return fecha == null ? texto : DateFormat('dd/MM/yyyy').format(fecha);
+  }
 
   String _veredasAcueducto() => switch (acueducto.tipo) {
     TipoAcueducto.asoaguapo => 'Veredas El Recreo - Pueblo Nuevo - El Tendido',

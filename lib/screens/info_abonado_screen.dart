@@ -58,6 +58,7 @@ class _InfoAbonadoScreenState extends State<InfoAbonadoScreen> {
   int? _consumoAnterior;
   bool _tieneHistorialConsumo = false;
   int? _predioIdResuelto; // resuelto desde la BD cuando predioId es null
+  String? _direccionPredio;
   String? _estadoMedidorActual;
   Future<void>? _consultaConsumoAnterior;
   Future<void>? _consultaEstadoMedidor;
@@ -126,6 +127,7 @@ class _InfoAbonadoScreenState extends State<InfoAbonadoScreen> {
     super.initState();
     _estadoMedidorActual = estadoMedidorClave;
     _cargarEstadoLocal();
+    _cargarDatosPredioLocal();
     _resolverPredioId();
     if (predioId != null) {
       _cargarDeuda();
@@ -156,6 +158,20 @@ class _InfoAbonadoScreenState extends State<InfoAbonadoScreen> {
     }
   }
 
+  Future<void> _cargarDatosPredioLocal() async {
+    final id = predioId ?? _predioIdResuelto;
+    final lecturaPredio =
+        id == null ? null : await db.obtenerLecturaPorPredioId(id);
+    final lectura =
+        lecturaPredio ??
+        (codigoMedidor == null
+            ? null
+            : await db.obtenerLecturaPorCodigo(codigoMedidor!));
+    if (lectura != null && mounted) {
+      setState(() => _direccionPredio = lectura.predioDireccion);
+    }
+  }
+
   Future<void> _resolverPredioId() async {
     if (predioId != null || _predioIdResuelto != null) return;
     if (codigoMedidor == null) return;
@@ -167,6 +183,7 @@ class _InfoAbonadoScreenState extends State<InfoAbonadoScreen> {
       final id = int.tryParse(match.group(1)!);
       if (id != null && mounted) {
         setState(() => _predioIdResuelto = id);
+        _cargarDatosPredioLocal();
         _cargarDeuda();
         _consultaEstadoMedidor = _cargarEstadoMedidor(id);
         _consultaConsumoAnterior = _cargarConsumoAnterior(id);
@@ -325,29 +342,6 @@ class _InfoAbonadoScreenState extends State<InfoAbonadoScreen> {
               Center(
                 child: Column(
                   children: [
-                    Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: _colorSector.withOpacity(0.12),
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: _colorSector.withOpacity(0.4),
-                          width: 2,
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          (sector ?? 'O')[0],
-                          style: TextStyle(
-                            fontSize: 36,
-                            fontWeight: FontWeight.bold,
-                            color: _colorSector,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 12),
                     Text(
                       nombreAbonado ?? 'Sin nombre',
                       textAlign: TextAlign.center,
@@ -413,6 +407,16 @@ class _InfoAbonadoScreenState extends State<InfoAbonadoScreen> {
                       icono: Icons.home_work_outlined,
                       label: 'Código del predio',
                       valor: predioCodigo ?? 'Sin código',
+                      color: _colorSector,
+                    ),
+                    _divisor(),
+                    _fila(
+                      icono: Icons.location_on_outlined,
+                      label: 'Dirección del predio',
+                      valor:
+                          _direccionPredio?.trim().isNotEmpty == true
+                              ? _direccionPredio!.trim()
+                              : 'Sin dirección registrada',
                       color: _colorSector,
                     ),
                     _divisor(),

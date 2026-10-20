@@ -316,6 +316,7 @@ class _DetalleLecturaSheetState extends State<DetalleLecturaSheet> {
     // Persiste el cambio en SQLite a través de Drift. La base actualiza también
     // datos asociados, como lectura anterior, fecha y estado de sincronización.
     await widget.db.actualizarLecturaAbonado(
+      id: widget.lectura.id,
       codigoMedidor: widget.lectura.codigoMedidor ?? '',
       nuevaLectura: nuevaLectura,
       rutaFoto: widget.lectura.rutaFoto,

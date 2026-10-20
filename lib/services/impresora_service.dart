@@ -8,6 +8,7 @@ import 'package:printing/printing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/database.dart';
 import '../models/acueducto.dart';
+import '../models/factura_pendiente.dart';
 import '../models/resultado_impresion.dart';
 import 'api/tarifas_service.dart';
 
@@ -41,6 +42,7 @@ class ImpresoraService {
   Future<ResultadoImpresion> imprimir({
     required Lectura lectura,
     required List<Map<String, dynamic>> novedades,
+    AppDatabase? db,
     int total = 0,
     bool esOficial = false,
     int? facturaNumero,
@@ -55,10 +57,12 @@ class ImpresoraService {
       }
 
       final empresa = await TarifasService(acueducto: acueducto).obtenerLocal();
+      final fechasPeriodo = await db?.obtenerFechasPeriodoActivo();
       final bytes = _generarESCPOS(
         lectura: lectura,
         empresa: empresa,
         novedades: novedades,
+        fechasPeriodo: fechasPeriodo,
         total: total,
         esOficial: esOficial,
         facturaNumero: facturaNumero,
@@ -123,6 +127,7 @@ class ImpresoraService {
     required Lectura lectura,
     required TarifasLocal empresa,
     required List<Map<String, dynamic>> novedades,
+    FechasPeriodoActivoLocalData? fechasPeriodo,
     required int total,
     required bool esOficial,
     int? facturaNumero,
@@ -132,6 +137,13 @@ class ImpresoraService {
     final consumo = (lectura.lectura - (lectura.lecturaAnterior ?? 0)).clamp(
       0,
       999999,
+    );
+    final facturasPendientes = FacturaPendiente.desdeDatosPredioJson(
+      lectura.datosPredioApiJson,
+    );
+    final totalDeudaAnterior = facturasPendientes.fold<int>(
+      0,
+      (total, factura) => total + factura.total,
     );
 
     final buf = <int>[];
@@ -162,6 +174,13 @@ class ImpresoraService {
       return value.padLeft(leftPadding + value.length).padRight(width);
     }
 
+    String? formatearFechaPeriodo(String? value) {
+      final texto = value?.trim();
+      if (texto == null || texto.isEmpty) return null;
+      final fecha = DateTime.tryParse(texto);
+      return fecha == null ? texto : DateFormat('dd/MM/yyyy').format(fecha);
+    }
+
     // ── ENCABEZADO ──────────────────────────────
     alignCenter();
     bold(true);
@@ -178,7 +197,7 @@ class ImpresoraService {
     if (empresa.empresaNit.isNotEmpty) addText('NIT: ${empresa.empresaNit}');
     addText(_veredas());
     if (empresa.empresaTelefono.isNotEmpty) {
-      addText('Cel: ${empresa.empresaTelefono}');
+      addText('Celular: ${empresa.empresaTelefono}');
     }
 
     hr();
@@ -198,11 +217,32 @@ class ImpresoraService {
     bold(true);
     addText((lectura.nombreAbonado ?? '').toUpperCase());
     bold(false);
-    addText('CODIGO:   ${lectura.codigoMedidor ?? '-'}');
+    addText('CODIGO MEDIDOR:   ${lectura.codigoMedidor ?? '-'}');
     addText('SECTOR:   ${lectura.sector ?? '-'}');
-    addText('FECHA:    ${fmtFecha.format(lectura.fechaLectura)}');
+    if (lectura.predioDireccion?.trim().isNotEmpty == true) {
+      addText('DIRECCION: ${lectura.predioDireccion!.trim()}');
+    }
 
     hr();
+    buf.add(0x0A);
+
+    // ── FECHAS DE LECTURA ─────────────────────────
+    final fechaInicio = formatearFechaPeriodo(fechasPeriodo?.periodoInicio);
+    final fechaFin = formatearFechaPeriodo(fechasPeriodo?.periodoFin);
+    final fechaLimite = formatearFechaPeriodo(fechasPeriodo?.periodoLimite);
+
+    alignCenter();
+    bold(true);
+    addText('FECHAS DE LECTURA');
+    bold(false);
+    addText('FECHA EMISION: ${fmtFecha.format(lectura.fechaLectura)}');
+    if (fechaInicio != null) addText('INICIO PERIODO: $fechaInicio');
+    if (fechaFin != null) addText('FIN PERIODO: $fechaFin');
+    if (fechaLimite != null) addText('FECHA LIMITE: $fechaLimite');
+
+    alignLeft();
+    hr();
+    buf.add(0x0A);
 
     // ── LECTURAS ─────────────────────────────────
     const anchoAnterior = 14;
@@ -242,6 +282,33 @@ class ImpresoraService {
         ),
       );
     }
+    if (facturasPendientes.isNotEmpty) {
+      hr();
+      bold(true);
+      addText('FACTURAS PENDIENTES ANTERIORES');
+      bold(false);
+      for (final factura in facturasPendientes) {
+        addText(
+          _col3(
+            'Factura #${factura.numero ?? '-'}',
+            'Saldo',
+            '\$${fmtNum.format(factura.total)}',
+          ),
+        );
+        for (final detalle in factura.detalles) {
+          addText(
+            _col3(
+              detalle.concepto,
+              detalle.cantidad,
+              '\$${fmtNum.format(detalle.valor)}',
+            ),
+          );
+        }
+      }
+      bold(true);
+      addText('SALDO ANTERIOR: \$${fmtNum.format(totalDeudaAnterior)}');
+      bold(false);
+    }
 
     hr();
 
@@ -254,6 +321,15 @@ class ImpresoraService {
     doubleSize(false);
     bold(false);
     alignLeft();
+    if (totalDeudaAnterior > 0) {
+      addText('SALDO ANTERIOR: \$${fmtNum.format(totalDeudaAnterior)}');
+      bold(true);
+      addText(
+        'TOTAL CON SALDO: '
+        '\$${fmtNum.format(total + totalDeudaAnterior)}',
+      );
+      bold(false);
+    }
 
     hr();
 
@@ -273,15 +349,22 @@ class ImpresoraService {
 
     feed(3);
 
+    bold(true);
+    addText('COONFIE. COOPERATIVA DE AHORRO Y CRÉDITO');
+    bold(false);
+    addText('BANCOLOMBIA. CTA. DE AHORROS NÚMERO 285-000-032-12');
+    buf.addAll([0x1B, 0x64, 3]); // Avanzar antes de cortar
+
     buf.add(0x0A);
     buf.add(0x0A);
 
+    buf.addAll([0x1B, 0x64, 3]); // Avanzar antes de cortar
     buf.addAll([0x1D, 0x56, 0x41, 0x00]); // Cortar papel
+
     cut();
 
     return Uint8List.fromList(buf);
   }
-
 
   //para la prueba de impresion pero dentro de la app
   //no el de la app oficial de la impresora
@@ -315,7 +398,8 @@ class ImpresoraService {
 
   String _veredas() => switch (acueducto.tipo) {
     TipoAcueducto.asoaguapo => 'Veredas El Recreo - Pueblo Nuevo - El Tendido',
-    TipoAcueducto.temporal => 'Veredas Alto Corozal - Cachaya - La Floresta',//esto seria temporal todo lo de tipo de 
-    // TipoAcueducto.temporal es temporal 
+    TipoAcueducto.temporal =>
+      'Veredas Alto Corozal - Cachaya - La Floresta', //esto seria temporal todo lo de tipo de
+    // TipoAcueducto.temporal es temporal
   };
 }

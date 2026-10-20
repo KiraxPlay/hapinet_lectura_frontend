@@ -1,5 +1,6 @@
 // lib/services/importar_abonados_service.dart
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer' as developer;
 
 import 'package:drift/drift.dart' show Value;
@@ -13,7 +14,7 @@ class ImportarAbonadosService {
   final AppDatabase _db;
   final Acueducto acueducto;
 
-  String get _keyImportado => 'abonados_importados_${acueducto.tipo.name}_v12';
+  String get _keyImportado => 'abonados_importados_${acueducto.tipo.name}_v13';
 
   static List<Map<String, dynamic>> normalizarNovedades(
     List<dynamic> novedades, {
@@ -172,6 +173,8 @@ class ImportarAbonadosService {
                 predioCodigo: Value(p['predio_codigo']?.toString()),
                 nombreAbonado: Value(nombre),
                 celular: Value(p['abonado_telefono'] as String?),
+                datosPredioApiJson: Value(jsonEncode(p)),
+                predioDireccion: Value(p['predio_direccion']?.toString()),
                 sector: Value(_sectorDesdeVereda(p['vereda_id'])),
                 esAbonado: const Value(true),
                 tieneLecturaReal: const Value(false),

@@ -14,6 +14,8 @@ class ConfirmacionCaptura extends StatelessWidget {
   final FotoResult? foto;
   final PosicionResult? posicion;
   final int? consumo;
+  final int? consumoAnterior;
+  final int? lecturaAnterior;
   final bool tieneLecturaAnterior;
   final String? estadoMedidorAnterior;
   final GeolocalizacionService geo;
@@ -43,6 +45,8 @@ class ConfirmacionCaptura extends StatelessWidget {
     required this.foto,
     required this.posicion,
     required this.consumo,
+    required this.consumoAnterior,
+    required this.lecturaAnterior,
     required this.tieneLecturaAnterior,
     required this.estadoMedidorAnterior,
     required this.geo,
@@ -85,6 +89,8 @@ class ConfirmacionCaptura extends StatelessWidget {
                 const SizedBox(height: 16),
                 TarjetaConsumo(
                   consumo: consumo,
+                  consumoAnterior: consumoAnterior,
+                  lecturaAnterior: lecturaAnterior,
                   tieneLecturaAnterior: tieneLecturaAnterior,
                   estadoMedidorAnterior: estadoMedidorAnterior,
                 ),

@@ -197,6 +197,56 @@ class ApiService {
     throw Exception('No se pudo obtener el período activo: ${resp.statusCode}');
   }
 
+  Future<void> sincronizarNombrePeriodoActivo(AppDatabase db) async {
+    final periodo = await periodoActivo();
+    final nombre = periodo['periodo_nombre']?.toString().trim();
+    if (nombre == null || nombre.isEmpty) {
+      throw const FormatException(
+        'El período activo no contiene periodo_nombre',
+      );
+    }
+    await db.guardarNombrePeriodoActivo(nombre);
+  }
+
+  // GET /api/fechasPeriodoActivo
+  Future<Map<String, dynamic>> fechasPeriodoActivo() async {
+    final resp = await _getConRefresh(
+      Uri.parse('$_baseUrl/fechasPeriodoActivo'),
+    ).timeout(const Duration(seconds: 10));
+    if (resp.statusCode == 200) {
+      final fechas = jsonDecode(resp.body) as Map<String, dynamic>;
+      for (final campo in [
+        'periodo_inicio',
+        'periodo_fin',
+        'periodo_limite',
+        'periodo_suspencion',
+      ]) {
+        if (fechas[campo] != null && fechas[campo] is! String) {
+          throw FormatException(
+            'La respuesta de fechasPeriodoActivo contiene $campo inválido',
+          );
+        }
+      }
+      return fechas;
+    }
+    throw Exception(
+      'No se pudieron obtener las fechas del período activo: ${resp.statusCode}',
+    );
+  }
+
+  Future<Map<String, dynamic>> sincronizarFechasPeriodoActivo(
+    AppDatabase db,
+  ) async {
+    final fechas = await fechasPeriodoActivo();
+    await db.guardarFechasPeriodoActivo(
+      periodoInicio: fechas['periodo_inicio'] as String?,
+      periodoFin: fechas['periodo_fin'] as String?,
+      periodoLimite: fechas['periodo_limite'] as String?,
+      periodoSuspencion: fechas['periodo_suspencion'] as String?,
+    );
+    return fechas;
+  }
+
   // GET /api/historicoConsumo?predio_id={id}&periodos={n}
   // Cada lectura incluye lectura_uuid; las estimadas _ESPROMEDIO se excluyen
   // del historial que devuelve el servidor.
@@ -386,9 +436,7 @@ class ApiService {
         );
       }
       final estado =
-          EstadoMedidor.desdeParametroId(
-            (item['error_id'] as num?)?.toInt(),
-          ) ??
+          EstadoMedidor.desdeParametroId((item['error_id'] as num?)?.toInt()) ??
           EstadoMedidor.desdeNombreParametro(
             item['parametro_nombre'] is String
                 ? item['parametro_nombre'] as String
@@ -511,7 +559,11 @@ class ApiService {
 
     if (payload.isEmpty) return;
 
-    print('📤 Enviando ${payload.length} lecturas: ${jsonEncode(payload)}');
+    //Para color del debugging en consola
+    //const String reset = '\x1B[0m';
+    //const String green = '\x1B[32m';
+    //const String cyan = '\x1B[36m';
+    //print('$green Enviando ${payload.length} lecturas: $cyan${jsonEncode(payload)}$reset');
     final respuesta = await sincronizarLecturas(payload);
     final uuidsOk =
         (respuesta['uuids_ok'] as List<dynamic>? ?? []).cast<String>();

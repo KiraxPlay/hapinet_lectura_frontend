@@ -401,6 +401,7 @@ class _CapturaScreenState extends State<CapturaScreen>
       if (_posicion == null) await _reintentarGps();
       if (widget.codigoMedidor != null) {
         await widget.db.actualizarLecturaAbonado(
+          id: widget.predioId == null ? null : 'predio_${widget.predioId}',
           codigoMedidor: widget.codigoMedidor!,
           nuevaLectura: numero,
           rutaFoto: _foto?.rutaLocal ?? '',
@@ -806,6 +807,8 @@ class _CapturaScreenState extends State<CapturaScreen>
     foto: _foto,
     posicion: _posicion,
     consumo: _consumoCalculado,
+    consumoAnterior: widget.consumoAnterior,
+    lecturaAnterior: widget.lecturaAnterior,
     tieneLecturaAnterior: widget.lecturaAnterior != null,
     estadoMedidorAnterior: widget.estadoMedidorAnterior,
     geo: _geo,
