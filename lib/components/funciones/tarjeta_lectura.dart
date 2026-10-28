@@ -28,6 +28,21 @@ class TarjetaLectura extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = colorDeSector(lectura.sector);
     final sinLectura = lectura.lectura == 0;
+    final syncText = switch (lectura.estadoSync) {
+      'sincronizado' => 'SINCRONIZADO',
+      'error' => 'ERROR SYNC',
+      _ => 'PENDIENTE SYNC',
+    };
+    final syncColor = switch (lectura.estadoSync) {
+      'sincronizado' => Colors.green,
+      'error' => Colors.red,
+      _ => Colors.orange,
+    };
+    final syncIcon = switch (lectura.estadoSync) {
+      'sincronizado' => Icons.cloud_done,
+      'error' => Icons.cloud_off,
+      _ => Icons.cloud_upload_outlined,
+    };
 
     return Card(
       margin: const EdgeInsets.only(bottom: 10),
@@ -105,51 +120,77 @@ class TarjetaLectura extends StatelessWidget {
                     const SizedBox(height: 3),
 
                     // Estado de impresión o hora + alerta sin lectura
-                    Row(
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 10,
+                      runSpacing: 3,
                       children: [
-                        Icon(
-                          lectura.impreso ? Icons.print : Icons.access_time,
-                          size: 11,
-                          color:
-                              lectura.impreso
-                                  ? Colors.green
-                                  : Colors.grey.shade400,
-                        ),
-                        const SizedBox(width: 3),
-                        Text(
-                          lectura.impreso
-                              ? 'IMPRESO'
-                              : DateFormat(
-                                'HH:mm',
-                              ).format(lectura.fechaLectura),
-                          style: TextStyle(
-                            fontSize: 11,
-                            color:
-                                lectura.impreso
-                                    ? Colors.green
-                                    : Colors.grey.shade500,
-                            fontWeight:
-                                lectura.impreso
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                          ),
-                        ),
-                        if (sinLectura) ...[
-                          const SizedBox(width: 8),
-                          const Icon(
-                            Icons.warning,
-                            size: 11,
-                            color: Colors.orange,
-                          ),
-                          const SizedBox(width: 2),
-                          const Text(
-                            'Sin lectura',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.orange,
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              lectura.impreso ? Icons.print : Icons.access_time,
+                              size: 11,
+                              color:
+                                  lectura.impreso
+                                      ? Colors.green
+                                      : Colors.grey.shade400,
                             ),
+                            const SizedBox(width: 3),
+                            Text(
+                              lectura.impreso
+                                  ? 'IMPRESO'
+                                  : DateFormat(
+                                    'HH:mm',
+                                  ).format(lectura.fechaLectura),
+                              style: TextStyle(
+                                fontSize: 11,
+                                color:
+                                    lectura.impreso
+                                        ? Colors.green
+                                        : Colors.grey.shade500,
+                                fontWeight:
+                                    lectura.impreso
+                                        ? FontWeight.bold
+                                        : FontWeight.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(syncIcon, size: 11, color: syncColor),
+                            const SizedBox(width: 3),
+                            Text(
+                              syncText,
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: syncColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        if (sinLectura)
+                          const Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.warning,
+                                size: 11,
+                                color: Colors.orange,
+                              ),
+                              SizedBox(width: 2),
+                              Text(
+                                'Sin lectura',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.orange,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
                       ],
                     ),
 

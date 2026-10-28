@@ -44,6 +44,8 @@ class SelectorEstadoMedidor extends StatelessWidget {
                     final seleccionado = estadoSeleccionado == estado.clave;
                     return GestureDetector(
                       onTap: () {
+                        // Envía la clave del estado a CapturaScreen; allí se
+                        // aplica la fórmula y se actualiza el campo de lectura.
                         if (!seleccionado) onCambio(estado.clave);
                       },
                       child: AnimatedContainer(

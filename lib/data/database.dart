@@ -86,11 +86,13 @@ class Lecturas extends Table {
   // Tipo de facturación elegido por el técnico: 64=Consumo, 65=Promedio, 66=SoloBasico
   IntColumn get tipoFacturacion => integer().nullable()();
 
-  // Lectura del período anterior — se preserva al tomar nueva lectura
-  // Se usa para calcular el consumo (lectura - lecturaAnterior)
+  // Lectura del medidor del período anterior. Se alimenta al abrir la captura
+  // desde el registro local (o desde el punto del mapa) y se preserva al editar.
+  // Se usa para calcular consumo: lectura actual/provisional - lecturaAnterior.
   IntColumn get lecturaAnterior => integer().nullable()();
 
-  // Consumo del último período histórico recibido del servidor
+  // Consumo del último período histórico recibido del API (lectura_consumo);
+  // InfoAbonadoScreen lo guarda aquí para reutilizarlo sin conexión.
   IntColumn get consumoAnteriorServidor => integer().nullable()();
 
   // Datos actuales recibidos del servidor, separados de capturas locales
@@ -376,7 +378,11 @@ class AppDatabase extends _$AppDatabase {
         fechaLectura: Value(DateTime.now()),
         // Vuelve a 'pendiente' para que se sincronice con el servidor
         estadoSync: const Value('pendiente'),
+        fechaSync: const Value(null),
+        intentosSync: const Value(0),
         tieneLecturaReal: const Value(true),
+        impreso: const Value(false),
+        fechaImpresion: const Value(null),
         estadoMedidor: Value(estadoMedidor),
         tipoFacturacion: Value(tipoFacturacion),
       ),
@@ -405,6 +411,8 @@ class AppDatabase extends _$AppDatabase {
           estadoSync: const Value('pendiente'),
           fechaSync: const Value(null),
           intentosSync: const Value(0),
+          impreso: const Value(false),
+          fechaImpresion: const Value(null),
         ),
       );
     } else {
@@ -493,11 +501,15 @@ class AppDatabase extends _$AppDatabase {
             ..where((l) => l.tieneLecturaReal.equals(true)))
           .get();
 
-  Stream<int> watchCantidadPendientesSync() => (select(lecturas)
-        ..where((l) => l.estadoSync.equals('pendiente'))
-        ..where((l) => l.tieneLecturaReal.equals(true)))
-      .watch()
-      .map((lecturas) => lecturas.length);
+  Stream<int> watchCantidadPendientesSync() {
+    final cantidad = lecturas.id.count();
+    return (selectOnly(lecturas)
+          ..addColumns([cantidad])
+          ..where(lecturas.estadoSync.equals('pendiente'))
+          ..where(lecturas.tieneLecturaReal.equals(true)))
+        .watchSingle()
+        .map((fila) => fila.read(cantidad) ?? 0);
+  }
 
   // ─────────────────────────────────────────────
   // STREAMS — se actualizan automáticamente al cambiar la BD

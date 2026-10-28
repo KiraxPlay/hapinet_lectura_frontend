@@ -41,8 +41,11 @@ class CapturaScreen extends StatefulWidget {
   final Acueducto acueducto;
   final String? codigoMedidor;
   final String? nombreAbonado;
+  // La ficha del abonado entrega la lectura previa guardada en el padrón local.
   final int? lecturaAnterior;
+  // Consumo del período anterior consultado al API (con caché SQLite offline).
   final int? consumoAnterior;
+  // Último estado reportado, usado para confirmar cambios de estado sensibles.
   final String? estadoMedidorAnterior;
   final double? latitudReferencia;
   final double? longitudReferencia;
@@ -93,6 +96,7 @@ class _CapturaScreenState extends State<CapturaScreen>
   bool _procesando = false;
   String _estadoMedidor = EstadoMedidor.lecturaRealizada.clave;
   String? _lecturaAntesDeEstado;
+  bool _corrigioLecturaInferior = false;
   bool _lecturaGuardada = false;
   bool _facturandoEnSitio = false;
   OpcionFacturacion? _opcionFacturacion;
@@ -347,12 +351,61 @@ class _CapturaScreenState extends State<CapturaScreen>
       _snack('Ingresa el número del medidor');
       return;
     }
-    final numero = int.tryParse(texto);
+    var numero = int.tryParse(texto);
     if (numero == null) {
       _snack('El valor debe ser un número entero');
       return;
     }
     final notas = _notasController.text.trim();
+
+    // Una lectura inferior a la anterior no siempre es un error: primero se
+    // permite corregirla. Si vuelve a ocurrir tras corregir, se asume medidor
+    // dañado y se usa automáticamente la fórmula de lectura provisional.
+    final estadoSeleccionado = EstadoMedidor.desdeClave(_estadoMedidor);
+    final lecturaAnterior = widget.lecturaAnterior;
+    if (estadoSeleccionado == EstadoMedidor.lecturaRealizada &&
+        lecturaAnterior != null &&
+        numero < lecturaAnterior) {
+      if (!_corrigioLecturaInferior) {
+        final confirmar = await confirmarLecturaInferior(
+          context: context,
+          lecturaActual: numero,
+          lecturaAnterior: lecturaAnterior,
+        );
+        if (!mounted) return;
+        if (confirmar == null) return;
+        if (!confirmar) {
+          setState(() => _corrigioLecturaInferior = true);
+          return;
+        }
+      }
+
+      final lecturaProvisional = CalculoConsumo.lecturaParaEstado(
+        estado: EstadoMedidor.danado,
+        lecturaAnterior: lecturaAnterior,
+        consumoAnterior: widget.consumoAnterior,
+      );
+      if (lecturaProvisional == null) {
+        _snack(
+          'No se puede calcular la lectura: falta la lectura o el consumo '
+          'del período anterior.',
+          color: Colors.orange,
+          duracion: 5,
+        );
+        return;
+      }
+
+      setState(() {
+        _estadoMedidor = EstadoMedidor.danado.clave;
+        _lecturaController.text = lecturaProvisional.toString();
+        _corrigioLecturaInferior = false;
+      });
+      _opcionFacturacion = null;
+      numero = lecturaProvisional;
+    } else if (numero >= (lecturaAnterior ?? numero)) {
+      _corrigioLecturaInferior = false;
+    }
+
     if (numero == 0 && notas.isEmpty) {
       _snack(
         'Lectura 0: debes escribir una observación',
@@ -385,7 +438,10 @@ class _CapturaScreenState extends State<CapturaScreen>
       lecturaAnterior: widget.lecturaAnterior,
       promedioHistorico: promedioHistorico,
     );
-    if (alerta != null && mounted) {
+    final alertaNegativaYaResuelta =
+        alerta?.tipo == TipoAlerta.lecturaInferior &&
+        _estadoMedidor == EstadoMedidor.danado.clave;
+    if (alerta != null && mounted && !alertaNegativaYaResuelta) {
       final opcion = await mostrarDialogoAlerta(
         context: context,
         alerta: alerta,
@@ -400,6 +456,8 @@ class _CapturaScreenState extends State<CapturaScreen>
     try {
       if (_posicion == null) await _reintentarGps();
       if (widget.codigoMedidor != null) {
+        // Captura de abonado del padrón: la BD preserva la lectura anterior,
+        // guarda el estado elegido y la deja pendiente de sincronización.
         await widget.db.actualizarLecturaAbonado(
           id: widget.predioId == null ? null : 'predio_${widget.predioId}',
           codigoMedidor: widget.codigoMedidor!,
@@ -413,6 +471,8 @@ class _CapturaScreenState extends State<CapturaScreen>
           tipoFacturacion: _opcionFacturacion?.errorId,
         );
       } else {
+        // Captura libre: al no existir fila de abonado, se inserta una lectura
+        // nueva con el estado seleccionado junto con foto, GPS y fecha.
         await widget.db.insertarLectura(
           LecturasCompanion.insert(
             id: const Uuid().v4(),
@@ -460,6 +520,7 @@ class _CapturaScreenState extends State<CapturaScreen>
     _lecturaController.clear();
     _notasController.clear();
     _lecturaAntesDeEstado = null;
+    _corrigioLecturaInferior = false;
     setState(() {
       _estado = EstadoCaptura.listo;
       _estadoMedidor = EstadoMedidor.lecturaRealizada.clave;
@@ -467,6 +528,8 @@ class _CapturaScreenState extends State<CapturaScreen>
   }
 
   Future<void> _cambiarEstadoMedidor(String clave) async {
+    // SelectorEstadoMedidor llama este método cuando el técnico toca un estado.
+    // La clave se convierte al enum para usar las reglas centrales del modelo.
     final estado = EstadoMedidor.desdeClave(clave);
     if (estado == null) {
       _snack('El estado seleccionado no es válido', color: Colors.orange);
@@ -504,6 +567,7 @@ class _CapturaScreenState extends State<CapturaScreen>
     if (estado == EstadoMedidor.lecturaRealizada) {
       setState(() {
         _estadoMedidor = clave;
+        _corrigioLecturaInferior = false;
         if (_lecturaAntesDeEstado != null) {
           _lecturaController.text = _lecturaAntesDeEstado!;
         }
@@ -522,6 +586,9 @@ class _CapturaScreenState extends State<CapturaScreen>
     );
     setState(() {
       _estadoMedidor = clave;
+      _corrigioLecturaInferior = false;
+      // Para Dañado/No legible/Reversa/Sin medidor, el modelo propone lectura
+      // anterior + consumo histórico; el técnico todavía puede revisarla.
       if (lecturaAutomatica != null) {
         _lecturaController.text = lecturaAutomatica.toString();
       }
@@ -535,6 +602,8 @@ class _CapturaScreenState extends State<CapturaScreen>
     setState(() {});
   }
 
+  // Valor que ConfirmacionCaptura/TarjetaConsumo muestra mientras se edita
+  // el formulario; se recalcula usando estado y números actuales del formulario.
   int? get _consumoCalculado => CalculoConsumo.calcular(
     estado:
         EstadoMedidor.desdeClave(_estadoMedidor) ??
@@ -684,12 +753,7 @@ class _CapturaScreenState extends State<CapturaScreen>
           right: 12,
           child: BannerGps(posicion: _posicion),
         ),
-        Positioned(
-          bottom: 40,
-          left: 0,
-          right: 0,
-          child: _buildBotonCaptura(),
-        ),
+        Positioned(bottom: 40, left: 0, right: 0, child: _buildBotonCaptura()),
       ],
     );
   }
@@ -827,6 +891,7 @@ class _CapturaScreenState extends State<CapturaScreen>
     onGuardar: _guardarLectura,
     onReintentar: _reintentarGps,
     onChanged: () => setState(() {}),
+    // Conecta el selector visual al controlador de estado y la fórmula de arriba.
     onCambioEstado: _cambiarEstadoMedidor,
   );
 

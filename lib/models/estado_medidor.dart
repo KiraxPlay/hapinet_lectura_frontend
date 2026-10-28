@@ -1,6 +1,8 @@
 // lib/models/estado_medidor.dart
 import 'package:flutter/material.dart';
 
+/// Estados elegibles desde el selector de captura y usados por las reglas
+/// de lectura, consumo, visualización y traducción al parámetro del servidor.
 enum EstadoMedidor {
   lecturaRealizada,
   noSeTomoLectura,
@@ -13,6 +15,7 @@ enum EstadoMedidor {
   suspendido,
   predioInactivo;
 
+  // Clave interna persistida en SQLite y enviada entre pantallas.
   String get clave => switch (this) {
     EstadoMedidor.lecturaRealizada => 'lectura_realizada',
     EstadoMedidor.noSeTomoLectura => 'no_se_tomo_lectura',
@@ -39,6 +42,7 @@ enum EstadoMedidor {
     EstadoMedidor.predioInactivo => 'Predio inactivo',
   };
 
+  // Nombre que usan los parámetros de estado del API; se normaliza al leerlo.
   String get nombreParametro => switch (this) {
     EstadoMedidor.lecturaRealizada => 'Lectura realizada',
     EstadoMedidor.noSeTomoLectura => 'No se tomó lectura',
@@ -52,6 +56,7 @@ enum EstadoMedidor {
     EstadoMedidor.predioInactivo => 'Predio Inactivo',
   };
 
+  // ID de parámetro del backend. Reversa no tiene ID fijo y devuelve null.
   int? get parametroId => switch (this) {
     EstadoMedidor.lecturaRealizada => 21,
     EstadoMedidor.noSeTomoLectura => 22,

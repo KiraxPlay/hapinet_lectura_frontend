@@ -96,6 +96,9 @@ class _InfoAbonadoScreenState extends State<InfoAbonadoScreen> {
       EstadoMedidor.desdeClave(_estadoMedidorActual ?? estadoMedidorClave);
 
   // ── Navegar a la cámara ──
+  // Antes de abrir CapturaScreen espera el consumo histórico y el estado actual.
+  // Luego pasa lecturaAnterior (recibida de la lista/mapa) y consumoAnterior
+  // (cargado aquí desde API/BD), que alimentan la fórmula de CalculoConsumo.
   Future<void> _irACaptura(BuildContext context) async {
     await _resolverPredioId();
     await _consultaConsumoAnterior;
@@ -236,6 +239,7 @@ class _InfoAbonadoScreenState extends State<InfoAbonadoScreen> {
     if (mounted) setState(() => _cargandoConsumoAnterior = true);
     int? consumoLocal;
     try {
+      // Primero lee la caché para tener el dato disponible incluso offline.
       consumoLocal = await db.obtenerConsumoAnteriorServidor(id);
     } catch (error, stackTrace) {
       developer.log(
@@ -254,6 +258,8 @@ class _InfoAbonadoScreenState extends State<InfoAbonadoScreen> {
     }
 
     try {
+      // Refresca desde el último período del servidor. El campo lectura_consumo
+      // de la primera lectura histórica es el consumo usado por la fórmula.
       final historial = await ApiService(
         acueducto,
       ).consumosAnteriores(id, periodos: 1).timeout(const Duration(seconds: 8));
@@ -277,6 +283,7 @@ class _InfoAbonadoScreenState extends State<InfoAbonadoScreen> {
       final consumo = (primeraLectura?['lectura_consumo'] as num?)?.toInt();
       if (primeraLectura != null) {
         final consumoAGuardar = consumo ?? 0;
+        // Guarda el dato del API en SQLite para próximas capturas sin conexión.
         final guardado = await db.guardarConsumoAnteriorServidor(
           predioId: id,
           consumo: consumoAGuardar,

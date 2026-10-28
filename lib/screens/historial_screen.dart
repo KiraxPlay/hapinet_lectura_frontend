@@ -1,4 +1,6 @@
 // lib/screens/historial_screen.dart
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -133,6 +135,8 @@ class _TarjetaDia extends StatefulWidget {
 
 class _TarjetaDiaState extends State<_TarjetaDia> {
   HistorialDia? _historial;
+  Object? _errorHistorial;
+  StreamSubscription<HistorialDia>? _historialSubscription;
   bool _cargando = false;
   bool _exportando = false;
   bool _exportandoPdf = false;
@@ -152,28 +156,52 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
   }
 
   @override
-  void didUpdateWidget(_TarjetaDia old) {
-    super.didUpdateWidget(old);
-    if (widget.expandido && !old.expandido) _cargar();
-  }
-
-  Future<void> _cargar() async {
-    if (!mounted) return;
-    setState(() => _cargando = true);
-    try {
-      final h = await widget.historialService.cargarDia(fecha: widget.fecha);
-      if (mounted) setState(() => _historial = h);
-    } catch (e) {
-      if (mounted) {
-        setState(() => _historial = const HistorialDia(porSector: {}));
-      }
-    } finally {
-      if (mounted) setState(() => _cargando = false);
+  void didUpdateWidget(_TarjetaDia oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.expandido && !oldWidget.expandido) {
+      _cargar();
+    } else if (!widget.expandido && oldWidget.expandido) {
+      _historialSubscription?.cancel();
+      _historialSubscription = null;
     }
   }
 
-  Future<void> _exportar() async {
-    if (_historial == null || _historial!.total == 0) return;
+  @override
+  void dispose() {
+    _historialSubscription?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _cargar() async {
+    await _historialSubscription?.cancel();
+    if (!mounted) return;
+    setState(() {
+      _cargando = true;
+      _errorHistorial = null;
+    });
+    _historialSubscription = widget.historialService
+        .watchDia(fecha: widget.fecha)
+        .listen(
+          (historial) {
+            if (!mounted) return;
+            setState(() {
+              _historial = historial;
+              _cargando = false;
+              _errorHistorial = null;
+            });
+          },
+          onError: (Object error) {
+            if (!mounted) return;
+            setState(() {
+              _cargando = false;
+              _errorHistorial = error;
+            });
+          },
+        );
+  }
+
+  Future<void> _exportar(HistorialDia historial) async {
+    if (historial.total == 0) return;
     setState(() => _exportando = true);
     try {
       final ruta = await widget.exportar.exportarLecturasDia(
@@ -191,8 +219,8 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
     }
   }
 
-  Future<void> _exportarPdf() async {
-    if (_historial == null || _historial!.total == 0) return;
+  Future<void> _exportarPdf(HistorialDia historial) async {
+    if (historial.total == 0) return;
     setState(() => _exportandoPdf = true);
     try {
       final pdfService = ExportarPdfService(
@@ -266,7 +294,6 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
               ),
         ),
       );
-      if (mounted) await _cargar();
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(
@@ -376,7 +403,7 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
                           child: CircularProgressIndicator(strokeWidth: 2),
                         )
                         : TextButton(
-                          onPressed: _exportar,
+                          onPressed: () => _exportar(_historial!),
                           style: TextButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 6,
@@ -402,7 +429,7 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
                           child: CircularProgressIndicator(strokeWidth: 2),
                         )
                         : TextButton(
-                          onPressed: _exportarPdf,
+                          onPressed: () => _exportarPdf(_historial!),
                           style: TextButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 6,
@@ -441,6 +468,14 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
               const Padding(
                 padding: EdgeInsets.all(24),
                 child: Center(child: CircularProgressIndicator()),
+              )
+            else if (_errorHistorial != null)
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  'Error al cargar el historial: $_errorHistorial',
+                  style: const TextStyle(color: Colors.red),
+                ),
               )
             else if (_historial == null)
               const Padding(
@@ -512,8 +547,6 @@ class _TarjetaDiaState extends State<_TarjetaDia> {
             child: TarjetaLectura(
               lectura: l,
               db: widget.db,
-              // Tras editar/eliminar, vuelve a consultar el día para reflejar
-              // los cambios en las tarjetas del historial.
               onActualizado: _cargar,
               bloqueada: false,
               acueducto: widget.exportar.acueducto,
